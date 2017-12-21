@@ -7,7 +7,6 @@
 //
 
 #include "LocusTree.h"
-#include <iostream>
 
 LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double gdr, double lgtrate) : Tree(p, nt, 0.0){
     rando = p;
@@ -53,11 +52,12 @@ void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     l->setIndx(extantNodes[indx]->getIndex());
 
     
-    extantNodes.erase(extantNodes.begin() + indx);
     extantNodes.push_back(r);
     extantNodes.push_back(l);
     nodes.push_back(r);
     nodes.push_back(l);
+    extantNodes.erase(extantNodes.begin() + indx);
+
     numExtant = (int)extantNodes.size();
 }
 
@@ -79,7 +79,6 @@ void LocusTree::lineageDeathEvent(int indx){
 }
 
 void LocusTree::lineageTransferEvent(int indx){
-    // TODO: write this puppy
     //first a birth event
     Node *donor, *rec;
     donor = new Node();
@@ -103,6 +102,7 @@ void LocusTree::lineageTransferEvent(int indx){
     extantNodes[indx]->setDeathTime(currentTime);
     extantNodes[indx]->setFlag(1);
     extantNodes[indx]->setIsExtant(false);
+    extantNodes[indx]->setIsTip(false);
     
 
     // actual transfer event
@@ -146,7 +146,7 @@ void LocusTree::lineageTransferEvent(int indx){
 double LocusTree::getTimeToNextEvent(){
     double sumrt = geneBirthRate + geneDeathRate + transferRate;
     double returnTime = 0.0;
-    returnTime = -log(rando->uniformRv()) / (stopTime * sumrt);
+    returnTime = -log(rando->uniformRv()) / (sumrt);
     currentTime += returnTime;
     return returnTime;
 }
@@ -157,6 +157,7 @@ void LocusTree::ermEvent(double ct){
     double whichEvent = rando->uniformRv();
     unsigned long extantSize = extantNodes.size();
     unsigned nodeInd = rando->uniformRv(0, extantSize - 1);
+    currentTime = ct;
     if(whichEvent < relBr){
         lineageBirthEvent(nodeInd);
     }
@@ -172,7 +173,7 @@ void LocusTree::ermEvent(double ct){
 
 
 
-int LocusTree::speciationEvent(int indx, double time){
+int LocusTree::speciationEvent(int indx, double time, std::pair<int,int> sibs){
     // indx is the index of the species that is to speciate at the input time
     Node *r, *l;
     int lociExtNodesIndx;
@@ -182,7 +183,6 @@ int LocusTree::speciationEvent(int indx, double time){
         if(lociExtNodesIndx == indx){
             r = new Node();
             l = new Node();
- 
             r->setLdes(NULL);
             r->setRdes(NULL);
             r->setSib(l);
@@ -191,7 +191,7 @@ int LocusTree::speciationEvent(int indx, double time){
             r->setIsTip(true);
             r->setIsExtant(true);
             r->setIsExtinct(false);
-            r->setIndx(-1);
+            r->setIndx(sibs.second);
 
             l->setLdes(NULL);
             l->setRdes(NULL);
@@ -201,7 +201,7 @@ int LocusTree::speciationEvent(int indx, double time){
             l->setIsTip(true);
             l->setIsExtinct(false);
             l->setIsExtant(true);
-            l->setIndx(-1);
+            l->setIndx(sibs.first);
             
             (*it)->setLdes(l);
             (*it)->setRdes(r);
@@ -211,7 +211,7 @@ int LocusTree::speciationEvent(int indx, double time){
             nodes.push_back(r);
             nodes.push_back(l);
             it = extantNodes.erase(it);
-
+            
             it = extantNodes.insert(it, r);
             it = extantNodes.insert(it, l);
             count += 2;
@@ -240,7 +240,7 @@ void LocusTree::extinctionEvent(int indx, double time){
             numExtant = (int) extantNodes.size();
         }
         else{
-            it++;
+            ++it;
         }
     }
     numTaxa--;
@@ -270,21 +270,35 @@ void LocusTree::recGetNewickTree(Node *p, std::stringstream &ss){
         if( p->getRdes() == NULL)
             ss << p->getName();
         else{
-            ss << "(";
-            recGetNewickTree(p->getLdes(), ss);
-            ss << ":" << p->getLdes()->getBranchLength();
-            ss << ",";
-            recGetNewickTree(p->getRdes(), ss);
-            ss << ":" << p->getRdes()->getBranchLength();
-            ss << ")";
-            
+            if(p->getFlag() == 1){
+                ss << "(";
+                ss << "(";
+                recGetNewickTree(p->getLdes(), ss);
+                ss << "[&index=" << p->getLdes()->getIndex() << "]" <<  ":" << p->getLdes()->getBranchLength();
+                ss << ",";
+                recGetNewickTree(p->getRdes(), ss);
+                ss << "[&index=" << p->getRdes()->getIndex() << "]" << ":" << p->getRdes()->getBranchLength();
+                ss << ")";
+                ss << p->getName() << ":0.0";
+                ss << ")";
+            }
+            else{
+                ss << "(";
+                recGetNewickTree(p->getLdes(), ss);
+                ss << "[&index=" << p->getLdes()->getIndex() << "]" << ":" << p->getLdes()->getBranchLength();
+                ss << ",";
+                recGetNewickTree(p->getRdes(), ss);
+                ss << "[&index=" << p->getRdes()->getIndex() << "]" << ":" << p->getRdes()->getBranchLength();
+                ss << ")";
+            }
         }
     }
 }
 
 void LocusTree::setPresentTime(double currentT){
-    for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
-        (*it)->setDeathTime(currentT);
+    for(std::vector<Node*>::iterator it = nodes.begin(); it !=  nodes.end(); ++it){
+        if((*it)->getIsExtant())
+            (*it)->setDeathTime(currentT);
     }
     this->setBranchLengths();
     this->setTreeTipNames();
@@ -346,8 +360,8 @@ void LocusTree::setTreeTipNames(){
                     name = "TR" + tn.str();
                     tn.clear();
                     tn.str(std::string());
-                    tn << std::count(copyNumberCounts.begin(),copyNumberCounts.end(),  (*it)->getIndex());
-                    name += "_" + tn.str();
+                    tn << (*it)->getLdes()->getIndex();
+                    name += "->" + tn.str();
                     (*it)->setName(name);
                     tn.clear();
                     tn.str(std::string());

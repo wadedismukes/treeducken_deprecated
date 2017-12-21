@@ -1,5 +1,5 @@
 //
-//  LocusTree.hpp
+//  LocusTree.h
 //  multiTree
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/13/17.
@@ -30,7 +30,7 @@ class LocusTree : public Tree
         void    ermEvent(double ct);
     
     
-        int     speciationEvent(int indx, double time);
+        int     speciationEvent(int indx, double time, std::pair<int,int> sibs);
         void    extinctionEvent(int indx, double time);
         void    setNewIndices(int indx, std::pair<int,int> sibs, int count);
         std::string   printNewickTree();
@@ -39,8 +39,9 @@ class LocusTree : public Tree
         void    recGetNewickTree(Node *r, std::stringstream &ss);
         void    setBranchLengths();
         void    setPresentTime(double currentT);
-        void    setStopTime(double st) {stopTime = st; }
-    
+        void    setStopTime(double st) {stopTime = st; currentTime = 0;}
+        double  getCurrentTime() { return currentTime; }
+        void    setCurrentTime(double ct) {currentTime = ct; }
 
 };
-#endif /* LocusTree_hpp */
+#endif /* LocusTree_h*/

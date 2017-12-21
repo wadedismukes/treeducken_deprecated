@@ -23,13 +23,14 @@ int main(int argc, const char * argv[]) {
     rand.getSeed(gs1, gs2);
     std::cout << "\nSeeds {" << gs1 << ", " << gs2 << "}" << std::endl;
     
-    unsigned numTaxa = 10;
-    std::string sptree, lotree;
-    double br = 1.0;
-    double dr = 0.5;
-    double gbr = 0.1;
-    double gdr = 0.05;
-    double lgtr = 0.05;
+    unsigned numTaxa = 100;
+    std::string sptree;
+    std::string locusTree;
+    double br = 2.0;
+    double dr = 1.0;
+    double gbr = 2.0;
+    double gdr = 0.25;
+    double lgtr = 1.0;
 //    Simulator *sim = new Simulator(&rand, numTaxa, br, dr, 1.0);
 //    sim->simSpeciesTree();
 //    sptree = sim->printSpeciesTreeNewick();
@@ -37,8 +38,8 @@ int main(int argc, const char * argv[]) {
     Simulator *sim = new Simulator(&rand, numTaxa, br, dr, 1.0, 1, gbr, gdr, lgtr);
     sim->simSpeciesLociTrees();
     sptree = sim->printSpeciesTreeNewick();
-    std::cout << "species tree: " << sptree << std::endl <<  std::endl;
-    lotree = sim->printLocusTreeNewick();
-    std::cout << "locus tree: " << lotree << std::endl;
+    std::cout << "species tree: " << std::endl << sptree << std::endl <<  std::endl;
+    locusTree = sim->printLocusTreeNewick();
+    std::cout << "Locus Tree: " << std::endl << locusTree << std::endl << std::endl;
     return 0;
 }

@@ -1,5 +1,5 @@
 //
-//  SpeciesTree.hpp
+//  SpeciesTree.h
 //  multiTree
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/8/17.
@@ -59,4 +59,4 @@ class SpeciesTree : public Tree
 };
 
 
-#endif /* SpeciesTree_hpp */
+#endif /* SpeciesTree_h */

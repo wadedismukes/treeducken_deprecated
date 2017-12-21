@@ -365,9 +365,11 @@ std::map<int,double> SpeciesTree::getDeathTimesFromNodes(){
     double deathTime;
     std::map<int,double> deathTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        indx = (*it)->getIndex();
-        deathTime = (*it)->getDeathTime();
-        deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
+        if(!((*it)->getIsExtant())){
+            indx = (*it)->getIndex();
+            deathTime = (*it)->getDeathTime();
+            deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
+        }
     }
     return deathTimeMap;
 }
@@ -382,7 +384,7 @@ std::pair<int,int> SpeciesTree::preorderTraversalStep(int indx){
 bool SpeciesTree::macroEvent(int indx){
     bool isSpec;
     Node* n = nodes[indx];
-    if(n->getLdes() == NULL)
+    if(n->getIsTip())
         isSpec = false;
     else
         isSpec = true;
