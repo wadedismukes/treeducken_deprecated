@@ -153,13 +153,11 @@ void SpeciesTree::recGetNewickTree(Node *p, std::stringstream &ss){
         else{
             ss << "(";
             recGetNewickTree(p->getLdes(), ss);
-            ss << ":" << p->getLdes()->getBranchLength();
+            ss << "[&index=" << p->getLdes()->getIndex() << "]" << ":" << p->getLdes()->getBranchLength();
             ss << ",";
             recGetNewickTree(p->getRdes(), ss);
-            ss << ":" << p->getRdes()->getBranchLength();
-            ss << ")";
-            
-        }
+            ss << "[&index=" << p->getRdes()->getIndex() << "]" << ":" << p->getRdes()->getBranchLength();
+            ss << ")";        }
     }
 }
 
@@ -379,6 +377,12 @@ std::pair<int,int> SpeciesTree::preorderTraversalStep(int indx){
     sibs.first = nodes[indx]->getLdes()->getIndex();
     sibs.second = nodes[indx]->getRdes()->getIndex();
     return sibs;
+}
+
+int SpeciesTree::postOrderTraversalStep(int index){
+    int d;
+    d = nodes[index]->getAnc()->getIndex();
+    return d;
 }
 
 bool SpeciesTree::macroEvent(int indx){

@@ -10,6 +10,7 @@
 #define LocusTree_h
 #include "SpeciesTree.h"
 #include <algorithm>
+#include <set>
 
 class LocusTree : public Tree 
 {
@@ -42,6 +43,14 @@ class LocusTree : public Tree
         void    setStopTime(double st) {stopTime = st; currentTime = 0;}
         double  getCurrentTime() { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
+        std::multimap<int,double>     getBirthTimesFromNodes();
+        std::multimap<int,double>     getDeathTimesFromNodes();
+        std::map<int,int>             getLocusToSpeciesMap();
+        std::set<int>                 getExtantLoci();
+        int     postOrderTraversalStep(int indx);
+    
+    
+    
 
 };
 #endif /* LocusTree_h*/

@@ -87,6 +87,8 @@ class Tree
         void        setRoot(Node *r) { root = r; }
         double      getNumExtant() {return numExtant; }
         double      getNumExtinct() {return numExtinct; }
+        int     getNodesSize() { return nodes.size(); }
+
         void        zeroAllFlags();
         virtual double  getTimeToNextEvent() { return 0.0; }
         virtual void    lineageBirthEvent() { return; }

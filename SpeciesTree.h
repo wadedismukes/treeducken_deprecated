@@ -56,6 +56,7 @@ class SpeciesTree : public Tree
         bool                        getIsExtantFromIndx(int indx) { return nodes[indx]->getIsExtant(); }
         bool                        macroEvent(int indx);
         std::pair<int, int>         preorderTraversalStep(int index);
+        int                         postOrderTraversalStep(int index);
 };
 
 

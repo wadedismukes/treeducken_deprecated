@@ -310,8 +310,8 @@ std::string LocusTree::printNewickTree(){
     std::stringstream ss;
     recGetNewickTree(this->getRoot(), ss);
     ss << ";";
-    std::string spTree = ss.str();
-    return spTree;
+    std::string loTree = ss.str();
+    return loTree;
 }
 
 void LocusTree::setTreeTipNames(){
@@ -408,8 +408,74 @@ void LocusTree::recTipNamer(Node *p, unsigned &copyNumber){
 
 void LocusTree::setBranchLengths(){
     double brlen;
-    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); it++){
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         brlen = (*it)->getDeathTime() - (*it)->getBirthTime();
         (*it)->setBranchLength(brlen);  
     }
+}
+
+std::multimap<int, double> LocusTree::getDeathTimesFromNodes(){
+    int indx;
+    double deathTime;
+    std::multimap<int,double> deathTimeMap;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        
+        indx = (int)std::distance(nodes.begin(),it);
+        deathTime = (*it)->getDeathTime();
+        deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
+    }
+    return deathTimeMap;
+}
+
+std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
+    int indx;
+    double birthTime;
+    std::multimap<int,double> birthTimeMap;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        indx = (int)std::distance(nodes.begin(),it);
+        birthTime = (*it)->getBirthTime();
+        birthTimeMap.insert(std::pair<int,double>(indx, birthTime));
+    }
+    return birthTimeMap;
+}
+
+std::set<int> LocusTree::getExtantLoci(){
+    std::set<int> indxExtantLoci;
+    int indx;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsTip()){
+            indx = (int)std::distance(nodes.begin(),it);
+            indxExtantLoci.insert(indxExtantLoci.end(), indx);
+        }
+    }
+    return indxExtantLoci;
+}
+
+int LocusTree::postOrderTraversalStep(int indx){
+    int d;
+    Node* anc;
+    std::vector<Node*>::iterator it;
+    if(indx < nodes.size()){
+        anc = nodes[indx]->getAnc();
+        it = std::find(nodes.begin(), nodes.end(), anc);
+        d = (int)std::distance(nodes.begin(), it);
+    }
+    else
+        d = (int)nodes.size();
+    return d;
+    
+}
+
+std::map<int,int> LocusTree::getLocusToSpeciesMap(){
+    std::map<int,int> locusToSpecies;
+    int spID, loID;
+    std::pair<int,int> pp;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        loID = (int) std::distance(nodes.begin(), it);
+        spID = (*it)->getIndex();
+        pp.first = loID;
+        pp.second = spID;
+        locusToSpecies.insert(locusToSpecies.end(), pp);
+    }
+    return locusToSpecies;
 }
