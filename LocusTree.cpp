@@ -130,8 +130,8 @@ void LocusTree::lineageTransferEvent(int indx){
     rec->setIsExtinct(false);
     rec->setLdes(NULL);
     rec->setRdes(NULL);
-    rec->setAnc(extantNodes[indx]);
-    rec->setSib(extantNodes[recIndx.first]);
+    rec->setAnc(extantNodes[recIndx.first]->getAnc());
+    rec->setSib(NULL);
     
     speciesIndx.clear();
     
@@ -279,7 +279,7 @@ void LocusTree::recGetNewickTree(Node *p, std::stringstream &ss){
                 recGetNewickTree(p->getRdes(), ss);
                 ss << "[&index=" << p->getRdes()->getIndex() << "]" << ":" << p->getRdes()->getBranchLength();
                 ss << ")";
-                ss << p->getName() << ":0.0";
+                ss << p->getName() << ":" << "0.0";
                 ss << ")";
             }
             else{
@@ -355,7 +355,7 @@ void LocusTree::setTreeTipNames(){
             }
             else{
                 if((*it)->getFlag() == 1){
-                    tn << (*it)->getIndex();
+                    tn << (*it)->getRdes()->getIndex();
                     copyNumberCounts.push_back((*it)->getIndex());
                     name = "TR" + tn.str();
                     tn.clear();
@@ -427,6 +427,23 @@ std::multimap<int, double> LocusTree::getDeathTimesFromNodes(){
     return deathTimeMap;
 }
 
+
+std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
+    int indx;
+    double deathTime;
+    std::multimap<int, double> deathTimeMap;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsExtinct()){
+            indx = (int)std::distance(nodes.begin(), it);
+            deathTime = (*it)->getDeathTime();
+            deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
+        }
+        
+    }
+    
+    return deathTimeMap;
+}
+
 std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
     int indx;
     double birthTime;
@@ -439,11 +456,11 @@ std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
     return birthTimeMap;
 }
 
-std::set<int> LocusTree::getExtantLoci(){
-    std::set<int> indxExtantLoci;
+std::unordered_set<int> LocusTree::getExtantLoci(){
+    std::unordered_set<int> indxExtantLoci;
     int indx;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        if((*it)->getIsTip()){
+        if((*it)->getIsExtant()){
             indx = (int)std::distance(nodes.begin(),it);
             indxExtantLoci.insert(indxExtantLoci.end(), indx);
         }

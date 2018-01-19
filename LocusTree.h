@@ -11,6 +11,7 @@
 #include "SpeciesTree.h"
 #include <algorithm>
 #include <set>
+#include <unordered_set>
 
 class LocusTree : public Tree 
 {
@@ -45,8 +46,9 @@ class LocusTree : public Tree
         void    setCurrentTime(double ct) {currentTime = ct; }
         std::multimap<int,double>     getBirthTimesFromNodes();
         std::multimap<int,double>     getDeathTimesFromNodes();
+        std::multimap<int,double>       getDeathTimesFromExtinctNodes();
         std::map<int,int>             getLocusToSpeciesMap();
-        std::set<int>                 getExtantLoci();
+        std::unordered_set<int>                 getExtantLoci();
         int     postOrderTraversalStep(int indx);
     
     

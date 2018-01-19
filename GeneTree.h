@@ -21,18 +21,19 @@ class GeneTree : public Tree {
     public:
                     GeneTree(MbRandom *rando, unsigned nt, unsigned ipp, unsigned ne, double genTime);
                     ~GeneTree();
-        double      getTimeToNextEvent(); // what do you need to determine this?
+        double      getTimeToNextEvent(int n); // what do you need to determine this?
         Node*       coalescentEvent(double t, Node *p, Node *q);
-        void        censorCoalescentProcess(double stopTime, int contempSpIndx, int newSpIndx);
-        void        initializeTree(std::set<int> extantLociIndx, std::multimap<int,double> locusDeathTimes);
+        bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx);
+        void        initializeTree(std::unordered_set<int> extantLociIndx, std::multimap<int,double> locusDeathTimes);
         std::multimap<int,double> rescaleTimes(std::multimap<int, double> timeMap);
         void        rootCoalescentProcess(double startTime);
         void        recursiveRescaleTimes(Node *r, double add);
         void        setBranchLengths();
         void        setIndicesBySpecies(std::map<int,int> spToLocusMap);
-        std::string   printNewickTree();
-        void    recGetNewickTree(Node *r, std::stringstream &ss);
-
+        std::string printNewickTree();
+        void        recGetNewickTree(Node *r, std::stringstream &ss);
+        void        setTreeTipNames();
+        void        addExtinctSpecies(double bt, int indx);
 };
 
 #endif /* GeneTree_hpp */
