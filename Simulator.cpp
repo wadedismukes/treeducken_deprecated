@@ -100,8 +100,6 @@ void Simulator::initializeSim(){
     }
     else if(simType == 3){
         spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-        geneTree = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
-
         // geneTrees.resize(numLoci, new GeneTree(rando, numTaxaToSim, currentSimTime, indPerPop, popSize);
     }
 }
@@ -225,7 +223,6 @@ bool Simulator::bdsaBDSim(){
                     it = contempSpecies.insert( it, sibs.second);
                     ++it;
                     it = contempSpecies.insert( it, sibs.first);
-                    isSpeciation = false;
                 }
                 else{
                     if(!(spTree->getIsExtantFromIndx(*it))){
@@ -268,7 +265,8 @@ bool Simulator::bdsaBDSim(){
 }
 
 bool Simulator::simSpeciesLociTrees(){
-    bool good, spGood = false;
+    bool good = false;
+    bool spGood = false;
     while(!good){
         while(!spGood){
             spGood = gsaBDSim();
@@ -301,9 +299,11 @@ std::set<double, std::greater<double>> Simulator::getEpochs(std::multimap<int,do
 
 bool Simulator::coalescentSim(){
     bool treeGood = false;
-    bool reachedEnd = false;
+    bool reachedEnd = true;
     int ancIndx;
-    currentSimTime *= (1 / generationTime);
+    geneTree = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
+
+    currentSimTime *= (generationTime);
     std::map<int,int> spToLo;
     
     // map with keys as indices of lociTree nodes vector, values birth times
@@ -341,18 +341,23 @@ bool Simulator::coalescentSim(){
         contempLociEnd = contempLoci.end();
         if(*it != 0.0){
             for(std::unordered_set<int>::iterator locIt = contempLoci.begin(); locIt != contempLociEnd; ){
+                                 
                 ancIndx = lociTree->postOrderTraversalStep(*locIt);
                 reachedEnd = geneTree->censorCoalescentProcess(currentSimTime, *it, *locIt, ancIndx);
+                
                 if(!(reachedEnd)){
                     locIt = contempLoci.erase(locIt);
-                    contempLoci.insert(ancIndx);
+                    contempLoci.insert(locIt, ancIndx);
                 }
                 else{
                     ++locIt;
                 }
             }
-            for(std::multimap<int,double>::reverse_iterator temp = deadSpeciesStartTimes.rbegin(); temp != deadSpeciesStartTimes.rend(); ++temp){
+            
+            for(std::multimap<int,double>::iterator temp = deadSpeciesStartTimes.begin(); temp != deadSpeciesStartTimes.end(); ++temp){
                 if(temp->second == *it){
+                    std::cout << "epoch time: " << *it << std::endl;
+                    std::cout << "added locus " << temp->first << std::endl;
                     geneTree->addExtinctSpecies(temp->second, temp->first);
                     contempLoci.insert(temp->first);
                 }
@@ -360,11 +365,11 @@ bool Simulator::coalescentSim(){
             currentSimTime = *it;
         }
         else{
-            geneTree->rootCoalescentProcess(currentSimTime);
             currentSimTime = 0.0;
+            geneTree->rootCoalescentProcess(currentSimTime);
             treeGood = true;
-//            spToLo = lociTree->getLocusToSpeciesMap();
- //           geneTree->setIndicesBySpecies(spToLo);
+            spToLo = lociTree->getLocusToSpeciesMap();
+            geneTree->setIndicesBySpecies(spToLo);
             break;
         }
 

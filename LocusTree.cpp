@@ -6,6 +6,7 @@
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
 //
 
+#include <iostream>
 #include "LocusTree.h"
 
 LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double gdr, double lgtrate) : Tree(p, nt, 0.0){
@@ -419,8 +420,7 @@ std::multimap<int, double> LocusTree::getDeathTimesFromNodes(){
     double deathTime;
     std::multimap<int,double> deathTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        
-        indx = (int)std::distance(nodes.begin(),it);
+        indx = (int) (it - nodes.begin());
         deathTime = (*it)->getDeathTime();
         deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
     }
@@ -434,7 +434,7 @@ std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
     std::multimap<int, double> deathTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsExtinct()){
-            indx = (int)std::distance(nodes.begin(), it);
+            indx = (int) (it - nodes.begin());
             deathTime = (*it)->getDeathTime();
             deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
         }
@@ -449,7 +449,7 @@ std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
     double birthTime;
     std::multimap<int,double> birthTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        indx = (int)std::distance(nodes.begin(),it);
+        indx = (int) (it - nodes.begin());
         birthTime = (*it)->getBirthTime();
         birthTimeMap.insert(std::pair<int,double>(indx, birthTime));
     }
@@ -461,7 +461,7 @@ std::unordered_set<int> LocusTree::getExtantLoci(){
     int indx;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsExtant()){
-            indx = (int)std::distance(nodes.begin(),it);
+            indx = (int) (it - nodes.begin());
             indxExtantLoci.insert(indxExtantLoci.end(), indx);
         }
     }
@@ -472,13 +472,14 @@ int LocusTree::postOrderTraversalStep(int indx){
     int d;
     Node* anc;
     std::vector<Node*>::iterator it;
-    if(indx < nodes.size()){
+    if(indx != 0){
         anc = nodes[indx]->getAnc();
         it = std::find(nodes.begin(), nodes.end(), anc);
-        d = (int)std::distance(nodes.begin(), it);
+        d = (int) (it - nodes.begin());
+        std::cout << "^^^^^" << d << std::endl;
     }
     else
-        d = (int)nodes.size();
+        d = 0;
     return d;
     
 }
@@ -488,10 +489,11 @@ std::map<int,int> LocusTree::getLocusToSpeciesMap(){
     int spID, loID;
     std::pair<int,int> pp;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        loID = (int) std::distance(nodes.begin(), it);
+        loID = (int) (it - nodes.begin());
         spID = (*it)->getIndex();
         pp.first = loID;
         pp.second = spID;
+        std::cout << "locus id " << pp.first << " species id " << pp.second << std::endl;
         locusToSpecies.insert(locusToSpecies.end(), pp);
     }
     return locusToSpecies;

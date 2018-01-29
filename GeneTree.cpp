@@ -67,7 +67,6 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     for(; it != extantNodes.end(); ){
         indx = (*it)->getIndex();
         if(indx == contempSpeciesIndx){
-            p = new Node();
             p = *it;
             coalescingNodes.push_back(p);
             it = extantNodes.erase(it);
@@ -79,7 +78,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     
     }
     if(coalescingNodes.size() < 1)
-        return reachedTime;
+        return reachedTime = true;
     else{
         it = coalescingNodes.begin();
     }
@@ -88,7 +87,6 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
         time -= getTimeToNextEvent((int)coalescingNodes.size());
 
         if(time < stopTime){
-            time = stopTime;
             reachedTime = true;
             break;
         }
@@ -159,7 +157,7 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
     std::pair<int, double> p;
     for(std::multimap<int, double>::iterator it = timeMap.begin(); it != timeMap.end(); ++it){
         p.first = (*it).first;
-        p.second = (*it).second / generationTime;
+        p.second = ((*it).second * generationTime) ;
         rescaledTimeMap.insert(p);
     }
     
