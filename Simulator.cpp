@@ -341,10 +341,12 @@ bool Simulator::coalescentSim(){
         contempLociEnd = contempLoci.end();
         if(*it != 0.0){
             for(std::unordered_set<int>::iterator locIt = contempLoci.begin(); locIt != contempLociEnd; ){
-                                 
+                
+
                 ancIndx = lociTree->postOrderTraversalStep(*locIt);
                 reachedEnd = geneTree->censorCoalescentProcess(currentSimTime, *it, *locIt, ancIndx);
-                
+                // if censored coalescent process reached the end of the epoch with only one lineage
+                // remaining traverse down the tree, otherwise go to the next loci
                 if(!(reachedEnd)){
                     locIt = contempLoci.erase(locIt);
                     contempLoci.insert(locIt, ancIndx);
@@ -368,8 +370,8 @@ bool Simulator::coalescentSim(){
             currentSimTime = 0.0;
             geneTree->rootCoalescentProcess(currentSimTime);
             treeGood = true;
-            spToLo = lociTree->getLocusToSpeciesMap();
-            geneTree->setIndicesBySpecies(spToLo);
+ //           spToLo = lociTree->getLocusToSpeciesMap();
+//            geneTree->setIndicesBySpecies(spToLo);
             break;
         }
 

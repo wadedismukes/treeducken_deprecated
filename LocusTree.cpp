@@ -17,6 +17,7 @@ LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double g
     geneBirthRate = gbr;
     geneDeathRate = gdr;
     transferRate = lgtrate;
+    getRoot()->setLindx(0);
 }
 
 LocusTree::~LocusTree(){
@@ -41,7 +42,7 @@ void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     r->setIsExtant(true);
     r->setIsExtinct(false);
     r->setIndx(extantNodes[indx]->getIndex());
-
+    
     l->setLdes(NULL);
     l->setRdes(NULL);
     l->setSib(r);
@@ -55,7 +56,10 @@ void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     
     extantNodes.push_back(r);
     extantNodes.push_back(l);
+    r->setLindx((int)nodes.size());
+
     nodes.push_back(r);
+    l->setLindx((int) nodes.size());
     nodes.push_back(l);
     extantNodes.erase(extantNodes.begin() + indx);
 
@@ -125,6 +129,7 @@ void LocusTree::lineageTransferEvent(int indx){
     recIndx = *item;
     
     rec->setIndx(recIndx.second);
+    
     rec->setBirthTime(currentTime);
     rec->setIsExtant(true);
     rec->setIsTip(true);
@@ -139,7 +144,10 @@ void LocusTree::lineageTransferEvent(int indx){
     extantNodes.erase(extantNodes.begin() + indx);
     extantNodes.push_back(rec);
     extantNodes.push_back(donor);
+    rec->setLindx((int)nodes.size());
     nodes.push_back(rec);
+    donor->setLindx((int)nodes.size());
+
     nodes.push_back(donor);
     numExtant = (int) extantNodes.size();
 }
@@ -209,7 +217,9 @@ int LocusTree::speciationEvent(int indx, double time, std::pair<int,int> sibs){
             (*it)->setDeathTime(time);
             (*it)->setIsTip(false);
             (*it)->setIsExtant(false);
+            r->setLindx((int)nodes.size());
             nodes.push_back(r);
+            l->setLindx((int)nodes.size());
             nodes.push_back(l);
             it = extantNodes.erase(it);
             
@@ -416,27 +426,27 @@ void LocusTree::setBranchLengths(){
 }
 
 std::multimap<int, double> LocusTree::getDeathTimesFromNodes(){
-    int indx;
+    int locusIndx;
     double deathTime;
     std::multimap<int,double> deathTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        indx = (int) (it - nodes.begin());
+        locusIndx = (int)(*it)->getLindx();
         deathTime = (*it)->getDeathTime();
-        deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
+        deathTimeMap.insert(std::pair<int,double>(locusIndx, deathTime));
     }
     return deathTimeMap;
 }
 
 
 std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
-    int indx;
+    int locusIndx;
     double deathTime;
     std::multimap<int, double> deathTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsExtinct()){
-            indx = (int) (it - nodes.begin());
+            locusIndx = (int)(*it)->getLindx();
             deathTime = (*it)->getDeathTime();
-            deathTimeMap.insert(std::pair<int,double>(indx, deathTime));
+            deathTimeMap.insert(std::pair<int,double>(locusIndx, deathTime));
         }
         
     }
@@ -445,43 +455,41 @@ std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
 }
 
 std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
-    int indx;
+    int locusIndx;
     double birthTime;
     std::multimap<int,double> birthTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        indx = (int) (it - nodes.begin());
+        locusIndx = (int)(*it)->getLindx();
         birthTime = (*it)->getBirthTime();
-        birthTimeMap.insert(std::pair<int,double>(indx, birthTime));
+        birthTimeMap.insert(std::pair<int,double>(locusIndx, birthTime));
     }
     return birthTimeMap;
 }
 
 std::unordered_set<int> LocusTree::getExtantLoci(){
     std::unordered_set<int> indxExtantLoci;
-    int indx;
+    int locusIndx;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsExtant()){
-            indx = (int) (it - nodes.begin());
-            indxExtantLoci.insert(indxExtantLoci.end(), indx);
+            locusIndx = (int)(*it)->getLindx();
+            indxExtantLoci.insert(indxExtantLoci.end(), locusIndx);
         }
     }
     return indxExtantLoci;
 }
 
 int LocusTree::postOrderTraversalStep(int indx){
-    int d;
     Node* anc;
-    std::vector<Node*>::iterator it;
-    if(indx != 0){
-        anc = nodes[indx]->getAnc();
-        it = std::find(nodes.begin(), nodes.end(), anc);
-        d = (int) (it - nodes.begin());
-        std::cout << "^^^^^" << d << std::endl;
+    int ancIndx;
+    anc = nodes[indx]->getAnc();    
+    if(anc != NULL){
+        ancIndx = anc->getLindx();
     }
     else
-        d = 0;
-    return d;
+        ancIndx = 0;
     
+    
+    return ancIndx;
 }
 
 std::map<int,int> LocusTree::getLocusToSpeciesMap(){
@@ -489,7 +497,7 @@ std::map<int,int> LocusTree::getLocusToSpeciesMap(){
     int spID, loID;
     std::pair<int,int> pp;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        loID = (int) (it - nodes.begin());
+        loID = (*it)->getLindx();;
         spID = (*it)->getIndex();
         pp.first = loID;
         pp.second = spID;

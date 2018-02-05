@@ -48,7 +48,7 @@ void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multim
 
 double GeneTree::getTimeToNextEvent(int n){
     double ct;
-    double lambda = (double)(n * (n - 1)) / (2) ;
+    double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
     ct = -log(rando->uniformRv()) * (lambda);
     
     return ct;
@@ -141,12 +141,10 @@ Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
     p->setBirthTime(t);
     p->setAnc(n);
     p->setSib(q);
-    p->setIsTip(false);
     
     q->setBirthTime(t);
     q->setAnc(n);
     q->setSib(p);
-    q->setIsTip(false);
     
     
     return n;
@@ -191,6 +189,7 @@ void GeneTree::rootCoalescentProcess(double startTime){
     
     
     this->setRoot(extantNodes[0]);
+    extantNodes.clear();
 //    if(extantNodes[0]->getBirthTime() < 0){
 //        time = std::abs(this->getRoot()->getDeathTime() * 2);
 //        this->getRoot()->setBirthTime(0.0);
@@ -268,7 +267,7 @@ std::string GeneTree::printNewickTree(){
 
 void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
     if(p != NULL){
-        if( p->getRdes() == NULL)
+        if( p->getIsTip() )
             ss << p->getName();
         else{
             ss << "(";

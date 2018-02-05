@@ -32,7 +32,7 @@ int main(int argc, const char * argv[]) {
     double gbr = 0.2;
     double gdr = 0.1;
     double lgtr = 0.2;
-    unsigned ipp = 4;
+    unsigned ipp = 1;
     unsigned popSize = 1000;
     double genTime = 1;
     

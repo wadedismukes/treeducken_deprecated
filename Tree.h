@@ -21,7 +21,7 @@ class Node
         Node    *rdes;
         Node    *anc;
         Node    *sib;
-        int     indx;
+        int     indx, Lindx;
         int     flag;
         std::string name;
         bool    isRoot;
@@ -48,6 +48,7 @@ class Node
         void    setBranchLength(double bl) {branchLength = bl; } 
         void    setFlag(int d) { flag = d; }
         void    setIndx(int i) {indx = i; }
+        void    setLindx(int li ) {Lindx = li; }
     
         int     getFlag() {return flag; }
         Node*   getLdes() {return ldes; }
@@ -63,6 +64,7 @@ class Node
         double  getDeathTime() {return deathTime; }
         double  getBirthTime() { return birthTime; }
         int     getIndex() {return indx; }
+        int     getLindx() { return Lindx; }
     
 };
 
@@ -87,7 +89,7 @@ class Tree
         void        setRoot(Node *r) { root = r; }
         double      getNumExtant() {return numExtant; }
         double      getNumExtinct() {return numExtinct; }
-        int     getNodesSize() { return nodes.size(); }
+        int     getNodesSize() { return (int) nodes.size(); }
 
         void        zeroAllFlags();
         virtual double  getTimeToNextEvent() { return 0.0; }

@@ -18,6 +18,7 @@ Node::Node()
     anc = NULL;
     sib = NULL;
     indx = -1;
+    Lindx = -1;
     flag = -1;
     isRoot = false;
     isTip = false;
