@@ -313,12 +313,12 @@ bool Simulator::coalescentSim(){
     
     // map with keys as indices of lociTree nodes vector, values death times
     std::multimap<int, double> locusDeathMap = lociTree->getDeathTimesFromNodes();
-    // scale to generations
+    // scale from "years" to generations
     locusDeathMap = geneTree->rescaleTimes(locusDeathMap);
     
     // map with keys as indices of lociTree nodes vector, values death times, this includes ONLY extinct loci
     std::multimap<int,double> deadSpeciesStartTimes = lociTree->getDeathTimesFromExtinctNodes();
-    // scale to generations
+    // scale from "years" to generations
     deadSpeciesStartTimes = geneTree->rescaleTimes(deadSpeciesStartTimes);
     
     // unordered set containing loci that are currently alive
@@ -346,7 +346,7 @@ bool Simulator::coalescentSim(){
                 ancIndx = lociTree->postOrderTraversalStep(*locIt);
                 reachedEnd = geneTree->censorCoalescentProcess(currentSimTime, *it, *locIt, ancIndx);
                 // if censored coalescent process reached the end of the epoch with only one lineage
-                // remaining traverse down the tree, otherwise go to the next loci
+                // remaining traverse down the tree, otherwise go to the next contemporaneous loci
                 if(!(reachedEnd)){
                     locIt = contempLoci.erase(locIt);
                     contempLoci.insert(locIt, ancIndx);
@@ -355,7 +355,7 @@ bool Simulator::coalescentSim(){
                     ++locIt;
                 }
             }
-            
+            // check for extinct loci to begin simulating on
             for(std::multimap<int,double>::iterator temp = deadSpeciesStartTimes.begin(); temp != deadSpeciesStartTimes.end(); ++temp){
                 if(temp->second == *it){
                     std::cout << "epoch time: " << *it << std::endl;
@@ -367,6 +367,7 @@ bool Simulator::coalescentSim(){
             currentSimTime = *it;
         }
         else{
+            // perform the final coalescent process that can go into the stem (i.e. past the root) of the locustree 
             currentSimTime = 0.0;
             geneTree->rootCoalescentProcess(currentSimTime);
             treeGood = true;

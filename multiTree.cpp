@@ -29,9 +29,9 @@ int main(int argc, const char * argv[]) {
     std::string geneTree;
     double br = 0.01;
     double dr = 0.005;
-    double gbr = 0.2;
-    double gdr = 0.1;
-    double lgtr = 0.2;
+    double gbr = 0.02;
+    double gdr = 0.01;
+    double lgtr = 0.02;
     unsigned ipp = 1;
     unsigned popSize = 1000;
     double genTime = 1;
