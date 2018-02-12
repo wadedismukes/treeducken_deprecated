@@ -27,6 +27,7 @@ class Node
         bool    isRoot;
         bool    isTip;
         bool    isExtant, isExtinct;
+        bool    isDuplication;
         double  birthTime, deathTime;
         double  branchLength;
         
@@ -49,6 +50,7 @@ class Node
         void    setFlag(int d) { flag = d; }
         void    setIndx(int i) {indx = i; }
         void    setLindx(int li ) {Lindx = li; }
+        void    setIsDuplication(bool t) { isDuplication = t; }
     
         int     getFlag() {return flag; }
         Node*   getLdes() {return ldes; }
@@ -65,7 +67,7 @@ class Node
         double  getBirthTime() { return birthTime; }
         int     getIndex() {return indx; }
         int     getLindx() { return Lindx; }
-    
+        bool    getIsDuplication() { return isDuplication; }
 };
 
 

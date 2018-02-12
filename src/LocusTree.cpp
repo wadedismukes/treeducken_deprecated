@@ -32,6 +32,7 @@ void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     extantNodes[indx]->setDeathTime(currentTime);
     extantNodes[indx]->setIsTip(false);
     extantNodes[indx]->setIsExtant(false);
+    extantNodes[indx]->setIsDuplication(true);
     
     r->setLdes(NULL);
     r->setRdes(NULL);

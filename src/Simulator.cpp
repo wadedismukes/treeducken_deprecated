@@ -371,8 +371,8 @@ bool Simulator::coalescentSim(){
             currentSimTime = 0.0;
             geneTree->rootCoalescentProcess(currentSimTime);
             treeGood = true;
- //           spToLo = lociTree->getLocusToSpeciesMap();
-//            geneTree->setIndicesBySpecies(spToLo);
+           spToLo = lociTree->getLocusToSpeciesMap();
+            geneTree->setIndicesBySpecies(spToLo);
             break;
         }
 

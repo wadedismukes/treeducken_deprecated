@@ -23,6 +23,7 @@ Node::Node()
     isRoot = false;
     isTip = false;
     isExtant = false;
+    isDuplication = false;
     isExtinct = false;
     branchLength = 0.0;
     birthTime = 0.0;

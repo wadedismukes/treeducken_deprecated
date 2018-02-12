@@ -267,7 +267,7 @@ std::string GeneTree::printNewickTree(){
 
 void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
     if(p != NULL){
-        if( p->getIsTip() )
+        if( p->getRdes() == NULL )
             ss << p->getName();
         else{
             ss << "(";
