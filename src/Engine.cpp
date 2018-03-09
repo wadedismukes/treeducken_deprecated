@@ -7,6 +7,7 @@
 //
 
 #include "Engine.h"
+#include <sys/stat.h>
 
 Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci){
     outfilename = of;
@@ -56,9 +57,31 @@ void Engine::doRunRun(){
 
 
 void Engine::writeTreeFiles(){
+    int count = 1;
+    int checkDir;
+    char * tempChar;
+    const char * out;
+    
+    std::string out_dir = outfilename;
+    std::strcpy(tempChar, out_dir.c_str());
+    out = tempChar;
+    checkDir = mkdir(out, S_IRUSR | S_IWUSR | S_IXUSR );
+    if(checkDir == -1)
+        std::cerr << "Error in making the directory for storing the output" << std::endl;
+    
+    std::string tempStr;
+    std::string sp_tree_dir = "species_tree_dir";
+    std::string locus_tree_dir = "locus_tree_dir";
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
+        tempStr = out_dir + "/" + sp_tree_dir + "_" + std::to_string(count);
+        std::strcpy(tempChar, tempStr.c_str());
+        checkDir = mkdir(tempChar, S_IRUSR | S_IWUSR | S_IXUSR);
+        if(checkDir == -1)
+            std::cerr << "Error in making the directory for storing the species trees" << std::endl;
+        count++;
         (*p)->writeWholeTreeFileInfo(outfilename);
         for(int i = 0; i < numLoci; i++){
+            
             (*p)->writeLocusTreeFileInfoByIndx(i, outfilename);
         }
         for(int j = 0; j < numGenes; j++){

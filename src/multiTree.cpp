@@ -33,8 +33,8 @@ int main(int argc, const char * argv[]) {
     double gdr = 0.01;
     double lgtr = 0.02;
     unsigned ipp = 4;
-    unsigned popSize = 4;
-    double genTime = 10000;
+    unsigned popSize = 10000;
+    double genTime = 1;
     
     Simulator *sim = new Simulator(&rand, numTaxa, br, dr, 1.0, 1, gbr, gdr, lgtr, ipp, popSize, genTime);
     sim->simThreeTree();

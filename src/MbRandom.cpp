@@ -1593,7 +1593,7 @@ double MbRandom::rndGamma(double s) {
     else if (s > 1.0)
         r = rndGamma2(s);
     else
-        r =- log(uniformRv());
+        r -= log(uniformRv());
     return (r);
     
 }

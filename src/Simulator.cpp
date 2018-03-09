@@ -284,9 +284,9 @@ std::string Simulator::printLocusTreeNewick(){
 }
 
 
-std::set<double, std::greater<double>> Simulator::getEpochs(std::multimap<int,double> birthMap){
+std::set<double, std::greater<double> > Simulator::getEpochs(std::multimap<int,double> birthMap){
     
-    std::set<double, std::greater<double>> epochs;
+    std::set<double, std::greater<double> > epochs;
     
     for(std::multimap<int, double>::iterator it = birthMap.begin(); it != birthMap.end(); ++it){
         epochs.insert((*it).second);
@@ -324,7 +324,7 @@ bool Simulator::coalescentSim(){
     // unordered set containing loci that are currently alive
     std::unordered_set<int> contempLoci;
     // get all time slices to simulate through
-    std::set<double, std::greater<double>> epochs = getEpochs(locusDeathMap);
+    std::set<double, std::greater<double> > epochs = getEpochs(locusDeathMap);
     
     currentSimTime = *(epochs.begin());
     epochs.erase(epochs.begin());
@@ -336,7 +336,7 @@ bool Simulator::coalescentSim(){
     std::unordered_set<int>::iterator contempLociEnd;
     
     
-    for(std::set<double, std::greater<double>>::iterator it = epochs.begin(); it != epochs.end(); ++it){
+    for(std::set<double, std::greater<double> >::iterator it = epochs.begin(); it != epochs.end(); ++it){
         
         contempLociEnd = contempLoci.end();
         if(*it != 0.0){
