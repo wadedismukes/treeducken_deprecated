@@ -22,6 +22,23 @@ After inputting these parameters the simulation proceeds as follows. First, a sp
 
 # Installing `multiTree`
 
+To install `multiTree`. Clone the repository by doing the following:
+
+```
+	git clone https://github.com/wadedismukes/multiTree.git
+```
+
+Then change directory to `multiTree/src` and run the following command:
+
+```
+	make install
+```
+
+`multiTree` is now installed in the multiTree directory. To uninstall simply type:
+
+```
+	make clean
+```
 
 # A word of warning
 
