@@ -267,19 +267,24 @@ bool Simulator::bdsaBDSim(){
 bool Simulator::simSpeciesLociTrees(){
     bool good = false;
     bool spGood = false;
-    while(!good){
-        while(!spGood){
-            spGood = gsaBDSim();
+    for(int i = 0; i < numLoci; i++){
+        while(!good){
+            while(!spGood){
+                spGood = gsaBDSim();
+            }
+            good = bdsaBDSim();
         }
-        good = bdsaBDSim();
+        locusTrees.push_back(lociTree);
+        good = false;
     }
-    
     return good;
 }
 
-std::string Simulator::printLocusTreeNewick(){
+std::string Simulator::printLocusTreeNewick(int i){
     std::string newickTree;
-    newickTree = lociTree->printNewickTree();
+    std::vector<LocusTree*>::iterator it = locusTrees.begin();
+    std::advance(it, i);
+    newickTree = (*it)->printNewickTree();
     return newickTree;
 }
 
@@ -385,23 +390,27 @@ bool Simulator::simThreeTree(){
     bool gGood = false;
     bool spGood = false;
     bool loGood = false;
-    
-    while(!gGood){
-        while(!loGood){
-            while(!spGood){
-                spGood = gsaBDSim();
+    for(int i = 0; i < numLoci; i++){
+        while(!gGood){
+            while(!loGood){
+                while(!spGood){
+                    spGood = gsaBDSim();
+                }
+                loGood = bdsaBDSim();
             }
-            loGood = bdsaBDSim();
+            gGood = coalescentSim();
         }
-        gGood = coalescentSim();
+        locusTrees.push_back(lociTree);
+        geneTrees.push_back(geneTree);
+        loGood = false;
+        gGood = false;
     }
-    
     return gGood;
 }
 
 
-std::string Simulator::printGeneTreeNewick(){
+std::string Simulator::printGeneTreeNewick(int i){
     std::string newickTree;
-    newickTree = geneTree->printNewickTree();
+    newickTree = geneTrees[i]->printNewickTree();
     return newickTree;
 }

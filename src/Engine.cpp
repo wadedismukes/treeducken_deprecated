@@ -53,40 +53,53 @@ Engine::~Engine(){
 
 void Engine::doRunRun(){
     // to be written after designing an outfile scheme
+    std::ofstream spTreeDatOut, locusTreeDatOut, GeneTreeDatOut;
+    std::string ofsp = outfilename + ".sptree_info.dat";
+    std::string ofloc;
+    std::string ofgen;
+    double TS = 0.0;
+    for(int i = 0; i < numSpeciesTrees; i++){
+          
+        Simulator *treesim = new Simulator(&rando,
+                                           numTaxa,
+                                           spBirthRate,
+                                           spDeathRate,
+                                           1.0,
+                                           numLoci,
+                                           geneBirthRate,
+                                           geneDeathRate,
+                                           transferRate,
+                                           individidualsPerPop,
+                                           populationSize,
+                                           generationTime);
+        switch(simType){
+            case 1:
+                treesim->simSpeciesTree();
+                break;
+            case 2:
+                treesim->simSpeciesLociTrees();
+                break;
+            case 3:
+                treesim->simThreeTree();
+                break;
+            default:
+                treesim->simSpeciesTree();
+                break;
+        }
+        TreeInfo *ti = new TreeInfo(i);
+        ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+        // TODO: rewrite the set whole tree string info to insert the string for each tree in a run
+        // TODO: rewrite simulator to make more sense given structure of engine
+        // TODO: write function defintions for everything in engine
+    }
+
+
 }
 
 
 void Engine::writeTreeFiles(){
-    int count = 1;
-    int checkDir;
-    char * tempChar;
-    const char * out;
-    
-    std::string out_dir = outfilename;
-    std::strcpy(tempChar, out_dir.c_str());
-    out = tempChar;
-    checkDir = mkdir(out, S_IRUSR | S_IWUSR | S_IXUSR );
-    if(checkDir == -1)
-        std::cerr << "Error in making the directory for storing the output" << std::endl;
-    
-    std::string tempStr;
-    std::string sp_tree_dir = "species_tree_dir";
-    std::string locus_tree_dir = "locus_tree_dir";
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
-        tempStr = out_dir + "/" + sp_tree_dir + "_" + std::to_string(count);
-        std::strcpy(tempChar, tempStr.c_str());
-        checkDir = mkdir(tempChar, S_IRUSR | S_IWUSR | S_IXUSR);
-        if(checkDir == -1)
-            std::cerr << "Error in making the directory for storing the species trees" << std::endl;
-        count++;
         (*p)->writeWholeTreeFileInfo(outfilename);
-        for(int i = 0; i < numLoci; i++){
-            
-            (*p)->writeLocusTreeFileInfoByIndx(i, outfilename);
-        }
-        for(int j = 0; j < numGenes; j++){
-            (*p)->writeGeneTreeFileInfoByIndx(j, outfilename);
-        }
     }
 }
 

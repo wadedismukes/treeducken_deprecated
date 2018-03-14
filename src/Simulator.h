@@ -31,8 +31,9 @@ class Simulator
         std::vector<SpeciesTree*>   gsaTrees;
         SpeciesTree*    spTree;
         LocusTree*      lociTree;
+        std::vector<LocusTree*> locusTrees;
         GeneTree*       geneTree;
-        // std::vector<GeneTree*>   geneTrees;
+        std::vector<GeneTree*>   geneTrees;
 
     public:
         // Simulating species tree only
@@ -56,8 +57,8 @@ class Simulator
         void    prepGSATreeForReconstruction();
         void    processSpTreeSim();
         std::string    printSpeciesTreeNewick();
-        std::string    printLocusTreeNewick();
-        std::string    printGeneTreeNewick();
+        std::string    printLocusTreeNewick(int i);
+        std::string    printGeneTreeNewick(int i);
     
         std::set<double, std::greater<double> > getEpochs(std::multimap<int, double> locBirthMap);
 };

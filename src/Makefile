@@ -33,4 +33,4 @@ Tree.o: Tree.h MbRandom.h
 
 .PHONY : clean 
 clean: 
-	-rm multiTree $(objects)
+	-rm ../multiTree $(objects)

@@ -35,15 +35,17 @@ int main(int argc, const char * argv[]) {
     unsigned ipp = 4;
     unsigned popSize = 10000;
     double genTime = 1;
+    unsigned numLoci = 10;
     
-    Simulator *sim = new Simulator(&rand, numTaxa, br, dr, 1.0, 1, gbr, gdr, lgtr, ipp, popSize, genTime);
+    Simulator *sim = new Simulator(&rand, numTaxa, br, dr, 1.0, numLoci, gbr, gdr, lgtr, ipp, popSize, genTime);
     sim->simThreeTree();
     sptree = sim->printSpeciesTreeNewick();
     std::cout << "species tree: " << std::endl << sptree << std::endl <<  std::endl;
-    locusTree = sim->printLocusTreeNewick();
-    std::cout << "Locus Tree: " << std::endl << locusTree << std::endl << std::endl;
-    geneTree = sim->printGeneTreeNewick();
-    std::cout << "Gene Tree: " << std::endl << geneTree << std::endl << std::endl;
-    
+    for(int i = 0; i < numLoci; i++){
+        locusTree = sim->printLocusTreeNewick(i);
+        std::cout << "Locus Tree: " << std::endl << locusTree << std::endl << std::endl;
+        geneTree = sim->printGeneTreeNewick(i);
+        std::cout << "Gene Tree: " << std::endl << geneTree << std::endl << std::endl;
+    }
     return 0;
 }
