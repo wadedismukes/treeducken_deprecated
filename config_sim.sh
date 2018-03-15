@@ -12,22 +12,15 @@ echo "multiTree v. 0.1\n"
 makedirs(){
   [ "$1" -gt 0 ] || return
   mkdir -v "speciestree_$1"
-  var="$2"
-  makelocdirs "speciestree_$1" $(( var )) 
-  makedirs $(( $1 - 1 )) $2
-}
-
-makelocdirs(){
-  [ "$2" -gt 0 ] || return
-  mkdir -v "$1/locustree_$2"
-  makelocdirs $1 $(( $2 - 1 ))
+  makedirs $(( $1 - 1 ))
 }
 
 if [ "$#" -eq 3 ]; then
 	[ -d sim_files ] || mkdir sim_files
 	cd sim_files
-	makedirs $2 $3
-	multiTree -i $1 -r $2 -nl $3
+	makedirs $2
+  cd ..
+	multiTree -i $1 -r $2
 else
 	echo "Incorrect number of parameters in config_sim.sh"
 	echo "Correct usage is 'sh config_sim.sh simSettings.txt <#SpeciesTrees> <#LocusTrees>"
