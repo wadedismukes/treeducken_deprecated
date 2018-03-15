@@ -151,6 +151,8 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree wholeT_" << spIndx << " = ";
     out << getWholeSpeciesTree() << "\n";
+    out << "end;";
+
 }
 
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
@@ -177,6 +179,7 @@ void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string of
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree locT_" << indx << " = ";
     out << getLocusTreeByIndx(indx) << "\n";
+    out << "end;";
 }
 
 void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
@@ -203,4 +206,6 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree geneT_" << indx << " = ";
     out << getGeneTreeByIndx(indx) << "\n";
+    out << "end;";
+
 }
