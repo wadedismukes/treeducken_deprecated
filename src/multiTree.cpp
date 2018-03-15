@@ -71,37 +71,42 @@ int main(int argc, char * argv[]) {
                         std::string comment = "#";
                         if(settings.is_open()){
                             while( getline (settings, line) ){
-                                if(line.substr(0) != comment){
-                                    if(!strcmp(curArg, "-sbr"))
-                                        sbr = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-sdr"))
-                                        sdr = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-gbr"))
-                                        gbr = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-gdr"))
-                                        gdr = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-lgtr"))
-                                        lgtr = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-ne"))
-                                        ne = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-ipp"))
-                                        ipp = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-nt"))
-                                        nt = atoi(argv[i+1]);
-                                    else if(!strcmp(curArg, "-sc"))
-                                        ts = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-nl"))
-                                        nloc = atof(argv[i+1]);
-                                    else if(!strcmp(curArg, "-r"))
-                                        r = atoi(argv[i+1]);
-                                    else if(!strcmp(curArg, "-o"))
-                                        outName = argv[i+1];
-                                    else if(!strcmp(curArg, "-s1"))
-                                        sd1 = atoi(argv[i+1]);
-                                    else if(!strcmp(curArg, "-s2"))
-                                        sd2 = atoi(argv[i+1]);
+                                if(line.substr(0,1) != comment){
+                                    if(line.substr(0,4) == "-sbr")
+                                        sbr = atof(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,4) == "-sdr")
+                                        sdr = atof(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,4) == "-gbr")
+                                        gbr = atof(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,4) == "-gdr")
+                                        gdr = atof(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,5) == "-lgtr")
+                                        lgtr = atof(line.substr(6, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-ne")
+                                        ne = atof(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,4) == "-ipp")
+                                        ipp = atof(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-nt")
+                                        nt = atoi(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-sc")
+                                        ts = atof(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-nl")
+                                        nloc = atof(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,2) == "-r")
+                                        r = atoi(line.substr(3, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,2) == "-o")
+                                        outName = line.substr(3, std::string::npos - 1);
+                                    else if(line.substr(0,3) == "-s1")
+                                        sd1 = atoi(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-s2")
+                                        sd2 = atoi(line.substr(4, std::string::npos - 1).c_str());
                                 }
                             }
+                            
+                        }
+                        else{
+                            std::cerr << "The input file was unable to be opened.\n" << std::endl;
+                            return 0;
                         }
                     }
                     else if(!strcmp(curArg, "-sbr"))
