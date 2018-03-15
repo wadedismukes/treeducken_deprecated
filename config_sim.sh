@@ -27,7 +27,7 @@ if [ "$#" -eq 3 ]; then
 	[ -d sim_files ] || mkdir sim_files
 	cd sim_files
 	makedirs $2 $3
-	# multiTree -i $1 
+	multiTree -i $1 -r $2 -nl $3
 else
 	echo "Incorrect number of parameters in config_sim.sh"
 	echo "Correct usage is 'sh config_sim.sh simSettings.txt <#SpeciesTrees> <#LocusTrees>"

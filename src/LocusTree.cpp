@@ -85,6 +85,18 @@ void LocusTree::lineageDeathEvent(int indx){
 }
 
 void LocusTree::lineageTransferEvent(int indx){
+    unsigned spIndxD = extantNodes[indx]->getIndex();
+    int allSameSpInExtNodes = 0;
+    if(numTaxa < 5){
+        for(std::vector<Node*>::iterator p = extantNodes.begin(); p != extantNodes.end(); ++p){
+            unsigned checkInd = (*p)->getIndex();
+            if(checkInd == spIndxD){
+                allSameSpInExtNodes++;
+            }
+        }
+        if(allSameSpInExtNodes == extantNodes.size())
+            return;
+    }
     //first a birth event
     Node *donor, *rec;
     donor = new Node();
@@ -502,7 +514,7 @@ std::map<int,int> LocusTree::getLocusToSpeciesMap(){
         spID = (*it)->getIndex();
         pp.first = loID;
         pp.second = spID;
-        std::cout << "locus id " << pp.first << " species id " << pp.second << std::endl;
+        // std::cout << "locus id " << pp.first << " species id " << pp.second << std::endl;
         locusToSpecies.insert(locusToSpecies.end(), pp);
     }
     return locusToSpecies;

@@ -45,8 +45,8 @@ class TreeInfo{
         
     
             void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = ts; }
-            void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees[indx] = ts; }
-            void                        setGeneTreeByIndx(int indx, std::string ts) { geneTrees[indx] = ts; }
+            void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees.push_back(ts); }
+            void                        setGeneTreeByIndx(int indx, std::string ts) { geneTrees.push_back(ts); }
             void                        setSpeciesTreeLength(double b) { spTreeLength = b; }
             void                        setSpeciesTreeNess(double b) { spTreeNess = b; }
             void                        setSpeciesAveTipLen(double b) {spAveTipLen = b; }
@@ -58,9 +58,9 @@ class TreeInfo{
             void                        setAveTMRCAGeneTree(double b) {aveTMRCAGeneTree = b; }
     
     
-            void                        writeWholeTreeFileInfo(std::string ofp);
-            void                        writeLocusTreeFileInfoByIndx(int indx, std::string ofp);
-            void                        writeGeneTreeFileInfoByIndx(int indx, std::string ofp);
+            void                        writeWholeTreeFileInfo(int spIndx, std::string ofp);
+            void                        writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
+            void                        writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
 
 };
 

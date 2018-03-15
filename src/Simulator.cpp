@@ -65,7 +65,6 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     speciationRate = lambda;
     extinctionRate = mu;
     samplingRate = rho;
-    
     numLoci = numLociToSim;
     geneBirthRate = gbr;
     geneDeathRate = gdr;
@@ -193,7 +192,6 @@ bool Simulator::bdsaBDSim(){
     double stopTime = spTree->getCurrentTimeFromExtant();
     double eventTime;
     bool isSpeciation;
-    int countCopies;
     lociTree = new LocusTree(rando, numTaxaToSim, currentSimTime, geneBirthRate, geneDeathRate, transferRate);
 
     std::map<int,double> speciesBirthTimes = spTree->getBirthTimesFromNodes();
@@ -217,7 +215,7 @@ bool Simulator::bdsaBDSim(){
                 if(isSpeciation){
               //      std::cout << "species death time of species " << (*it) << " is " << speciesDeathTimes[(*it)] << std::endl;
                     sibs = spTree->preorderTraversalStep(*it);
-                    countCopies = lociTree->speciationEvent((*it), speciesDeathTimes[(*it)], sibs);
+                    lociTree->speciationEvent((*it), speciesDeathTimes[(*it)], sibs);
             //        std::cout << sibs.first << "," << sibs.second << std::endl;
                     it = contempSpecies.erase(it);
                     it = contempSpecies.insert( it, sibs.second);
@@ -363,8 +361,8 @@ bool Simulator::coalescentSim(){
             // check for extinct loci to begin simulating on
             for(std::multimap<int,double>::iterator temp = deadSpeciesStartTimes.begin(); temp != deadSpeciesStartTimes.end(); ++temp){
                 if(temp->second == *it){
-                    std::cout << "epoch time: " << *it << std::endl;
-                    std::cout << "added locus " << temp->first << std::endl;
+                    //std::cout << "epoch time: " << *it << std::endl;
+                   // std::cout << "added locus " << temp->first << std::endl;
                     geneTree->addExtinctSpecies(temp->second, temp->first);
                     contempLoci.insert(temp->first);
                 }
@@ -390,14 +388,16 @@ bool Simulator::simThreeTree(){
     bool gGood = false;
     bool spGood = false;
     bool loGood = false;
+    while(!spGood){
+        spGood = gsaBDSim();
+    }
     for(int i = 0; i < numLoci; i++){
         while(!gGood){
             while(!loGood){
-                while(!spGood){
-                    spGood = gsaBDSim();
-                }
+                std::cout << "Simulating loci #" <<  i + 1 << std::endl;
                 loGood = bdsaBDSim();
             }
+            std::cout << "Simulating gene #" <<  i + 1 << std::endl;
             gGood = coalescentSim();
         }
         locusTrees.push_back(lociTree);

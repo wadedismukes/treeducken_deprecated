@@ -7,7 +7,6 @@
 //
 
 #include "Engine.h"
-#include <sys/stat.h>
 
 Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci){
     outfilename = of;
@@ -21,6 +20,7 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     populationSize = popsize;
     generationTime = genTime;
     numSpeciesTrees = reps;
+    proportionToSample = 1.0;
     numTaxa = ntax;
     numLoci = nloci;
     if(sd1 > 0 && sd2 > 0)
@@ -31,35 +31,21 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     rando.getSeed(gs1, gs2);
     std::cout << "\nSeeds = {" << gs1 << ", " << gs2 << "}" << std::endl;
     
-    if(treescale > 0.0)
-        doScaleTree = true;
-    else
-        doScaleTree = false;
-    
-    if(spBirthRate <= 0.0){
-        std::cerr << "ERROR: The starting birth rate is set to " << spBirthRate << " --  This is not right!" << std::endl;
-        std::cerr << "No trees were generated." << std::endl;
-        exit(1);
-
-    }
     
 }
 
 
 Engine::~Engine(){
-
+    if(!(simSpeciesTrees.empty()))
+        simSpeciesTrees.clear();
 }
 
 
 void Engine::doRunRun(){
     // to be written after designing an outfile scheme
-    std::ofstream spTreeDatOut, locusTreeDatOut, GeneTreeDatOut;
-    std::string ofsp = outfilename + ".sptree_info.dat";
-    std::string ofloc;
-    std::string ofgen;
     double TS = 0.0;
     for(int i = 0; i < numSpeciesTrees; i++){
-          
+        
         Simulator *treesim = new Simulator(&rando,
                                            numTaxa,
                                            spBirthRate,
@@ -72,6 +58,7 @@ void Engine::doRunRun(){
                                            individidualsPerPop,
                                            populationSize,
                                            generationTime);
+        std::cout << "simulating species tree replicate #" << i + 1 << std::endl;
         switch(simType){
             case 1:
                 treesim->simSpeciesTree();
@@ -86,20 +73,31 @@ void Engine::doRunRun(){
                 treesim->simSpeciesTree();
                 break;
         }
+        
         TreeInfo *ti = new TreeInfo(i);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+        for(int i = 0; i < numLoci; i++){
+            ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
+            ti->setGeneTreeByIndx(i, treesim->printGeneTreeNewick(i));
+        }
+        simSpeciesTrees.push_back(ti);
         // TODO: rewrite the set whole tree string info to insert the string for each tree in a run
-        // TODO: rewrite simulator to make more sense given structure of engine
         // TODO: write function defintions for everything in engine
     }
 
-
+    this->writeTreeFiles();
 }
 
 
 void Engine::writeTreeFiles(){
+    
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
-        (*p)->writeWholeTreeFileInfo(outfilename);
+        int d = std::distance(simSpeciesTrees.begin(), p);
+        (*p)->writeWholeTreeFileInfo(d, outfilename);
+        for(int i = 0; i < numLoci; i++){
+            (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
+            (*p)->writeGeneTreeFileInfoByIndx(d, i, outfilename);
+        }
     }
 }
 
@@ -138,14 +136,71 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
 /*
     TreeInfo functions to write tree information to file in various file formats
                                                                                     */
-void TreeInfo::writeWholeTreeFileInfo(std::string ofp){
+void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
+    std::string path = "./sim_files/speciestree_";
     
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    path += tn.str() + "/";
+    
+    
+    fn += "_" + tn.str() + ".sp.tre";
+    path += fn;
+    std::ofstream out(path);
+    out << "#NEXUS\nbegin trees;\n    tree wholeT_" << spIndx << " = ";
+    out << getWholeSpeciesTree() << "\n";
 }
 
-void TreeInfo::writeLocusTreeFileInfoByIndx(int indx, std::string ofp){
+void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
+    std::string path = "./sim_files/speciestree_";
     
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    path += tn.str();
+    path += "/";
+    
+    
+    fn += "_" + tn.str();
+    
+    tn.clear();
+    tn.str(std::string());
+    
+    tn << indx;
+    
+    fn += "_" + tn.str() + ".loc.tre";
+    path += fn;
+    
+    std::ofstream out(path);
+    out << "#NEXUS\nbegin trees;\n    tree locT_" << indx << " = ";
+    out << getLocusTreeByIndx(indx) << "\n";
 }
 
-void TreeInfo::writeGeneTreeFileInfoByIndx(int indx, std::string ofp){
+void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
+    std::string path = "./sim_files/speciestree_";
     
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    path += tn.str();
+    path += "/";
+
+
+    fn += "_" + tn.str();
+    
+    tn.clear();
+    tn.str(std::string());
+ 
+    tn << indx;
+    
+    fn += "_" + tn.str() + ".gen.tre";
+    path += fn;
+    
+    std::ofstream out(path);
+    out << "#NEXUS\nbegin trees;\n    tree geneT_" << indx << " = ";
+    out << getGeneTreeByIndx(indx) << "\n";
 }

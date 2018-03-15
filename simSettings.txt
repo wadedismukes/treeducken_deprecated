@@ -1,7 +1,4 @@
 # EXAMPLE simulation settings file
-
-
-
 # Species Tree Simulation parameters
 # optionally you may set your own seeds, the 0 setting will generate new seeds
 -sd1 0
@@ -13,7 +10,8 @@
 -sbr 0.01
 # species death rate
 -sdr 0.02
-
+-r 10
+-nl 10
 # Locus Tree Simulation parameters
 # gene birth rate
 -gbr 0.02
@@ -26,4 +24,4 @@
 # individuals per locus to be sampled 
 -ipp 4
 # effective population size
--ne 
+-ne 10
