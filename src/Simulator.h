@@ -47,8 +47,10 @@ class Simulator
         ~Simulator();
         bool    gsaBDSim();
         bool    bdsaBDSim();
+        bool    moranSpeciesSim();
         bool    coalescentSim();
         bool    simSpeciesTree();
+        bool    simMoranSpeciesTree();
         bool    simSpeciesLociTrees();
         bool    simThreeTree();
         bool    gsaCheckStop();

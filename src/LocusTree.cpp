@@ -87,16 +87,16 @@ void LocusTree::lineageDeathEvent(int indx){
 void LocusTree::lineageTransferEvent(int indx){
     unsigned spIndxD = extantNodes[indx]->getIndex();
     int allSameSpInExtNodes = 0;
-    if(numTaxa < 5){
+//    if(numTaxa < 5){
         for(std::vector<Node*>::iterator p = extantNodes.begin(); p != extantNodes.end(); ++p){
             unsigned checkInd = (*p)->getIndex();
-            if(checkInd == spIndxD){
+            if(checkInd != spIndxD){
                 allSameSpInExtNodes++;
             }
         }
-        if(allSameSpInExtNodes == extantNodes.size())
+        if(allSameSpInExtNodes == 0)
             return;
-    }
+ //   }
     //first a birth event
     Node *donor, *rec;
     donor = new Node();

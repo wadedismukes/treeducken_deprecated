@@ -174,6 +174,20 @@ void Simulator::prepGSATreeForReconstruction(){
     spTree->setGSATipTreeFlags();
 }
 
+bool Simulator::simMoranSpeciesTree(){
+    bool simgood = false;
+    while(!simgood){
+        simgood = moranSpeciesSim();
+    }
+    return simgood;
+}
+
+bool Simulator::moranSpeciesSim(){
+    bool  treeComplete = false;
+    
+    
+    return treeComplete;
+}
 
 bool Simulator::simSpeciesTree(){
     bool good = false;
@@ -270,6 +284,7 @@ bool Simulator::simSpeciesLociTrees(){
             while(!spGood){
                 spGood = gsaBDSim();
             }
+            std::cout << "Simulating loci #" <<  i + 1 << std::endl;
             good = bdsaBDSim();
         }
         locusTrees.push_back(lociTree);

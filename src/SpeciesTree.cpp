@@ -188,25 +188,25 @@ void SpeciesTree::setGSATipTreeFlags(){
 }
 
 
-void SpeciesTree::setSampleFromFlags(){
-    int flag;
-    Node *q = NULL;
-    for(std::vector<Node*>::iterator p=nodes.begin(); p!=nodes.end(); p++){
-        if((*p)->getIsTip()){
-            flag = (*p)->getFlag();
-            q = (*p);
-            if(flag == 1){
-                while(q->getIsRoot() == false && flag < 2){
-                    q = q->getAnc();
-                    flag = q->getFlag();
-                    flag++;
-                    q->setFlag(flag);
-                    
-                }
-            }
-        }
-    }
-}
+//void SpeciesTree::setSampleFromFlags(){
+//    int flag;
+//    Node *q = NULL;
+//    for(std::vector<Node*>::iterator p=nodes.begin(); p!=nodes.end(); p++){
+//        if((*p)->getIsTip()){
+//            flag = (*p)->getFlag();
+//            q = (*p);
+//            if(flag == 1){
+//                while(q->getIsRoot() == false && flag < 2){
+//                    q = q->getAnc();
+//                    flag = q->getFlag();
+//                    flag++;
+//                    q->setFlag(flag);
+//                    
+//                }
+//            }
+//        }
+//    }
+//}
 
 void SpeciesTree::popNodes(){
     nodes.clear();

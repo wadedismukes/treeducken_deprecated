@@ -31,7 +31,6 @@ class LocusTree : public Tree
         void    lineageTransferEvent(int indx);
         void    ermEvent(double ct);
     
-    
         int     speciationEvent(int indx, double time, std::pair<int,int> sibs);
         void    extinctionEvent(int indx, double time);
         void    setNewIndices(int indx, std::pair<int,int> sibs, int count);
@@ -46,9 +45,9 @@ class LocusTree : public Tree
         void    setCurrentTime(double ct) {currentTime = ct; }
         std::multimap<int,double>     getBirthTimesFromNodes();
         std::multimap<int,double>     getDeathTimesFromNodes();
-        std::multimap<int,double>       getDeathTimesFromExtinctNodes();
+        std::multimap<int,double>     getDeathTimesFromExtinctNodes();
         std::map<int,int>             getLocusToSpeciesMap();
-        std::unordered_set<int>                 getExtantLoci();
+        std::unordered_set<int>       getExtantLoci();
         int     postOrderTraversalStep(int indx);
     
     

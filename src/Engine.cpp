@@ -78,7 +78,8 @@ void Engine::doRunRun(){
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
-            ti->setGeneTreeByIndx(i, treesim->printGeneTreeNewick(i));
+            if(simType == 3)
+                ti->setGeneTreeByIndx(i, treesim->printGeneTreeNewick(i));
         }
         simSpeciesTrees.push_back(ti);
         // TODO: rewrite the set whole tree string info to insert the string for each tree in a run
@@ -92,11 +93,12 @@ void Engine::doRunRun(){
 void Engine::writeTreeFiles(){
     
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
-        int d = std::distance(simSpeciesTrees.begin(), p);
+        int d = (int) std::distance(simSpeciesTrees.begin(), p);
         (*p)->writeWholeTreeFileInfo(d, outfilename);
         for(int i = 0; i < numLoci; i++){
             (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
-            (*p)->writeGeneTreeFileInfoByIndx(d, i, outfilename);
+            if(simType == 3)
+                (*p)->writeGeneTreeFileInfoByIndx(d, i, outfilename);
         }
     }
 }

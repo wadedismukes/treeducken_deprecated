@@ -17,7 +17,7 @@ void printSettings();
 void printHelp(){
     std::cout << "\tHere are the available options that you can change (default values are in []):\n";
     std::cout << "\t\t-i    : input settings file \n";
-    std::cout << "\t\t-o    : output file name prefix **\n";
+    std::cout << "\t\t-o    : output file name prefix [= ""]\n";
     std::cout << "\t\t-nt   : number of extant taxa [= 100]\n";
     std::cout << "\t\t-r    : number of replicates [= 10]\n";
     std::cout << "\t\t-nloc : number of loci to simulate [= 0]\n";
@@ -36,11 +36,12 @@ void printHelp(){
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
                    double gbr, double gdr, double lgtr, int ipp, int ne){
-    std::cout << "\t\t output file name prefix        = " << of << "\n";
-    std::cout << "\t\t Number of extant taxa          = " << nt << "\n";
+    std::cout << "\t\toutput file name prefix         = " << of << "\n";
+    std::cout << "\t\tNumber of extant taxa           = " << nt << "\n";
     std::cout << "\t\tNumber of replicates            = " << r << "\n";
+    std::cout << "\t\tNumber of loci to simulate      = " << nloc << "\n";
     std::cout << "\t\tSpecies birth rate              = " << sbr << "\n";
-    std::cout << "\t\tSpecies death rate              = " << sdr << "\n";\
+    std::cout << "\t\tSpecies death rate              = " << sdr << "\n";
     std::cout << "\t\tGene birth rate                 = " << gbr << "\n";
     std::cout << "\t\tGene death rate                 = " << gdr << "\n";
     std::cout << "\t\tGene transfer rate              = " << lgtr << "\n";
@@ -59,7 +60,7 @@ int main(int argc, char * argv[]) {
     }
     else{
         std::string outName = "";
-        int nt = 100, r = 10, nloc = 0, ipp = 0, ne = 0, sd1 = 0, sd2 = 0;
+        int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0;
         double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];
@@ -155,21 +156,41 @@ int main(int argc, char * argv[]) {
             std::cerr << "species birth rate of 0.0 is invalid, exiting...\n";
             return 0;
         }
-        else if (gbr <= 0.0){
-            mt = 1;
-            std::cout << "gene birth rate is not a postive number, no loci or gene trees will be simulated.\n";
-            printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne);
+        if(nloc > 0){
+            if (gbr <= 0.0){
+                if(gbr < 0.0){
+                    mt = 1;
+                    std::cout << "gene birth rate is a negative number, no loci or gene trees will be simulated.\n";
+                }
+                else{
+                    if(ne >  0 && ipp > 0 && ipp <= ne){
+                        mt = 3;
+                        std::cout << "gene birth rate is 0.0, locus trees will match species trees.\n";
+                    }
+                    else{
+                        std::cout << "gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
+                        std::cout << "population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                        mt = 2;
+                    }
+                }
+                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne);
 
-        }
-        else if (ne <= 0 || ipp <= 0 || ipp > ne){
-            mt = 2;
-            std::cout << "gene tree parameters are incorrectly specified. population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
-            printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne);
+            }
+            else if (ne <= 0 || ipp <= 0 || ipp > ne){
+                mt = 2;
+                std::cout << "gene tree parameters are incorrectly specified.\n";
+                std::cout << "population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne);
 
+            }
+            else{
+                mt = 3;
+                std::cout << "Simulating sets of three trees.\n";
+            }
         }
         else{
-            mt = 3;
-            std::cout << "Simulating sets of three trees.\n";
+            std::cout << "Number of loci to simulate is set to 0." << std::endl;
+            mt = 1;
         }
         phyEngine = new Engine(outName,
                                mt,

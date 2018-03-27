@@ -49,7 +49,7 @@ class SpeciesTree : public Tree
         void          popNodes();
         void          recPopNodes(Node *p);
         void          reconstructLineageFromGSASim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
-        void          setSampleFromFlags();
+      //  void          setSampleFromFlags();
         std::map<int,double>        getBirthTimesFromNodes();
         std::map<int,double>        getDeathTimesFromNodes();
         double                      getCurrentTimeFromExtant() {return extantNodes[0]->getDeathTime();}

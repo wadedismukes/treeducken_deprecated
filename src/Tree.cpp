@@ -90,3 +90,71 @@ void Tree::zeroAllFlags(){
     }
 }
 
+void Tree::setWholeTreeFlags(){
+    this->zeroAllFlags();
+    numTotalTips = 0;
+    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+        if((*p)->getIsTip()){
+            (*p)->setFlag(1);
+            numTotalTips++;
+        }
+    }
+    setSampleFromFlags();
+}
+
+
+void Tree::setExtantTreeFlags(){
+    this->zeroAllFlags();
+    numTotalTips = 0;
+    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+        (*p)->setFlag(1);
+    }
+    setSampleFromFlags();
+}
+
+
+void Tree::setSampleFromFlags(){
+    
+    
+    int flag;
+    Node *q = NULL;
+    for(std::vector<Node *>::iterator p=nodes.begin(); p!=nodes.end(); p++){
+        if((*p)->getIsTip()){
+            flag = (*p)->getFlag();
+            q = (*p);
+            if(flag == 1){
+                do{
+                    q = q->getAnc();
+                    flag = q->getFlag();
+                    flag++;
+                    q->setFlag(flag);
+                }while (q->getIsRoot() == false && flag < 2);
+            }
+        }
+    }
+}
+
+
+double Tree::getTotalTreeLength(){
+    double sum = 0.0;
+    for(std::vector<Node*>::iterator p = nodes.begin(); p != nodes.end(); ++p){
+        Node *n = (*p);
+        sum += n->getBranchLength();
+    }
+    return sum;
+}
+
+double Tree::getTreeDepth(){
+    double td = 0.0;
+    Node *r = this->getRoot();
+    while(r->getIsTip() == false){
+        td += r->getBranchLength();
+        if(!(r->getLdes()->getIsExtinct()))
+            r = r->getLdes();
+        else
+            r = r->getRdes();
+        
+    }
+    return td;
+}
+

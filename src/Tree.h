@@ -91,9 +91,14 @@ class Tree
         void        setRoot(Node *r) { root = r; }
         double      getNumExtant() {return numExtant; }
         double      getNumExtinct() {return numExtinct; }
-        int     getNodesSize() { return (int) nodes.size(); }
-
+        int         getNodesSize() { return (int) nodes.size(); }
+        double      getTotalTreeLength();
+        double      getTreeDepth();
         void        zeroAllFlags();
+        void        setWholeTreeFlags();
+        void        setExtantTreeFlags();
+        void        setSampleFromFlags();
+    
         virtual double  getTimeToNextEvent() { return 0.0; }
         virtual void    lineageBirthEvent() { return; }
         virtual void    lineageDeathEvent() { return; }

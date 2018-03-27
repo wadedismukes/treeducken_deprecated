@@ -282,6 +282,7 @@ void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
 }
 
 void GeneTree::setTreeTipNames(){
+    int indNumber = 0;
     std::stringstream tn;
     std::string name;
     int indx;
@@ -292,7 +293,14 @@ void GeneTree::setTreeTipNames(){
             name = tn.str();
             tn.clear();
             tn.str(std::string());
-
+            indNumber++;
+            tn << indNumber;
+            name += "_" + tn.str();
+            tn.clear();
+            tn.str(std::string());
+            (*it)->setName(name);
+            if(indNumber == individualsPerPop)
+                indNumber = 0;
         }
 
     }
