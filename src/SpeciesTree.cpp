@@ -242,10 +242,11 @@ void SpeciesTree::reconstructTreeFromGSASim(Node *oRoot){
     unsigned tipCounter = extantStop;
     unsigned intNodeCounter = 0;
     reconstructLineageFromGSASim(n, oRoot, tipCounter, intNodeCounter);
+    delete n;
 }
 
 void SpeciesTree::reconstructLineageFromGSASim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter){
-    Node *p = new Node();
+    Node *p;
     bool rootN = prevN->getIsRoot();
     double brlen = prevN->getBranchLength();
     int oFlag = prevN->getFlag();

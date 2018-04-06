@@ -94,6 +94,7 @@ class Tree
         int         getNodesSize() { return (int) nodes.size(); }
         double      getTotalTreeLength();
         double      getTreeDepth();
+        double      getCurrentTime() {return currentTime; }
         void        zeroAllFlags();
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();

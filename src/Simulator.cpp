@@ -363,6 +363,9 @@ bool Simulator::coalescentSim(){
 
                 ancIndx = lociTree->postOrderTraversalStep(*locIt);
                 reachedEnd = geneTree->censorCoalescentProcess(currentSimTime, *it, *locIt, ancIndx);
+                currentSimTime = geneTree->getCurrentTime();
+                std::cout << currentSimTime << std::endl;
+
                 // if censored coalescent process reached the end of the epoch with only one lineage
                 // remaining traverse down the tree, otherwise go to the next contemporaneous loci
                 if(!(reachedEnd)){
@@ -386,10 +389,9 @@ bool Simulator::coalescentSim(){
         }
         else{
             // perform the final coalescent process that can go into the stem (i.e. past the root) of the locustree 
-            currentSimTime = 0.0;
             geneTree->rootCoalescentProcess(currentSimTime);
             treeGood = true;
-           spToLo = lociTree->getLocusToSpeciesMap();
+            spToLo = lociTree->getLocusToSpeciesMap();
             geneTree->setIndicesBySpecies(spToLo);
             break;
         }

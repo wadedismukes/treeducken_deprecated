@@ -33,7 +33,7 @@ void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multim
         for(int j = 0; j < individualsPerPop; j++){
             p = new Node();
             p->setDeathTime(locusDeathMap.find(*it)->second);
-            p->setIndx(*it);
+            p->setLindx(*it);
             p->setLdes(NULL);
             p->setRdes(NULL);
             p->setAnc(NULL);
@@ -48,7 +48,7 @@ void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multim
 
 double GeneTree::getTimeToNextEvent(int n){
     double ct;
-    double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
+    double lambda = (double)(n * (n - 1)) / (2) ;
     ct = -log(rando->uniformRv()) * (lambda);
     
     return ct;
@@ -65,7 +65,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     Node *r, *l;
     std::vector<Node*>::iterator it = extantNodes.begin();
     for(; it != extantNodes.end(); ){
-        indx = (*it)->getIndex();
+        indx = (*it)->getLindx();
         if(indx == contempSpeciesIndx){
             p = *it;
             coalescingNodes.push_back(p);
@@ -111,14 +111,15 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     it = coalescingNodes.begin();
     if(!(reachedTime)){
         for(; it != coalescingNodes.end(); ++it){
-            time = stopTime;
-            (*it)->setIndx(ancSpIndx);
+            currentTime = stopTime;
+            (*it)->setLindx(ancSpIndx);
             extantNodes.push_back((*it));
         }
     }
     else{
         for(; it != coalescingNodes.end(); ++it){
-            (*it)->setIndx(contempSpeciesIndx);
+            currentTime = time;
+            (*it)->setLindx(contempSpeciesIndx);
             extantNodes.push_back((*it));
         }
 
@@ -135,7 +136,7 @@ Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
     n->setIsExtant(false);
     n->setIsTip(false);
     n->setIsExtinct(false);
-    n->setIndx(p->getIndex());
+    n->setLindx(p->getLindx());
     nodes.push_back(n);
     
     p->setBirthTime(t);
@@ -155,7 +156,7 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
     std::pair<int, double> p;
     for(std::multimap<int, double>::iterator it = timeMap.begin(); it != timeMap.end(); ++it){
         p.first = (*it).first;
-        p.second = ((*it).second * generationTime) ;
+        p.second = ((*it).second / (2 * popSize)) ;
         rescaledTimeMap.insert(p);
     }
     
@@ -197,7 +198,6 @@ void GeneTree::rootCoalescentProcess(double startTime){
 //        this->recursiveRescaleTimes(this->getRoot(), time);
 //    }
     this->setBranchLengths();
-    this->setTreeTipNames();
 }
 
 
@@ -234,7 +234,7 @@ void GeneTree::addExtinctSpecies(double bt, int indx){
     for(int i = 0; i < individualsPerPop; i++){
         p = new Node();
         p->setDeathTime(bt);
-        p->setIndx(indx);
+        p->setLindx(indx);
         p->setLdes(NULL);
         p->setRdes(NULL);
         p->setAnc(NULL);
@@ -251,10 +251,11 @@ void GeneTree::setIndicesBySpecies(std::map<int, int> spToLocusMap){
     int indx;
     int spIndx;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        indx = (*it)->getIndex();
+        indx = (*it)->getLindx();
         spIndx = spToLocusMap.find(indx)->second;
         (*it)->setIndx(spIndx);
     }
+    this->setTreeTipNames();
 }
 
 std::string GeneTree::printNewickTree(){
