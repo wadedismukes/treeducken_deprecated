@@ -5,13 +5,13 @@ CXX = g++
 CXXFLAGS = -Wall -g
 VARNAME = value
 
-objects = multiTree.o SpeciesTree.o Simulator.o GeneTree.o LocusTree.o MbRandom.o Tree.o Engine.o
+objects = Treeducken.o SpeciesTree.o Simulator.o GeneTree.o LocusTree.o MbRandom.o Tree.o Engine.o
 
-install: $(objects)
-	$(CXX) -o ../multiTree $(objects)
+install: $(objects) 
+	$(CXX) -o ../treeducken $(objects)
 
-multiTree.o: multiTree.cpp SpeciesTree.h Simulator.h GeneTree.h LocusTree.h MbRandom.h Tree.h Engine.h
-	$(CXX) $(CXXFLAGS) -c multiTree.cpp
+Treeducken.o: Treeducken.cpp SpeciesTree.h Simulator.h GeneTree.h LocusTree.h MbRandom.h Tree.h Engine.h
+	$(CXX) $(CXXFLAGS) -c Treeducken.cpp
 
 SpeciesTree.o: SpeciesTree.h Tree.h
 	$(CXX) $(CXXFLAGS) -c SpeciesTree.cpp
@@ -36,4 +36,4 @@ Engine.o: Engine.h Simulator.h
  
 .PHONY : clean 
 clean: 
-	-rm ../multiTree $(objects)
+	-rm ../treeducken $(objects)

@@ -1,5 +1,5 @@
-# multiTree
-multiTree is for the simulation of phylogenies under the three tree model (Rasmussen &amp; Kellis 2012). These three trees represent the species tree, locus (i.e. gene family) tree, and the gene tree.
+# treeducken 
+treeducken, named after the infamous [dish](https://en.wikipedia.org/wiki/Turducken) is for the simulation of phylogenies under the three tree model (Rasmussen &amp; Kellis 2012). These three trees represent the species tree, locus (i.e. gene family) tree, and the gene tree. If you prefer, you may think of the species tree as the turkey, locus tree as the duck, and gene tree as the chicken in our phylogenetic three-bird roast.
 
 --------
 
