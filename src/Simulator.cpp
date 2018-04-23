@@ -364,7 +364,7 @@ bool Simulator::coalescentSim(){
                 ancIndx = lociTree->postOrderTraversalStep(*locIt);
                 reachedEnd = geneTree->censorCoalescentProcess(currentSimTime, *it, *locIt, ancIndx);
                 currentSimTime = geneTree->getCurrentTime();
-                std::cout << currentSimTime << std::endl;
+                // std::cout << currentSimTime << std::endl;
 
                 // if censored coalescent process reached the end of the epoch with only one lineage
                 // remaining traverse down the tree, otherwise go to the next contemporaneous loci

@@ -14,7 +14,7 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
     individualsPerPop = ipp;
     popSize = ne;
     generationTime = genTime;
-    
+        
 }
 
 GeneTree::~GeneTree(){
