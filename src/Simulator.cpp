@@ -307,8 +307,10 @@ std::set<double, std::greater<double> > Simulator::getEpochs(std::multimap<int,d
     std::set<double, std::greater<double> > epochs;
     
     for(std::multimap<int, double>::iterator it = birthMap.begin(); it != birthMap.end(); ++it){
+        std::cout << "epoch " << (*it).first << ", time: " << (*it).second << std::endl;
         epochs.insert((*it).second);
     }
+    
     
     
     return epochs;
@@ -320,24 +322,23 @@ bool Simulator::coalescentSim(){
     bool reachedEnd = true;
     int ancIndx;
     geneTree = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
-
-    currentSimTime *= (generationTime);
+   // currentSimTime *= popSize;
     std::map<int,int> spToLo;
     
     // map with keys as indices of lociTree nodes vector, values birth times
     std::multimap<int, double> locusBirthMap = lociTree->getBirthTimesFromNodes();
     // scale to generations
-    locusBirthMap = geneTree->rescaleTimes(locusBirthMap);
-    
+    //locusBirthMap = geneTree->rescaleTimes(locusBirthMap);
+
     // map with keys as indices of lociTree nodes vector, values death times
     std::multimap<int, double> locusDeathMap = lociTree->getDeathTimesFromNodes();
     // scale from "years" to generations
-    locusDeathMap = geneTree->rescaleTimes(locusDeathMap);
+    //locusDeathMap = geneTree->rescaleTimes(locusDeathMap);
     
     // map with keys as indices of lociTree nodes vector, values death times, this includes ONLY extinct loci
     std::multimap<int,double> deadSpeciesStartTimes = lociTree->getDeathTimesFromExtinctNodes();
     // scale from "years" to generations
-    deadSpeciesStartTimes = geneTree->rescaleTimes(deadSpeciesStartTimes);
+    //deadSpeciesStartTimes = geneTree->rescaleTimes(deadSpeciesStartTimes);
     
     // unordered set containing loci that are currently alive
     std::unordered_set<int> contempLoci;

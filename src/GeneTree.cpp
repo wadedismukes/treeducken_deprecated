@@ -48,9 +48,9 @@ void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multim
 
 double GeneTree::getTimeToNextEvent(int n){
     double ct;
-    double lambda = (double)(n * (n - 1)) / (2) ;
-    ct = -log(rando->uniformRv()) * (lambda);
-    
+    double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
+    ct = -log(rando->uniformRv()) / (lambda);
+    std::cout << ct << std::endl;
     return ct;
 }
 
@@ -59,6 +59,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     int indx;
     Node *p;
     std::vector<Node*> coalescingNodes;
+    std::cout << "start time is " << startTime << ", end time is " << stopTime << std::endl;
     double time = startTime;
     int leftInd, rightInd;
     bool reachedTime = false;
@@ -77,7 +78,8 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
         }
     
     }
-    if(coalescingNodes.size() < 1)
+    std::cout << "current nodes in species " << contempSpeciesIndx << " is " << coalescingNodes.size() << std::endl;
+    if(coalescingNodes.size() < 2)
         return reachedTime = true;
     else{
         it = coalescingNodes.begin();
@@ -156,7 +158,7 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
     std::pair<int, double> p;
     for(std::multimap<int, double>::iterator it = timeMap.begin(); it != timeMap.end(); ++it){
         p.first = (*it).first;
-        p.second = ((*it).second / (2 * popSize)) ;
+        p.second = ((*it).second) ;
         rescaledTimeMap.insert(p);
     }
     
@@ -167,6 +169,7 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
 void GeneTree::rootCoalescentProcess(double startTime){
     Node *r, *l, *p;
     double time = startTime;
+    
     int rightInd, leftInd;
     std::vector<Node*>::iterator it = extantNodes.begin();
     while(extantNodes.size() > 1){

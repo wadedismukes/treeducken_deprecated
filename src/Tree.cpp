@@ -9,7 +9,6 @@
 #include "Tree.h"
 #include <vector>
 #include <string>
-//TODO: fix something
 
 Node::Node()
 {

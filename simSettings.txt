@@ -5,13 +5,13 @@
 -sd2 0
 # number of taxa
 # number of taxa
--nt 100
+-nt 4
 # species birth rate
--sbr 0.02
+-sbr 0.0002
 # species death rate
 -sdr 0.0
--r 10
--nl 10
+-r 1
+-nl 1
 # Locus Tree Simulation parameters
 # gene birth rate
 -gbr 0.0
@@ -23,4 +23,4 @@
 # individuals per locus to be sampled 
 -ipp 4
 # effective population size
--ne 10
+-ne 100

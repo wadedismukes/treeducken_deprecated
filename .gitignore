@@ -1,2 +1,4 @@
 *.o
 ./sim_files/*
+.vscode/*
+*.tre

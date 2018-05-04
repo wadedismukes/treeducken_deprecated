@@ -16,7 +16,7 @@ class GeneTree : public Tree {
         unsigned numTips;
         unsigned individualsPerPop;
         unsigned popSize;
-        double   generationTime;
+        double   generationTime; // specified in generations per year
     
     public:
                     GeneTree(MbRandom *rando, unsigned nt, unsigned ipp, unsigned ne, double genTime);
