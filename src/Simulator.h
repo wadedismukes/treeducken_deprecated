@@ -62,7 +62,7 @@ class Simulator
         std::string    printLocusTreeNewick(int i);
         std::string    printGeneTreeNewick(int i);
     
-        std::set<double, std::greater<double> > getEpochs(std::multimap<int, double> locBirthMap);
+        std::set<double, std::greater<double> > getEpochs();
 };
 
 

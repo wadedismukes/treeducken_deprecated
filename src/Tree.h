@@ -99,6 +99,8 @@ class Tree
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
         void        setSampleFromFlags();
+        std::vector<Node*> getNodes() { return nodes; }
+        std::vector<Node*> getExtantNodes() { return extantNodes; }
     
         virtual double  getTimeToNextEvent() { return 0.0; }
         virtual void    lineageBirthEvent() { return; }

@@ -1,8 +1,8 @@
 # EXAMPLE simulation settings file
 # Species Tree Simulation parameters
 # optionally you may set your own seeds, the 0 setting will generate new seeds
--sd1 0
--sd2 0
+-sd1 45023
+-sd2 23276
 # number of taxa
 # number of taxa
 -nt 4
@@ -21,6 +21,6 @@
 -lgtr 0.0
 # Gene Tree Simulation parameters
 # individuals per locus to be sampled 
--ipp 4
+-ipp 2
 # effective population size
 -ne 100

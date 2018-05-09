@@ -302,102 +302,87 @@ std::string Simulator::printLocusTreeNewick(int i){
 }
 
 
-std::set<double, std::greater<double> > Simulator::getEpochs(std::multimap<int,double> birthMap){
-    
+std::set<double, std::greater<double> > Simulator::getEpochs(){
     std::set<double, std::greater<double> > epochs;
-    
-    for(std::multimap<int, double>::iterator it = birthMap.begin(); it != birthMap.end(); ++it){
-        std::cout << "epoch " << (*it).first << ", time: " << (*it).second << std::endl;
-        epochs.insert((*it).second);
+    std::vector<Node*> lociTreeNodes = lociTree->getNodes();
+    for(std::vector<Node*>::iterator it = lociTreeNodes.begin(); it != lociTreeNodes.end(); ++it){
+        if(!((*it)->getIsExtinct())){
+            if((*it)->getIsTip())
+                epochs.insert((*it)->getDeathTime());
+            epochs.insert((*it)->getBirthTime());
+        }
+        else
+            epochs.insert((*it)->getDeathTime());
     }
-    
-    
-    
     return epochs;
 }
 
 
 bool Simulator::coalescentSim(){
     bool treeGood = false;
-    bool reachedEnd = true;
-    int ancIndx;
     geneTree = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
-   // currentSimTime *= popSize;
+
     std::map<int,int> spToLo;
-    
-    // map with keys as indices of lociTree nodes vector, values birth times
-    std::multimap<int, double> locusBirthMap = lociTree->getBirthTimesFromNodes();
-    // scale to generations
-    //locusBirthMap = geneTree->rescaleTimes(locusBirthMap);
 
-    // map with keys as indices of lociTree nodes vector, values death times
-    std::multimap<int, double> locusDeathMap = lociTree->getDeathTimesFromNodes();
-    // scale from "years" to generations
-    //locusDeathMap = geneTree->rescaleTimes(locusDeathMap);
-    
-    // map with keys as indices of lociTree nodes vector, values death times, this includes ONLY extinct loci
-    std::multimap<int,double> deadSpeciesStartTimes = lociTree->getDeathTimesFromExtinctNodes();
-    // scale from "years" to generations
-    //deadSpeciesStartTimes = geneTree->rescaleTimes(deadSpeciesStartTimes);
-    
-    // unordered set containing loci that are currently alive
-    std::unordered_set<int> contempLoci;
-    // get all time slices to simulate through
-    std::set<double, std::greater<double> > epochs = getEpochs(locusDeathMap);
-    
-    currentSimTime = *(epochs.begin());
-    epochs.erase(epochs.begin());
-    epochs.insert(epochs.end(), 0.0);
-    // need to populate extantNodes with extant loci (indPerPop for each loci)
-    contempLoci = lociTree->getExtantLoci();
-    // set Node values in geneTree
-    geneTree->initializeTree(contempLoci, locusDeathMap);
-    std::unordered_set<int>::iterator contempLociEnd;
-    
-    
-    for(std::set<double, std::greater<double> >::iterator it = epochs.begin(); it != epochs.end(); ++it){
-        
-        contempLociEnd = contempLoci.end();
-        if(*it != 0.0){
-            for(std::unordered_set<int>::iterator locIt = contempLoci.begin(); locIt != contempLociEnd; ){
-                
+    int ancIndx;
+    int epochCount = 0;
 
-                ancIndx = lociTree->postOrderTraversalStep(*locIt);
-                reachedEnd = geneTree->censorCoalescentProcess(currentSimTime, *it, *locIt, ancIndx);
-                currentSimTime = geneTree->getCurrentTime();
-                // std::cout << currentSimTime << std::endl;
+    double stopTime, stopTimeEpoch, stopTimeLoci;
+    bool allCoalesced = false, deathCheck = false;
+    
+    std::set<double, std::greater<double> > epochs = getEpochs();
+    int numEpochs = (int) epochs.size();
 
-                // if censored coalescent process reached the end of the epoch with only one lineage
-                // remaining traverse down the tree, otherwise go to the next contemporaneous loci
-                if(!(reachedEnd)){
-                    locIt = contempLoci.erase(locIt);
-                    contempLoci.insert(locIt, ancIndx);
+    std::vector< std::vector<int> > contempLoci = lociTree->getExtantLoci(epochs);
+    std::map<int, double> stopTimes = lociTree->getBirthTimesFromNodes();
+    geneTree->initializeTree(contempLoci, *(epochs.begin()));
+    
+    for(std::set<double, std::greater<double> >::iterator epIter = epochs.begin(); epIter != epochs.end(); ++epIter){
+        currentSimTime = *epIter;
+        if(epochCount != numEpochs - 1){
+            epIter = std::next(epIter, 1);
+            stopTimeEpoch = *epIter;
+            for(int j = 0; j < contempLoci[epochCount].size(); ++j){
+                stopTimeLoci = stopTimes[contempLoci[epochCount][j]];
+                if(stopTimeLoci > stopTimeEpoch){
+                    stopTime = stopTimeLoci;
+                    deathCheck = true;
                 }
                 else{
-                    ++locIt;
+                    stopTime = stopTimeEpoch;
+                    deathCheck = false;
+                }
+                ancIndx = lociTree->postOrderTraversalStep(contempLoci[epochCount][j]);
+                allCoalesced = geneTree->censorCoalescentProcess(currentSimTime, stopTime, contempLoci[epochCount][j], ancIndx, deathCheck);
+                
+                
+                // if all coalesced remove that loci from the matrix of loci
+                if(allCoalesced){
+                    int check = contempLoci[epochCount][j];
+                    contempLoci[epochCount].push_back(ancIndx);
+                    for(int k = epochCount; k < numEpochs; k++){
+                        for(int m = 0; m < contempLoci[k].size(); ++m){
+                            if(contempLoci[k][m] == check){
+                                contempLoci[k].erase(contempLoci[k].begin() + m);
+                                
+                                break;
+                            }
+                        }
+                    }
                 }
             }
-            // check for extinct loci to begin simulating on
-            for(std::multimap<int,double>::iterator temp = deadSpeciesStartTimes.begin(); temp != deadSpeciesStartTimes.end(); ++temp){
-                if(temp->second == *it){
-                    //std::cout << "epoch time: " << *it << std::endl;
-                   // std::cout << "added locus " << temp->first << std::endl;
-                    geneTree->addExtinctSpecies(temp->second, temp->first);
-                    contempLoci.insert(temp->first);
-                }
-            }
-            currentSimTime = *it;
+            epIter = std::prev(epIter, 1); 
         }
         else{
-            // perform the final coalescent process that can go into the stem (i.e. past the root) of the locustree 
+            // finish coalescing
             geneTree->rootCoalescentProcess(currentSimTime);
             treeGood = true;
-            spToLo = lociTree->getLocusToSpeciesMap();
-            geneTree->setIndicesBySpecies(spToLo);
-            break;
         }
-
+        epochCount++;
     }
+
+    spToLo = lociTree->getLocusToSpeciesMap();
+    geneTree->setIndicesBySpecies(spToLo);
 
     return treeGood;
 }

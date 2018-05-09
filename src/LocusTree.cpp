@@ -467,10 +467,10 @@ std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
     return deathTimeMap;
 }
 
-std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
+std::map<int, double> LocusTree::getBirthTimesFromNodes(){
     int locusIndx;
     double birthTime;
-    std::multimap<int,double> birthTimeMap;
+    std::map<int,double> birthTimeMap;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         locusIndx = (int)(*it)->getLindx();
         birthTime = (*it)->getBirthTime();
@@ -479,16 +479,34 @@ std::multimap<int, double> LocusTree::getBirthTimesFromNodes(){
     return birthTimeMap;
 }
 
-std::unordered_set<int> LocusTree::getExtantLoci(){
-    std::unordered_set<int> indxExtantLoci;
+std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::greater<double> > epochs){
+
     int locusIndx;
-    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        if((*it)->getIsExtant()){
-            locusIndx = (int)(*it)->getLindx();
-            indxExtantLoci.insert(indxExtantLoci.end(), locusIndx);
+    int epCount = 0;
+    int numEpochs = (int) epochs.size();
+    Node* anc;
+    std::vector< std::vector<int> > locusInEpoch(numEpochs);
+    for(std::set<double, std::greater<double> >::iterator epIt = epochs.begin(); epIt != epochs.end(); ++epIt){
+        for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+            if(epCount == 0){
+                if((*it)->getIsTip()){
+                    locusIndx = (*it)->getLindx();
+                    locusInEpoch[epCount].push_back(locusIndx);
+
+                }
+            }
+            else{
+                if((*it)->getDeathTime() >= (*epIt)){
+                    locusIndx = (*it)->getLindx();
+                    locusInEpoch[epCount].push_back(locusIndx);
+                }
+            }
         }
+
+        epCount++;
     }
-    return indxExtantLoci;
+
+    return locusInEpoch;
 }
 
 int LocusTree::postOrderTraversalStep(int indx){

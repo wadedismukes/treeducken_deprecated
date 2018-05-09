@@ -2,7 +2,7 @@
 CXX = g++
 
 # control variables
-CXXFLAGS = -Wall -g
+CXXFLAGS = -g
 VARNAME = value
 
 objects = Treeducken.o SpeciesTree.o Simulator.o GeneTree.o LocusTree.o MbRandom.o Tree.o Engine.o

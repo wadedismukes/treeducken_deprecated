@@ -10,6 +10,7 @@
 #define GeneTree_h
 
 #include "LocusTree.h"
+#include <algorithm>
 
 class GeneTree : public Tree {
     private:
@@ -23,8 +24,8 @@ class GeneTree : public Tree {
                     ~GeneTree();
         double      getTimeToNextEvent(int n); // what do you need to determine this?
         Node*       coalescentEvent(double t, Node *p, Node *q);
-        bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx);
-        void        initializeTree(std::unordered_set<int> extantLociIndx, std::multimap<int,double> locusDeathTimes);
+        bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx, bool chck);
+        void        initializeTree(std::vector< std::vector<int> > extantLociIndx, double presentTime);
         std::multimap<int,double> rescaleTimes(std::multimap<int, double> timeMap);
         void        rootCoalescentProcess(double startTime);
         void        recursiveRescaleTimes(Node *r, double add);

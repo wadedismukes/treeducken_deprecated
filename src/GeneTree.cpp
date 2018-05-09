@@ -21,7 +21,7 @@ GeneTree::~GeneTree(){
     
 }
 
-void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multimap<int,double> locusDeathMap){
+void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, double presentTime){
     if(!(nodes.empty())){
         nodes.clear();
     }
@@ -29,11 +29,12 @@ void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multim
         extantNodes.clear();
     }
     Node *p;
-    for(std::unordered_set<int>::iterator it = extantLociInd.begin(); it != extantLociInd.end(); ++it){
+    int numLociInPresnt = extantLociInd[0].size();
+    for(int i = 0; i < numLociInPresnt; i++){
         for(int j = 0; j < individualsPerPop; j++){
             p = new Node();
-            p->setDeathTime(locusDeathMap.find(*it)->second);
-            p->setLindx(*it);
+            p->setDeathTime(presentTime);
+            p->setLindx(extantLociInd[0][i]);
             p->setLdes(NULL);
             p->setRdes(NULL);
             p->setAnc(NULL);
@@ -44,90 +45,91 @@ void GeneTree::initializeTree(std::unordered_set<int> extantLociInd, std::multim
             nodes.push_back(p);
         }
     }
+
 }
 
 double GeneTree::getTimeToNextEvent(int n){
     double ct;
     double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
     ct = -log(rando->uniformRv()) / (lambda);
-    std::cout << ct << std::endl;
+    std::cout << "coal time " << ct << std::endl;
     return ct;
 }
 
-
-bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int contempSpeciesIndx, int ancSpIndx){
-    int indx;
-    Node *p;
-    std::vector<Node*> coalescingNodes;
-    std::cout << "start time is " << startTime << ", end time is " << stopTime << std::endl;
-    double time = startTime;
+bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int contempSpeciesIndx, int ancSpIndx, bool chck){
     int leftInd, rightInd;
-    bool reachedTime = false;
-    Node *r, *l;
-    std::vector<Node*>::iterator it = extantNodes.begin();
-    for(; it != extantNodes.end(); ){
-        indx = (*it)->getLindx();
-        if(indx == contempSpeciesIndx){
-            p = *it;
-            coalescingNodes.push_back(p);
-            it = extantNodes.erase(it);
-
+    int leftIndExtN, rightIndExtN;
+    int extIndx;
+    Node *l, *r;
+    Node *n;
+    double t = startTime;
+    bool allCoalesced = false;
+    // search extantNodes for members with Lindx = contempSpecisIndx 
+    std::vector<int> indInExtNodes;
+    for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
+        if((*it)->getLindx() == contempSpeciesIndx){
+            extIndx = std::distance(extantNodes.begin(), it);
+            indInExtNodes.push_back(extIndx);
         }
-        else{
-            ++it;
-        }
-    
     }
-    std::cout << "current nodes in species " << contempSpeciesIndx << " is " << coalescingNodes.size() << std::endl;
-    if(coalescingNodes.size() < 2)
-        return reachedTime = true;
+    
+    if(indInExtNodes.size() > 1){
+        while(t > stopTime){
+            t -= getTimeToNextEvent(indInExtNodes.size());
+            if(t < stopTime){
+                if(chck){
+                    t = stopTime;
+                    allCoalesced = true;
+                    break;
+                }
+                else{
+                    t = stopTime;
+                    allCoalesced = false;
+                    break;
+                }
+            }
+
+            rightInd = rando->uniformRv(0, indInExtNodes.size() - 1);
+            rightIndExtN = indInExtNodes[rightInd];
+            r = extantNodes[rightIndExtN];
+            indInExtNodes.erase(indInExtNodes.begin() + rightInd);
+
+            leftInd = rando->uniformRv(0, indInExtNodes.size() - 1);
+            leftIndExtN = indInExtNodes[leftInd];
+            l = extantNodes[leftIndExtN];
+            indInExtNodes.erase(indInExtNodes.begin() + leftInd);
+
+            n = coalescentEvent(t, l, r);
+
+            extantNodes.push_back(n);
+            iter_swap(extantNodes.begin() + leftIndExtN, extantNodes.end() - 1);
+            iter_swap(extantNodes.begin() + rightIndExtN, extantNodes.end() - 2);
+            indInExtNodes.push_back(leftIndExtN);
+            extantNodes.erase(extantNodes.end() - 2, extantNodes.end());
+            std::cout << "size of extantNodes " << extantNodes.size() << std::endl;
+            if(indInExtNodes.size() == 1){
+                allCoalesced = true;
+                break;
+            }
+        }
+    }
+    else if (indInExtNodes.size() == 1){
+        t = stopTime;
+        allCoalesced = true;
+        extantNodes[indInExtNodes[0]]->setLindx(ancSpIndx);
+    }
     else{
-        it = coalescingNodes.begin();
+        std::cout << "this shouldn't even be happnening" << std::endl;
+        return allCoalesced = false;
     }
-    
-    while(coalescingNodes.size() > 1){
-        time -= getTimeToNextEvent((int)coalescingNodes.size());
-
-        if(time < stopTime){
-            reachedTime = true;
-            break;
-        }
-        rightInd = rando->uniformRv(0, coalescingNodes.size() - 1);
-        std::advance(it, rightInd);
-        r = *it;
-        coalescingNodes.erase(it);
-        it = coalescingNodes.begin();
-
-        leftInd = rando->uniformRv(0, coalescingNodes.size() - 1);
-        std::advance(it, leftInd);
-        l = *it;
-        coalescingNodes.erase(it);
-        it = coalescingNodes.begin();
-        
-        p = coalescentEvent(time, l, r);
-        coalescingNodes.push_back(p);
-
-
-    }
-    
-    it = coalescingNodes.begin();
-    if(!(reachedTime)){
-        for(; it != coalescingNodes.end(); ++it){
-            currentTime = stopTime;
-            (*it)->setLindx(ancSpIndx);
-            extantNodes.push_back((*it));
+    if(allCoalesced == true){
+        for(int i = 0; i < indInExtNodes.size(); ++i){
+            extantNodes[indInExtNodes[i]]->setLindx(ancSpIndx);
         }
     }
-    else{
-        for(; it != coalescingNodes.end(); ++it){
-            currentTime = time;
-            (*it)->setLindx(contempSpeciesIndx);
-            extantNodes.push_back((*it));
-        }
 
-    }
-    coalescingNodes.clear();
-    return reachedTime;
+
+    return allCoalesced;
 }
 
 Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
@@ -158,7 +160,7 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
     std::pair<int, double> p;
     for(std::multimap<int, double>::iterator it = timeMap.begin(); it != timeMap.end(); ++it){
         p.first = (*it).first;
-        p.second = ((*it).second) ;
+        p.second = ((*it).second);
         rescaledTimeMap.insert(p);
     }
     
@@ -167,33 +169,34 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
 }
 
 void GeneTree::rootCoalescentProcess(double startTime){
-    Node *r, *l, *p;
-    double time = startTime;
+    int leftInd, rightInd;
+    int leftIndExtN, rightIndExtN;
+    int extIndx;
+    Node *l, *r;
+    Node *n;
+    double t = startTime;
+    // search extantNodes for members with Lindx = contempSpecisIndx 
+    std::vector<int> indInExtNodes;
     
-    int rightInd, leftInd;
-    std::vector<Node*>::iterator it = extantNodes.begin();
     while(extantNodes.size() > 1){
-        time -= getTimeToNextEvent((int)extantNodes.size());
+        t -= getTimeToNextEvent(extantNodes.size());
 
         rightInd = rando->uniformRv(0, extantNodes.size() - 1);
-        std::advance(it, rightInd);
-        r = *it;
-        extantNodes.erase(it);
-        it = extantNodes.begin();
-        
+        r = extantNodes[rightInd];
+        extantNodes.erase(extantNodes.begin() + rightInd);
+
         leftInd = rando->uniformRv(0, extantNodes.size() - 1);
-        std::advance(it, leftInd);
-        l = *it;
-        extantNodes.erase(it);
-        it = extantNodes.begin();
-        
-        p = coalescentEvent(time, l, r);
-        extantNodes.push_back(p);
+        l = extantNodes[leftInd];
+        extantNodes.erase(extantNodes.begin() + leftInd);
+
+        n = coalescentEvent(t, l, r);
+        extantNodes.push_back(n);
     }
-    
-    
+
+
+   
+
     this->setRoot(extantNodes[0]);
-    extantNodes.clear();
 //    if(extantNodes[0]->getBirthTime() < 0){
 //        time = std::abs(this->getRoot()->getDeathTime() * 2);
 //        this->getRoot()->setBirthTime(0.0);
@@ -202,7 +205,6 @@ void GeneTree::rootCoalescentProcess(double startTime){
 //    }
     this->setBranchLengths();
 }
-
 
 void GeneTree::recursiveRescaleTimes(Node* r, double add){
     if(r != NULL){
@@ -246,6 +248,7 @@ void GeneTree::addExtinctSpecies(double bt, int indx){
         p->setIsExtinct(true);
         extantNodes.push_back(p);
         nodes.push_back(p);
+        delete p;
     }
 }
 
