@@ -52,7 +52,7 @@ double GeneTree::getTimeToNextEvent(int n){
     double ct;
     double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
     ct = -log(rando->uniformRv()) / (lambda);
-    std::cout << "coal time " << ct << std::endl;
+ //   std::cout << "coal time " << ct << std::endl;
     return ct;
 }
 
@@ -72,10 +72,11 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
             indInExtNodes.push_back(extIndx);
         }
     }
-    
+    std::cout << contempSpeciesIndx << "   ($)$)%    " << indInExtNodes.size() << std::endl;
     if(indInExtNodes.size() > 1){
         while(t > stopTime){
             t -= getTimeToNextEvent(indInExtNodes.size());
+            std::cout << t << std::endl;
             if(t < stopTime){
                 if(chck){
                     t = stopTime;
@@ -101,10 +102,15 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
 
             n = coalescentEvent(t, l, r);
 
-            extantNodes.push_back(n);
-            iter_swap(extantNodes.begin() + leftIndExtN, extantNodes.end() - 1);
-            iter_swap(extantNodes.begin() + rightIndExtN, extantNodes.end() - 2);
-            indInExtNodes.push_back(leftIndExtN);
+            iter_swap(extantNodes.begin() + rightIndExtN, extantNodes.end() - 1);
+            iter_swap(extantNodes.begin() + leftIndExtN, extantNodes.end() - 2);
+            extantNodes.insert(extantNodes.begin(), n);
+            if(!(indInExtNodes.empty())){
+                for(int p = 0; p < indInExtNodes.size(); p++)
+                    indInExtNodes[p] += 1;
+            }
+            indInExtNodes.push_back(0);
+            
             extantNodes.erase(extantNodes.end() - 2, extantNodes.end());
             std::cout << "size of extantNodes " << extantNodes.size() << std::endl;
             if(indInExtNodes.size() == 1){
@@ -119,11 +125,13 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
         extantNodes[indInExtNodes[0]]->setLindx(ancSpIndx);
     }
     else{
-        std::cout << "this shouldn't even be happnening" << std::endl;
-        return allCoalesced = false;
+        // std::cout << "this shouldn't even be happnening" << std::endl;
+        allCoalesced = true;
     }
+    
     if(allCoalesced == true){
         for(int i = 0; i < indInExtNodes.size(); ++i){
+            std::cout << "**************" << std::endl;
             extantNodes[indInExtNodes[i]]->setLindx(ancSpIndx);
         }
     }
@@ -177,7 +185,9 @@ void GeneTree::rootCoalescentProcess(double startTime){
     double t = startTime;
     // search extantNodes for members with Lindx = contempSpecisIndx 
     std::vector<int> indInExtNodes;
-    
+    for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
+        (*it)->setLindx(0);
+    }
     while(extantNodes.size() > 1){
         t -= getTimeToNextEvent(extantNodes.size());
 

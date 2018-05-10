@@ -9,7 +9,7 @@
 # species birth rate
 -sbr 0.0002
 # species death rate
--sdr 0.0
+-sdr 0.0001
 -r 1
 -nl 1
 # Locus Tree Simulation parameters
@@ -23,4 +23,4 @@
 # individuals per locus to be sampled 
 -ipp 2
 # effective population size
--ne 100
+-ne 10

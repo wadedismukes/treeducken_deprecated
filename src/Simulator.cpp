@@ -343,6 +343,7 @@ bool Simulator::coalescentSim(){
             epIter = std::next(epIter, 1);
             stopTimeEpoch = *epIter;
             for(int j = 0; j < contempLoci[epochCount].size(); ++j){
+                // TODO: need to add a way of adding the extinct species into this
                 stopTimeLoci = stopTimes[contempLoci[epochCount][j]];
                 if(stopTimeLoci > stopTimeEpoch){
                     stopTime = stopTimeLoci;
@@ -359,17 +360,16 @@ bool Simulator::coalescentSim(){
                 // if all coalesced remove that loci from the matrix of loci
                 if(allCoalesced){
                     int check = contempLoci[epochCount][j];
-                    contempLoci[epochCount].push_back(ancIndx);
-                    for(int k = epochCount; k < numEpochs; k++){
+                    for(int k = epochCount + 1; k < numEpochs; k++){
                         for(int m = 0; m < contempLoci[k].size(); ++m){
                             if(contempLoci[k][m] == check){
                                 contempLoci[k].erase(contempLoci[k].begin() + m);
-                                
                                 break;
                             }
                         }
                     }
                 }
+
             }
             epIter = std::prev(epIter, 1); 
         }

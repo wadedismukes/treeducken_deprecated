@@ -489,7 +489,7 @@ std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::g
     for(std::set<double, std::greater<double> >::iterator epIt = epochs.begin(); epIt != epochs.end(); ++epIt){
         for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
             if(epCount == 0){
-                if((*it)->getIsTip()){
+                if((*it)->getIsExtant()){
                     locusIndx = (*it)->getLindx();
                     locusInEpoch[epCount].push_back(locusIndx);
 
