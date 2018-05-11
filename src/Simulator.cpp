@@ -329,21 +329,30 @@ bool Simulator::coalescentSim(){
 
     double stopTime, stopTimeEpoch, stopTimeLoci;
     bool allCoalesced = false, deathCheck = false;
-    
+    bool is_in;
+
     std::set<double, std::greater<double> > epochs = getEpochs();
     int numEpochs = (int) epochs.size();
-
+    std::set<int> extinctFolks = lociTree->getExtLociIndx();
     std::vector< std::vector<int> > contempLoci = lociTree->getExtantLoci(epochs);
     std::map<int, double> stopTimes = lociTree->getBirthTimesFromNodes();
     geneTree->initializeTree(contempLoci, *(epochs.begin()));
-    
+    std::set<int>::iterator extFolksIt;
+
     for(std::set<double, std::greater<double> >::iterator epIter = epochs.begin(); epIter != epochs.end(); ++epIter){
         currentSimTime = *epIter;
         if(epochCount != numEpochs - 1){
             epIter = std::next(epIter, 1);
             stopTimeEpoch = *epIter;
             for(int j = 0; j < contempLoci[epochCount].size(); ++j){
+                extFolksIt = extinctFolks.find(contempLoci[epochCount][j]);
+                is_in = (extFolksIt != extinctFolks.end());
+                if(is_in){
+                    geneTree->addExtinctSpecies(currentSimTime, contempLoci[epochCount][j]);
+                    // extinctFolks.erase(extFolksIt);
+                }
                 // TODO: need to add a way of adding the extinct species into this
+                // simple If statement of wheteher extinct? (won't work if coalescence doesn't occur...)
                 stopTimeLoci = stopTimes[contempLoci[epochCount][j]];
                 if(stopTimeLoci > stopTimeEpoch){
                     stopTime = stopTimeLoci;
@@ -380,10 +389,14 @@ bool Simulator::coalescentSim(){
         }
         epochCount++;
     }
-
+    //TODO: fix ILS nodes coming out as 0_1, 0_2, etc. this occurs 
+    // I believe because they are not coalescing and get resassigned to 0
+    // this may be as simple as giving them names early since I do not
+    // necessarily need to rename at end...
     spToLo = lociTree->getLocusToSpeciesMap();
     geneTree->setIndicesBySpecies(spToLo);
-
+    // TODO: occasionally (at LEAST when transfer is on) we get branch
+    // lengths being set to the same amount
     return treeGood;
 }
 

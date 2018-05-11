@@ -258,7 +258,6 @@ void GeneTree::addExtinctSpecies(double bt, int indx){
         p->setIsExtinct(true);
         extantNodes.push_back(p);
         nodes.push_back(p);
-        delete p;
     }
 }
 
@@ -278,8 +277,8 @@ std::string GeneTree::printNewickTree(){
     std::stringstream ss;
     recGetNewickTree(this->getRoot(), ss);
     ss << ";";
-    std::string spTree = ss.str();
-    return spTree;
+    std::string geneTreeString = ss.str();
+    return geneTreeString;
 }
 
 void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){

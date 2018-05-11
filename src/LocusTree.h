@@ -44,6 +44,7 @@ class LocusTree : public Tree
         double  getCurrentTime() { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
         std::map<int,double>     getBirthTimesFromNodes();
+        std::set<int>            getExtLociIndx();
         std::multimap<int,double>     getDeathTimesFromNodes();
         std::multimap<int,double>     getDeathTimesFromExtinctNodes();
         std::map<int,int>             getLocusToSpeciesMap();

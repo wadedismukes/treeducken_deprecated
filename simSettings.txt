@@ -1,8 +1,10 @@
 # EXAMPLE simulation settings file
 # Species Tree Simulation parameters
 # optionally you may set your own seeds, the 0 setting will generate new seeds
--sd1 45023
--sd2 23276
+#-sd1 45023
+#-sd2 23276
+-sd1 0
+-sd2 0
 # number of taxa
 # number of taxa
 -nt 4

@@ -528,7 +528,7 @@ std::map<int,int> LocusTree::getLocusToSpeciesMap(){
     int spID, loID;
     std::pair<int,int> pp;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        loID = (*it)->getLindx();;
+        loID = (*it)->getLindx();
         spID = (*it)->getIndex();
         pp.first = loID;
         pp.second = spID;
@@ -536,4 +536,16 @@ std::map<int,int> LocusTree::getLocusToSpeciesMap(){
         locusToSpecies.insert(locusToSpecies.end(), pp);
     }
     return locusToSpecies;
+}
+
+std::set<int> LocusTree::getExtLociIndx(){
+    std::set<int> doomedLoci;
+    int indx;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsExtinct() && (*it)->getIsTip()){
+            indx = std::distance(nodes.begin(), it);
+            doomedLoci.insert(doomedLoci.begin(), indx);
+        }
+    }
+    return doomedLoci;
 }
