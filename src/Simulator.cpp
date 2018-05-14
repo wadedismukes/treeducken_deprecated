@@ -351,8 +351,6 @@ bool Simulator::coalescentSim(){
                     geneTree->addExtinctSpecies(currentSimTime, contempLoci[epochCount][j]);
                     // extinctFolks.erase(extFolksIt);
                 }
-                // TODO: need to add a way of adding the extinct species into this
-                // simple If statement of wheteher extinct? (won't work if coalescence doesn't occur...)
                 stopTimeLoci = stopTimes[contempLoci[epochCount][j]];
                 if(stopTimeLoci > stopTimeEpoch){
                     stopTime = stopTimeLoci;

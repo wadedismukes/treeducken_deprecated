@@ -23,6 +23,6 @@
 -lgtr 0.0
 # Gene Tree Simulation parameters
 # individuals per locus to be sampled 
--ipp 2
+-ipp 4
 # effective population size
--ne 10
+-ne 10000

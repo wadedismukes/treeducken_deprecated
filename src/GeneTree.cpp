@@ -35,6 +35,7 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
             p = new Node();
             p->setDeathTime(presentTime);
             p->setLindx(extantLociInd[0][i]);
+            p->setIndx(extantLociInd[0][i]);
             p->setLdes(NULL);
             p->setRdes(NULL);
             p->setAnc(NULL);
@@ -45,7 +46,6 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
             nodes.push_back(p);
         }
     }
-
 }
 
 double GeneTree::getTimeToNextEvent(int n){
@@ -149,15 +149,16 @@ Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
     n->setIsTip(false);
     n->setIsExtinct(false);
     n->setLindx(p->getLindx());
+    n->setIndx(p->getIndex());
     nodes.push_back(n);
     
     p->setBirthTime(t);
     p->setAnc(n);
-    p->setSib(q);
+   // p->setSib(q);
     
     q->setBirthTime(t);
     q->setAnc(n);
-    q->setSib(p);
+    // q->setSib(p);
     
     
     return n;
@@ -249,6 +250,7 @@ void GeneTree::addExtinctSpecies(double bt, int indx){
     for(int i = 0; i < individualsPerPop; i++){
         p = new Node();
         p->setDeathTime(bt);
+        p->setIndx(indx);
         p->setLindx(indx);
         p->setLdes(NULL);
         p->setRdes(NULL);
@@ -266,9 +268,16 @@ void GeneTree::setIndicesBySpecies(std::map<int, int> spToLocusMap){
     int indx;
     int spIndx;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        indx = (*it)->getLindx();
-        spIndx = spToLocusMap.find(indx)->second;
-        (*it)->setIndx(spIndx);
+        if((*it)->getIsTip()){
+            indx = (*it)->getIndex();
+            spIndx = spToLocusMap.find(indx)->second;
+            (*it)->setIndx(spIndx);
+        }
+        else{
+            indx = (*it)->getLindx();
+            spIndx = spToLocusMap.find(indx)->second;
+            (*it)->setIndx(spIndx);
+        }
     }
     this->setTreeTipNames();
 }
@@ -283,7 +292,7 @@ std::string GeneTree::printNewickTree(){
 
 void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
     if(p != NULL){
-        if( p->getRdes() == NULL )
+        if( p->getLdes() == NULL )
             ss << p->getName();
         else{
             ss << "(";
