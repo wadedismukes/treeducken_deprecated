@@ -43,12 +43,15 @@ class LocusTree : public Tree
         void    setStopTime(double st) {stopTime = st; currentTime = 0;}
         double  getCurrentTime() { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
+        
         std::map<int,double>     getBirthTimesFromNodes();
         std::set<int>            getExtLociIndx();
+        std::set<int>            getCoalBounds();
         std::multimap<int,double>     getDeathTimesFromNodes();
         std::multimap<int,double>     getDeathTimesFromExtinctNodes();
         std::map<int,int>             getLocusToSpeciesMap();
         std::vector< std::vector<int> >     getExtantLoci(std::set<double, std::greater<double> > epochSet);
+        
         int     postOrderTraversalStep(int indx);
     
     

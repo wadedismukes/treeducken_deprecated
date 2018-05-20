@@ -1304,7 +1304,7 @@ void MbRandom::setSeed(seedType seed1, seedType seed2) {
     if(seed2 == 0)
     {
         I1 = seed1&0xFFFF;
-        I2 = seed1>>16;
+        I2 = seed1 >> 16;
     }
     else
     {

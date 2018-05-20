@@ -2,3 +2,4 @@
 ./sim_files/*
 .vscode/*
 *.tre
+treeducken.dSYM/*

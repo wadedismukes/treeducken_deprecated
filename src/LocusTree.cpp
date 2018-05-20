@@ -121,7 +121,7 @@ void LocusTree::lineageTransferEvent(int indx){
     extantNodes[indx]->setFlag(1);
     extantNodes[indx]->setIsExtant(false);
     extantNodes[indx]->setIsTip(false);
-    
+    extantNodes[indx]->setIsDuplication(true);
 
     // actual transfer event
     
@@ -157,11 +157,13 @@ void LocusTree::lineageTransferEvent(int indx){
     extantNodes.erase(extantNodes.begin() + indx);
     extantNodes.push_back(rec);
     extantNodes.push_back(donor);
+
     rec->setLindx((int)nodes.size());
     nodes.push_back(rec);
-    donor->setLindx((int)nodes.size());
 
+    donor->setLindx((int)nodes.size());
     nodes.push_back(donor);
+
     numExtant = (int) extantNodes.size();
 }
 
@@ -548,4 +550,17 @@ std::set<int> LocusTree::getExtLociIndx(){
         }
     }
     return doomedLoci;
+}
+
+
+std::set<int> LocusTree::getCoalBounds(){
+    std::set<int> coalBoundLoci;
+    int indx;
+    for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsDuplication()){
+            indx = std::distance(nodes.begin(), it);
+            coalBoundLoci.insert(coalBoundLoci.begin(), indx);
+        }
+    }
+    return coalBoundLoci;
 }

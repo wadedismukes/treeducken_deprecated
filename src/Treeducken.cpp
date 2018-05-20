@@ -97,10 +97,10 @@ int main(int argc, char * argv[]) {
                                         r = atoi(line.substr(3, std::string::npos - 1).c_str());
                                     else if(line.substr(0,2) == "-o")
                                         outName = line.substr(3, std::string::npos - 1);
-                                    else if(line.substr(0,3) == "-s1")
-                                        sd1 = atoi(line.substr(4, std::string::npos - 1).c_str());
-                                    else if(line.substr(0,3) == "-s2")
-                                        sd2 = atoi(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,4) == "-sd1")
+                                        sd1 = atoi(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,4) == "-sd2")
+                                        sd2 = atoi(line.substr(5, std::string::npos - 1).c_str());
                                 }
                             }
                             
