@@ -387,7 +387,7 @@ void LocusTree::setTreeTipNames(){
                     tn.clear();
                     tn.str(std::string());
                     tn << (*it)->getLdes()->getIndex();
-                    name += "->" + tn.str();
+                    name += "<-" + tn.str();
                     (*it)->setName(name);
                     tn.clear();
                     tn.str(std::string());
