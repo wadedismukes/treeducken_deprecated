@@ -154,6 +154,7 @@ void LocusTree::lineageTransferEvent(int indx){
     
     speciesIndx.clear();
     
+    extantNodes.erase(extantNodes.begin() + recIndx.first);
     extantNodes.erase(extantNodes.begin() + indx);
     extantNodes.push_back(rec);
     extantNodes.push_back(donor);
@@ -285,7 +286,7 @@ void LocusTree::setNewIndices(int indx, std::pair<int,int> sibs, int count){
                 return;
         }
         else
-            it++;
+            ++it;
         
     }
 }
@@ -330,7 +331,20 @@ void LocusTree::setPresentTime(double currentT){
     this->setTreeTipNames();
 }
 
-
+std::vector<std::string> LocusTree::printSubTrees(){
+    std::vector<std::string> subTrees;
+    std::stringstream ss;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsDuplication()){
+            recGetNewickTree((*it),ss);
+            ss << ";";
+            subTrees.push_back(ss.str());
+            ss.clear();
+            ss.str(std::string());
+        }
+    }
+    return subTrees;
+}
 
 std::string LocusTree::printNewickTree(){
     std::stringstream ss;

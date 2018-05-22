@@ -392,8 +392,6 @@ bool Simulator::coalescentSim(){
 
     spToLo = lociTree->getLocusToSpeciesMap();
     geneTree->setIndicesBySpecies(spToLo);
-    // TODO: occasionally (at LEAST when transfer is on) we get branch
-    // lengths being set to the same amount
     return treeGood;
 }
 
@@ -425,5 +423,11 @@ bool Simulator::simThreeTree(){
 std::string Simulator::printGeneTreeNewick(int i){
     std::string newickTree;
     newickTree = geneTrees[i]->printNewickTree();
+    return newickTree;
+}
+
+std::string Simulator::printExtantGeneTreeNewick(int i){
+    std::string newickTree;
+    newickTree = geneTrees[i]->printExtantNewickTree();
     return newickTree;
 }

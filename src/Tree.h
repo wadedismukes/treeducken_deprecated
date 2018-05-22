@@ -12,7 +12,7 @@
 #include <string>
 #include <vector>
 #include "MbRandom.h"
-
+#include <iostream>
 
 class Node
 {
@@ -99,9 +99,13 @@ class Tree
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
         void        setSampleFromFlags();
+        void        getExtantTree();
         std::vector<Node*> getNodes() { return nodes; }
         std::vector<Node*> getExtantNodes() { return extantNodes; }
-    
+        
+        void        reconstructTreeFromSim(Node *oRoot);
+        void        reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
+
         virtual double  getTimeToNextEvent() { return 0.0; }
         virtual void    lineageBirthEvent() { return; }
         virtual void    lineageDeathEvent() { return; }

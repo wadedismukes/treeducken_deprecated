@@ -22,6 +22,7 @@ class TreeInfo{
             std::vector<std::string>    gsaTrees;
             std::vector<std::string>    locusTrees;
             std::vector<std::string>    geneTrees;
+            std::vector<std::string>    extGeneTrees;
             double                      spTreeLength, spTreeNess, spAveTipLen, spTreeDepth;
             double                      loTreeLength, loTreeNess, loAveTipLen, loTreeDepth;
             double                      aveTMRCAGeneTree;
@@ -32,6 +33,7 @@ class TreeInfo{
             std::string                 getWholeSpeciesTree() {return speciesTree; }
             std::string                 getLocusTreeByIndx(int idx) { return locusTrees[idx]; }
             std::string                 getGeneTreeByIndx(int idx) { return geneTrees[idx]; }
+            std::string                 getExtGeneTreeByIndx(int idx) { return extGeneTrees[idx]; }
             double                      getSpeciesTreeLength() {return spTreeLength; }
             double                      getSpeciesTreeNess() {return spTreeNess; }
             double                      getSpeciesAveTipLen() {return spAveTipLen; }
@@ -47,6 +49,7 @@ class TreeInfo{
             void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = ts; }
             void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees.push_back(ts); }
             void                        setGeneTreeByIndx(int indx, std::string ts) { geneTrees.push_back(ts); }
+            void                        setExtantGeneTreeByIndx(int indx, std::string ts) { extGeneTrees.push_back(ts); }
             void                        setSpeciesTreeLength(double b) { spTreeLength = b; }
             void                        setSpeciesTreeNess(double b) { spTreeNess = b; }
             void                        setSpeciesAveTipLen(double b) {spAveTipLen = b; }

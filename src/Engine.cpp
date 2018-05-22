@@ -78,8 +78,10 @@ void Engine::doRunRun(){
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
-            if(simType == 3)
+            if(simType == 3){
                 ti->setGeneTreeByIndx(i, treesim->printGeneTreeNewick(i));
+                ti->setExtantGeneTreeByIndx(i, treesim->printExtantGeneTreeNewick(i));
+            }
         }
         simSpeciesTrees.push_back(ti);
         // TODO: rewrite the set whole tree string info to insert the string for each tree in a run
@@ -206,6 +208,8 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp
     path += fn;
     
     std::ofstream out(path);
+    out << "#NEXUS\nbegin trees;\n    tree extGeneT_" << indx << " = ";
+    out << getExtGeneTreeByIndx(indx) << "\n";
     out << "#NEXUS\nbegin trees;\n    tree geneT_" << indx << " = ";
     out << getGeneTreeByIndx(indx) << "\n";
     out << "end;";

@@ -77,7 +77,6 @@ Tree::~Tree()
 {
     if(!(nodes.empty() == false))
         nodes.clear();
-
     if(!(extantNodes.empty()))
         extantNodes.clear();
 }
@@ -106,18 +105,17 @@ void Tree::setExtantTreeFlags(){
     this->zeroAllFlags();
     numTotalTips = 0;
     for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
-        (*p)->setFlag(1);
+        if((*p)->getIsExtant())
+            (*p)->setFlag(1);
     }
     setSampleFromFlags();
 }
 
 
 void Tree::setSampleFromFlags(){
-    
-    
     int flag;
     Node *q = NULL;
-    for(std::vector<Node *>::iterator p=nodes.begin(); p!=nodes.end(); p++){
+    for(std::vector<Node *>::iterator p=nodes.begin(); p!=nodes.end(); ++p){
         if((*p)->getIsTip()){
             flag = (*p)->getFlag();
             q = (*p);
@@ -152,8 +150,117 @@ double Tree::getTreeDepth(){
             r = r->getLdes();
         else
             r = r->getRdes();
-        
     }
     return td;
 }
 
+void Tree::reconstructTreeFromSim(Node *oRoot){
+    Node *n = new Node();
+    unsigned tipCounter = numExtant;
+    unsigned intNodeCounter = 0;
+    reconstructLineageFromSim(n, oRoot, tipCounter, intNodeCounter);
+    delete n;
+}
+
+void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter){
+    Node *p;
+    bool rootN = prevN->getIsRoot();
+    double brlen = prevN->getBranchLength();
+    int oFlag = prevN->getFlag();
+    if(prevN->getIsTip() && oFlag == 1){
+        // need to recalculate branchlength
+        Node *prevAnc = prevN->getAnc();
+        int ancFlag = prevAnc->getFlag();
+        if(ancFlag == 1){
+            brlen += prevAnc->getBranchLength();
+            while(!prevAnc->getIsRoot() && ancFlag < 2){
+                prevAnc = prevAnc->getAnc();
+                ancFlag = prevAnc->getFlag();
+                if(ancFlag == 1)
+                    brlen += prevAnc->getBranchLength();
+            }
+        }
+        
+        p = new Node();
+        tipCounter++;
+        p->setBranchLength(brlen);
+        p->setIsTip(true);
+        p->setName(prevN->getName());
+        p->setBirthTime(prevN->getBirthTime());
+        p->setDeathTime(prevN->getDeathTime());
+        p->setIsExtant(prevN->getIsExtant());
+        p->setIsExtinct(prevN->getIsExtinct());
+        p->setAnc(currN);
+        if(currN->getLdes() == NULL)
+            currN->setLdes(p);
+        else if(currN->getRdes() == NULL)
+            currN->setRdes(p);
+        else{
+            std::cerr << "ERROR: Problem adding a tip to the tree!" << std::endl;
+            exit(1);
+        }
+        
+    }
+    else{
+        if(oFlag > 1){
+            Node *s1 = new Node();
+            intNodeCounter++;
+            if(prevN->getLdes()->getFlag() > 0)
+                reconstructLineageFromSim(s1, prevN->getLdes(), tipCounter, intNodeCounter);
+            if(prevN->getRdes()->getFlag() > 0)
+                reconstructLineageFromSim(s1, prevN->getRdes(), tipCounter, intNodeCounter);
+            
+            
+            if(rootN == false){
+                Node *prevAnc = prevN->getAnc();
+                int ancFlag = prevAnc->getFlag();
+                if(ancFlag == 1){
+                    brlen += prevAnc->getBranchLength();
+                    while(!(prevAnc)->getIsRoot() && ancFlag < 2){
+                        prevAnc = prevAnc->getAnc();
+                        ancFlag = prevAnc->getFlag();
+                        if(ancFlag == 1)
+                            brlen += prevAnc->getBranchLength();
+                    }
+                }
+                
+                if(currN != NULL){
+                    s1->setBranchLength(brlen);
+                    s1->setBirthTime(prevN->getBirthTime());
+                    s1->setDeathTime(prevN->getDeathTime());
+                    s1->setAnc(currN);
+                    if(currN->getLdes() == NULL)
+                        currN->setLdes(s1);
+                    else if(currN->getRdes() == NULL)
+                        currN->setRdes(s1);
+                    else{
+                        std::cerr << "ERROR: Probem adding an internal node to the tree" << std::endl;
+                        exit(1);
+                    }
+                }
+                else{
+                    s1->setAsRoot(true);
+                    setRoot(s1);
+                    s1->setBranchLength(brlen);
+                    s1->setBirthTime(prevN->getBirthTime());
+                    s1->setDeathTime(prevN->getDeathTime());
+                }
+                
+            }
+            else{
+                s1->setAsRoot(true);
+                setRoot(s1);
+                s1->setBranchLength(0.0);
+                s1->setBirthTime(prevN->getBirthTime());
+                s1->setDeathTime(prevN->getDeathTime());
+            }
+
+        }
+        else if(oFlag == 1){
+            if(prevN->getRdes()->getFlag() == 0 && prevN->getLdes()->getFlag() > 0)
+                reconstructLineageFromSim(currN, prevN->getLdes(), tipCounter, intNodeCounter);
+            else
+                reconstructLineageFromSim(currN, prevN->getRdes(), tipCounter, intNodeCounter);
+        }
+    }
+}

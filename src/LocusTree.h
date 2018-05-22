@@ -51,7 +51,7 @@ class LocusTree : public Tree
         std::multimap<int,double>     getDeathTimesFromExtinctNodes();
         std::map<int,int>             getLocusToSpeciesMap();
         std::vector< std::vector<int> >     getExtantLoci(std::set<double, std::greater<double> > epochSet);
-        
+        std::vector< std::string >    printSubTrees();
         int     postOrderTraversalStep(int indx);
     
     

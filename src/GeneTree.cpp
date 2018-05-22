@@ -14,7 +14,6 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
     individualsPerPop = ipp;
     popSize = ne;
     generationTime = genTime;
-        
 }
 
 GeneTree::~GeneTree(){
@@ -220,8 +219,9 @@ void GeneTree::rootCoalescentProcess(double startTime){
         extantNodes.push_back(n);
     }
 
-
+    extantNodes[0]->setAsRoot(true);
     this->setRoot(extantNodes[0]);
+    
 //    if(extantNodes[0]->getBirthTime() < 0){
 //        time = std::abs(this->getRoot()->getDeathTime() * 2);
 //        this->getRoot()->setBirthTime(0.0);
@@ -303,6 +303,97 @@ std::string GeneTree::printNewickTree(){
     ss << ";";
     std::string geneTreeString = ss.str();
     return geneTreeString;
+}
+
+std::string GeneTree::printExtantNewickTree(){
+    std::stringstream ss;
+    Node *q, *r;
+    int flag, ancFlag;
+    double brlen = 0.0;
+    Node *currentRoot = this->getRoot();
+
+    setExtantTreeFlags();
+    // for(std::vector<Node*>::iterator p = nodes.begin(); p != nodes.end(); ++p){
+    //     flag = (*p)->getFlag();
+    //     brlen = (*p)->getBranchLength();
+    //     if((*p)->getIsTip() && flag == 1){
+    //     // need to recalculate branchlength
+    //         q = (*p)->getAnc();
+    //         ancFlag = q->getFlag();
+    //         if(ancFlag == 1){
+    //             brlen += q->getBranchLength();
+    //             while(!q->getIsRoot() && ancFlag < 2){
+    //                 q = q->getAnc();
+    //                 ancFlag = q->getFlag();
+    //                 if(ancFlag == 1)
+    //                     brlen += q->getBranchLength();
+    //             }
+    //         }
+    //     }
+    //     // if((*p)->getIsTip()){
+    //     //     brlen = 0.0;
+    //     //     flag = (*p)->getFlag();
+    //     //     q = (*p);
+    //     //     // if(flag == 1){
+                
+    //     //     while (flag == 1){
+    //     //         brlen += q->getBranchLength();
+    //     //         r = q;
+    //     //         q = q->getAnc();
+    //     //         flag = q->getFlag();
+    //     //         if(flag == 2){
+    //     //             r->setBranchLength(brlen);
+    //     //             break;
+    //     //         }                     
+    //     //         // else
+    //     //         //     brlen += q->getBranchLength();
+    //     //     }
+    //     //     // }
+    //     // }
+    // }
+    // brlen = 0.0;
+    // recGetExtNewickTree(this->getRoot(), ss, brlen);
+    reconstructTreeFromSim(this->getRoot());
+    recGetNewickTree(this->getRoot(), ss);
+    ss << ";";
+    std::string geneTreeString = ss.str();
+    return geneTreeString;
+}
+
+
+void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss, double brlen){ 
+    if(p->getRdes() == NULL){
+        if(p->getIsExtant())
+            ss << p->getName();
+    }
+    else{
+    // if(p != NULL){
+        int flag = p->getFlag();
+        if(flag == 2){
+            ss << "(";
+            recGetExtNewickTree(p->getRdes(), ss, brlen);
+            ss << "[&index=" << p->getRdes()->getIndex() << "]" << ":" << brlen + p->getRdes()->getBranchLength();
+            ss << ",";
+            recGetExtNewickTree(p->getLdes(), ss, brlen);
+            ss << "[&index=" << p->getLdes()->getIndex() << "]" << ":" << brlen + p->getLdes()->getBranchLength();
+            ss << ")";
+        }
+        else{
+            // if(p->getRdes() == NULL){
+            //     ss << p->getName();
+            // }
+            // else{
+            if(p->getLdes()->getIsExtinct()){
+           //     brlen += p->getRdes()->getBranchLength();
+                recGetExtNewickTree(p->getRdes(), ss, brlen);
+            }
+            if(p->getRdes()->getIsExtinct()){
+             //   brlen += p->getLdes()->getBranchLength();
+                recGetExtNewickTree(p->getLdes(), ss, brlen);
+            }
+            //}
+        }
+   }
 }
 
 void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
