@@ -5,7 +5,7 @@
 -sd2 0
 # number of taxa
 # number of taxa
--nt 60
+-nt 6
 # species birth rate
 -sbr 0.0002
 # species death rate
@@ -18,9 +18,9 @@
 # gene death rate
 -gdr 0.0
 # lateral gene transfer rate
--lgtr 0.0001
+-lgtr 0.001
 # Gene Tree Simulation parameters
 # individuals per locus to be sampled 
 -ipp 1
 # effective population size
--ne 10000
+-ne 500

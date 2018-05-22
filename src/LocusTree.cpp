@@ -114,7 +114,7 @@ void LocusTree::lineageTransferEvent(int indx){
     donor->setRdes(NULL);
     
     
-    //extantNodes[indx] goes extinct
+    //extantNodes[indx] `
     extantNodes[indx]->setLdes(rec);
     extantNodes[indx]->setRdes(donor);
     extantNodes[indx]->setDeathTime(currentTime);
@@ -142,20 +142,28 @@ void LocusTree::lineageTransferEvent(int indx){
     recIndx = *item;
     
     rec->setIndx(recIndx.second);
-    
     rec->setBirthTime(currentTime);
     rec->setIsExtant(true);
     rec->setIsTip(true);
     rec->setIsExtinct(false);
     rec->setLdes(NULL);
     rec->setRdes(NULL);
-    rec->setAnc(extantNodes[recIndx.first]->getAnc());
+    rec->setAnc(extantNodes[indx]);
+    // rec->setAnc(extantNodes[recIndx.first]->getAnc());
     rec->setSib(NULL);
     
     speciesIndx.clear();
-    
-    extantNodes.erase(extantNodes.begin() + recIndx.first);
-    extantNodes.erase(extantNodes.begin() + indx);
+    extantNodes[recIndx.first]->setLdes(NULL);
+    extantNodes[recIndx.first]->setRdes(NULL);
+    extantNodes[recIndx.first]->setDeathTime(currentTime);
+    extantNodes[recIndx.first]->setFlag(1);
+    extantNodes[recIndx.first]->setIsExtant(false);
+    extantNodes[recIndx.first]->setIsExtinct(true);
+    extantNodes[recIndx.first]->setIsTip(true);
+    iter_swap(extantNodes.begin() + recIndx.first, extantNodes.end()-1);
+    iter_swap(extantNodes.begin() + indx, extantNodes.end()-2);
+
+    extantNodes.erase(extantNodes.end()-2, extantNodes.end());
     extantNodes.push_back(rec);
     extantNodes.push_back(donor);
 
@@ -401,7 +409,7 @@ void LocusTree::setTreeTipNames(){
                     tn.clear();
                     tn.str(std::string());
                     tn << (*it)->getLdes()->getIndex();
-                    name += "<-" + tn.str();
+                    name += "->" + tn.str();
                     (*it)->setName(name);
                     tn.clear();
                     tn.str(std::string());
