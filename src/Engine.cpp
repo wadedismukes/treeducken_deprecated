@@ -208,10 +208,10 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp
     path += fn;
     
     std::ofstream out(path);
-    out << "#NEXUS\nbegin trees;\n    tree extGeneT_" << indx << " = ";
-    out << getExtGeneTreeByIndx(indx) << "\n";
     out << "#NEXUS\nbegin trees;\n    tree geneT_" << indx << " = ";
     out << getGeneTreeByIndx(indx) << "\n";
+    out << "tree extGeneT_" << indx << " = ";
+    out << getExtGeneTreeByIndx(indx) << "\n";
     out << "end;";
 
 }

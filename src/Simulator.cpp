@@ -428,6 +428,8 @@ std::string Simulator::printGeneTreeNewick(int i){
 
 std::string Simulator::printExtantGeneTreeNewick(int i){
     std::string newickTree;
+    geneTrees[i]->getRootFromFlags();
+    geneTrees[i]->reconstructTreeFromSim(geneTrees[i]->getRoot());
     newickTree = geneTrees[i]->printExtantNewickTree();
     return newickTree;
 }

@@ -108,7 +108,7 @@ void Tree::setExtantTreeFlags(){
         if((*p)->getIsExtant())
             (*p)->setFlag(1);
     }
-    setSampleFromFlags();
+    this->setSampleFromFlags();
 }
 
 
@@ -262,5 +262,19 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
             else
                 reconstructLineageFromSim(currN, prevN->getRdes(), tipCounter, intNodeCounter);
         }
+    }
+}
+
+void Tree::getRootFromFlags(){
+	setExtantTreeFlags();
+    int numNodes = nodes.size() - 1;
+	for(int i=numNodes; i > 0; i--){
+		Node *p = nodes[i];
+		if(p->getFlag() == 2){
+			root = p;
+			root->setAsRoot(true);
+			break;
+		}
+		
     }
 }

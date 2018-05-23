@@ -99,6 +99,7 @@ class Tree
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
         void        setSampleFromFlags();
+        void        getRootFromFlags();
         void        getExtantTree();
         std::vector<Node*> getNodes() { return nodes; }
         std::vector<Node*> getExtantNodes() { return extantNodes; }
