@@ -35,11 +35,12 @@ void printHelp(){
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
-                   double gbr, double gdr, double lgtr, int ipp, int ne){
+                   double gbr, double gdr, double lgtr, int ipp, int ne, int ngen){
     std::cout << "\t\toutput file name prefix         = " << of << "\n";
     std::cout << "\t\tNumber of extant taxa           = " << nt << "\n";
     std::cout << "\t\tNumber of replicates            = " << r << "\n";
     std::cout << "\t\tNumber of loci to simulate      = " << nloc << "\n";
+    std::cout << "\t\tNumber of genes to simulate     = " << ngen << "\n";
     std::cout << "\t\tSpecies birth rate              = " << sbr << "\n";
     std::cout << "\t\tSpecies death rate              = " << sdr << "\n";
     std::cout << "\t\tGene birth rate                 = " << gbr << "\n";
@@ -60,7 +61,7 @@ int main(int argc, char * argv[]) {
     }
     else{
         std::string outName = "";
-        int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0;
+        int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 1;
         double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];
@@ -101,6 +102,8 @@ int main(int argc, char * argv[]) {
                                         sd1 = atoi(line.substr(5, std::string::npos - 1).c_str());
                                     else if(line.substr(0,4) == "-sd2")
                                         sd2 = atoi(line.substr(5, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-ng")
+                                        ngen = atoi(line.substr(4, std::string::npos-1).c_str());
                                 }
                             }
                             
@@ -130,6 +133,8 @@ int main(int argc, char * argv[]) {
                         ts = atof(argv[i+1]);
                     else if(!strcmp(curArg, "-nl"))
                         nloc = atof(argv[i+1]);
+                    else if(!strcmp(curArg, "-ng"))
+                        ngen = atoi(argv[i+1]);
                     else if(!strcmp(curArg, "-r"))
                         r = atoi(argv[i+1]);
                     else if(!strcmp(curArg, "-o"))
@@ -173,14 +178,14 @@ int main(int argc, char * argv[]) {
                         mt = 2;
                     }
                 }
-                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne);
+                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen);
 
             }
             else if (ne <= 0 || ipp <= 0 || ipp > ne){
                 mt = 2;
                 std::cout << "gene tree parameters are incorrectly specified.\n";
                 std::cout << "population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
-                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne);
+                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen);
 
             }
             else{
@@ -207,47 +212,13 @@ int main(int argc, char * argv[]) {
                                ts,
                                r,
                                nt,
-                               nloc);
+                               nloc, 
+                               ngen);
         phyEngine->doRunRun();
 
 
     }
     
     delete phyEngine;
-//    MbRandom rand;
-//    int sd1 = 0;
-//    int sd2 = 0;
-//    if(sd1 > 0 && sd2 > 0)
-//        rand.setSeed(sd1, sd2);
-//    else
-//        rand.setSeed();
-//    seedType gs1, gs2;
-//    rand.getSeed(gs1, gs2);
-//    std::cout << "\nSeeds {" << gs1 << ", " << gs2 << "}" << std::endl;
-//    
-//    unsigned numTaxa = 4;
-//    std::string sptree;
-//    std::string locusTree;
-//    std::string geneTree;
-//    double br = 0.01;
-//    double dr = 0.005;
-//    double gbr = 0.02;
-//    double gdr = 0.01;
-//    double lgtr = 0.02;
-//    unsigned ipp = 4;
-//    unsigned popSize = 10000;
-//    double genTime = 1;
-//    unsigned numLoci = 10;
-//    
-//    Simulator *sim = new Simulator(&rand, numTaxa, br, dr, 1.0, numLoci, gbr, gdr, lgtr, ipp, popSize, genTime);
-//    sim->simThreeTree();
-//    sptree = sim->printSpeciesTreeNewick();
-//    std::cout << "species tree: " << std::endl << sptree << std::endl <<  std::endl;
-//    for(int i = 0; i < numLoci; i++){
-//        locusTree = sim->printLocusTreeNewick(i);
-//        std::cout << "Locus Tree: " << std::endl << locusTree << std::endl << std::endl;
-//        geneTree = sim->printGeneTreeNewick(i);
-//        std::cout << "Gene Tree: " << std::endl << geneTree << std::endl << std::endl;
-//    }
     return 0;
 }

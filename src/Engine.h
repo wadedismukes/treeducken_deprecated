@@ -21,19 +21,19 @@ class TreeInfo{
             std::string                 speciesTree;
             std::vector<std::string>    gsaTrees;
             std::vector<std::string>    locusTrees;
-            std::vector<std::string>    geneTrees;
-            std::vector<std::string>    extGeneTrees;
+            std::vector<std::vector<std::string> >   geneTrees;
+            std::vector<std::vector<std::string> >   extGeneTrees;
             double                      spTreeLength, spTreeNess, spAveTipLen, spTreeDepth;
             double                      loTreeLength, loTreeNess, loAveTipLen, loTreeDepth;
             double                      aveTMRCAGeneTree;
 
     
         public:
-                                        TreeInfo(int idx) : treeIndx(idx), spTreeLength(0.0), spTreeNess(0.0), spAveTipLen(0.0), loTreeLength(0.0), loTreeNess(0.0), loAveTipLen(0.0) {};
+                                        TreeInfo(int idx, int nl) : treeIndx(idx), spTreeLength(0.0), spTreeNess(0.0), spAveTipLen(0.0), loTreeLength(0.0), loTreeNess(0.0), loAveTipLen(0.0), geneTrees(nl), extGeneTrees(nl) {};
             std::string                 getWholeSpeciesTree() {return speciesTree; }
             std::string                 getLocusTreeByIndx(int idx) { return locusTrees[idx]; }
-            std::string                 getGeneTreeByIndx(int idx) { return geneTrees[idx]; }
-            std::string                 getExtGeneTreeByIndx(int idx) { return extGeneTrees[idx]; }
+            std::string                 getGeneTreeByIndx(int Lidx, int idx) { return geneTrees[Lidx][idx]; }
+            std::string                 getExtGeneTreeByIndx(int Lidx, int idx) { return extGeneTrees[Lidx][idx]; }
             double                      getSpeciesTreeLength() {return spTreeLength; }
             double                      getSpeciesTreeNess() {return spTreeNess; }
             double                      getSpeciesAveTipLen() {return spAveTipLen; }
@@ -48,8 +48,8 @@ class TreeInfo{
     
             void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = ts; }
             void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees.push_back(ts); }
-            void                        setGeneTreeByIndx(int indx, std::string ts) { geneTrees.push_back(ts); }
-            void                        setExtantGeneTreeByIndx(int indx, std::string ts) { extGeneTrees.push_back(ts); }
+            void                        setGeneTreeByIndx(int Lindx, int indx, std::string ts) { geneTrees[Lindx].push_back(ts); }
+            void                        setExtantGeneTreeByIndx(int Lindx, int indx, std::string ts) { extGeneTrees[Lindx].push_back(ts); }
             void                        setSpeciesTreeLength(double b) { spTreeLength = b; }
             void                        setSpeciesTreeNess(double b) { spTreeNess = b; }
             void                        setSpeciesAveTipLen(double b) {spAveTipLen = b; }
@@ -63,7 +63,7 @@ class TreeInfo{
     
             void                        writeWholeTreeFileInfo(int spIndx, std::string ofp);
             void                        writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
-            void                        writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
+            void                        writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp);
 
 };
 
@@ -113,7 +113,8 @@ class Engine{
                                        double treescale,
                                        int reps,
                                        int numTaxa,
-                                       int nloci);
+                                       int nloci,
+                                       int ngen);
                                 ~Engine();
         void                    doRunRun();
         void                    writeTreeFiles();

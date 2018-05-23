@@ -55,7 +55,7 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     
 }
 
-Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime)
+Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime, int ng)
 {
     simType = 3;
     currentSimTime = 0.0;
@@ -66,6 +66,7 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     extinctionRate = mu;
     samplingRate = rho;
     numLoci = numLociToSim;
+    numGenes = ng;
     geneBirthRate = gbr;
     geneDeathRate = gdr;
     transferRate = lgtr;
@@ -73,7 +74,7 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     indPerPop = ipp;
     popSize = Ne;
     generationTime = genTime;
-    
+    geneTrees.resize(numLoci);
 }
 
 Simulator::~Simulator(){
@@ -403,33 +404,35 @@ bool Simulator::simThreeTree(){
         spGood = gsaBDSim();
     }
     for(int i = 0; i < numLoci; i++){
-        while(!gGood){
-            while(!loGood){
-                std::cout << "Simulating loci #" <<  i + 1 << std::endl;
-                loGood = bdsaBDSim();
+        while(!loGood){
+            std::cout << "Simulating loci #" <<  i + 1 << std::endl;
+            loGood = bdsaBDSim();
+        }
+        for(int j = 0; j < numGenes; j++){
+            while(!gGood){
+                std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
+                gGood = coalescentSim();
             }
-            std::cout << "Simulating gene #" <<  i + 1 << std::endl;
-            gGood = coalescentSim();
+            geneTrees[i].push_back(geneTree);
+            gGood = false;
         }
         locusTrees.push_back(lociTree);
-        geneTrees.push_back(geneTree);
         loGood = false;
-        gGood = false;
     }
     return gGood;
 }
 
 
-std::string Simulator::printGeneTreeNewick(int i){
+std::string Simulator::printGeneTreeNewick(int i, int j){
     std::string newickTree;
-    newickTree = geneTrees[i]->printNewickTree();
+    newickTree = geneTrees[i][j]->printNewickTree();
     return newickTree;
 }
 
-std::string Simulator::printExtantGeneTreeNewick(int i){
+std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     std::string newickTree;
-    geneTrees[i]->getRootFromFlags();
-    geneTrees[i]->reconstructTreeFromSim(geneTrees[i]->getRoot());
-    newickTree = geneTrees[i]->printExtantNewickTree();
+    geneTrees[i][j]->getRootFromFlags();
+    geneTrees[i][j]->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
+    newickTree = geneTrees[i][j]->printExtantNewickTree();
     return newickTree;
 }

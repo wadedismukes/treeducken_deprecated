@@ -33,7 +33,7 @@ class Simulator
         LocusTree*      lociTree;
         std::vector<LocusTree*> locusTrees;
         GeneTree*       geneTree;
-        std::vector<GeneTree*>   geneTrees;
+        std::vector<std::vector<GeneTree*> > geneTrees;
 
     public:
         // Simulating species tree only
@@ -43,7 +43,7 @@ class Simulator
         // Simulating species and locus tree with proportion of transfer (e.g. hybridization, linkage)
         Simulator(MbRandom *p, unsigned numTaxaToSim, double speciationRate, double extinctionRate, double rho, unsigned numLociToSim, double geneBirthRate, double geneDeathRate, double transferRate, double propTransfer);
         // Simulating species and locus trees with one gene tree per locus tree
-        Simulator(MbRandom *p, unsigned numTaxaToSim, double speciationRate, double extinctionRate, double rho, unsigned numLociToSim, double geneBirthRate, double geneDeathRate, double transferRate, unsigned indPerPop, unsigned popSize, double genTime);
+        Simulator(MbRandom *p, unsigned numTaxaToSim, double speciationRate, double extinctionRate, double rho, unsigned numLociToSim, double geneBirthRate, double geneDeathRate, double transferRate, unsigned indPerPop, unsigned popSize, double genTime, int ng);
         ~Simulator();
         bool    gsaBDSim();
         bool    bdsaBDSim();
@@ -60,8 +60,8 @@ class Simulator
         void    processSpTreeSim();
         std::string    printSpeciesTreeNewick();
         std::string    printLocusTreeNewick(int i);
-        std::string    printGeneTreeNewick(int i);
-        std::string    printExtantGeneTreeNewick(int i);
+        std::string    printGeneTreeNewick(int i, int j);
+        std::string    printExtantGeneTreeNewick(int i, int j);
         std::set<double, std::greater<double> > getEpochs();
 };
 

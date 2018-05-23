@@ -8,7 +8,7 @@
 
 #include "Engine.h"
 
-Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci){
+Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci, int ngen){
     outfilename = of;
     simType = mt;
     spBirthRate = sbr;
@@ -23,6 +23,7 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     proportionToSample = 1.0;
     numTaxa = ntax;
     numLoci = nloci;
+    numGenes = ngen;
     if(sd1 > 0 && sd2 > 0)
         rando.setSeed(sd1, sd2);
     else
@@ -57,7 +58,8 @@ void Engine::doRunRun(){
                                            transferRate,
                                            individidualsPerPop,
                                            populationSize,
-                                           generationTime);
+                                           generationTime,
+                                           numGenes);
         std::cout << "simulating species tree replicate #" << i + 1 << std::endl;
         switch(simType){
             case 1:
@@ -74,13 +76,15 @@ void Engine::doRunRun(){
                 break;
         }
         
-        TreeInfo *ti = new TreeInfo(i);
+        TreeInfo *ti = new TreeInfo(i, numLoci);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
             if(simType == 3){
-                ti->setGeneTreeByIndx(i, treesim->printGeneTreeNewick(i));
-                ti->setExtantGeneTreeByIndx(i, treesim->printExtantGeneTreeNewick(i));
+                for(int j = 0; j < numGenes; j++){
+                    ti->setGeneTreeByIndx(i, j, treesim->printGeneTreeNewick(i, j));
+                    ti->setExtantGeneTreeByIndx(i, j, treesim->printExtantGeneTreeNewick(i, j));
+                }
             }
         }
         simSpeciesTrees.push_back(ti);
@@ -100,7 +104,9 @@ void Engine::writeTreeFiles(){
         for(int i = 0; i < numLoci; i++){
             (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
             if(simType == 3)
-                (*p)->writeGeneTreeFileInfoByIndx(d, i, outfilename);
+                for(int j = 0; j < numGenes; j++){
+                    (*p)->writeGeneTreeFileInfoByIndx(d, i, j, outfilename);
+                }
         }
     }
 }
@@ -186,7 +192,7 @@ void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string of
     out << "end;";
 }
 
-void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
+void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp){
     std::string path = "./sim_files/speciestree_";
     
     std::string fn = ofp;
@@ -202,16 +208,21 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int indx, std::string ofp
     tn.clear();
     tn.str(std::string());
  
-    tn << indx;
+    tn << Lindx;
     
+    fn += "_" + tn.str();
+    tn.clear();
+    tn.str(std::string());
+    
+    tn << indx;
     fn += "_" + tn.str() + ".gen.tre";
     path += fn;
     
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree geneT_" << indx << " = ";
-    out << getGeneTreeByIndx(indx) << "\n";
+    out << getGeneTreeByIndx(Lindx, indx) << "\n";
     out << "tree extGeneT_" << indx << " = ";
-    out << getExtGeneTreeByIndx(indx) << "\n";
+    out << getExtGeneTreeByIndx(Lindx, indx) << "\n";
     out << "end;";
 
 }
