@@ -199,6 +199,7 @@ void GeneTree::rootCoalescentProcess(double startTime){
     Node *l, *r;
     Node *n;
     double t = startTime;
+    double rescaleT;
     // search extantNodes for members with Lindx = contempSpecisIndx 
     std::vector<int> indInExtNodes;
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
@@ -222,12 +223,12 @@ void GeneTree::rootCoalescentProcess(double startTime){
     extantNodes[0]->setAsRoot(true);
     this->setRoot(extantNodes[0]);
     
-//    if(extantNodes[0]->getBirthTime() < 0){
-//        time = std::abs(this->getRoot()->getDeathTime() * 2);
-//        this->getRoot()->setBirthTime(0.0);
-//        this->getRoot()->setDeathTime(this->getRoot()->getDeathTime() + time);
-//        this->recursiveRescaleTimes(this->getRoot(), time);
-//    }
+    if(extantNodes[0]->getBirthTime() < 0){
+        rescaleT = std::abs(this->getRoot()->getBirthTime());
+        this->getRoot()->setBirthTime(0.0);
+        this->getRoot()->setDeathTime(this->getRoot()->getDeathTime() + rescaleT);
+        this->recursiveRescaleTimes(this->getRoot(), rescaleT);
+    }
     this->setBranchLengths();
 }
 

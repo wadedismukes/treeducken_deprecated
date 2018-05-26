@@ -28,6 +28,7 @@ class Simulator
         unsigned    indPerPop;
         unsigned    popSize;
         double      generationTime;
+        double      outgroupFrac;
         std::vector<SpeciesTree*>   gsaTrees;
         SpeciesTree*    spTree;
         LocusTree*      lociTree;
@@ -43,7 +44,7 @@ class Simulator
         // Simulating species and locus tree with proportion of transfer (e.g. hybridization, linkage)
         Simulator(MbRandom *p, unsigned numTaxaToSim, double speciationRate, double extinctionRate, double rho, unsigned numLociToSim, double geneBirthRate, double geneDeathRate, double transferRate, double propTransfer);
         // Simulating species and locus trees with one gene tree per locus tree
-        Simulator(MbRandom *p, unsigned numTaxaToSim, double speciationRate, double extinctionRate, double rho, unsigned numLociToSim, double geneBirthRate, double geneDeathRate, double transferRate, unsigned indPerPop, unsigned popSize, double genTime, int ng);
+        Simulator(MbRandom *p, unsigned numTaxaToSim, double speciationRate, double extinctionRate, double rho, unsigned numLociToSim, double geneBirthRate, double geneDeathRate, double transferRate, unsigned indPerPop, unsigned popSize, double genTime, int ng, double og);
         ~Simulator();
         bool    gsaBDSim();
         bool    bdsaBDSim();
@@ -58,6 +59,7 @@ class Simulator
         void    processGSASim();
         void    prepGSATreeForReconstruction();
         void    processSpTreeSim();
+        void    graftOutgroup(Tree *tr, double trDepth);
         std::string    printSpeciesTreeNewick();
         std::string    printLocusTreeNewick(int i);
         std::string    printGeneTreeNewick(int i, int j);

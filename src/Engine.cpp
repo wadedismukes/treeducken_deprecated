@@ -8,7 +8,7 @@
 
 #include "Engine.h"
 
-Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci, int ngen){
+Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci, int ngen, double og){
     outfilename = of;
     simType = mt;
     spBirthRate = sbr;
@@ -24,6 +24,7 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     numTaxa = ntax;
     numLoci = nloci;
     numGenes = ngen;
+    outgroupFrac = og;
     if(sd1 > 0 && sd2 > 0)
         rando.setSeed(sd1, sd2);
     else
@@ -59,7 +60,8 @@ void Engine::doRunRun(){
                                            individidualsPerPop,
                                            populationSize,
                                            generationTime,
-                                           numGenes);
+                                           numGenes,
+                                           outgroupFrac);
         std::cout << "simulating species tree replicate #" << i + 1 << std::endl;
         switch(simType){
             case 1:

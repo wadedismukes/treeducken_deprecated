@@ -55,7 +55,7 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     
 }
 
-Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime, int ng)
+Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime, int ng, double og)
 {
     simType = 3;
     currentSimTime = 0.0;
@@ -74,6 +74,7 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     indPerPop = ipp;
     popSize = Ne;
     generationTime = genTime;
+    outgroupFrac = og;
     geneTrees.resize(numLoci);
 }
 
@@ -195,6 +196,8 @@ bool Simulator::simSpeciesTree(){
     while(!good){
         good = gsaBDSim();
     }
+    if(outgroupFrac != 0.0)
+        this->graftOutgroup(spTree, spTree->getTreeDepth());
     return good;
 }
 
@@ -285,9 +288,15 @@ bool Simulator::simSpeciesLociTrees(){
             while(!spGood){
                 spGood = gsaBDSim();
             }
+            if(outgroupFrac != 0.0)
+                this->graftOutgroup(spTree, spTree->getTreeDepth());
+
             std::cout << "Simulating loci #" <<  i + 1 << std::endl;
             good = bdsaBDSim();
         }
+        if(outgroupFrac != 0.0)
+            this->graftOutgroup(lociTree, lociTree->getTreeDepth());
+
         locusTrees.push_back(lociTree);
         good = false;
     }
@@ -402,23 +411,33 @@ bool Simulator::simThreeTree(){
     bool loGood = false;
     while(!spGood){
         spGood = gsaBDSim();
+
     }
     for(int i = 0; i < numLoci; i++){
         while(!loGood){
             std::cout << "Simulating loci #" <<  i + 1 << std::endl;
             loGood = bdsaBDSim();
         }
+        if(outgroupFrac != 0.0){
+            this->graftOutgroup(lociTree, lociTree->getTreeDepth());
+        }
         for(int j = 0; j < numGenes; j++){
             while(!gGood){
                 std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
                 gGood = coalescentSim();
             }
+            if(outgroupFrac != 0.0){
+                this->graftOutgroup(geneTree, geneTree->getTreeDepth());
+        }
             geneTrees[i].push_back(geneTree);
             gGood = false;
         }
         locusTrees.push_back(lociTree);
         loGood = false;
     }
+    if(outgroupFrac != 0.0)
+        this->graftOutgroup(spTree, spTree->getTreeDepth());
+
     return gGood;
 }
 
@@ -435,4 +454,15 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     geneTrees[i][j]->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
     newickTree = geneTrees[i][j]->printExtantNewickTree();
     return newickTree;
+}
+
+
+void Simulator::graftOutgroup(Tree *tr, double trDepth){
+    Node *rootN = new Node();
+    Node *outgroupN = new Node();
+    tr->rescaleTreeByOutgroupFrac(outgroupFrac, trDepth);
+    Node *currRoot = tr->getRoot();
+    double tipTime = tr->getEndTime();
+    tr->setNewRootInfo(rootN, outgroupN, currRoot, tipTime);
+
 }

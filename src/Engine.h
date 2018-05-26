@@ -85,7 +85,7 @@ class Engine{
         int                    numLoci, numGenes;
         double                 treescale;
         bool                   doScaleTree;
-    
+        double                 outgroupFrac;
         MbRandom               rando;
         // species tree paramters
         double                 spBirthRate, spDeathRate;
@@ -114,7 +114,8 @@ class Engine{
                                        int reps,
                                        int numTaxa,
                                        int nloci,
-                                       int ngen);
+                                       int ngen,
+                                       double og);
                                 ~Engine();
         void                    doRunRun();
         void                    writeTreeFiles();

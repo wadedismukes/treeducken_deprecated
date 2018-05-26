@@ -62,7 +62,7 @@ int main(int argc, char * argv[]) {
     else{
         std::string outName = "";
         int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 1;
-        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0;
+        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0, og = 0.0;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];
                 if(strlen(curArg) > 1 && curArg[0] == '-'){
@@ -93,7 +93,9 @@ int main(int argc, char * argv[]) {
                                     else if(line.substr(0,3) == "-sc")
                                         ts = atof(line.substr(4, std::string::npos - 1).c_str());
                                     else if(line.substr(0,3) == "-nl")
-                                        nloc = atof(line.substr(4, std::string::npos - 1).c_str());
+                                        nloc = atoi(line.substr(4, std::string::npos - 1).c_str());
+                                    else if(line.substr(0,3) == "-og")
+                                        og = atof(line.substr(4, std::string::npos - 1).c_str());
                                     else if(line.substr(0,2) == "-r")
                                         r = atoi(line.substr(3, std::string::npos - 1).c_str());
                                     else if(line.substr(0,2) == "-o")
@@ -139,6 +141,8 @@ int main(int argc, char * argv[]) {
                         r = atoi(argv[i+1]);
                     else if(!strcmp(curArg, "-o"))
                         outName = argv[i+1];
+                    else if(!strcmp(curArg, "-og"))
+                        og = atof(argv[i+1]);
                     else if(!strcmp(curArg, "-h")){
                         printHelp();
                         return 0;
@@ -213,7 +217,8 @@ int main(int argc, char * argv[]) {
                                r,
                                nt,
                                nloc, 
-                               ngen);
+                               ngen,
+                               og);
         phyEngine->doRunRun();
 
 

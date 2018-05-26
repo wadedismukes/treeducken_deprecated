@@ -76,6 +76,7 @@ class Tree
 {
     protected:
         Node    *root;
+        Node    *outgrp;
         std::vector<Node*> nodes;
         std::vector<Node*> extantNodes;
         unsigned numTaxa, numNodes, numTotalTips;
@@ -87,6 +88,8 @@ class Tree
                     Tree(MbRandom *p, unsigned numExtant, double cTime);
                     Tree(MbRandom *p, unsigned numTaxa);
                     ~Tree();
+        void       setOutgroup(Node *og) { outgrp = og; }
+        Node*       getOutgroup() { return outgrp; }
         Node*       getRoot() {return root; }
         void        setRoot(Node *r) { root = r; }
         double      getNumExtant() {return numExtant; }
@@ -95,12 +98,15 @@ class Tree
         double      getTotalTreeLength();
         double      getTreeDepth();
         double      getCurrentTime() {return currentTime; }
+        double      getEndTime();
+        void        rescaleTreeByOutgroupFrac(double outgroupFrac, double getTreeDepth);
         void        zeroAllFlags();
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
         void        setSampleFromFlags();
         void        getRootFromFlags();
         void        getExtantTree();
+        void        setNewRootInfo(Node *newRoot, Node *outgroup, Node *oldRoot, double t);
         std::vector<Node*> getNodes() { return nodes; }
         std::vector<Node*> getExtantNodes() { return extantNodes; }
         

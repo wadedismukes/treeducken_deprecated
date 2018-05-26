@@ -41,6 +41,7 @@ Node::~Node(){
 Tree::Tree(MbRandom *p, unsigned numExta, double curTime){
     rando = p;
     numNodes = 0;
+    outgrp = NULL;
     // intialize tree with root
     Node *r = new Node();
     r->setAsRoot(true);
@@ -264,8 +265,10 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
         }
     }
 }
-
+// Gene tree version only 
 void Tree::getRootFromFlags(){
+    nodes.push_back(this->getRoot());
+    nodes.push_back(this->getOutgroup());
 	setExtantTreeFlags();
     int numNodes = nodes.size() - 1;
 	for(int i=numNodes; i > 0; i--){
@@ -277,4 +280,56 @@ void Tree::getRootFromFlags(){
 		}
 		
     }
+}
+
+void Tree::rescaleTreeByOutgroupFrac(double outgroupFrac, double treeDepth){
+    double birthTime, deathTime;
+    double rescaleFactor = outgroupFrac * treeDepth;
+    for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
+        birthTime = (*it)->getBirthTime();
+        deathTime = (*it)->getDeathTime();
+        
+        (*it)->setBirthTime(birthTime + rescaleFactor);
+        (*it)->setDeathTime(deathTime + rescaleFactor);
+
+        (*it)->setBranchLength((*it)->getDeathTime() - (*it)->getBirthTime());
+    }
+}
+
+void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t){
+    rootN->setBirthTime(0.0);
+    rootN->setDeathTime(currRoot->getBirthTime());
+    rootN->setBranchLength(rootN->getDeathTime() - rootN->getBirthTime());
+    rootN->setAsRoot(true);
+    rootN->setLdes(currRoot);
+    rootN->setRdes(outgroupN);
+    // nodes.push_back(rootN);
+    this->setRoot(rootN);
+
+    currRoot->setAsRoot(false);
+    currRoot->setAnc(rootN);
+    
+    outgroupN->setName("OUT");
+    outgroupN->setBirthTime(currRoot->getBirthTime());
+    outgroupN->setDeathTime(t);
+    outgroupN->setIsTip(true);
+    outgroupN->setBranchLength(outgroupN->getDeathTime() - outgroupN->getBirthTime());
+    outgroupN->setIsExtant(true);
+    outgroupN->setAnc(rootN);
+    outgroupN->setLdes(NULL);
+    outgroupN->setRdes(NULL);
+    this->setOutgroup(outgroupN);
+    // nodes.push_back(outgroupN);
+}
+
+double Tree::getEndTime(){
+    double tipDtime;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsTip() && (*it)->getIsExtant()){
+            tipDtime = (*it)->getDeathTime();
+            break;
+        }
+    }
+
+    return tipDtime;
 }
