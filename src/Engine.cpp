@@ -109,6 +109,7 @@ void Engine::writeTreeFiles(){
                 for(int j = 0; j < numGenes; j++){
                     (*p)->writeGeneTreeFileInfoByIndx(d, i, j, outfilename);
                 }
+                (*p)->writeGeneTreeFileInfo(d, i, numGenes, outfilename);
         }
     }
 }
@@ -225,6 +226,50 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std:
     out << getGeneTreeByIndx(Lindx, indx) << "\n";
     out << "tree extGeneT_" << indx << " = ";
     out << getExtGeneTreeByIndx(Lindx, indx) << "\n";
+    out << "end;";
+
+}
+
+void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
+     std::string path = "./sim_files/speciestree_";
+    
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    path += tn.str();
+    path += "/";
+    fn += "genetrees_";
+
+    fn += tn.str();
+    
+    tn.clear();
+    tn.str(std::string());
+ 
+    tn << Lindx;
+    
+    fn += "_" + tn.str() + ".tre";;
+    tn.clear();
+    tn.str(std::string());
+    
+    // tn << i;
+    // fn += "_" + tn.str() + ".gen.tre";
+    path += fn;
+    
+    std::ofstream out(path);
+    // out << "#NEXUS\nbegin trees;\n";
+    // for(int i = 0; i < numGenes; i++){
+    //         out << "tree geneT_" << indx << " = ";
+    //         out << getGeneTreeByIndx(Lindx, indx) << "\n";
+    // }
+    // out << "end;";
+    
+    
+    out << "#NEXUS\nbegin trees;\n";
+    for(int i = 0; i < numGenes; i++){
+        out << "tree extGeneT_" << i << " = ";
+        out << getExtGeneTreeByIndx(Lindx, i) << "\n";
+    }
     out << "end;";
 
 }

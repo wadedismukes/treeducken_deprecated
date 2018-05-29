@@ -64,7 +64,7 @@ class TreeInfo{
             void                        writeWholeTreeFileInfo(int spIndx, std::string ofp);
             void                        writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
             void                        writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp);
-
+            void                        writeGeneTreeFileInfo(int spIndx, int Lindx, int numgene, std::string ofp);
 };
 
 
