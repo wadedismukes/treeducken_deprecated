@@ -41,7 +41,7 @@ Node::~Node(){
 Tree::Tree(MbRandom *p, unsigned numExta, double curTime){
     rando = p;
     numNodes = 0;
-    outgrp = NULL;
+    outgrp = nullptr;
     // intialize tree with root
     Node *r = new Node();
     r->setAsRoot(true);
@@ -273,7 +273,7 @@ void Tree::getRootFromFlags(){
     int numNodes = nodes.size() - 1;
 	for(int i=numNodes; i > 0; i--){
 		p = nodes[i];
-		if(p->getFlag() > 2){
+		if(p->getFlag() >= 2){
 			root = p;
 			root->setAsRoot(true);
 			break;

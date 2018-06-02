@@ -365,6 +365,7 @@ bool Simulator::coalescentSim(){
                     extinctFolks.erase(extFolksIt);
                 }
                 stopTimeLoci = stopTimes[contempLoci[epochCount][j]];
+                
                 if(stopTimeLoci > stopTimeEpoch){
                     stopTime = stopTimeLoci;
                     deathCheck = true;
@@ -397,7 +398,7 @@ bool Simulator::coalescentSim(){
         }
         else{
             // finish coalescing
-            geneTree->rootCoalescentProcess(currentSimTime);
+            geneTree->rootCoalescentProcess(currentSimTime, outgroupFrac);
             treeGood = true;
         }
         epochCount++;
@@ -429,9 +430,6 @@ bool Simulator::simThreeTree(){
                 std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
                 gGood = coalescentSim();
             }
-            //if(outgroupFrac != 0.0){
-           //     this->graftOutgroup(geneTree, geneTree->getTreeDepth());
-        
             geneTrees[i].push_back(geneTree);
             gGood = false;
         }
@@ -455,7 +453,6 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     std::string newickTree;
 
     geneTrees[i][j]->getRootFromFlags();
-    
     geneTrees[i][j]->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
     newickTree = geneTrees[i][j]->printExtantNewickTree();
     return newickTree;
@@ -465,7 +462,6 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
 void Simulator::graftOutgroup(Tree *tr, double trDepth){
     Node *rootN = new Node();
     Node *currRoot = tr->getRoot();
-
     rootN->setBirthTime(currRoot->getBirthTime());
     Node *outgroupN = new Node();
     tr->rescaleTreeByOutgroupFrac(outgroupFrac, trDepth);

@@ -198,7 +198,7 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
 
 
 
-void GeneTree::rootCoalescentProcess(double startTime){
+void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     int leftInd, rightInd;
     int leftIndExtN, rightIndExtN;
     int extIndx;
@@ -225,7 +225,11 @@ void GeneTree::rootCoalescentProcess(double startTime){
         n = coalescentEvent(t, l, r);
         extantNodes.push_back(n);
     }
-    if(this->getOutgroup() != NULL){
+    if(ogf == 0.0){
+        extantNodes[0]->setAsRoot(true);
+        this->setRoot(extantNodes[0]);
+    }
+    else{
         Node *nRoot = new Node(); 
         t -= getTimeToNextEvent(2);
         nRoot->setBirthTime(t);
@@ -240,10 +244,7 @@ void GeneTree::rootCoalescentProcess(double startTime){
         extantNodes[0]->setAnc(nRoot);
         nodes.push_back(nRoot);
         nodes.push_back(this->getOutgroup());
-    }
-    else{
-        extantNodes[0]->setAsRoot(true);
-        this->setRoot(extantNodes[0]);
+
     }
 
 
@@ -274,7 +275,7 @@ void GeneTree::setBranchLengths(){
     double brlen;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         brlen = (*it)->getDeathTime() - (*it)->getBirthTime();
-        (*it)->setBranchLength(abs(brlen));
+        (*it)->setBranchLength(std::abs(brlen));
     }
 }
 

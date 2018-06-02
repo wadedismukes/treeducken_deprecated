@@ -27,7 +27,7 @@ class GeneTree : public Tree {
         bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx, bool chck);
         void        initializeTree(std::vector< std::vector<int> > extantLociIndx, double presentTime);
         std::multimap<int,double> rescaleTimes(std::multimap<int, double> timeMap);
-        void        rootCoalescentProcess(double startTime);
+        void        rootCoalescentProcess(double startTime, double ogf);
         void        recursiveRescaleTimes(Node *r, double add);
         void        setBranchLengths();
         void        setIndicesBySpecies(std::map<int,int> spToLocusMap);

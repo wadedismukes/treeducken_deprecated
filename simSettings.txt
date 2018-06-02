@@ -26,4 +26,3 @@
 # effective population size
 -ne 500
 
--og 0.1
