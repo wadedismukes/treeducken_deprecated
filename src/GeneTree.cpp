@@ -41,7 +41,13 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
             p->setIsExtant(true);
             p->setIsTip(true);
             p->setIsExtinct(false);
-            extantNodes.push_back(p);
+            if(extantLociInd[0][i] == -1){
+                this->setOutgroup(p);
+                p->setName("OUT");
+            }
+            else{
+                extantNodes.push_back(p);
+            }
             nodes.push_back(p);
         }
     }
@@ -219,16 +225,28 @@ void GeneTree::rootCoalescentProcess(double startTime){
         n = coalescentEvent(t, l, r);
         extantNodes.push_back(n);
     }
+    if(this->getOutgroup() != NULL){
+        Node *nRoot = new Node(); 
+        t -= getTimeToNextEvent(2);
+        nRoot->setBirthTime(t);
+        nRoot->setLdes(extantNodes[0]);
+        nRoot->setRdes(this->getOutgroup());
+        nRoot->setDeathTime(extantNodes[0]->getBirthTime());
+        nRoot->setAsRoot(true);
+        this->setRoot(nRoot);
 
-    extantNodes[0]->setAsRoot(true);
-    this->setRoot(extantNodes[0]);
-    
-    if(extantNodes[0]->getBirthTime() < 0){
-        rescaleT = std::abs(this->getRoot()->getBirthTime());
-        this->getRoot()->setBirthTime(0.0);
-        this->getRoot()->setDeathTime(this->getRoot()->getDeathTime() + rescaleT);
-        this->recursiveRescaleTimes(this->getRoot(), rescaleT);
+        this->getOutgroup()->setBirthTime(extantNodes[0]->getBirthTime());
+        this->getOutgroup()->setAnc(nRoot);
+        extantNodes[0]->setAnc(nRoot);
+        nodes.push_back(nRoot);
+        nodes.push_back(this->getOutgroup());
     }
+    else{
+        extantNodes[0]->setAsRoot(true);
+        this->setRoot(extantNodes[0]);
+    }
+
+
     this->setBranchLengths();
 }
 
@@ -256,7 +274,7 @@ void GeneTree::setBranchLengths(){
     double brlen;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         brlen = (*it)->getDeathTime() - (*it)->getBirthTime();
-        (*it)->setBranchLength(brlen);
+        (*it)->setBranchLength(abs(brlen));
     }
 }
 
@@ -383,7 +401,10 @@ void GeneTree::setTreeTipNames(){
             name += "_" + tn.str();
             tn.clear();
             tn.str(std::string());
-            (*it)->setName(name);
+            if((*it) == this->getOutgroup())
+                (*it)->setName("OUT");
+            else
+                (*it)->setName(name);
             if(indNumber == individualsPerPop)
                 indNumber = 0;
         }

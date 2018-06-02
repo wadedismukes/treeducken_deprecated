@@ -88,7 +88,7 @@ class Tree
                     Tree(MbRandom *p, unsigned numExtant, double cTime);
                     Tree(MbRandom *p, unsigned numTaxa);
                     ~Tree();
-        void       setOutgroup(Node *og) { outgrp = og; }
+        void        setOutgroup(Node *og) { outgrp = og; }
         Node*       getOutgroup() { return outgrp; }
         Node*       getRoot() {return root; }
         void        setRoot(Node *r) { root = r; }

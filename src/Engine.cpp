@@ -90,8 +90,6 @@ void Engine::doRunRun(){
             }
         }
         simSpeciesTrees.push_back(ti);
-        // TODO: rewrite the set whole tree string info to insert the string for each tree in a run
-        // TODO: write function defintions for everything in engine
     }
 
     this->writeTreeFiles();
@@ -106,9 +104,9 @@ void Engine::writeTreeFiles(){
         for(int i = 0; i < numLoci; i++){
             (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
             if(simType == 3)
-                for(int j = 0; j < numGenes; j++){
-                    (*p)->writeGeneTreeFileInfoByIndx(d, i, j, outfilename);
-                }
+                // for(int j = 0; j < numGenes; j++){
+                //     (*p)->writeGeneTreeFileInfoByIndx(d, i, j, outfilename);
+                // }
                 (*p)->writeGeneTreeFileInfo(d, i, numGenes, outfilename);
         }
     }

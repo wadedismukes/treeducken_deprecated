@@ -12,7 +12,7 @@
 -sdr 0.0001
 -r 1
 -nl 1
--ng 100
+-ng 1000
 # Locus Tree Simulation parameters
 # gene birth rate
 -gbr 0.0

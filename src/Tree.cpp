@@ -267,13 +267,13 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
 }
 // Gene tree version only 
 void Tree::getRootFromFlags(){
-    nodes.push_back(this->getRoot());
-    nodes.push_back(this->getOutgroup());
+    Node *p;
+
 	setExtantTreeFlags();
     int numNodes = nodes.size() - 1;
 	for(int i=numNodes; i > 0; i--){
-		Node *p = nodes[i];
-		if(p->getFlag() == 2){
+		p = nodes[i];
+		if(p->getFlag() > 2){
 			root = p;
 			root->setAsRoot(true);
 			break;
@@ -297,7 +297,7 @@ void Tree::rescaleTreeByOutgroupFrac(double outgroupFrac, double treeDepth){
 }
 
 void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t){
-    rootN->setBirthTime(0.0);
+   // rootN->setBirthTime(0.0);
     rootN->setDeathTime(currRoot->getBirthTime());
     rootN->setBranchLength(rootN->getDeathTime() - rootN->getBirthTime());
     rootN->setAsRoot(true);

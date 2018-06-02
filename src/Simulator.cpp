@@ -348,6 +348,8 @@ bool Simulator::coalescentSim(){
     std::vector< std::vector<int> > contempLoci = lociTree->getExtantLoci(epochs);
     std::map<int, double> stopTimes = lociTree->getBirthTimesFromNodes();
     geneTree->initializeTree(contempLoci, *(epochs.begin()));
+    if(outgroupFrac != 0.0)
+        contempLoci[0].pop_back();
     std::set<int>::iterator extFolksIt;
 
     for(std::set<double, std::greater<double> >::iterator epIter = epochs.begin(); epIter != epochs.end(); ++epIter){
@@ -371,6 +373,7 @@ bool Simulator::coalescentSim(){
                     stopTime = stopTimeEpoch;
                     deathCheck = false;
                 }
+
                 ancIndx = lociTree->postOrderTraversalStep(contempLoci[epochCount][j]);
                 allCoalesced = geneTree->censorCoalescentProcess(currentSimTime, stopTime, contempLoci[epochCount][j], ancIndx, deathCheck);
                 
@@ -426,9 +429,9 @@ bool Simulator::simThreeTree(){
                 std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
                 gGood = coalescentSim();
             }
-            if(outgroupFrac != 0.0){
-                this->graftOutgroup(geneTree, geneTree->getTreeDepth());
-        }
+            //if(outgroupFrac != 0.0){
+           //     this->graftOutgroup(geneTree, geneTree->getTreeDepth());
+        
             geneTrees[i].push_back(geneTree);
             gGood = false;
         }
@@ -450,7 +453,9 @@ std::string Simulator::printGeneTreeNewick(int i, int j){
 
 std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     std::string newickTree;
+
     geneTrees[i][j]->getRootFromFlags();
+    
     geneTrees[i][j]->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
     newickTree = geneTrees[i][j]->printExtantNewickTree();
     return newickTree;
@@ -459,10 +464,11 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
 
 void Simulator::graftOutgroup(Tree *tr, double trDepth){
     Node *rootN = new Node();
+    Node *currRoot = tr->getRoot();
+
+    rootN->setBirthTime(currRoot->getBirthTime());
     Node *outgroupN = new Node();
     tr->rescaleTreeByOutgroupFrac(outgroupFrac, trDepth);
-    Node *currRoot = tr->getRoot();
     double tipTime = tr->getEndTime();
     tr->setNewRootInfo(rootN, outgroupN, currRoot, tipTime);
-
 }

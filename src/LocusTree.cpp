@@ -500,6 +500,8 @@ std::map<int, double> LocusTree::getBirthTimesFromNodes(){
         birthTime = (*it)->getBirthTime();
         birthTimeMap.insert(std::pair<int,double>(locusIndx, birthTime));
     }
+    if(this->getOutgroup() != NULL)
+        birthTimeMap.insert(std::pair<int,double> (-1, this->getOutgroup()->getBirthTime()));
     return birthTimeMap;
 }
 
@@ -527,9 +529,13 @@ std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::g
             }
         }
 
+
+
         epCount++;
     }
-
+    if(this->getOutgroup() != NULL){
+        locusInEpoch[0].push_back(-1);
+    }
     return locusInEpoch;
 }
 
@@ -537,9 +543,8 @@ int LocusTree::postOrderTraversalStep(int indx){
     Node* anc;
     int ancIndx;
     anc = nodes[indx]->getAnc();    
-    if(anc != NULL){
+    if(anc != NULL)
         ancIndx = anc->getLindx();
-    }
     else
         ancIndx = 0;
     
