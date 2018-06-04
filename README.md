@@ -1,4 +1,4 @@
-# `treeducken` 
+# treeducken 
 `treeducken`, named after the infamous [dish](https://en.wikipedia.org/wiki/Turducken), is for the simulation of phylogenies under the three tree model (Rasmussen &amp; Kellis 2012). These three trees represent the species tree, locus (i.e. gene family) tree, and the gene tree. If you prefer, you may think of the species tree as the turkey, locus tree as the duck, and gene tree as the chicken in our phylogenetic three-bird roast.
 
 --------
@@ -21,7 +21,7 @@ The simulations require the input of the following parameters:
 After inputting these parameters the simulation proceeds as follows. First, a species tree is simulated under the constant rate birth-death process until the specified number of species is obtained using the generalized sampling algorithm given in Hartmann 2010. Next, a set of locus tree is forward simulated along the species tree using a birth-death process where transfers are treated as birth events where one loci is transferred to a randomly-selected contemporaneous species, and the other loci stays within the donor lineage. Note that this does simulate along lineages that are bound for extinction. The locus tree simulation process is repeated for the number of loci to simulate on the species tree. For each of those simulated locus trees a gene tree is backward simulated using the multi-locus coalescent. For this multilocus coalescent each tip in the tree starts with the individuals to sample per population. 
 
 
-# Installing `treeducken`
+# Installing treeducken
 
 To install `treeducken`, clone the repository by doing the following:
 
@@ -42,7 +42,7 @@ Then change directory to `treeducken/src` and run the following command:
 ```
 
 
-# Using `treeducken`
+# Using treeducken
 
 Once `treeducken` has been installed, there are two ways to run the program. The first way entails using command line arguments (see below) to specify the simulation parameters:
 
