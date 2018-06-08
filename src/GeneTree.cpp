@@ -53,7 +53,7 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
     }
 }
 
-double GeneTree::getTimeToNextEvent(int n){
+double GeneTree::getCoalTime(int n){
     double ct;
     double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
     ct = -log(rando->uniformRv()) / (lambda);
@@ -79,7 +79,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
   //  std::cout << contempSpeciesIndx << "   ($)$)%    " << indInExtNodes.size() << std::endl;
     if(indInExtNodes.size() > 1){
         while(t > stopTime){
-            t -= getTimeToNextEvent(indInExtNodes.size());
+            t -= getCoalTime(indInExtNodes.size());
             // std::cout << t << std::endl;
             if(t < stopTime){
                 if(chck){
@@ -200,19 +200,16 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
 
 void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     int leftInd, rightInd;
-    int leftIndExtN, rightIndExtN;
-    int extIndx;
     Node *l, *r;
     Node *n;
     double t = startTime;
-    double rescaleT;
     // search extantNodes for members with Lindx = contempSpecisIndx 
     std::vector<int> indInExtNodes;
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
         (*it)->setLindx(0);
     }
     while(extantNodes.size() > 1){
-        t -= getTimeToNextEvent(extantNodes.size());
+        t -= getCoalTime(extantNodes.size());
 
         rightInd = rando->uniformRv(0, extantNodes.size() - 1);
         r = extantNodes[rightInd];
@@ -231,7 +228,7 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     }
     else{
         Node *nRoot = new Node(); 
-        t -= getTimeToNextEvent(2);
+        t -= getCoalTime(2);
         nRoot->setBirthTime(t);
         nRoot->setLdes(extantNodes[0]);
         nRoot->setRdes(this->getOutgroup());

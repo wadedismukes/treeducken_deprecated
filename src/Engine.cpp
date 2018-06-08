@@ -16,6 +16,10 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     geneBirthRate = gbr;
     geneDeathRate = gdr;
     transferRate = lgtr;
+    doScaleTree = false;
+    // treescale = 1.0;
+    seedset = 0;
+
     individidualsPerPop = ipp;
     populationSize = popsize;
     generationTime = genTime;
@@ -44,8 +48,7 @@ Engine::~Engine(){
 
 
 void Engine::doRunRun(){
-    // to be written after designing an outfile scheme
-    double TS = 0.0;
+    // double TS = 0.0;
     for(int i = 0; i < numSpeciesTrees; i++){
         
         Simulator *treesim = new Simulator(&rando,
@@ -114,7 +117,7 @@ void Engine::writeTreeFiles(){
 
 
 TreeInfo* Engine::findTreeByIndx(int i){
-    TreeInfo *tf;
+    TreeInfo *tf = 0;
     int count = 0;
     for(std::vector<TreeInfo*>::iterator it = simSpeciesTrees.begin(); it != simSpeciesTrees.end(); ++it){
         if(count == i){

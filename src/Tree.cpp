@@ -323,7 +323,7 @@ void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t
 }
 
 double Tree::getEndTime(){
-    double tipDtime;
+    double tipDtime = 0.0;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsTip() && (*it)->getIsExtant()){
             tipDtime = (*it)->getDeathTime();

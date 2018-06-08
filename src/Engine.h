@@ -6,8 +6,9 @@
 //  Copyright © 2018 Dismukes, Wade T [EEOBS]. All rights reserved.
 //
 
-#ifndef Engine_hpp
-#define Engine_hpp
+#ifndef Engine_h
+#define Engine_h
+
 #include "Simulator.h"
 #include <iostream>
 #include <fstream>
@@ -17,7 +18,6 @@
 
 class TreeInfo{
         private:
-            int                         treeIndx;
             std::string                 speciesTree;
             std::vector<std::string>    gsaTrees;
             std::vector<std::string>    locusTrees;
@@ -29,7 +29,7 @@ class TreeInfo{
 
     
         public:
-                                        TreeInfo(int idx, int nl) : treeIndx(idx), spTreeLength(0.0), spTreeNess(0.0), spAveTipLen(0.0), loTreeLength(0.0), loTreeNess(0.0), loAveTipLen(0.0), geneTrees(nl), extGeneTrees(nl) {};
+                                        TreeInfo(int idx, int nl) : geneTrees(nl), extGeneTrees(nl), spTreeLength(0.0), spTreeNess(0.0), spAveTipLen(0.0), loTreeLength(0.0), loTreeNess(0.0), loAveTipLen(0.0) {};
             std::string                 getWholeSpeciesTree() {return speciesTree; }
             std::string                 getLocusTreeByIndx(int idx) { return locusTrees[idx]; }
             std::string                 getGeneTreeByIndx(int Lidx, int idx) { return geneTrees[Lidx][idx]; }
@@ -83,7 +83,7 @@ class Engine{
         int                    numTaxa;
         int                    numSpeciesTrees;
         int                    numLoci, numGenes;
-        double                 treescale;
+        // double                 treescale;
         bool                   doScaleTree;
         double                 outgroupFrac;
         MbRandom               rando;

@@ -14,7 +14,6 @@
 
 class GeneTree : public Tree {
     private:
-        unsigned numTips;
         unsigned individualsPerPop;
         unsigned popSize;
         double   generationTime; // specified in generations per year
@@ -22,7 +21,7 @@ class GeneTree : public Tree {
     public:
                     GeneTree(MbRandom *rando, unsigned nt, unsigned ipp, unsigned ne, double genTime);
                     ~GeneTree();
-        double      getTimeToNextEvent(int n); // what do you need to determine this?
+        double      getCoalTime(int n); // what do you need to determine this?
         Node*       coalescentEvent(double t, Node *p, Node *q);
         bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx, bool chck);
         void        initializeTree(std::vector< std::vector<int> > extantLociIndx, double presentTime);

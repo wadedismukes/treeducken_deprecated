@@ -87,7 +87,7 @@ class Tree
     public:
                     Tree(MbRandom *p, unsigned numExtant, double cTime);
                     Tree(MbRandom *p, unsigned numTaxa);
-                    ~Tree();
+        virtual      ~Tree();
         void        setOutgroup(Node *og) { outgrp = og; }
         Node*       getOutgroup() { return outgrp; }
         Node*       getRoot() {return root; }
@@ -114,12 +114,13 @@ class Tree
         void        reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
 
         virtual double  getTimeToNextEvent() { return 0.0; }
-        virtual void    lineageBirthEvent() { return; }
-        virtual void    lineageDeathEvent() { return; }
+        virtual void    lineageBirthEvent(unsigned int indx) { return; }
+        virtual void    lineageDeathEvent(unsigned int indx) { return; }
         virtual void    setTreeTipNames()  { return; }
         virtual void    ermEvent(double ct) { return; }
         virtual void    setBranchLengths() { return; }
         virtual std::string    printNewickTree() { return "t";}
+
         friend class Node;
         
 };

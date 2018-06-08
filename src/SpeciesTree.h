@@ -8,6 +8,7 @@
 
 #ifndef SpeciesTree_h
 #define SpeciesTree_h
+
 #include "MbRandom.h"
 #include "Tree.h"
 #include <sstream>
@@ -28,9 +29,9 @@ class SpeciesTree : public Tree
         void          setExtinctionRate(double er) {extinctionRate = er; }
 
         // tree-building functions
-        double        getTimeToNextEvent();
-        void          lineageBirthEvent(unsigned indx);
-        void          lineageDeathEvent(unsigned indx);
+        virtual double        getTimeToNextEvent();
+        virtual void          lineageBirthEvent(unsigned indx);
+        virtual void          lineageDeathEvent(unsigned indx);
         void          ermEvent(double curTime);
         void          setNewLineageInfo(unsigned indx, Node *r, Node *l);
     

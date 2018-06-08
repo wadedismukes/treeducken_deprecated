@@ -1,8 +1,8 @@
 # compiler
-CXX = g++
+CXX = clang++
 
 # control variables
-CXXFLAGS = -g
+CXXFLAGS = -g -Wall
 
 objects = Treeducken.o SpeciesTree.o Simulator.o GeneTree.o LocusTree.o MbRandom.o Tree.o Engine.o
 

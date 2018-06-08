@@ -8,10 +8,10 @@
 
 #ifndef LocusTree_h
 #define LocusTree_h
+
 #include "SpeciesTree.h"
 #include <algorithm>
 #include <set>
-#include <unordered_set>
 
 class LocusTree : public Tree 
 {
@@ -24,10 +24,10 @@ class LocusTree : public Tree
     public:
         LocusTree(MbRandom *rando, unsigned nt, double stop, double gbr, double gdr, double lgtr);
         ~LocusTree();
-        double  getTimeToNextEvent();
-        void    lineageBirthEvent(int indx);
-        void    lineageDeathEvent(int indx);
-        void    setNewLineageInfo(int indx, Node *r, Node *s);
+        virtual double  getTimeToNextEvent();
+        virtual void    lineageBirthEvent(unsigned indx);
+        virtual void    lineageDeathEvent(unsigned indx);
+        virtual void    setNewLineageInfo(int indx, Node *r, Node *s);
         void    lineageTransferEvent(int indx);
         void    ermEvent(double ct);
     

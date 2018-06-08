@@ -67,14 +67,14 @@ void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     numExtant = (int)extantNodes.size();
 }
 
-void LocusTree::lineageBirthEvent(int indx){
+void LocusTree::lineageBirthEvent(unsigned indx){
     Node *sis, *right;
     right = new Node();
     sis = new Node();
     setNewLineageInfo(indx, right, sis);
 }
 
-void LocusTree::lineageDeathEvent(int indx){
+void LocusTree::lineageDeathEvent(unsigned indx){
     extantNodes[indx]->setDeathTime(currentTime);
     extantNodes[indx]->setIsExtant(false);
     extantNodes[indx]->setIsTip(true);
@@ -510,7 +510,6 @@ std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::g
     int locusIndx;
     int epCount = 0;
     int numEpochs = (int) epochs.size();
-    Node* anc;
     std::vector< std::vector<int> > locusInEpoch(numEpochs);
     for(std::set<double, std::greater<double> >::iterator epIt = epochs.begin(); epIt != epochs.end(); ++epIt){
         for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
