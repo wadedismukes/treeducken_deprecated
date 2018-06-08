@@ -10,9 +10,11 @@
 #include "SpeciesTree.h"
 #include "Simulator.h"
 #include "Engine.h"
+#include "GitVersion.h"
 
 void printHelp();
 void printSettings();
+void printVersion();
 
 void printHelp(){
     std::cout << "\tHere are the available options that you can change (default values are in []):\n";
@@ -31,7 +33,8 @@ void printHelp(){
     std::cout << "\t\t-lgtr : gene transfer rate [= 0.0]\n";
     std::cout << "\t\t-ipp  : individuals to sample per locus [= 0]\n";
     std::cout << "\t\t-ne   : effective population size per locus [= 0] \n";
-    
+    std::cout << "\t\t-ng   : number of genes to simulate per locus [= 0] \n";
+    std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;   
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
@@ -50,18 +53,25 @@ void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, 
     std::cout << "\t\tEffective pop size per locus    = " << ne << "\n";
 }
 
+void printVersion(){
+    std::cout << "############################################################\n";
+    std::cout << "####\ttreeducken, version 0.1 \t\t\t####\n";
+    std::cout << "####\t" << GIT_HASH << "\t####\n";
+    std::cout << "############################################################\n";
+}
 
 int main(int argc, char * argv[]) {
     std::string setFileName;
     int mt;
     Engine *phyEngine;
+    printVersion();
     if(argc  == 1){
         printHelp();
         return 0;
     }
     else{
         std::string outName = "";
-        int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 1;
+        int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 0;
         double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0, og = 0.0;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];

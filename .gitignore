@@ -3,3 +3,4 @@
 .vscode/*
 *.tre
 treeducken.dSYM/*
+GitVersion.h

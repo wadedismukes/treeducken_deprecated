@@ -3,14 +3,18 @@ CXX = g++
 
 # control variables
 CXXFLAGS = -g
-VARNAME = value
 
 objects = Treeducken.o SpeciesTree.o Simulator.o GeneTree.o LocusTree.o MbRandom.o Tree.o Engine.o
+
+GitVersion.h:
+	printf '#ifndef GIT_HASH\n#define GIT_HASH "' > $@ && \
+	git rev-parse HEAD | tr -d "\n" >> $@ && \
+	printf  '"\n#endif' >> $@
 
 install: $(objects) 
 	$(CXX) -o ../treeducken $(objects)
 
-Treeducken.o: Treeducken.cpp SpeciesTree.h Simulator.h GeneTree.h LocusTree.h MbRandom.h Tree.h Engine.h
+Treeducken.o: Treeducken.cpp SpeciesTree.h Simulator.h GeneTree.h LocusTree.h MbRandom.h Tree.h Engine.h GitVersion.h
 	$(CXX) $(CXXFLAGS) -c Treeducken.cpp
 
 SpeciesTree.o: SpeciesTree.h Tree.h
@@ -37,3 +41,4 @@ Engine.o: Engine.h Simulator.h
 .PHONY : clean 
 clean: 
 	-rm ../treeducken $(objects)
+	-rm GitVersion.h
