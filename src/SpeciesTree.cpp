@@ -36,15 +36,10 @@ double SpeciesTree::getTimeToNextEvent(){
 }
 
 void SpeciesTree::lineageBirthEvent(unsigned indx){
-    //Node *sis, *right;
-    Node *right = new Node();
-    Node *sis = new Node();
-
+    Node *sis, *right;
+    right = new Node();
+    sis = new Node();
     setNewLineageInfo(indx, right, sis);
-    delete right;
-    right = nullptr;
-    delete sis;
-    sis = nullptr;
 }
 
 void SpeciesTree::lineageDeathEvent(unsigned int indx){
@@ -101,6 +96,7 @@ void SpeciesTree::setNewLineageInfo(unsigned int indx, Node *r, Node *l){
     numExtant = (int)extantNodes.size();
     r->setIndx(numExtant - 2);
     l->setIndx(numExtant - 1);
+    
 }
 
 void SpeciesTree::setBranchLengths(){

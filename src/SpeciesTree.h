@@ -24,7 +24,7 @@ class SpeciesTree : public Tree
     public:
                       SpeciesTree(MbRandom *p, unsigned numTaxa, double curTime, double specRate, double extRate);
                       SpeciesTree(MbRandom *p, unsigned numTaxa);
-        virtual       ~SpeciesTree();
+                      ~SpeciesTree();
         void          setSpeciationRate(double sr) {speciationRate = sr; }
         void          setExtinctionRate(double er) {extinctionRate = er; }
 
