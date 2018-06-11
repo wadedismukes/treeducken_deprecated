@@ -21,7 +21,7 @@ LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double g
 }
 
 LocusTree::~LocusTree(){
-    
+
 }
 
 
@@ -251,6 +251,10 @@ int LocusTree::speciationEvent(int indx, double time, std::pair<int,int> sibs){
             it = extantNodes.insert(it, l);
             count += 2;
             numExtant = (int)extantNodes.size();
+            delete r;
+            r = nullptr;
+            delete l;
+            l = nullptr;
         }
         else
             ++it;

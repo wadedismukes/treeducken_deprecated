@@ -42,7 +42,7 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
 
 
 Engine::~Engine(){
-    if(!(simSpeciesTrees.empty()))
+    //if(!(simSpeciesTrees.empty()))
         simSpeciesTrees.clear();
 }
 
@@ -93,6 +93,11 @@ void Engine::doRunRun(){
             }
         }
         simSpeciesTrees.push_back(ti);
+        delete ti;
+        ti = nullptr;
+        delete treesim;
+        treesim = nullptr;
+
     }
 
     this->writeTreeFiles();
@@ -149,7 +154,16 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
 
 /*
     TreeInfo functions to write tree information to file in various file formats
-                                                                                    */
+                                  
+                                                        */
+
+TreeInfo::~TreeInfo(){
+    gsaTrees.clear();
+    locusTrees.clear();
+    geneTrees.clear();
+    extGeneTrees.clear();
+}
+
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     std::string path = "./sim_files/speciestree_";
     

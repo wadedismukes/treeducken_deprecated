@@ -19,6 +19,9 @@ Simulator::Simulator(MbRandom *p, unsigned nt, double lambda, double mu, double 
     speciationRate = lambda;
     extinctionRate = mu;
     samplingRate = rho;
+    spTree = nullptr;
+    geneTree = nullptr;
+    lociTree = nullptr;
     
     
     numLoci = 0;
@@ -43,7 +46,10 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     speciationRate = lambda;
     extinctionRate = mu;
     samplingRate = rho;
-    
+    spTree = nullptr;
+    geneTree = nullptr;
+    lociTree = nullptr;
+
     numLoci = numLociToSim;
     geneBirthRate = gbr;
     geneDeathRate = gdr;
@@ -57,6 +63,11 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
 
 Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime, int ng, double og)
 {
+
+    spTree = nullptr;
+    geneTree = nullptr;
+    lociTree = nullptr;
+    
     simType = 3;
     currentSimTime = 0.0;
     rando = p;
@@ -79,30 +90,18 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
 }
 
 Simulator::~Simulator(){
-    if(spTree != 0){
-        delete spTree;
-    }
-    if(gsaTrees.size() != 0)
-        gsaTrees.clear();
-    if(lociTree != 0)
-        delete lociTree;
-    if(geneTree != 0)
-        delete geneTree;
-        
+
+    delete spTree;
+    delete lociTree;
+    delete geneTree;
+
+    gsaTrees.clear();
+    geneTrees.clear();
+    locusTrees.clear();
 }
 
 void Simulator::initializeSim(){
-    // only simulates speciestrees, other models to come
-    if(simType == 1){
-        spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-    }
-    else if(simType == 2){
-        spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-    }
-    else if(simType == 3){
-        spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-        // geneTrees.resize(numLoci, new GeneTree(rando, numTaxaToSim, currentSimTime, indPerPop, popSize);
-    }
+
 }
 
 
@@ -113,7 +112,10 @@ void Simulator::initializeSim(){
 bool Simulator::gsaBDSim(){
     double timeIntv, sampTime;
     bool treeComplete = false;
-    this->initializeSim();
+    //this->initializeSim();
+    SpeciesTree spT = SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    spTree = &spT;
+    //spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     double eventTime;
     
     while(gsaCheckStop()){
@@ -160,10 +162,8 @@ bool Simulator::gsaCheckStop(){
 void Simulator::processGSASim(){
     SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim + spTree->getNumExtinct());
     this->prepGSATreeForReconstruction();
-    Node *simRoot = spTree->getRoot();
-    tt->reconstructTreeFromGSASim(simRoot);
+    tt->reconstructTreeFromGSASim(spTree->getRoot());
     gsaTrees.push_back(tt);
-    
 }
 
 void Simulator::processSpTreeSim(){

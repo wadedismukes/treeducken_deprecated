@@ -23,7 +23,7 @@ class LocusTree : public Tree
 
     public:
         LocusTree(MbRandom *rando, unsigned nt, double stop, double gbr, double gdr, double lgtr);
-        ~LocusTree();
+        virtual ~LocusTree();
         virtual double  getTimeToNextEvent();
         virtual void    lineageBirthEvent(unsigned indx);
         virtual void    lineageDeathEvent(unsigned indx);

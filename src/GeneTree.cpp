@@ -21,13 +21,14 @@ GeneTree::~GeneTree(){
 }
 
 void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, double presentTime){
+    delete root;
     if(!(nodes.empty())){
         nodes.clear();
     }
     if(!(extantNodes.empty())){
         extantNodes.clear();
     }
-    Node *p;
+    Node *p = nullptr;
     int numLociInPresnt = extantLociInd[0].size();
     for(int i = 0; i < numLociInPresnt; i++){
         for(int j = 0; j < individualsPerPop; j++){
@@ -43,12 +44,15 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
             p->setIsExtinct(false);
             if(extantLociInd[0][i] == -1){
                 this->setOutgroup(p);
+                p->setIsOutgroup(true);
                 p->setName("OUT");
             }
             else{
                 extantNodes.push_back(p);
             }
             nodes.push_back(p);
+            delete p;
+            p = nullptr;
         }
     }
 }
@@ -385,10 +389,12 @@ void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
 void GeneTree::setTreeTipNames(){
     int indNumber = 0;
     std::stringstream tn;
-    std::string name;
-    int indx;
+    std::string name = "";
+    bool tipCheck = false;
+    int indx = -1;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); it++){
-        if((*it)->getIsTip()){
+        tipCheck = (*it)->getIsTip();
+        if(tipCheck){
             indx  = (*it)->getIndex();
             tn << indx;
             name = tn.str();
@@ -399,7 +405,7 @@ void GeneTree::setTreeTipNames(){
             name += "_" + tn.str();
             tn.clear();
             tn.str(std::string());
-            if((*it) == this->getOutgroup())
+            if((*it)->getIsOutgroup())
                 (*it)->setName("OUT");
             else
                 (*it)->setName(name);
@@ -408,5 +414,4 @@ void GeneTree::setTreeTipNames(){
         }
 
     }
-
-}
+}   

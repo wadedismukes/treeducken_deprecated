@@ -24,6 +24,7 @@ class Node
         int     indx, Lindx;
         int     flag;
         std::string name;
+        bool    isOutgroup;
         bool    isRoot;
         bool    isTip;
         bool    isExtant, isExtinct;
@@ -35,6 +36,7 @@ class Node
                 Node();
                 ~Node();
         void    setAsRoot(bool t) {isRoot = t; }
+        void    setIsOutgroup(bool t) { isOutgroup = t; }
         void    setBirthTime(double bt) {birthTime = bt; }
         void    setIndx(unsigned i) {indx = i; }
         void    setIsTip(bool t) {isTip = t; }
@@ -58,6 +60,7 @@ class Node
         Node*   getAnc() {return anc; }
         Node*   getSib() {return sib; }
         bool    getIsRoot() {return isRoot; }
+        bool    getIsOutgroup() { return isOutgroup; }
         bool    getIsTip() {return isTip; }
         bool    getIsExtinct() {return isExtinct; }
         bool    getIsExtant() { return isExtant; }
