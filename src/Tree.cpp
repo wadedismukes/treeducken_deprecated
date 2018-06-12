@@ -63,15 +63,16 @@ Tree::Tree(MbRandom *p, unsigned numTax){
     numNodes = 2 * numTax - 1;
     outgrp = nullptr;
     // intialize tree with root
-    root = new Node();
-    root->setAsRoot(true);
-    root->setBirthTime(0.0);
-    root->setIndx(0);
-    root->setIsExtant(true);
-    nodes.push_back(root);
-    extantNodes.push_back(root);
-    numExtant = 1;
-    currentTime = 0.0;
+    // root = new Node();
+    // root->setAsRoot(true);
+    // root->setBirthTime(0.0);
+    // root->setIndx(0);
+    // root->setIsExtant(true);
+    // nodes.push_back(root);
+    // extantNodes.push_back(root);
+    root = nullptr;
+    //numExtant = 1;
+    //currentTime = 0.0;
 }
 
 Tree::~Tree(){
@@ -87,13 +88,24 @@ Tree::~Tree(){
     //     delete (*p);
     // }
     // extantNodes.clear();
-    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
-        delete (*p);
-    }
-    nodes.clear();
-
+    // for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+    //     delete (*p);
+    // }
+    // nodes.clear();
+    
+    clearNodes(root);
 }
 
+void Tree::clearNodes(Node *currNode){
+    if(currNode == nullptr){
+        return;
+    }
+
+    clearNodes(currNode->getRdes());
+    clearNodes(currNode->getLdes());
+    delete currNode;
+    currNode = nullptr;
+}
 
 void Tree::zeroAllFlags(){
     for(std::vector<Node*>::iterator it=nodes.begin(); it!=nodes.end(); it++){

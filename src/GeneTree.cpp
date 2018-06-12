@@ -18,7 +18,8 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
 }
 
 GeneTree::~GeneTree(){
-    
+    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p)
+        delete (*p);
 }
 
 void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, double presentTime){

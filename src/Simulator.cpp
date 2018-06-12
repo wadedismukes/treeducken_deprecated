@@ -127,9 +127,9 @@ void Simulator::initializeSim(){
 bool Simulator::gsaBDSim(){
     double timeIntv, sampTime;
     bool treeComplete = false;
-    this->initializeSim();
-    // SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-    // spTree = &st;
+    // spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    spTree = &st;
     double eventTime;
     
     while(gsaCheckStop()){
@@ -149,7 +149,7 @@ bool Simulator::gsaBDSim(){
         
     }
     unsigned gsaRandomTreeID = rando->uniformRv(0, (unsigned) gsaTrees.size() - 1);
-    delete spTree;
+    // delete spTree;
     spTree = gsaTrees[gsaRandomTreeID];
     processSpTreeSim();
     spTree->setBranchLengths();
@@ -177,9 +177,9 @@ void Simulator::processGSASim(){
     SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim + spTree->getNumExtinct());
     this->prepGSATreeForReconstruction();
     Node *simRoot = spTree->getRoot();
+    tt->setRoot(simRoot);
     tt->reconstructTreeFromGSASim(simRoot);
-    gsaTrees.push_back(tt);
-    
+    gsaTrees.push_back(tt);    
 }
 
 void Simulator::processSpTreeSim(){

@@ -100,6 +100,7 @@ class Tree
         double      getCurrentTime() {return currentTime; }
         double      getEndTime();
         void        rescaleTreeByOutgroupFrac(double outgroupFrac, double getTreeDepth);
+        void        clearNodes(Node *cur);
         void        zeroAllFlags();
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
