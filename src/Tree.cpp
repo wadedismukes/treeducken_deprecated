@@ -43,13 +43,13 @@ Tree::Tree(MbRandom *p, unsigned numExta, double curTime){
     numNodes = 0;
     outgrp = nullptr;
     // intialize tree with root
-    Node *r = new Node();
-    r->setAsRoot(true);
-    r->setBirthTime(0.0);
-    r->setIndx(0);
-    root = r;
-    nodes.push_back(r);
-    extantNodes.push_back(r);
+    root = new Node();
+    root->setAsRoot(true);
+    root->setBirthTime(0.0);
+    root->setIndx(0);
+    root->setIsExtant(true);
+    nodes.push_back(root);
+    extantNodes.push_back(root);
     numExtant = 1;
     numTaxa = numExta;
     numExtinct = 0;
@@ -61,25 +61,37 @@ Tree::Tree(MbRandom *p, unsigned numTax){
     numTaxa = numTax;
     rando = p;
     numNodes = 2 * numTax - 1;
+    outgrp = nullptr;
     // intialize tree with root
-    Node *r = new Node();
-    r->setAsRoot(true);
-    r->setBirthTime(0.0);
-    r->setIndx(0);
-    r->setIsExtant(true);
-    root = r;
-    nodes.push_back(r);
-    extantNodes.push_back(r);
+    root = new Node();
+    root->setAsRoot(true);
+    root->setBirthTime(0.0);
+    root->setIndx(0);
+    root->setIsExtant(true);
+    nodes.push_back(root);
+    extantNodes.push_back(root);
     numExtant = 1;
     currentTime = 0.0;
 }
 
-Tree::~Tree()
-{
-    if(!(nodes.empty() == false))
-        nodes.clear();
-    if(!(extantNodes.empty()))
-        extantNodes.clear();
+Tree::~Tree(){
+    // if(root != nullptr){
+    //     delete root;
+    //     root = nullptr;
+    // }
+    // if(outgrp != nullptr){
+    //     delete outgrp;
+    //     outgrp = nullptr;
+    // }
+    // for(std::vector<Node*>::iterator p=extantNodes.begin(); p != extantNodes.end(); ++p){
+    //     delete (*p);
+    // }
+    // extantNodes.clear();
+    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+        delete (*p);
+    }
+    nodes.clear();
+
 }
 
 
@@ -164,7 +176,7 @@ void Tree::reconstructTreeFromSim(Node *oRoot){
 }
 
 void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter){
-    Node *p;
+    Node *p = nullptr;
     bool rootN = prevN->getIsRoot();
     double brlen = prevN->getBranchLength();
     int oFlag = prevN->getFlag();

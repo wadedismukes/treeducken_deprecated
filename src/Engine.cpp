@@ -36,19 +36,20 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     seedType gs1, gs2;
     rando.getSeed(gs1, gs2);
     std::cout << "\nSeeds = {" << gs1 << ", " << gs2 << "}" << std::endl;
-    
-    
 }
 
 
 Engine::~Engine(){
-    if(!(simSpeciesTrees.empty()))
-        simSpeciesTrees.clear();
+    for(std::vector<TreeInfo*>::iterator p=simSpeciesTrees.begin(); p != simSpeciesTrees.end(); ++p){
+        delete (*p);
+    }
+    simSpeciesTrees.clear();
 }
 
 
 void Engine::doRunRun(){
     // double TS = 0.0;
+    TreeInfo *ti = nullptr;
     for(int i = 0; i < numSpeciesTrees; i++){
         
         Simulator *treesim = new Simulator(&rando,
@@ -81,7 +82,7 @@ void Engine::doRunRun(){
                 break;
         }
         
-        TreeInfo *ti = new TreeInfo(i, numLoci);
+        ti =  new TreeInfo(i, numLoci);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
@@ -93,9 +94,12 @@ void Engine::doRunRun(){
             }
         }
         simSpeciesTrees.push_back(ti);
+        delete treesim;
+        treesim = nullptr;
     }
 
     this->writeTreeFiles();
+
 }
 
 
@@ -149,7 +153,29 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
 
 /*
     TreeInfo functions to write tree information to file in various file formats
-                                                                                    */
+                                                                       */
+TreeInfo::TreeInfo(int idx, int nl){
+    geneTrees.resize(nl);
+    extGeneTrees.resize(nl);
+    spTreeLength = 0.0;
+    spTreeDepth = 0.0;
+    spTreeNess = 0.0;
+    spAveTipLen = 0.0;
+    loTreeLength = 0.0;
+    loTreeDepth = 0.0;
+    loTreeNess = 0.0;
+    loAveTipLen = 0.0;
+    aveTMRCAGeneTree = 0.0;
+}
+
+TreeInfo::~TreeInfo(){
+    gsaTrees.clear();
+    locusTrees.clear();
+    geneTrees.clear();
+    extGeneTrees.clear();
+    speciesTree.clear();
+}
+
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     std::string path = "./sim_files/speciestree_";
     

@@ -10,9 +10,9 @@
 -sbr 0.0002
 # species death rate
 -sdr 0.0001
--r 1
--nl 1
--ng 10
+-r 4
+-nl 4
+-ng 4
 # Locus Tree Simulation parameters
 # gene birth rate
 -gbr 0.0

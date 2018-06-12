@@ -11,6 +11,9 @@
 
 Simulator::Simulator(MbRandom *p, unsigned nt, double lambda, double mu, double rho)
 {
+    spTree = nullptr;
+    geneTree = nullptr;
+    lociTree = nullptr;
     simType = 1;
     currentSimTime = 0.0;
     rando = p;
@@ -35,6 +38,9 @@ Simulator::Simulator(MbRandom *p, unsigned nt, double lambda, double mu, double 
 
 Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr)
 {
+    spTree = nullptr;
+    geneTree = nullptr;
+    lociTree = nullptr;
     simType = 2;
     currentSimTime = 0.0;
     rando = p;
@@ -57,6 +63,9 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
 
 Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime, int ng, double og)
 {
+    spTree = nullptr;
+    geneTree = nullptr;
+    lociTree = nullptr;
     simType = 3;
     currentSimTime = 0.0;
     rando = p;
@@ -79,30 +88,35 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
 }
 
 Simulator::~Simulator(){
-    if(spTree != 0){
-        delete spTree;
+
+    // if(lociTree != nullptr){
+    //     delete lociTree;  
+    //     lociTree = nullptr;
+    // }
+    // if(geneTree != nullptr){
+    //     delete geneTree;  
+    //     geneTree = nullptr;
+    // }
+    for(std::vector<SpeciesTree*>::iterator p=gsaTrees.begin(); p != gsaTrees.end(); ++p){
+        delete (*p);
     }
-    if(gsaTrees.size() != 0)
-        gsaTrees.clear();
-    if(lociTree != 0)
-        delete lociTree;
-    if(geneTree != 0)
-        delete geneTree;
+    gsaTrees.clear();
+    int i = 0;
+    for(std::vector<LocusTree*>::iterator p=locusTrees.begin(); p != locusTrees.end(); ++p){
+        delete (*p);
+        for(std::vector<GeneTree*>::iterator q=geneTrees[i].begin(); q != geneTrees[i].end(); ++q){
+            delete (*q);
+        }
+        geneTrees[i].clear();
+        ++i;
+    }
+    locusTrees.clear();
+    
         
 }
 
 void Simulator::initializeSim(){
-    // only simulates speciestrees, other models to come
-    if(simType == 1){
-        spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-    }
-    else if(simType == 2){
-        spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-    }
-    else if(simType == 3){
-        spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-        // geneTrees.resize(numLoci, new GeneTree(rando, numTaxaToSim, currentSimTime, indPerPop, popSize);
-    }
+    spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
 }
 
 
@@ -114,6 +128,8 @@ bool Simulator::gsaBDSim(){
     double timeIntv, sampTime;
     bool treeComplete = false;
     this->initializeSim();
+    // SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    // spTree = &st;
     double eventTime;
     
     while(gsaCheckStop()){
@@ -133,12 +149,12 @@ bool Simulator::gsaBDSim(){
         
     }
     unsigned gsaRandomTreeID = rando->uniformRv(0, (unsigned) gsaTrees.size() - 1);
+    delete spTree;
     spTree = gsaTrees[gsaRandomTreeID];
     processSpTreeSim();
     spTree->setBranchLengths();
     spTree->setTreeTipNames();
     currentSimTime = spTree->getCurrentTimeFromExtant();
-    //spTree->setPresentTime(currentSimTime);
     
     treeComplete = true;
     
@@ -170,6 +186,7 @@ void Simulator::processSpTreeSim(){
     spTree->setSpeciationRate(speciationRate);
     spTree->setExtinctionRate(extinctionRate);
     spTree->popNodes();
+
 }
 
 void Simulator::prepGSATreeForReconstruction(){
@@ -298,6 +315,7 @@ bool Simulator::simSpeciesLociTrees(){
             this->graftOutgroup(lociTree, lociTree->getTreeDepth());
 
         locusTrees.push_back(lociTree);
+
         good = false;
     }
     return good;
@@ -431,6 +449,7 @@ bool Simulator::simThreeTree(){
                 gGood = coalescentSim();
             }
             geneTrees[i].push_back(geneTree);
+
             gGood = false;
         }
         locusTrees.push_back(lociTree);

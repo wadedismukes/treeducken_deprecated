@@ -14,6 +14,7 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
     individualsPerPop = ipp;
     popSize = ne;
     generationTime = genTime;
+    delete root;
 }
 
 GeneTree::~GeneTree(){
@@ -291,6 +292,7 @@ void GeneTree::addExtinctSpecies(double bt, int indx){
         p->setIsExtinct(true);
         extantNodes.push_back(p);
         nodes.push_back(p);
+
     }
     //delete p;
 }

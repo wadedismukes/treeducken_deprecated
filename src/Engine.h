@@ -29,7 +29,8 @@ class TreeInfo{
 
     
         public:
-                                        TreeInfo(int idx, int nl) : geneTrees(nl), extGeneTrees(nl), spTreeLength(0.0), spTreeNess(0.0), spAveTipLen(0.0), loTreeLength(0.0), loTreeNess(0.0), loAveTipLen(0.0) {};
+                                        TreeInfo(int idx, int nl);
+                                        ~TreeInfo(); 
             std::string                 getWholeSpeciesTree() {return speciesTree; }
             std::string                 getLocusTreeByIndx(int idx) { return locusTrees[idx]; }
             std::string                 getGeneTreeByIndx(int Lidx, int idx) { return geneTrees[Lidx][idx]; }
