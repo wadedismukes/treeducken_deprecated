@@ -18,17 +18,26 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
 }
 
 GeneTree::~GeneTree(){
-    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p)
-        delete (*p);
+    // for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+    //     if((*p) != nullptr){
+    //         delete (*p);
+    //         (*p) = nullptr;
+    //     }
+    // }
+    //wclearNodes(extantRoot);
 }
 
 void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, double presentTime){
-    if(!(nodes.empty())){
-        nodes.clear();
+    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+        delete (*p);
+        (*p) = nullptr;
     }
-    if(!(extantNodes.empty())){
-        extantNodes.clear();
+    nodes.clear();
+    for(std::vector<Node*>::iterator p=extantNodes.begin(); p != extantNodes.end(); ++p){
+        delete (*p);
+        (*p) = nullptr;
     }
+    extantNodes.clear();
     Node *p;
     int numLociInPresnt = extantLociInd[0].size();
     for(int i = 0; i < numLociInPresnt; i++){

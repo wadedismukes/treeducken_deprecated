@@ -66,7 +66,8 @@ class TreeInfo{
             void                        writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
             void                        writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp);
             void                        writeGeneTreeFileInfo(int spIndx, int Lindx, int numgene, std::string ofp);
-};
+            void                        writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numgene, std::string ofp);
+};      
 
 
 /*
@@ -78,6 +79,7 @@ class Engine{
     private:
         
         std::string outfilename;
+        std::string inputSpTree;
         std::vector<TreeInfo*> simSpeciesTrees;
         int                    simType;
         int                    seedset;
@@ -118,11 +120,14 @@ class Engine{
                                        int ngen,
                                        double og);
                                 ~Engine();
+        void                    setInputSpeciesTree(std::string stNewick) { inputSpTree = stNewick; }
+        std::string             getInputSpeciesTree() { return inputSpTree; }
         void                    doRunRun();
+        void                    doRunSpTreeSet();
         void                    writeTreeFiles();
         TreeInfo                *findTreeByIndx(int i);
         void                    calcAverageRootAgeSpeciesTrees();
-    
+        SpeciesTree*            buildTreeFromNewick(std::string spTree);
         
 };
 

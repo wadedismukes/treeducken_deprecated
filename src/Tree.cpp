@@ -84,16 +84,15 @@ Tree::~Tree(){
     //     delete outgrp;
     //     outgrp = nullptr;
     // }
+    clearNodes(root);
     // for(std::vector<Node*>::iterator p=extantNodes.begin(); p != extantNodes.end(); ++p){
     //     delete (*p);
     // }
-    // extantNodes.clear();
+    extantNodes.clear();
     // for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
     //     delete (*p);
     // }
-    // nodes.clear();
-    
-    clearNodes(root);
+    nodes.clear();
 }
 
 void Tree::clearNodes(Node *currNode){
@@ -105,6 +104,7 @@ void Tree::clearNodes(Node *currNode){
     clearNodes(currNode->getLdes());
     delete currNode;
     currNode = nullptr;
+
 }
 
 void Tree::zeroAllFlags(){
@@ -298,8 +298,8 @@ void Tree::getRootFromFlags(){
 	for(int i=numNodes; i > 0; i--){
 		p = nodes[i];
 		if(p->getFlag() >= 2){
-			root = p;
-			root->setAsRoot(true);
+			extantRoot = p;
+			p->setAsRoot(true);
 			break;
 		}
 		

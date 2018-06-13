@@ -10,6 +10,7 @@
 
 Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci, int ngen, double og){
     outfilename = of;
+    inputSpTree = "";
     simType = mt;
     spBirthRate = sbr;
     spDeathRate = sdr;
@@ -50,7 +51,7 @@ Engine::~Engine(){
 void Engine::doRunRun(){
     // double TS = 0.0;
     TreeInfo *ti = nullptr;
-    for(int i = 0; i < numSpeciesTrees; i++){
+    for(int k = 0; k < numSpeciesTrees; k++){
         
         Simulator *treesim = new Simulator(&rando,
                                            numTaxa,
@@ -66,7 +67,9 @@ void Engine::doRunRun(){
                                            generationTime,
                                            numGenes,
                                            outgroupFrac);
-        std::cout << "simulating species tree replicate #" << i + 1 << std::endl;
+  
+        std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
+        
         switch(simType){
             case 1:
                 treesim->simSpeciesTree();
@@ -82,10 +85,10 @@ void Engine::doRunRun(){
                 break;
         }
         
-        ti =  new TreeInfo(i, numLoci);
+        ti =  new TreeInfo(k, numLoci);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         for(int i = 0; i < numLoci; i++){
-            ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
+            ti->setLocusTreeByIndx(k, treesim->printLocusTreeNewick(i));
             if(simType == 3){
                 for(int j = 0; j < numGenes; j++){
                     ti->setGeneTreeByIndx(i, j, treesim->printGeneTreeNewick(i, j));
@@ -150,10 +153,58 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
     
 }
 
+SpeciesTree* Engine::buildTreeFromNewick(std::string spTreeStr){
+    
+}
+
+void Engine::doRunSpTreeSet(){
+
+    std::cout << "Setting species tree to this newick tree: " << inputSpTree << std::endl;
+
+    TreeInfo *ti = nullptr;    
+    Simulator *treesim = new Simulator(&rando,
+                                        numTaxa,
+                                        spBirthRate,
+                                        spDeathRate,
+                                        1.0,
+                                        numLoci,
+                                        geneBirthRate,
+                                        geneDeathRate,
+                                        transferRate,
+                                        individidualsPerPop,
+                                        populationSize,
+                                        generationTime,
+                                        numGenes,
+                                        outgroupFrac);
+    
+
+    treesim->setSpeciesTree(this->buildTreeFromNewick(inputSpTree));
+    treesim->simLocusGeneTrees();
+
+
+    ti =  new TreeInfo(0, numLoci);
+    ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+    for(int i = 0; i < numLoci; i++){
+        ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
+        if(simType == 3){
+            for(int j = 0; j < numGenes; j++){
+                ti->setGeneTreeByIndx(i, j, treesim->printGeneTreeNewick(i, j));
+                ti->setExtantGeneTreeByIndx(i, j, treesim->printExtantGeneTreeNewick(i, j));
+            }
+        }
+    }
+    simSpeciesTrees.push_back(ti);
+    delete treesim;
+    treesim = nullptr;
+
+    this->writeTreeFiles();
+
+}
+
 
 /*
     TreeInfo functions to write tree information to file in various file formats
-                                                                       */
+                                                                */
 TreeInfo::TreeInfo(int idx, int nl){
     geneTrees.resize(nl);
     extGeneTrees.resize(nl);
@@ -177,13 +228,14 @@ TreeInfo::~TreeInfo(){
 }
 
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
-    std::string path = "./sim_files/speciestree_";
+    std::string path = "";
     
     std::string fn = ofp;
     std::stringstream tn;
     
     tn << spIndx;
-    path += tn.str() + "/";
+    //path += tn.str();
+    // path +=  "/";
     
     
     fn += "_" + tn.str() + ".sp.tre";
@@ -196,14 +248,14 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
 }
 
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
-    std::string path = "./sim_files/speciestree_";
+    std::string path = "";
     
     std::string fn = ofp;
     std::stringstream tn;
     
     tn << spIndx;
-    path += tn.str();
-    path += "/";
+    // path += tn.str();
+    // path += "/";
     
     
     fn += "_" + tn.str();
@@ -223,14 +275,14 @@ void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string of
 }
 
 void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp){
-    std::string path = "./sim_files/speciestree_";
+    std::string path = "";
     
     std::string fn = ofp;
     std::stringstream tn;
     
     tn << spIndx;
-    path += tn.str();
-    path += "/";
+    //path += tn.str();
+   // path += "/";
 
 
     fn += "_" + tn.str();
@@ -257,15 +309,15 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std:
 
 }
 
-void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
-     std::string path = "./sim_files/speciestree_";
+void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
+    std::string path = "";
     
     std::string fn = ofp;
     std::stringstream tn;
     
     tn << spIndx;
-    path += tn.str();
-    path += "/";
+    //path += tn.str();
+    // path += "/";
     fn += "genetrees_";
 
     fn += tn.str();
@@ -296,6 +348,50 @@ void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::s
     for(int i = 0; i < numGenes; i++){
         out << "tree extGeneT_" << i << " = ";
         out << getExtGeneTreeByIndx(Lindx, i) << "\n";
+    }
+    out << "end;";
+
+}
+
+void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
+    std::string path = "";
+    
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    //path += tn.str();
+    // path += "/";
+    fn += "genetrees_";
+
+    fn += tn.str();
+    
+    tn.clear();
+    tn.str(std::string());
+ 
+    tn << Lindx;
+    
+    fn += "_" + tn.str() + ".tre";;
+    tn.clear();
+    tn.str(std::string());
+    
+    // tn << i;
+    // fn += "_" + tn.str() + ".gen.tre";
+    path += fn;
+    
+    std::ofstream out(path);
+    // out << "#NEXUS\nbegin trees;\n";
+    // for(int i = 0; i < numGenes; i++){
+    //         out << "tree geneT_" << indx << " = ";
+    //         out << getGeneTreeByIndx(Lindx, indx) << "\n";
+    // }
+    // out << "end;";
+    
+    
+    out << "#NEXUS\nbegin trees;\n";
+    for(int i = 0; i < numGenes; i++){
+        out << "tree geneT_" << i << " = ";
+        out << getGeneTreeByIndx(Lindx, i) << "\n";
     }
     out << "end;";
 

@@ -76,6 +76,7 @@ class Tree
 {
     protected:
         Node    *root;
+        Node    *extantRoot;
         Node    *outgrp;
         std::vector<Node*> nodes;
         std::vector<Node*> extantNodes;
@@ -91,6 +92,8 @@ class Tree
         void        setOutgroup(Node *og) { outgrp = og; }
         Node*       getOutgroup() { return outgrp; }
         Node*       getRoot() {return root; }
+        Node*       getExtantRoot() { return extantRoot; }
+        void        setExtantRoot(Node *r) { extantRoot = r; }
         void        setRoot(Node *r) { root = r; }
         double      getNumExtant() {return numExtant; }
         double      getNumExtinct() {return numExtinct; }

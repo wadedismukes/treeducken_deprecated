@@ -34,11 +34,13 @@ void printHelp(){
     std::cout << "\t\t-ipp  : individuals to sample per locus [= 0]\n";
     std::cout << "\t\t-ne   : effective population size per locus [= 0] \n";
     std::cout << "\t\t-ng   : number of genes to simulate per locus [= 0] \n";
-    std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;   
+    std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;
+    std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n";   
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
-                   double gbr, double gdr, double lgtr, int ipp, int ne, int ngen){
+                   double gbr, double gdr, double lgtr, int ipp, int ne, int ngen, double og,
+                   std::string stn){
     std::cout << "\t\toutput file name prefix         = " << of << "\n";
     std::cout << "\t\tNumber of extant taxa           = " << nt << "\n";
     std::cout << "\t\tNumber of replicates            = " << r << "\n";
@@ -51,6 +53,8 @@ void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, 
     std::cout << "\t\tGene transfer rate              = " << lgtr << "\n";
     std::cout << "\t\tIndividuals to sample per locus = " << ipp << "\n";
     std::cout << "\t\tEffective pop size per locus    = " << ne << "\n";
+    std::cout << "\t\tTree fraction to set outgroup   = " << og << "\n";
+    std::cout << "\t\tSpecies tree input as newick    = " << stn << "\n";
 }
 
 void printVersion(){
@@ -71,6 +75,7 @@ int main(int argc, char * argv[]) {
     }
     else{
         std::string outName = "";
+        std::string stn = "";
         int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 0;
         double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0, og = 0.0;
         for (int i = 0; i < argc; i++){
@@ -116,6 +121,8 @@ int main(int argc, char * argv[]) {
                                         sd2 = atoi(line.substr(5, std::string::npos - 1).c_str());
                                     else if(line.substr(0,3) == "-ng")
                                         ngen = atoi(line.substr(4, std::string::npos-1).c_str());
+                                    else if(line.substr(0,6) == "-istnw")
+                                        stn = line.substr(7, std::string::npos-1).c_str();
                                 }
                             }
                             
@@ -151,6 +158,8 @@ int main(int argc, char * argv[]) {
                         r = atoi(argv[i+1]);
                     else if(!strcmp(curArg, "-o"))
                         outName = argv[i+1];
+                    else if(!strcmp(curArg, "-istnw"))
+                        stn = argv[i+1];
                     else if(!strcmp(curArg, "-og"))
                         og = atof(argv[i+1]);
                     else if(!strcmp(curArg, "-h")){
@@ -170,46 +179,85 @@ int main(int argc, char * argv[]) {
                     }
                 }
         }
-
-        if(sbr <= 0.0){
-            std::cerr << "species birth rate of 0.0 is invalid, exiting...\n";
-            return 0;
-        }
-        if(nloc > 0){
-            if (gbr <= 0.0){
-                if(gbr < 0.0){
-                    mt = 1;
-                    std::cout << "gene birth rate is a negative number, no loci or gene trees will be simulated.\n";
-                }
-                else{
-                    if(ne >  0 && ipp > 0 && ipp <= ne){
-                        mt = 3;
-                        std::cout << "gene birth rate is 0.0, locus trees will match species trees.\n";
+        if(stn != ""){
+            mt = 4;
+            std::cout << "Species tree is set. Simulating only locus and gene trees...\n";
+            if(nloc > 0){
+                if (gbr <= 0.0){
+                    if(gbr < 0.0){
+                        std::cerr << "Gene birth rate is a negative number, no loci or gene trees will be simulated.\n";
+                        std::cerr << "You have input a tree with no other parameters set to simulate within.\n";
+                        printHelp();
+                        exit(1);
                     }
                     else{
-                        std::cout << "gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
-                        std::cout << "population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
-                        mt = 2;
+                        if(ne >  0 && ipp > 0 && ipp <= ne){
+                            std::cout << "Gene birth rate is 0.0, locus trees will match species trees.\n";
+                        }
+                        else{
+                            std::cerr << "Gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
+                            std::cerr << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                            printHelp();
+                            exit(1);
+                        }
                     }
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+
                 }
-                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen);
-
-            }
-            else if (ne <= 0 || ipp <= 0 || ipp > ne){
-                mt = 2;
-                std::cout << "gene tree parameters are incorrectly specified.\n";
-                std::cout << "population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
-                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen);
-
-            }
-            else{
-                mt = 3;
-                std::cout << "Simulating sets of three trees.\n";
+                else if (ne <= 0 || ipp <= 0 || ipp > ne){
+                    std::cerr << "Gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
+                    std::cerr << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                    printHelp();
+                    exit(1);
+                }
+                else{
+                    std::cout << "Simulating locus and gene trees on input species tree.\n";
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                }
             }
         }
         else{
-            std::cout << "Number of loci to simulate is set to 0." << std::endl;
-            mt = 1;
+            if(sbr <= 0.0){
+                std::cerr << "Species birth rate of 0.0 is invalid, exiting...\n";
+                return 0;
+            }
+            if(nloc > 0){
+                if (gbr <= 0.0){
+                    if(gbr < 0.0){
+                        mt = 1;
+                        std::cout << "Gene birth rate is a negative number, no loci or gene trees will be simulated.\n";
+                    }
+                    else{
+                        if(ne >  0 && ipp > 0 && ipp <= ne){
+                            mt = 3;
+                            std::cout << "Gene birth rate is 0.0, locus trees will match species trees.\n";
+                        }
+                        else{
+                            std::cout << "Gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
+                            std::cout << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                            mt = 2;
+                        }
+                    }
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+
+                }
+                else if (ne <= 0 || ipp <= 0 || ipp > ne){
+                    mt = 2;
+                    std::cout << "Gene tree parameters are incorrectly specified.\n";
+                    std::cout << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                }
+                else{
+                    mt = 3;
+                    std::cout << "Simulating sets of three trees.\n";
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                }
+            }
+            else{
+                std::cout << "Number of loci to simulate is set to 0." << std::endl;
+                mt = 1;
+                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+            }
         }
         phyEngine = new Engine(outName,
                                mt,
@@ -229,7 +277,12 @@ int main(int argc, char * argv[]) {
                                nloc, 
                                ngen,
                                og);
-        phyEngine->doRunRun();
+        if(stn != ""){
+            phyEngine->setInputSpeciesTree(stn);
+            phyEngine->doRunSpTreeSet();
+        }
+        else
+            phyEngine->doRunRun();
 
 
     }
