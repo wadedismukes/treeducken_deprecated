@@ -153,8 +153,189 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
     
 }
 
-SpeciesTree* Engine::buildTreeFromNewick(std::string spTreeStr){
-    
+
+// these newick reading functions are heavily modified by those used by Paul Lewis 
+// https://phylogeny.uconn.edu/phylogenetic-software-development-tutorial/build-a-tree-from-a-newick-description/#
+unsigned int Engine::countNewickLeaves(const std::string spTreeStr){
+    std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
+    std::sregex_iterator it1(spTreeStr.begin(), spTreeStr.end(), taxonregexpr);
+    std::sregex_iterator it2;
+    return (unsigned) std::distance(it1, it2);
+}
+
+std::string Engine::stripCommentsFromNewickTree(std::string spTreeStr){
+    std::string commentlessNewick;
+    std::regex commentregexpr ("\\[.*?\\]");
+    commentlessNewick = std::regex_replace(spTreeStr,commentregexpr,std::string(""));
+    return commentlessNewick;
+}
+
+std::string Engine::formatTipNamesFromNewickTree(std::string spTreeStr){
+    std::string formattedNewick;
+    std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
+
+    formattedNewick = std::regex_replace(spTreeStr,taxonregexpr, "'$1':");
+    return formattedNewick;
+}
+
+SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
+    SpeciesTree* spTree = nullptr;
+    Node* currNode = nullptr;
+    Node* prevNode = nullptr;
+    std::string commentlessSpTreeStr = spTreeStr;
+    commentlessSpTreeStr = stripCommentsFromNewickTree(commentlessSpTreeStr);
+    numTaxa = countNewickLeaves(commentlessSpTreeStr);
+    commentlessSpTreeStr = formatTipNamesFromNewickTree(commentlessSpTreeStr);
+    spTree = new SpeciesTree(&rando, numTaxa);
+    currNode = new Node();
+    spTree->setRoot(currNode);
+
+    enum {
+        Prev_Tok_LParen		= 0x01,	// previous token was a left parenthesis ('(') 
+        Prev_Tok_RParen		= 0x02,	// previous token was a right parenthesis (')') 
+        Prev_Tok_Colon		= 0x04,	// previous token was a colon (':') 
+        Prev_Tok_Comma		= 0x08,	// previous token was a comma (',') 
+        Prev_Tok_Name		= 0x10,	// previous token was a node name (e.g. '2', 'P._articulata') 
+        Prev_Tok_EdgeLen	= 0x20	// previous token was an edge length (e.g. '0.1', '1.7e-3') 
+    };
+    unsigned previous = Prev_Tok_LParen;
+
+    // Some useful flag combinations 
+    unsigned LParen_Valid = (Prev_Tok_LParen | Prev_Tok_Comma);
+    unsigned RParen_Valid = (Prev_Tok_RParen | Prev_Tok_Name | Prev_Tok_EdgeLen);
+    unsigned Comma_Valid  = (Prev_Tok_RParen | Prev_Tok_Name | Prev_Tok_EdgeLen);
+    unsigned Colon_Valid  = (Prev_Tok_RParen | Prev_Tok_Name);
+    unsigned Name_Valid   = (Prev_Tok_RParen | Prev_Tok_LParen | Prev_Tok_Comma);
+    std::string::const_iterator newickStart = commentlessSpTreeStr.begin();
+    std::string::const_iterator it = newickStart;
+
+    for(; it != commentlessSpTreeStr.end(); ++it){
+        char ch = (*it);
+        if(iswspace(ch))
+            continue;
+        switch(ch){
+            case ';': {
+                std::cout << "Species tree read in successfully.\n";
+                break;
+            }
+            case '(': {
+                if(!(previous & LParen_Valid)){
+                    std::cerr << "Your newick tree is not formatted properly. Exiting...\n";
+                    std::cerr << "A left parenthetical is not in the right place maybe...\n";
+                    exit(1);
+                }
+                prevNode = currNode;
+                currNode =  new Node();
+                currNode->setAnc(prevNode);
+                prevNode->setLdes(currNode);
+                previous = Prev_Tok_LParen;
+                break;
+            }
+            case ':': {
+                if(!(previous & Colon_Valid)){
+                    std::cerr << "Your newick tree is not formatted properly. Exiting...\n";
+                    std::cerr << "A colon appears to be in the wrong place...\n";
+                    exit(1);
+                }
+                previous = Prev_Tok_Colon;
+                break;
+            }
+            case ')': {
+                if(!(previous & RParen_Valid)){
+                    std::cerr << "Your newick tree is not formatted properly. Exiting...\n";
+                    std::cerr << "A right parenthetical is not in the right place maybe...\n";
+                    exit(1);
+                }
+                prevNode = currNode;
+                currNode = prevNode->getAnc();
+                previous = Prev_Tok_RParen;
+                break;
+            }
+            case ',': {
+                if(!(previous & Comma_Valid)){
+                    std::cerr << "Your newick tree is not formatted properly. Exiting...\n";
+                    std::cerr << "A comma is not in the right place maybe...\n";
+                    exit(1);
+                }    
+                currNode = new Node();
+                prevNode->setSib(currNode);
+                currNode->setSib(prevNode);
+                currNode->setAnc(prevNode->getAnc());
+                prevNode->getAnc()->setRdes(currNode);
+
+                previous = Prev_Tok_Comma;
+                break;
+            }
+            case '\'': {
+                std::string tipname = "";
+                for (++it; it != commentlessSpTreeStr.end(); ++it){
+                    ch = *it;
+                    if (ch == '\'')
+                        break;
+                    else if (iswspace(ch))
+                        tipname += ' ';
+                    else
+                        tipname += ch;
+                }
+                currNode->setName(tipname);
+                previous = Prev_Tok_Name;
+            }
+            default: {
+                // branch length
+                if(previous == Prev_Tok_Colon){
+                    std::string::const_iterator jit = it;
+                    for (; it != commentlessSpTreeStr.end(); ++it){
+                        ch = *it;
+                        if (ch == ',' || ch == ')' || iswspace(ch)){
+                            --it;
+                            break;
+                        }
+                        bool valid = (ch =='e' || ch == 'E' || ch =='.' || ch == '-' || ch == '+' || isdigit(ch));
+                        if (!valid){
+                            std::cerr << "Invalid branch length character in tree description\n";
+                            exit(1);
+                        }
+                        std::string edge_length_str = std::string(jit,it+1);
+                        currNode->setBranchLength(atof(edge_length_str.c_str()));
+                        if (currNode->getBranchLength() < 1.e-10)
+                            currNode->setBranchLength(1.e-10);
+                        previous = Prev_Tok_EdgeLen;
+                    }
+                }
+                 else{
+                    // Get the node name
+                    std::string tipname = "";
+                    for (; it != commentlessSpTreeStr.end(); ++it){
+                        ch = *it;
+                        if (ch == '('){
+                            std::cerr << "Didn't expect a left parenthesis here! Check your newick tree...\n";
+                            std::cerr << "Exiting... :(\n";
+                            exit(1);
+                        }
+                        if (iswspace(ch) || ch == ':' || ch == ',' || ch == ')'){
+                            --it;
+                            break;
+                        }
+                        tipname += ch;
+                    }
+
+                    // Expect node name only after a left paren (child's name), a comma (sib's name) or a right paren (parent's name)
+                    if (!(previous & Name_Valid)){
+                        std::cerr << "Unexpected placement of name of tip. Exiting...\n";
+                        exit(1);
+                    }                    
+                    currNode->setName(tipname);
+                    previous = Prev_Tok_Name;
+                }
+                if(it == commentlessSpTreeStr.end())
+                    break;
+            }
+
+        }
+
+    }
+    spTree->popNodes();
+    return spTree;
 }
 
 void Engine::doRunSpTreeSet(){

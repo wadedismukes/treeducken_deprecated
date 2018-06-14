@@ -12,6 +12,8 @@
 #include "Simulator.h"
 #include <iostream>
 #include <fstream>
+#include <regex>
+
 /*
  tree info class
                 */
@@ -120,7 +122,10 @@ class Engine{
                                        int ngen,
                                        double og);
                                 ~Engine();
-        void                    setInputSpeciesTree(std::string stNewick) { inputSpTree = stNewick; }
+        unsigned int            countNewickLeaves(const std::string stNewick);
+        std::string             stripCommentsFromNewickTree(std::string stNewick);
+        std::string             formatTipNamesFromNewickTree(std::string stNewick);
+        void                    setInputSpeciesTree(const std::string stNewick) { inputSpTree = stNewick; }
         std::string             getInputSpeciesTree() { return inputSpTree; }
         void                    doRunRun();
         void                    doRunSpTreeSet();

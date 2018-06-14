@@ -211,7 +211,7 @@ void SpeciesTree::setGSATipTreeFlags(){
 void SpeciesTree::popNodes(){
     nodes.clear();
     extantNodes.clear();
-    recPopNodes(getRoot());
+    recPopNodes(this->getRoot());
     
     int indx;
     for(std::vector<Node*>::iterator p=nodes.begin(); p!=nodes.end(); p++){
