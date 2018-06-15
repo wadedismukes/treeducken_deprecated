@@ -189,6 +189,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
     spTree = new SpeciesTree(&rando, numTaxa);
     currNode = new Node();
     spTree->setRoot(currNode);
+    currNode->setAsRoot(true);
 
     enum {
         Prev_Tok_LParen		= 0x01,	// previous token was a left parenthesis ('(') 
@@ -256,7 +257,8 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                     std::cerr << "Your newick tree is not formatted properly. Exiting...\n";
                     std::cerr << "A comma is not in the right place maybe...\n";
                     exit(1);
-                }    
+                }
+                prevNode = currNode;
                 currNode = new Node();
                 prevNode->setSib(currNode);
                 currNode->setSib(prevNode);
@@ -270,15 +272,25 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                 std::string tipname = "";
                 for (++it; it != commentlessSpTreeStr.end(); ++it){
                     ch = *it;
-                    if (ch == '\'')
+                    if (ch == '\''){
                         break;
+                    }
                     else if (iswspace(ch))
                         tipname += ' ';
                     else
                         tipname += ch;
                 }
-                currNode->setName(tipname);
+                if(previous == Prev_Tok_RParen){
+                 //   prevNode->setIsTip(true);
+                    prevNode->setName(tipname);
+                }
+                else{
+                    currNode->setName(tipname);
+                   // currNode->setIsTip(true);
+                }
+                
                 previous = Prev_Tok_Name;
+                break;
             }
             default: {
                 // branch length
@@ -295,14 +307,14 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                             std::cerr << "Invalid branch length character in tree description\n";
                             exit(1);
                         }
-                        std::string edge_length_str = std::string(jit,it+1);
+                        std::string edge_length_str = std::string(jit,it+1);                
                         currNode->setBranchLength(atof(edge_length_str.c_str()));
                         if (currNode->getBranchLength() < 1.e-10)
                             currNode->setBranchLength(1.e-10);
                         previous = Prev_Tok_EdgeLen;
                     }
                 }
-                 else{
+                else{
                     // Get the node name
                     std::string tipname = "";
                     for (; it != commentlessSpTreeStr.end(); ++it){
@@ -323,7 +335,8 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                     if (!(previous & Name_Valid)){
                         std::cerr << "Unexpected placement of name of tip. Exiting...\n";
                         exit(1);
-                    }                    
+                    }
+                    currNode->setIsTip(true);               
                     currNode->setName(tipname);
                     previous = Prev_Tok_Name;
                 }

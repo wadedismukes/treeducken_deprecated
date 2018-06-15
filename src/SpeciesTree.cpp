@@ -221,19 +221,21 @@ void SpeciesTree::popNodes(){
 }
 
 void SpeciesTree::recPopNodes(Node *p){
-    if(p->getIsTip()){
-        if(p->getIsExtant()){
-            extantNodes.push_back(p);
-            nodes.push_back(p);
+    if(p != nullptr){    
+        if(p->getIsTip()){
+            if(p->getIsExtant()){
+                extantNodes.push_back(p);
+                nodes.push_back(p);
+            }
+            else{
+                nodes.push_back(p);
+            }
         }
         else{
             nodes.push_back(p);
+            recPopNodes(p->getLdes());
+            recPopNodes(p->getRdes());
         }
-    }
-    else{
-        nodes.push_back(p);
-        recPopNodes(p->getLdes());
-        recPopNodes(p->getRdes());
     }
 }
 
