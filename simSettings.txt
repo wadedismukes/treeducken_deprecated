@@ -16,11 +16,11 @@
 -ng 10
 # Locus Tree Simulation parameters
 # gene birth rate
--gbr 0.1
+-gbr 0.001
 # gene death rate
--gdr 0.05
+-gdr 0.0005
 # lateral gene transfer rate
--lgtr 0.0 
+-lgtr 0.0
 # Gene Tree Simulation parameters
 # individuals per locus to be sampled 
 -ipp 1

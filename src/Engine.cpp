@@ -247,8 +247,9 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                     std::cerr << "A right parenthetical is not in the right place maybe...\n";
                     exit(1);
                 }
-                prevNode = currNode;
-                currNode = prevNode->getAnc();
+                //prevNode = currNode;
+                prevNode = nullptr;
+                currNode = currNode->getAnc();
                 previous = Prev_Tok_RParen;
                 break;
             }
@@ -282,9 +283,13 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                 }
                 if(previous == Prev_Tok_RParen){
                     //prevNode->setIsTip(true);
-                    prevNode->setName(tipname);
+                //    prevNode->setName(tipname);
                 }
-                else{
+                else if(previous == Prev_Tok_Comma){
+                    currNode->setIsTip(true);
+                    currNode->setName(tipname);
+                }
+                else if(previous == Prev_Tok_LParen){
                     currNode->setName(tipname);
                     currNode->setIsTip(true);
                 }
