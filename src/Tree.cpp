@@ -357,3 +357,17 @@ double Tree::getEndTime(){
 
     return tipDtime;
 }
+
+void Tree::scaleTree(double trScale){
+    double bt = 0.0;
+    double dt = 0.0;
+    double bl = 0.0;
+    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        bt = (*it)->getBirthTime() / trScale;
+        dt = (*it)->getBirthTime() / trScale;
+        (*it)->setBirthTime(bt);
+        (*it)->setDeathTime(dt);
+        (*it)->setBranchLength(dt - bt);
+    }
+    return;
+}

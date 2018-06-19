@@ -115,6 +115,43 @@ void SpeciesTree::setPresentTime(double currentT){
     this->setTreeTipNames();
 }
 
+void SpeciesTree::setTreeInfo(){
+  //  double trDepth = this->getTreeDepth();
+    unsigned nt = 0;
+    std::set<double> deathTimes;
+    std::vector<Node*>::iterator it = nodes.begin();
+    (*it)->setBirthTime(0.0);
+    (*it)->setDeathTime((*it)->getBranchLength() + (*it)->getBirthTime());
+    (*it)->setIndx(0);
+    ++it;
+    for(; it != nodes.end(); ++it){
+        (*it)->setBirthTime((*it)->getAnc()->getDeathTime());
+        (*it)->setDeathTime((*it)->getBranchLength() + (*it)->getBirthTime());
+        deathTimes.insert(deathTimes.begin(),(*it)->getBranchLength() + (*it)->getBirthTime());
+        (*it)->setIndx((int)std::distance(nodes.begin(), it));
+    }
+    it = nodes.begin();
+    std::set<double>::iterator set_iter = deathTimes.end();
+    --set_iter;
+    double currentTime = *(set_iter);
+    for(; it != nodes.end(); ++it){
+        if((*it)->getIsTip()){
+            if(std::abs((*it)->getDeathTime() - currentTime) < 0.1){
+                (*it)->setIsExtant(true);
+                (*it)->setIsExtinct(false);
+                (*it)->setDeathTime(currentTime);
+                numTaxa++;
+                extantNodes.push_back(*it);
+            }
+            else{
+                (*it)->setIsExtant(false);
+                (*it)->setIsExtinct(true);
+            }
+        }
+    }
+    return;
+}
+
 void SpeciesTree::setTreeTipNames(){
     unsigned extinctIt = 0;
     unsigned tipIt = 0;

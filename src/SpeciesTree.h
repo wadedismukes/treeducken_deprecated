@@ -13,6 +13,7 @@
 #include "Tree.h"
 #include <sstream>
 #include <map>
+#include <set>
 
 class SpeciesTree : public Tree
 {
@@ -47,6 +48,7 @@ class SpeciesTree : public Tree
         // simulation functions
         void          setGSATipTreeFlags();
         void          reconstructTreeFromGSASim(Node *oRoot);
+        void          setTreeInfo();
         void          popNodes();
         void          recPopNodes(Node *p);
         void          reconstructLineageFromGSASim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);

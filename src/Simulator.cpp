@@ -493,8 +493,8 @@ void Simulator::graftOutgroup(Tree *tr, double trDepth){
 }
 
 bool Simulator::simLocusGeneTrees(){
-    bool loGood;
-    bool gGood;
+    bool loGood = false;
+    bool gGood = false;
     for(int i = 0; i < numLoci; i++){
         while(!loGood){
             std::cout << "Simulating loci # " <<  i + 1 << std::endl;

@@ -281,12 +281,12 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                         tipname += ch;
                 }
                 if(previous == Prev_Tok_RParen){
-                 //   prevNode->setIsTip(true);
+                    //prevNode->setIsTip(true);
                     prevNode->setName(tipname);
                 }
                 else{
                     currNode->setName(tipname);
-                   // currNode->setIsTip(true);
+                    currNode->setIsTip(true);
                 }
                 
                 previous = Prev_Tok_Name;
@@ -348,6 +348,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
 
     }
     spTree->popNodes();
+    spTree->setTreeInfo();
     return spTree;
 }
 
