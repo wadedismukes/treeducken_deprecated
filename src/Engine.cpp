@@ -117,7 +117,7 @@ void Engine::writeTreeFiles(){
                 // for(int j = 0; j < numGenes; j++){
                 //     (*p)->writeGeneTreeFileInfoByIndx(d, i, j, outfilename);
                 // }
-                (*p)->writeGeneTreeFileInfo(d, i, numGenes, outfilename);
+                (*p)->writeExtGeneTreeFileInfo(d, i, numGenes, outfilename);
         }
     }
 }
@@ -591,7 +591,7 @@ void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::s
     out << "#NEXUS\nbegin trees;\n";
     for(int i = 0; i < numGenes; i++){
         out << "tree geneT_" << i << " = ";
-        out << getGeneTreeByIndx(Lindx, i) << "\n";
+        out << getExtGeneTreeByIndx(Lindx, i) << "\n";
     }
     out << "end;";
 

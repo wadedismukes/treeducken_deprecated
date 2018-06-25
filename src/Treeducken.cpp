@@ -35,7 +35,8 @@ void printHelp(){
     std::cout << "\t\t-ne   : effective population size per locus [= 0] \n";
     std::cout << "\t\t-ng   : number of genes to simulate per locus [= 0] \n";
     std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;
-    std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n";   
+    std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n"; 
+    std::cout << "\t\t-sc     : tree scale [=1.0] \n";  
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
@@ -55,6 +56,7 @@ void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, 
     std::cout << "\t\tEffective pop size per locus    = " << ne << "\n";
     std::cout << "\t\tTree fraction to set outgroup   = " << og << "\n";
     std::cout << "\t\tSpecies tree input as newick    = " << stn << "\n";
+    std::cout << "\t\tTree scale                      = " << ts  << "\n";
 }
 
 void printVersion(){
