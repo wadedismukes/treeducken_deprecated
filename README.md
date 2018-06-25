@@ -1,5 +1,5 @@
 # treeducken 
-`treeducken`, named after the infamous [dish](https://en.wikipedia.org/wiki/Turducken), is for the simulation of phylogenies under the three tree model (Rasmussen &amp; Kellis 2012). These three trees represent the species tree, locus (i.e. gene family) tree, and the gene tree. If you prefer, you may think of the species tree as the turkey, locus tree as the duck, and gene tree as the chicken in our phylogenetic three-bird roast.
+treeducken, named after the infamous [dish](https://en.wikipedia.org/wiki/Turducken), is for the simulation of phylogenies under the three tree model (Rasmussen &amp; Kellis 2012). These three trees represent the species tree, locus (i.e. gene family) tree, and the gene tree. If you prefer, you may think of the species tree as the turkey, locus tree as the duck, and gene tree as the chicken in our phylogenetic three-bird roast.
 
 --------
 
@@ -23,7 +23,7 @@ After inputting these parameters the simulation proceeds as follows. First, a sp
 
 # Installing treeducken
 
-To install `treeducken`, clone the repository by doing the following:
+To install treeducken, clone the repository by doing the following:
 
 ```
 	git clone https://github.com/wadedismukes/treeducken.git
@@ -35,7 +35,7 @@ Then change directory to `treeducken/src` and run the following command:
 	make install
 ```
 
-`treeducken` is now installed in the `treeducken` directory. To uninstall simply type:
+treeducken is now installed in the `treeducken` directory. To uninstall simply type:
 
 ```
 	make clean
@@ -44,7 +44,7 @@ Then change directory to `treeducken/src` and run the following command:
 
 # Using treeducken
 
-Once `treeducken` has been installed, there are two ways to run the program. The first way entails using command line arguments (see below) to specify the simulation parameters:
+Once treeducken has been installed, there are two ways to run the program. The first way entails using command line arguments (see below) to specify the simulation parameters:
 
 * number of simulation replicates (`-r`)
 * number of species to simulate (`-nt`)
@@ -68,5 +68,4 @@ For example you could run:
 ```
 To simulate 10 replicates of species trees with 100 extant taxa at a species birth rate of 0.5 and a species death rate of 0.2. One may also use the `-i` flag with a settings file (see the example file) that has these parameters (or a combination of the two). 
 
-A bash script, `config_sim.sh`, has been provided that makes the directories where the newick trees are stored and then runs `treeducken` with the `-i simSettings.txt` option. If you would not like the bash script to run `treeducken` simply delete or comment out the line; however, you must run this script to make the correct directory structure to save the tree files. If you do not run this, then the files will not be saved.  
 
