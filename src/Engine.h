@@ -88,7 +88,7 @@ class Engine{
         int                    numTaxa;
         int                    numSpeciesTrees;
         int                    numLoci, numGenes;
-        // double                 treescale;
+        double                 treescale;
         bool                   doScaleTree;
         double                 outgroupFrac;
         MbRandom               rando;

@@ -61,7 +61,21 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     
 }
 
-Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr, unsigned ipp, unsigned Ne, double genTime, int ng, double og)
+Simulator::Simulator(MbRandom *p,
+                     unsigned ntax,
+                     double lambda,
+                     double mu,
+                     double rho,
+                     unsigned numLociToSim,
+                     double gbr,
+                     double gdr,
+                     double lgtr,
+                     unsigned ipp,
+                     unsigned Ne,
+                     double genTime,
+                     int ng,
+                     double og,
+                     double ts)
 {
     spTree = nullptr;
     geneTree = nullptr;
@@ -85,18 +99,10 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     generationTime = genTime;
     outgroupFrac = og;
     geneTrees.resize(numLoci);
+    treeScale = ts;
 }
 
 Simulator::~Simulator(){
-
-    // if(lociTree != nullptr){
-    //     delete lociTree;  
-    //     lociTree = nullptr;
-    // }
-    // if(geneTree != nullptr){
-    //     delete geneTree;  
-    //     geneTree = nullptr;
-    // }
     for(std::vector<SpeciesTree*>::iterator p=gsaTrees.begin(); p != gsaTrees.end(); ++p){
         delete (*p);
     }
@@ -127,7 +133,6 @@ void Simulator::initializeSim(){
 bool Simulator::gsaBDSim(){
     double timeIntv, sampTime;
     bool treeComplete = false;
-    // spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     spTree = &st;
     double eventTime;
@@ -155,7 +160,11 @@ bool Simulator::gsaBDSim(){
     spTree->setBranchLengths();
     spTree->setTreeTipNames();
     currentSimTime = spTree->getCurrentTimeFromExtant();
-    
+    if(treeScale > 0.0){
+        spTree->scaleTree(treeScale, currentSimTime);
+        currentSimTime = treeScale;
+    }
+
     treeComplete = true;
     
     return treeComplete;
@@ -213,7 +222,7 @@ bool Simulator::simSpeciesTree(){
     while(!good){
         good = gsaBDSim();
     }
-    if(outgroupFrac != 0.0)
+    if(outgroupFrac > 0.0)
         this->graftOutgroup(spTree, spTree->getTreeDepth());
     return good;
 }
@@ -305,13 +314,13 @@ bool Simulator::simSpeciesLociTrees(){
             while(!spGood){
                 spGood = gsaBDSim();
             }
-            if(outgroupFrac != 0.0)
+            if(outgroupFrac > 0.0)
                 this->graftOutgroup(spTree, spTree->getTreeDepth());
 
             std::cout << "Simulating loci #" <<  i + 1 << std::endl;
             good = bdsaBDSim();
         }
-        if(outgroupFrac != 0.0)
+        if(outgroupFrac > 0.0)
             this->graftOutgroup(lociTree, lociTree->getTreeDepth());
 
         locusTrees.push_back(lociTree);
@@ -440,7 +449,7 @@ bool Simulator::simThreeTree(){
             std::cout << "Simulating loci # " <<  i + 1 << std::endl;
             loGood = bdsaBDSim();
         }
-        if(outgroupFrac != 0.0){
+        if(outgroupFrac > 0.0){
             this->graftOutgroup(lociTree, lociTree->getTreeDepth());
         }
         for(int j = 0; j < numGenes; j++){
@@ -455,7 +464,7 @@ bool Simulator::simThreeTree(){
         locusTrees.push_back(lociTree);
         loGood = false;
     }
-    if(outgroupFrac != 0.0)
+    if(outgroupFrac > 0.0)
         this->graftOutgroup(spTree, spTree->getTreeDepth());
 
     return gGood;

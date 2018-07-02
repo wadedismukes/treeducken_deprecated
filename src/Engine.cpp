@@ -8,7 +8,7 @@
 
 #include "Engine.h"
 
-Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci, int ngen, double og){
+Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double ts, int reps, int ntax, int nloci, int ngen, double og){
     outfilename = of;
     inputSpTree = "";
     simType = mt;
@@ -18,7 +18,7 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     geneDeathRate = gdr;
     transferRate = lgtr;
     doScaleTree = false;
-    // treescale = 1.0;
+    treescale = ts;
     seedset = 0;
 
     individidualsPerPop = ipp;
@@ -66,7 +66,8 @@ void Engine::doRunRun(){
                                            populationSize,
                                            generationTime,
                                            numGenes,
-                                           outgroupFrac);
+                                           outgroupFrac,
+                                           treescale);
   
         std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
         
@@ -375,7 +376,8 @@ void Engine::doRunSpTreeSet(){
                                         populationSize,
                                         generationTime,
                                         numGenes,
-                                        outgroupFrac);
+                                        outgroupFrac,
+                                        treescale);
     
 
     treesim->setSpeciesTree(this->buildTreeFromNewick(inputSpTree));

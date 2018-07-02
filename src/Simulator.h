@@ -23,6 +23,7 @@ class Simulator
         unsigned    numGenes;
         double      speciationRate, extinctionRate;
         double      samplingRate;
+        double      treeScale;
         double      geneBirthRate, geneDeathRate, transferRate;
         double      propTransfer, propDuplicate;
         unsigned    indPerPop;
@@ -78,7 +79,8 @@ class Simulator
                 unsigned popSize,
                 double genTime,
                 int ng,
-                double og);
+                double og,
+                double ts);
         ~Simulator();
 
         void    setSpeciesTree(SpeciesTree *st) { spTree = st; }

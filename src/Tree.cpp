@@ -169,6 +169,7 @@ double Tree::getTotalTreeLength(){
 double Tree::getTreeDepth(){
     double td = 0.0;
     Node *r = this->getRoot();
+    td += r->getBranchLength();
     while(r->getIsTip() == false){
         td += r->getBranchLength();
         if(!(r->getLdes()->getIsExtinct()))
@@ -176,6 +177,7 @@ double Tree::getTreeDepth(){
         else
             r = r->getRdes();
     }
+    td += r->getBranchLength();
     return td;
 }
 
@@ -358,13 +360,13 @@ double Tree::getEndTime(){
     return tipDtime;
 }
 
-void Tree::scaleTree(double trScale){
+void Tree::scaleTree(double trScale, double currStime){
     double bt = 0.0;
     double dt = 0.0;
-    double bl = 0.0;
+    double scalingFactor = std::log(trScale / currStime);
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        bt = (*it)->getBirthTime() / trScale;
-        dt = (*it)->getBirthTime() / trScale;
+        bt = std::exp(std::log((*it)->getBirthTime()) + scalingFactor);
+        dt = std::exp(std::log((*it)->getDeathTime()) + scalingFactor);
         (*it)->setBirthTime(bt);
         (*it)->setDeathTime(dt);
         (*it)->setBranchLength(dt - bt);

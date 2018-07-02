@@ -113,7 +113,7 @@ class Tree
         void        setNewRootInfo(Node *newRoot, Node *outgroup, Node *oldRoot, double t);
         std::vector<Node*> getNodes() { return nodes; }
         std::vector<Node*> getExtantNodes() { return extantNodes; }
-        void        scaleTree( double treeScale );
+        void        scaleTree( double treeScale , double currtime);
         void        reconstructTreeFromSim(Node *oRoot);
         void        reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
 
