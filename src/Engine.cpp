@@ -88,6 +88,10 @@ void Engine::doRunRun(){
         
         ti =  new TreeInfo(k, numLoci);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+        ti->setExtTreeStringInfo(treesim->printExtSpeciesTreeNewick());
+        ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
+        ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
+
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(k, treesim->printLocusTreeNewick(i));
             if(simType == 3){
@@ -103,7 +107,6 @@ void Engine::doRunRun(){
     }
 
     this->writeTreeFiles();
-
 }
 
 
@@ -111,7 +114,9 @@ void Engine::writeTreeFiles(){
     
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
         int d = (int) std::distance(simSpeciesTrees.begin(), p);
+        (*p)->writeTreeStatsFile(d, outfilename);
         (*p)->writeWholeTreeFileInfo(d, outfilename);
+        (*p)->writeExtantTreeFileInfo(d, outfilename);
         for(int i = 0; i < numLoci; i++){
             (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
             if(simType == 3)
@@ -386,12 +391,15 @@ void Engine::doRunSpTreeSet(){
 
     ti =  new TreeInfo(0, numLoci);
     ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+    ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
+    ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
     for(int i = 0; i < numLoci; i++){
         ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
         if(simType == 3){
             for(int j = 0; j < numGenes; j++){
                 ti->setGeneTreeByIndx(i, j, treesim->printGeneTreeNewick(i, j));
                 ti->setExtantGeneTreeByIndx(i, j, treesim->printExtantGeneTreeNewick(i, j));
+            
             }
         }
     }
@@ -411,7 +419,9 @@ TreeInfo::TreeInfo(int idx, int nl){
     geneTrees.resize(nl);
     extGeneTrees.resize(nl);
     spTreeLength = 0.0;
+    extSpTreeLength = 0.0;
     spTreeDepth = 0.0;
+    extSpTreeDepth = 0.0;
     spTreeNess = 0.0;
     spAveTipLen = 0.0;
     loTreeLength = 0.0;
@@ -429,8 +439,57 @@ TreeInfo::~TreeInfo(){
     speciesTree.clear();
 }
 
+void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
+    std::string path = "";
+    std::string fn = ofp;
+    std::stringstream tn;
+    tn << spIndx;
+    fn += "_" + tn.str() + ".sp.tre.stats.txt";
+    path += fn;
+    std::ofstream out(path);
+    out << "Species Tree Statistics\n";
+
+    tn.clear();
+    tn.str(std::string());
+    tn << getSpeciesTreeDepth();
+    out << "\tTree depth: " << tn.str() << std::endl;
+    
+    tn.clear();
+    tn.str(std::string());
+
+    tn << getExtSpeciesTreeDepth();
+    out << "\tExtant Tree depth: " << tn.str() << std::endl;
+    
+    tn.clear();
+    tn.str(std::string());
+    // tn << getSpeciesAveTipLen();
+    // out << "Average branch length: " << tn.str() << std::endl;
+
+    //TODO: add the statistics for locus and gene trees
+}
+
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     std::string path = "";
+    
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    //path += tn.str();
+    // path +=  "/";
+    
+    
+    fn += "_" + tn.str() + ".sp.full.tre";
+    path += fn;
+    std::ofstream out(path);
+    out << "#NEXUS\nbegin trees;\n    tree wholeT_" << spIndx << " = ";
+    out << getWholeSpeciesTree() << "\n";
+    out << "end;";
+
+}
+
+void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
+   std::string path = "";
     
     std::string fn = ofp;
     std::stringstream tn;
@@ -443,10 +502,9 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     fn += "_" + tn.str() + ".sp.tre";
     path += fn;
     std::ofstream out(path);
-    out << "#NEXUS\nbegin trees;\n    tree wholeT_" << spIndx << " = ";
-    out << getWholeSpeciesTree() << "\n";
+    out << "#NEXUS\nbegin trees;\n    tree extT_" << spIndx << " = ";
+    out << getExtantSpeciesTree() << "\n";
     out << "end;";
-
 }
 
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){

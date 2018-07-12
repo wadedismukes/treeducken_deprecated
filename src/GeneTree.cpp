@@ -336,8 +336,6 @@ std::string GeneTree::printNewickTree(){
 
 std::string GeneTree::printExtantNewickTree(){
     std::stringstream ss;
-    // this->setExtantTreeFlags();
-    // this->reconstructTreeFromSim(this->getRoot());
     recGetNewickTree(this->getRoot(), ss);
     ss << ";";
     std::string geneTreeString = ss.str();

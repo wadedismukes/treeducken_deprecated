@@ -43,7 +43,7 @@ class LocusTree : public Tree
         void    setStopTime(double st) {stopTime = st; currentTime = 0;}
         double  getCurrentTime() { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
-        
+        int     getNumberTransfers();
         std::map<int,double>     getBirthTimesFromNodes();
         std::set<int>            getExtLociIndx();
         std::set<int>            getCoalBounds();

@@ -99,7 +99,13 @@ class Simulator
         void    prepGSATreeForReconstruction();
         void    processSpTreeSim();
         void    graftOutgroup(Tree *tr, double trDepth);
+        double  calcSpeciesTreeDepth(); 
+        double  calcExtantSpeciesTreeDepth();
+        double  calcLocusTreeDepth(int i);
+        int     findNumberTransfers(int i);
+        double  findTMRCAGeneTree(int i, int j);
         std::string    printSpeciesTreeNewick();
+        std::string    printExtSpeciesTreeNewick();
         std::string    printLocusTreeNewick(int i);
         std::string    printGeneTreeNewick(int i, int j);
         std::string    printExtantGeneTreeNewick(int i, int j);

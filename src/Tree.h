@@ -108,7 +108,7 @@ class Tree
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
         void        setSampleFromFlags();
-        void        getRootFromFlags();
+        void        getRootFromFlags(bool isGeneTree = false);
         void        getExtantTree();
         void        setNewRootInfo(Node *newRoot, Node *outgroup, Node *oldRoot, double t);
         std::vector<Node*> getNodes() { return nodes; }

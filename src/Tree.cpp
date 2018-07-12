@@ -292,19 +292,32 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
     }
 }
 // Gene tree version only 
-void Tree::getRootFromFlags(){
+void Tree::getRootFromFlags(bool isGeneTree){
     Node *p;
 
 	setExtantTreeFlags();
     int numNodes = nodes.size() - 1;
-	for(int i=numNodes; i > 0; i--){
-		p = nodes[i];
-		if(p->getFlag() >= 2){
-			extantRoot = p;
-			p->setAsRoot(true);
-			break;
-		}
-		
+    if(isGeneTree){
+        for(int i=numNodes; i > 0; i--){
+            p = nodes[i];
+            if(p->getFlag() >= 2){
+                extantRoot = p;
+                p->setAsRoot(true);
+                break;
+            }
+            
+        }
+    }
+    else{
+        for(int i=0; i <  numNodes; i++){
+            p = nodes[i];
+            if(p->getFlag() >= 2){
+                extantRoot = p;
+                p->setAsRoot(true);
+                break;
+            }
+            
+        }
     }
 }
 

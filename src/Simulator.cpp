@@ -227,6 +227,18 @@ bool Simulator::simSpeciesTree(){
     return good;
 }
 
+std::string Simulator::printExtSpeciesTreeNewick(){
+    SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim);
+    spTree->getRootFromFlags(false);
+    tt->setRoot(spTree->getExtantRoot());
+    tt->setExtantRoot(tt->getRoot());
+    tt->reconstructTreeFromSim(tt->getRoot());
+    std::string newickTree = tt->printNewickTree();
+    delete tt;
+    tt = nullptr;
+    return newickTree;
+}
+
 std::string Simulator::printSpeciesTreeNewick(){
     return spTree->printNewickTree();
 }
@@ -480,7 +492,7 @@ std::string Simulator::printGeneTreeNewick(int i, int j){
 std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     std::string newickTree;
     GeneTree *tt = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
-    geneTrees[i][j]->getRootFromFlags();
+    geneTrees[i][j]->getRootFromFlags(true);
     tt->setRoot(geneTrees[i][j]->getExtantRoot());
     tt->setExtantRoot(geneTrees[i][j]->getExtantRoot());
     tt->reconstructTreeFromSim(geneTrees[i][j]->getExtantRoot());
@@ -522,4 +534,32 @@ bool Simulator::simLocusGeneTrees(){
         loGood = false;
     }
     return gGood;
+}
+
+double Simulator::calcSpeciesTreeDepth(){
+    return spTree->getTreeDepth();
+}
+
+double Simulator::calcExtantSpeciesTreeDepth(){
+    SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim);
+    spTree->getRootFromFlags(false);
+    tt->setRoot(spTree->getExtantRoot());
+    tt->setExtantRoot(tt->getRoot());
+    tt->reconstructTreeFromSim(tt->getRoot());
+    double extTreeDepth = tt->getTreeDepth();
+    delete tt;
+    tt = nullptr;
+    return extTreeDepth;
+}
+
+double Simulator::calcLocusTreeDepth(int i){
+    return locusTrees[i]->getTreeDepth();
+}
+
+int Simulator::findNumberTransfers(int i){
+    return locusTrees[i]->getNumberTransfers();
+} 
+
+double Simulator::findTMRCAGeneTree(int i, int j){
+    return geneTrees[i][j]->getTreeDepth();
 }

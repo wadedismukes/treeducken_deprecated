@@ -208,6 +208,7 @@ std::string SpeciesTree::printNewickTree(){
     return spTree;
 }
 
+
 void SpeciesTree::setGSATipTreeFlags(){
     zeroAllFlags();
     numTotalTips = 0;

@@ -590,3 +590,13 @@ std::set<int> LocusTree::getCoalBounds(){
     }
     return coalBoundLoci;
 }
+
+int LocusTree::getNumberTransfers(){
+    int dupCount = 0;
+    for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsDuplication()){
+            dupCount++;
+        }
+    }
+    return dupCount;
+}
