@@ -107,6 +107,7 @@ class Engine{
         // gene tree paramters
         int                    individidualsPerPop, populationSize;
         double                 generationTime;
+        bool                   printOutputToScreen;
         
     public:
         
@@ -127,7 +128,8 @@ class Engine{
                                        int numTaxa,
                                        int nloci,
                                        int ngen,
-                                       double og);
+                                       double og,
+                                       bool sout);
                                 ~Engine();
         unsigned int            countNewickLeaves(const std::string stNewick);
         std::string             stripCommentsFromNewickTree(std::string stNewick);

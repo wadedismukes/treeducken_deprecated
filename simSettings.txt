@@ -13,7 +13,6 @@
 -r 1
 -nl 10
 -ng 10
--sc 100
 # Locus Tree Simulation parameters
 # gene birth rate
 -gbr 0.0
@@ -26,3 +25,4 @@
 -ipp 1
 # effective population size
 -ne 500
+-sout 0

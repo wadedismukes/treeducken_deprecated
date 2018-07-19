@@ -169,15 +169,16 @@ double Tree::getTotalTreeLength(){
 double Tree::getTreeDepth(){
     double td = 0.0;
     Node *r = this->getRoot();
-    td += r->getBranchLength();
     while(r->getIsTip() == false){
-        td += r->getBranchLength();
         if(!(r->getLdes()->getIsExtinct()))
             r = r->getLdes();
         else
             r = r->getRdes();
     }
-    td += r->getBranchLength();
+    while(r->getIsRoot() == false){
+        td += r->getBranchLength();
+        r = r->getAnc();
+    }
     return td;
 }
 

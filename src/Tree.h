@@ -116,7 +116,7 @@ class Tree
         void        scaleTree( double treeScale , double currtime);
         void        reconstructTreeFromSim(Node *oRoot);
         void        reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
-
+    
         virtual double  getTimeToNextEvent() { return 0.0; }
         virtual void    lineageBirthEvent(unsigned int indx) { return; }
         virtual void    lineageDeathEvent(unsigned int indx) { return; }

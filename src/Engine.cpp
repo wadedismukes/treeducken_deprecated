@@ -8,7 +8,25 @@
 
 #include "Engine.h"
 
-Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double ts, int reps, int ntax, int nloci, int ngen, double og){
+Engine::Engine(std::string of,
+                 int mt,
+                 double sbr,
+                 double sdr,
+                 double gbr, 
+                 double gdr, 
+                 double lgtr, 
+                 int ipp, 
+                 int popsize, 
+                 double genTime, 
+                 int sd1, 
+                 int sd2, 
+                 double ts, 
+                 int reps, 
+                 int ntax, 
+                 int nloci, 
+                 int ngen, 
+                 double og,
+                 bool sout){
     outfilename = of;
     inputSpTree = "";
     simType = mt;
@@ -20,7 +38,7 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     doScaleTree = false;
     treescale = ts;
     seedset = 0;
-
+    printOutputToScreen = sout;
     individidualsPerPop = ipp;
     populationSize = popsize;
     generationTime = genTime;
@@ -67,9 +85,10 @@ void Engine::doRunRun(){
                                            generationTime,
                                            numGenes,
                                            outgroupFrac,
-                                           treescale);
-  
-        std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
+                                           treescale,
+                                           printOutputToScreen);
+        if(printOutputToScreen)
+            std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
         
         switch(simType){
             case 1:
@@ -382,7 +401,8 @@ void Engine::doRunSpTreeSet(){
                                         generationTime,
                                         numGenes,
                                         outgroupFrac,
-                                        treescale);
+                                        treescale,
+                                        printOutputToScreen);
     
 
     treesim->setSpeciesTree(this->buildTreeFromNewick(inputSpTree));

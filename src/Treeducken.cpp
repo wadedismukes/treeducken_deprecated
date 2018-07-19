@@ -37,6 +37,7 @@ void printHelp(){
     std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;
     std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n"; 
     std::cout << "\t\t-sc     : tree scale [=1.0] \n";  
+    std::cout << "\t\t-sout   : turn off standard output (improves runtime) \n";
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
@@ -79,7 +80,8 @@ int main(int argc, char * argv[]) {
         std::string outName = "";
         std::string stn = "";
         int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 0;
-        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 0.0, og = 0.0;
+        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = -1, og = 0.0;
+        bool sout = 1;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];
                 if(strlen(curArg) > 1 && curArg[0] == '-'){
@@ -125,6 +127,8 @@ int main(int argc, char * argv[]) {
                                         ngen = atoi(line.substr(4, std::string::npos-1).c_str());
                                     else if(line.substr(0,6) == "-istnw")
                                         stn = line.substr(7, std::string::npos-1).c_str();
+                                    else if(line.substr(0,5) == "-sout")
+                                        sout = atoi(line.substr(6, std::string::npos-1).c_str());
                                 }
                             }
                             
@@ -164,6 +168,8 @@ int main(int argc, char * argv[]) {
                         stn = argv[i+1];
                     else if(!strcmp(curArg, "-og"))
                         og = atof(argv[i+1]);
+                    else if(!strcmp(curArg, "-sout"))
+                        sout = atoi(argv[i+1]);
                     else if(!strcmp(curArg, "-h")){
                         printHelp();
                         return 0;
@@ -278,7 +284,8 @@ int main(int argc, char * argv[]) {
                                nt,
                                nloc, 
                                ngen,
-                               og);
+                               og,
+                               sout);
         if(stn != ""){
             phyEngine->setInputSpeciesTree(stn);
             phyEngine->doRunSpTreeSet();

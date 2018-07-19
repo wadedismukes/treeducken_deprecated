@@ -110,6 +110,7 @@ void SpeciesTree::setBranchLengths(){
 void SpeciesTree::setPresentTime(double currentT){
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
         (*it)->setDeathTime(currentT);
+        (*it)->setIsExtant(true);
     }
     this->setBranchLengths();
     this->setTreeTipNames();
@@ -117,7 +118,6 @@ void SpeciesTree::setPresentTime(double currentT){
 
 void SpeciesTree::setTreeInfo(){
   //  double trDepth = this->getTreeDepth();
-    unsigned nt = 0;
     std::set<double> deathTimes;
     std::vector<Node*>::iterator it = nodes.begin();
     (*it)->setBirthTime(0.0);

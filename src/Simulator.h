@@ -30,6 +30,7 @@ class Simulator
         unsigned    popSize;
         double      generationTime;
         double      outgroupFrac;
+        bool        printSOUT;
         std::vector<SpeciesTree*>   gsaTrees;
         SpeciesTree*    spTree;
         LocusTree*      lociTree;
@@ -80,7 +81,8 @@ class Simulator
                 double genTime,
                 int ng,
                 double og,
-                double ts);
+                double ts,
+                bool sout);
         ~Simulator();
 
         void    setSpeciesTree(SpeciesTree *st) { spTree = st; }

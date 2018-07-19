@@ -75,7 +75,8 @@ Simulator::Simulator(MbRandom *p,
                      double genTime,
                      int ng,
                      double og,
-                     double ts)
+                     double ts,
+                     bool sout)
 {
     spTree = nullptr;
     geneTree = nullptr;
@@ -96,6 +97,7 @@ Simulator::Simulator(MbRandom *p,
     propTransfer = 0.0;
     indPerPop = ipp;
     popSize = Ne;
+    printSOUT = sout;
     generationTime = genTime;
     outgroupFrac = og;
     geneTrees.resize(numLoci);
@@ -269,10 +271,8 @@ bool Simulator::bdsaBDSim(){
             if(currentSimTime > speciesDeathTimes[(*it)]){
                 isSpeciation = spTree->macroEvent((*it));
                 if(isSpeciation){
-              //      std::cout << "species death time of species " << (*it) << " is " << speciesDeathTimes[(*it)] << std::endl;
                     sibs = spTree->preorderTraversalStep(*it);
                     lociTree->speciationEvent((*it), speciesDeathTimes[(*it)], sibs);
-            //        std::cout << sibs.first << "," << sibs.second << std::endl;
                     it = contempSpecies.erase(it);
                     it = contempSpecies.insert( it, sibs.second);
                     ++it;
@@ -280,7 +280,6 @@ bool Simulator::bdsaBDSim(){
                 }
                 else{
                     if(!(spTree->getIsExtantFromIndx(*it))){
-                    //    std::cout << "extinction of species " << (*it)   << " at " << speciesDeathTimes[(*it)] << std::endl;
                         lociTree->extinctionEvent(*it, speciesDeathTimes[(*it)]);
                         it = contempSpecies.erase(it);
                     }
@@ -305,7 +304,6 @@ bool Simulator::bdsaBDSim(){
             lociTree->setCurrentTime(stopTime);
         }
         else{
-          //  std::cout << "current sim time before event: " << currentSimTime << std::endl;
             lociTree->ermEvent(currentSimTime);
         }
 
@@ -328,8 +326,8 @@ bool Simulator::simSpeciesLociTrees(){
             }
             if(outgroupFrac > 0.0)
                 this->graftOutgroup(spTree, spTree->getTreeDepth());
-
-            std::cout << "Simulating loci #" <<  i + 1 << std::endl;
+            if(printSOUT)
+                std::cout << "Simulating loci #" <<  i + 1 << std::endl;
             good = bdsaBDSim();
         }
         if(outgroupFrac > 0.0)
@@ -458,7 +456,8 @@ bool Simulator::simThreeTree(){
     }
     for(int i = 0; i < numLoci; i++){
         while(!loGood){
-            std::cout << "Simulating loci # " <<  i + 1 << std::endl;
+            if(printSOUT)
+                std::cout << "Simulating loci # " <<  i + 1 << std::endl;
             loGood = bdsaBDSim();
         }
         if(outgroupFrac > 0.0){
@@ -466,7 +465,8 @@ bool Simulator::simThreeTree(){
         }
         for(int j = 0; j < numGenes; j++){
             while(!gGood){
-                std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
+                if(printSOUT)
+                    std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
                 gGood = coalescentSim();
             }
             geneTrees[i].push_back(geneTree);
@@ -518,12 +518,14 @@ bool Simulator::simLocusGeneTrees(){
     bool gGood = false;
     for(int i = 0; i < numLoci; i++){
         while(!loGood){
-            std::cout << "Simulating loci # " <<  i + 1 << std::endl;
+            if(printSOUT)
+                std::cout << "Simulating loci # " <<  i + 1 << std::endl;
             loGood = bdsaBDSim();
         }
         for(int j = 0; j < numGenes; j++){
             while(!gGood){
-                std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
+                if(printSOUT)
+                    std::cout << "Simulating gene # " <<  j + 1 << " of loci # " << i + 1 << std::endl;
                 gGood = coalescentSim();
             }
             geneTrees[i].push_back(geneTree);
