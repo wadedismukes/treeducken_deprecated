@@ -17,6 +17,7 @@ LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double g
     geneBirthRate = gbr;
     geneDeathRate = gdr;
     transferRate = lgtrate;
+    numTransfers = 0;
     getRoot()->setLindx(0);
 }
 
@@ -101,7 +102,7 @@ void LocusTree::lineageTransferEvent(int indx){
     Node *donor, *rec;
     donor = new Node();
     rec = new Node();
-    
+    numTransfers++;
     // donor keeps all the attributes  of the Node at extantNodes[indx]
     donor->setAnc(extantNodes[indx]);
     donor->setBirthTime(currentTime);
@@ -592,11 +593,5 @@ std::set<int> LocusTree::getCoalBounds(){
 }
 
 int LocusTree::getNumberTransfers(){
-    int dupCount = 0;
-    for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
-        if((*it)->getIsDuplication()){
-            dupCount++;
-        }
-    }
-    return dupCount;
+    return numTransfers;
 }

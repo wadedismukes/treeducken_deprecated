@@ -20,6 +20,7 @@ class LocusTree : public Tree
         double currentTime;
         double stopTime;
         unsigned numTaxa;
+        unsigned numTransfers;
 
     public:
         LocusTree(MbRandom *rando, unsigned nt, double stop, double gbr, double gdr, double lgtr);

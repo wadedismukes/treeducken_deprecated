@@ -110,7 +110,7 @@ void Engine::doRunRun(){
         ti->setExtTreeStringInfo(treesim->printExtSpeciesTreeNewick());
         ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
         ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
-
+        ti->setNumberTransfers(treesim->findNumberTransfers());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(k, treesim->printLocusTreeNewick(i));
             if(simType == 3){
@@ -413,6 +413,7 @@ void Engine::doRunSpTreeSet(){
     ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
     ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
     ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
+    ti->setNumberTransfers(treesim->findNumberTransfers());
     for(int i = 0; i < numLoci; i++){
         ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
         if(simType == 3){
@@ -449,6 +450,7 @@ TreeInfo::TreeInfo(int idx, int nl){
     loTreeNess = 0.0;
     loAveTipLen = 0.0;
     aveTMRCAGeneTree = 0.0;
+    numTransfers = 0;
 }
 
 TreeInfo::~TreeInfo(){
@@ -472,19 +474,23 @@ void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
     tn.clear();
     tn.str(std::string());
     tn << getSpeciesTreeDepth();
-    out << "\tTree depth: " << tn.str() << std::endl;
+    out << "Tree depth\t" << tn.str() << std::endl;
     
     tn.clear();
     tn.str(std::string());
 
     tn << getExtSpeciesTreeDepth();
-    out << "\tExtant Tree depth: " << tn.str() << std::endl;
+    out << "Extant Tree depth\t" << tn.str() << std::endl;
     
     tn.clear();
     tn.str(std::string());
     // tn << getSpeciesAveTipLen();
     // out << "Average branch length: " << tn.str() << std::endl;
+    tn << getNumberTransfers();
+    out << "Transfers\t" << tn.str() << std::endl;
 
+    tn.clear();
+    tn.str(std::string());
     //TODO: add the statistics for locus and gene trees
 }
 

@@ -104,7 +104,7 @@ class Simulator
         double  calcSpeciesTreeDepth(); 
         double  calcExtantSpeciesTreeDepth();
         double  calcLocusTreeDepth(int i);
-        int     findNumberTransfers(int i);
+        int     findNumberTransfers();
         double  findTMRCAGeneTree(int i, int j);
         std::string    printSpeciesTreeNewick();
         std::string    printExtSpeciesTreeNewick();

@@ -558,8 +558,12 @@ double Simulator::calcLocusTreeDepth(int i){
     return locusTrees[i]->getTreeDepth();
 }
 
-int Simulator::findNumberTransfers(int i){
-    return locusTrees[i]->getNumberTransfers();
+int Simulator::findNumberTransfers(){
+    int numTrans = 0;
+    for(int i = 0; i < locusTrees.size(); i++){
+        numTrans += locusTrees[i]->getNumberTransfers();
+    }
+    return numTrans;
 } 
 
 double Simulator::findTMRCAGeneTree(int i, int j){
