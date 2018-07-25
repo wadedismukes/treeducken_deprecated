@@ -7,11 +7,11 @@
 # number of taxa
 -nt 10
 # species birth rate
--sbr 0.0125 
+-sbr 0.1
 # species death rate
--sdr 0.0
--r 1
--nl 100
+-sdr 0.05
+-r 100
+-nl 1
 -ng 1
 # Locus Tree Simulation parameters
 # gene birth rate

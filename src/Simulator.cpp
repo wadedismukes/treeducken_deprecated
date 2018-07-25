@@ -239,7 +239,7 @@ std::string Simulator::printExtSpeciesTreeNewick(){
     else
         tt->setRoot(spTree->getExtantRoot());
     tt->setExtantRoot(tt->getRoot());
-    tt->reconstructTreeFromSim(tt->getExtantRoot());
+    tt->reconstructTreeFromSim(tt->getRoot());
     std::string newickTree = tt->printNewickTree();
     delete tt;
     tt = nullptr;
