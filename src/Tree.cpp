@@ -331,7 +331,6 @@ void Tree::rescaleTreeByOutgroupFrac(double outgroupFrac, double treeDepth){
         
         (*it)->setBirthTime(birthTime + rescaleFactor);
         (*it)->setDeathTime(deathTime + rescaleFactor);
-
         (*it)->setBranchLength((*it)->getDeathTime() - (*it)->getBirthTime());
     }
 }
@@ -343,6 +342,7 @@ void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t
     rootN->setAsRoot(true);
     rootN->setLdes(currRoot);
     rootN->setRdes(outgroupN);
+    rootN->setFlag(2);
     // nodes.push_back(rootN);
     this->setRoot(rootN);
 

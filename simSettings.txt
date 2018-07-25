@@ -25,3 +25,4 @@
 -ipp 1
 # effective population size
 -ne 500
+-ogf 0.01

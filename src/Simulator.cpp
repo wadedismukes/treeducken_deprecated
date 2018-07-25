@@ -232,9 +232,14 @@ bool Simulator::simSpeciesTree(){
 std::string Simulator::printExtSpeciesTreeNewick(){
     SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim);
     spTree->getRootFromFlags(false);
-    tt->setRoot(spTree->getExtantRoot());
+    if(outgroupFrac > 0.0){
+        tt->setOutgroup(spTree->getOutgroup());
+        tt->setRoot(spTree->getOutgroup()->getAnc());
+    }
+    else
+        tt->setRoot(spTree->getExtantRoot());
     tt->setExtantRoot(tt->getRoot());
-    tt->reconstructTreeFromSim(tt->getRoot());
+    tt->reconstructTreeFromSim(tt->getExtantRoot());
     std::string newickTree = tt->printNewickTree();
     delete tt;
     tt = nullptr;
