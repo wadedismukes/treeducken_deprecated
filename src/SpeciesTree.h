@@ -43,6 +43,7 @@ class SpeciesTree : public Tree
         void          recTipNamer(Node *p, unsigned &extinctCount, unsigned &tipCount);
     
         std::string   printNewickTree();
+        std::string   printExtNewickTree();
         void          recGetNewickTree(Node *p, std::stringstream &ss);
     
         // simulation functions

@@ -310,27 +310,37 @@ void Tree::getRootFromFlags(bool isGeneTree){
         }
     }
     else{
-        for(int i=0; i <  numNodes; i++){
-            p = nodes[i];
-            if(p->getFlag() >= 2){
-                extantRoot = p;
-                p->setAsRoot(true);
-                break;
-            }
+        // for(int i=0; i < numNodes; i++){
+        //     p = nodes[i];
+        //     if(p->getFlag() >= 2){
+        //         extantRoot = p;
+        //         p->setAsRoot(true);
+        //         break;
+        //     }
             
+        // }
+        if(outgrp != nullptr){
+            p = nodes[0]->getAnc();
+            extantRoot = p;
+            p->setAsRoot(true);
+        }
+        else{
+            p = nodes[0];
+            extantRoot = p;
+            p->setAsRoot(true);
         }
     }
 }
 
 void Tree::rescaleTreeByOutgroupFrac(double outgroupFrac, double treeDepth){
     double birthTime, deathTime;
-    double rescaleFactor = outgroupFrac * treeDepth;
+    double rescaleFactor = std::log(outgroupFrac) + std::log(treeDepth);
     for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
         birthTime = (*it)->getBirthTime();
         deathTime = (*it)->getDeathTime();
         
-        (*it)->setBirthTime(birthTime + rescaleFactor);
-        (*it)->setDeathTime(deathTime + rescaleFactor);
+        (*it)->setBirthTime(birthTime + std::exp(rescaleFactor));
+        (*it)->setDeathTime(deathTime + std::exp(rescaleFactor));
         (*it)->setBranchLength((*it)->getDeathTime() - (*it)->getBirthTime());
     }
 }
@@ -353,6 +363,7 @@ void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t
     outgroupN->setBirthTime(currRoot->getBirthTime());
     outgroupN->setDeathTime(t);
     outgroupN->setIsTip(true);
+    outgroupN->setFlag(1);
     outgroupN->setBranchLength(outgroupN->getDeathTime() - outgroupN->getBirthTime());
     outgroupN->setIsExtant(true);
     outgroupN->setAnc(rootN);

@@ -202,10 +202,15 @@ void SpeciesTree::recGetNewickTree(Node *p, std::stringstream &ss){
 
 std::string SpeciesTree::printNewickTree(){
     std::stringstream ss;
-    if(this->getOutgroup() != nullptr)
-        recGetNewickTree(this->getOutgroup()->getAnc(), ss);
-    else
-        recGetNewickTree(this->getRoot(), ss);
+    recGetNewickTree(this->getRoot(), ss);
+    ss << ";";
+    std::string spTree = ss.str();
+    return spTree;
+}
+
+std::string SpeciesTree::printExtNewickTree(){
+    std::stringstream ss;
+    recGetNewickTree(this->getRoot(), ss);
     ss << ";";
     std::string spTree = ss.str();
     return spTree;
