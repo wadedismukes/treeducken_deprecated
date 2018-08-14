@@ -64,8 +64,11 @@ Once treeducken has been installed, there are two ways to run the program. The f
 
 For example you could run:
 ```
-	multiTree -r 10 -nt 100 -sbr 0.5 -sdr 0.4 
+	treeducken -r 10 -nt 100 -sbr 0.5 -sdr 0.4 
 ```
 To simulate 10 replicates of species trees with 100 extant taxa at a species birth rate of 0.5 and a species death rate of 0.2. One may also use the `-i` flag with a settings file (see the example file) that has these parameters (or a combination of the two). 
 
-
+This command would look like this:
+```
+	treeducken -i sim_settings.txt
+```
