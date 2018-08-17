@@ -310,24 +310,24 @@ void Tree::getRootFromFlags(bool isGeneTree){
         }
     }
     else{
-        // for(int i=0; i < numNodes; i++){
-        //     p = nodes[i];
-        //     if(p->getFlag() >= 2){
-        //         extantRoot = p;
-        //         p->setAsRoot(true);
-        //         break;
-        //     }
-            
-        // }
         if(outgrp != nullptr){
             p = nodes[0]->getAnc();
             extantRoot = p;
             p->setAsRoot(true);
         }
         else{
-            p = nodes[0];
-            extantRoot = p;
-            p->setAsRoot(true);
+            // p = nodes[0];
+            // extantRoot = p;
+            // p->setAsRoot(true);
+            for(int i=0; i < numNodes; i++){
+                p = nodes[i];
+                if(p->getFlag() >= 2){
+                    extantRoot = p;
+                    p->setAsRoot(true);
+                    break;
+                }
+                
+            }
         }
     }
 }
