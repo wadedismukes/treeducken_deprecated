@@ -443,3 +443,16 @@ bool SpeciesTree::macroEvent(int indx){
         isSpec = true;
     return isSpec;
 }
+
+void SpeciesTree::moranEvent(double curTime){
+    currentTime = cTime;
+    int nodeIndDead = rando->discreteUniformRv(0, numExtant - 1);
+    lineageDeathEvent(nodeIndDead);
+    int nodeIndSpec = rando->discreteUniform(0, numExtant - 1);
+    lineageBirthEvent(nodeIndSpec);
+}
+
+double SpeciesTree::getTimeToNextEventMoran(){
+    returnTime = -log(rando->uniformRv()) / (double(numExtant) * 2.0);
+    return returnTime;
+}
