@@ -137,15 +137,31 @@ bool Simulator::gsaBDSim(){
     bool treeComplete = false;
     SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     spTree = &st;
-    spTree->initializeMoranProcess(numTaxaToSim);
-    double timeToSim; 
-    double eventTime = currentSimTime;
+    double eventTime;
     
-    while(eventTime <= timeToSim){
-        eventTime = spTree->getTimeToNextEventMoran();
+    while(gsaCheckStop()){
+        eventTime = spTree->getTimeToNextEvent();
         currentSimTime += eventTime;
-        spTree->moranEvent(currentSimTime);
+        spTree->ermEvent(currentSimTime);
+        if(spTree->getNumExtant() < 1){
+            treeComplete = false;
+            return treeComplete;
+        }
+        else if(spTree->getNumExtant() == numTaxaToSim){
+            timeIntv = spTree->getTimeToNextEvent();
+            sampTime = rando->uniformRv(0, timeIntv) + currentSimTime;
+            spTree->setPresentTime(sampTime);
+            processGSASim();
+        }
+        
     }
+    unsigned gsaRandomTreeID = rando->uniformRv(0, (unsigned) gsaTrees.size() - 1);
+    // delete spTree;
+    spTree = gsaTrees[gsaRandomTreeID];
+    processSpTreeSim();
+    spTree->setBranchLengths();
+    spTree->setTreeTipNames();
+    currentSimTime = spTree->getCurrentTimeFromExtant();
     if(treeScale > 0.0){
         spTree->scaleTree(treeScale, currentSimTime);
         currentSimTime = treeScale;
@@ -200,28 +216,19 @@ bool Simulator::moranSpeciesSim(){
     bool treeComplete = false;
     SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     spTree = &st;
+    spTree->initializeMoranProcess(numTaxaToSim);
     double eventTime;
     
-    while(gsaCheckStop()){
-        eventTime = spTree->getTimeToNextEvent();
+    while(moranCheckStop()){
+        eventTime = spTree->getTimeToNextEventMoran();
         currentSimTime += eventTime;
-        spTree->ermEvent(currentSimTime);
+        spTree->moranEvent(currentSimTime);
         if(spTree->getNumExtant() < 1){
             treeComplete = false;
             return treeComplete;
         }
-        else if(spTree->getNumExtant() == numTaxaToSim){
-            timeIntv = spTree->getTimeToNextEvent();
-            sampTime = rando->uniformRv(0, timeIntv) + currentSimTime;
-            spTree->setPresentTime(sampTime);
-            processGSASim();
-        }
-        
     }
-    unsigned gsaRandomTreeID = rando->uniformRv(0, (unsigned) gsaTrees.size() - 1);
-    // delete spTree;
-    spTree = gsaTrees[gsaRandomTreeID];
-    processSpTreeSim();
+    // processing will make a tree with extant and non extant tips
     spTree->setBranchLengths();
     spTree->setTreeTipNames();
     currentSimTime = spTree->getCurrentTimeFromExtant();
@@ -236,18 +243,15 @@ bool Simulator::moranSpeciesSim(){
 }
 
 
-bool Simulator::gsaCheckStop(){
+bool Simulator::moranCheckStop(){
   
   bool keepSimulating = true;
   
-  if(spTree->getNumExtant() >= gsaStop){
+  if(spTree->getNumExtant() * 2 >= currentSimTime){
       keepSimulating = false;
   }
   
-  return keepSimulating;    
-    treeComplete = true;
-    
-    return treeComplete;
+  return keepSimulating;    ;
 }
 
 bool Simulator::simSpeciesTree(){

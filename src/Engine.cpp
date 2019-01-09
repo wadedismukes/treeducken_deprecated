@@ -26,7 +26,8 @@ Engine::Engine(std::string of,
                  int nloci, 
                  int ngen, 
                  double og,
-                 bool sout){
+                 bool sout,
+                 bool mst){
     outfilename = of;
     inputSpTree = "";
     simType = mt;
@@ -100,6 +101,10 @@ void Engine::doRunRun(){
             case 3:
                 treesim->simThreeTree();
                 break;
+            case 4:
+                treesim->simLocusGeneTrees();
+            case 5:
+                treesim->simMoranSpeciesTree();
             default:
                 treesim->simSpeciesTree();
                 break;

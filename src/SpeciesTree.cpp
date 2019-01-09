@@ -445,14 +445,43 @@ bool SpeciesTree::macroEvent(int indx){
 }
 
 void SpeciesTree::moranEvent(double curTime){
-    currentTime = cTime;
+    currentTime = curTime;
     int nodeIndDead = rando->discreteUniformRv(0, numExtant - 1);
     lineageDeathEvent(nodeIndDead);
-    int nodeIndSpec = rando->discreteUniform(0, numExtant - 1);
+    int nodeIndSpec = rando->discreteUniformRv(0, numExtant - 1);
     lineageBirthEvent(nodeIndSpec);
 }
 
 double SpeciesTree::getTimeToNextEventMoran(){
-    returnTime = -log(rando->uniformRv()) / (double(numExtant) * 2.0);
-    return returnTime;
+    return -log(rando->uniformRv()) / (double(numExtant) * 2.0);
+}
+
+void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
+    // Make sure everything is clean
+    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
+        delete (*p);
+        (*p) = nullptr;
+    }
+    nodes.clear();
+    for(std::vector<Node*>::iterator p=extantNodes.begin(); p != extantNodes.end(); ++p){
+        delete (*p);
+        (*p) = nullptr;
+    }
+    extantNodes.clear();
+    Node *p;
+
+    // make nodes
+    for(int i = 0; i < numTaxaToSim; i++){
+        p = new Node();
+        p->setBirthTime(0.0);
+        p->setIndx(0);
+        p->setLdes(NULL);
+        p->setRdes(NULL);
+        p->setAnc(NULL);
+        p->setIsExtant(true);
+        p->setIsTip(true);
+        p->setIsExtinct(false);
+        extantNodes.push_back(p);
+        nodes.push_back(p);
+    }
 }

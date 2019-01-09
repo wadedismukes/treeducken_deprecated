@@ -96,6 +96,7 @@ class Simulator
         bool    simThreeTree();
         bool    simLocusGeneTrees();
         bool    gsaCheckStop();
+        bool    moranCheckStop();
         void    initializeSim();
         void    processGSASim();
         void    prepGSATreeForReconstruction();

@@ -129,7 +129,8 @@ class Engine{
                                        int nloci,
                                        int ngen,
                                        double og,
-                                       bool sout);
+                                       bool sout,
+                                       bool mst);
                                 ~Engine();
         unsigned int            countNewickLeaves(const std::string stNewick);
         std::string             stripCommentsFromNewickTree(std::string stNewick);
