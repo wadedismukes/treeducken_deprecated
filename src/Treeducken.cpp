@@ -236,9 +236,7 @@ int main(int argc, char * argv[]) {
                 std::cerr << "Species birth rate of 0.0 is invalid, exiting...\n";
                 return 0;
             }
-            if(mst){
-                mt = 5; 
-            }
+
             if(nloc > 0){
                 if (gbr <= 0.0){
                     if(gbr < 0.0){
@@ -275,6 +273,8 @@ int main(int argc, char * argv[]) {
                 std::cout << "Number of loci to simulate is set to 0." << std::endl;
                 mt = 1;
                 printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
+                if(mst)
+                    mt = 5;
             }
         }
         phyEngine = new Engine(outName,

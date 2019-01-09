@@ -1,4 +1,4 @@
 Species Tree Statistics
-Tree depth	12.8247
-Extant Tree depth	12.8247
-Transfers	20
+Tree depth	9.24297
+Extant Tree depth	9.24297
+Transfers	0

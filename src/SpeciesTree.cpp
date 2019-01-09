@@ -458,16 +458,13 @@ double SpeciesTree::getTimeToNextEventMoran(){
 
 void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
     // Make sure everything is clean
-    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
-        delete (*p);
-        (*p) = nullptr;
-    }
-    nodes.clear();
     for(std::vector<Node*>::iterator p=extantNodes.begin(); p != extantNodes.end(); ++p){
         delete (*p);
         (*p) = nullptr;
     }
     extantNodes.clear();
+    nodes.clear();
+
     Node *p;
 
     // make nodes

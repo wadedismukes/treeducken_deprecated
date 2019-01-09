@@ -9,20 +9,7 @@
 # species birth rate
 -sbr 0.1
 # species death rate
--sdr 0.05
--r 100
--nl 1
--ng 1
-# Locus Tree Simulation parameters
-# gene birth rate
--gbr 0.0
-# gene death rate
--gdr 0.0
-# lateral gene transfer rate
--lgtr 1.0
-# Gene Tree Simulation parameters
-# individuals per locus to be sampled 
--ipp 1
-# effective population size
--ne 500
--ogf 0.0
+-sdr 0.0
+-r 10
+-mst 1
+-nloc 0
