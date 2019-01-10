@@ -247,7 +247,7 @@ bool Simulator::moranCheckStop(){
   
   bool keepSimulating = true;
   
-  if(spTree->getNumExtant() * 2 >= currentSimTime){
+  if((spTree->getNumExtant() * 2) / speciationRate <= currentSimTime){
       keepSimulating = false;
   }
   

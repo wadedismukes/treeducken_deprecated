@@ -453,7 +453,7 @@ void SpeciesTree::moranEvent(double curTime){
 }
 
 double SpeciesTree::getTimeToNextEventMoran(){
-    return -log(rando->uniformRv()) / (double(numExtant) * 2.0);
+    return -log(rando->uniformRv()) / (double(speciationRate));
 }
 
 void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
@@ -481,4 +481,9 @@ void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
         extantNodes.push_back(p);
         nodes.push_back(p);
     }
+
+    numExtant = extantNodes.size();
+    numNodes = nodes.size();
+    root = nullptr;
+    extantRoot = nullptr;
 }
