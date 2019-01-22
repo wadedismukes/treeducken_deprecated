@@ -229,9 +229,8 @@ bool Simulator::moranSpeciesSim(){
         }
     }
     // processing will make a tree with extant and non extant tips
-    spTree->setBranchLengths();
-    spTree->setTreeTipNames();
-    currentSimTime = spTree->getCurrentTimeFromExtant();
+    //spTree->setBranchLengths();
+    //spTree->setTreeTipNames();
     if(treeScale > 0.0){
         spTree->scaleTree(treeScale, currentSimTime);
         currentSimTime = treeScale;
@@ -247,7 +246,7 @@ bool Simulator::moranCheckStop(){
   
   bool keepSimulating = true;
   
-  if((spTree->getNumExtant() * 2) / speciationRate <= currentSimTime){
+  if((spTree->getNumExtant() * 2) <= currentSimTime){
       keepSimulating = false;
   }
   

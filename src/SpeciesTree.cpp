@@ -450,10 +450,14 @@ void SpeciesTree::moranEvent(double curTime){
     lineageDeathEvent(nodeIndDead);
     int nodeIndSpec = rando->discreteUniformRv(0, numExtant - 1);
     lineageBirthEvent(nodeIndSpec);
+    for(int i = extantNodes.size() - 2; i < extantNodes.size(); ++i){
+        int prevFlag = extantNodes[i]->getFlag();
+        extantNodes[i]->setFlag(prevFlag++);
+        }
 }
 
 double SpeciesTree::getTimeToNextEventMoran(){
-    return -log(rando->uniformRv()) / (double(speciationRate));
+    return -log(rando->uniformRv()) / (double(numExtant) * speciationRate);
 }
 
 void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
