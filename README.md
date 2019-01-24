@@ -23,24 +23,46 @@ After inputting these parameters the simulation proceeds as follows. First, a sp
 
 # Installing treeducken
 
-To install treeducken, clone the repository by doing the following:
+To install treeducken, start by cloning the repository by doing the following:
 
 ```
-	git clone https://github.com/wadedismukes/treeducken.git
+git clone https://github.com/wadedismukes/treeducken.git
 ```
 
-Then change directory to `treeducken/src` and run the following command:
+## Mac OSX/Debian/Ubuntu
+
+If working on any of the above operating systems installation can proceed in
+the following way. First change directory to `treeducken/src` and run the following command:
 
 ```
-	make install
+make install
 ```
 
 treeducken is now installed in the `treeducken` directory. To uninstall simply type:
 
 ```
-	make clean
+make clean
 ```
+## Install using Docker 
+Provided in the repository with treeducken is a Dockerfile. To install using
+Docker, first install [Docker](https://docs.docker.com/install/). once
+Docker is installed move into the folder with treeducken and run the following
+command to build the docker file:
 
+    docker build --rm --force-rm -t wadedismukes/treeducken
+
+Now you can run and use the image in an interactive shell.
+
+    docker run -it --name wadedismukes/treeducken
+
+Or if you would like to have a directory from your computer available on the
+docker image you could type something like:
+
+    docker run -it -v /host/path/:/container/path --name wadedismukes/treeducken
+
+Replacing `/host/path/` and `/container/path/` with whichever directory
+you would like to have in the container and whatever path you would like to use
+inside of the container. This will allow you to work in that directory generating simulated data that you can then use outside of the container.
 
 # Using treeducken
 
@@ -64,11 +86,11 @@ Once treeducken has been installed, there are two ways to run the program. The f
 
 For example you could run:
 ```
-	treeducken -r 10 -nt 100 -sbr 0.5 -sdr 0.4 
+treeducken -r 10 -nt 100 -sbr 0.5 -sdr 0.4 
 ```
 To simulate 10 replicates of species trees with 100 extant taxa at a species birth rate of 0.5 and a species death rate of 0.2. One may also use the `-i` flag with a settings file (see the example file) that has these parameters (or a combination of the two). 
 
 This command would look like this:
 ```
-	treeducken -i sim_settings.txt
+treeducken -i sim_settings.txt
 ```
