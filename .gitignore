@@ -5,3 +5,4 @@
 treeducken.dSYM/*
 GitVersion.h
 ./treeducken
+*.stats.txt

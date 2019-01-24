@@ -21,19 +21,23 @@
 class TreeInfo{
         private:
             std::string                 speciesTree;
+            std::string                 extSpeciesTree;
             std::vector<std::string>    gsaTrees;
             std::vector<std::string>    locusTrees;
             std::vector<std::vector<std::string> >   geneTrees;
             std::vector<std::vector<std::string> >   extGeneTrees;
             double                      spTreeLength, spTreeNess, spAveTipLen, spTreeDepth;
+            double                      extSpTreeLength, extSpTreeDepth;
             double                      loTreeLength, loTreeNess, loAveTipLen, loTreeDepth;
             double                      aveTMRCAGeneTree;
+            int                         numTransfers;
 
     
         public:
                                         TreeInfo(int idx, int nl);
                                         ~TreeInfo(); 
-            std::string                 getWholeSpeciesTree() {return speciesTree; }
+            std::string                 getWholeSpeciesTree() { return speciesTree; }
+            std::string                 getExtantSpeciesTree() { return extSpeciesTree; }
             std::string                 getLocusTreeByIndx(int idx) { return locusTrees[idx]; }
             std::string                 getGeneTreeByIndx(int Lidx, int idx) { return geneTrees[Lidx][idx]; }
             std::string                 getExtGeneTreeByIndx(int Lidx, int idx) { return extGeneTrees[Lidx][idx]; }
@@ -46,10 +50,12 @@ class TreeInfo{
             double                      getLocusAveTipLen() {return loAveTipLen; }
             double                      getLocusTreeDepth() {return loTreeDepth; }
             double                      getAveTMRCAGeneTree() {return aveTMRCAGeneTree; }
-    
+            int                         getNumberTransfers() { return numTransfers; }
+            double                      getExtSpeciesTreeDepth() { return extSpTreeDepth; }
         
-    
+            void                        setNumberTransfers(int d) { numTransfers = d; }
             void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = ts; }
+            void                        setExtTreeStringInfo(std::string ts) { extSpeciesTree = ts; }
             void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees.push_back(ts); }
             void                        setGeneTreeByIndx(int Lindx, int indx, std::string ts) { geneTrees[Lindx].push_back(ts); }
             void                        setExtantGeneTreeByIndx(int Lindx, int indx, std::string ts) { extGeneTrees[Lindx].push_back(ts); }
@@ -61,9 +67,10 @@ class TreeInfo{
             void                        setLocusTreeNess(double b) { loTreeNess = b; }
             void                        setLocusAveTipLen(double b) {loAveTipLen = b; }
             void                        setLocusTreeDepth(double b) { loTreeDepth = b; }
-            void                        setAveTMRCAGeneTree(double b) {aveTMRCAGeneTree = b; }
-    
-    
+            void                        setAveTMRCAGeneTree(double b) { aveTMRCAGeneTree = b; }
+            void                        setExtSpeciesTreeDepth(double b) { extSpTreeDepth = b; }
+            void                        writeTreeStatsFile(int spIndx, std::string ofp);      
+            void                        writeExtantTreeFileInfo(int spIndx, std::string ofp);                
             void                        writeWholeTreeFileInfo(int spIndx, std::string ofp);
             void                        writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp);
             void                        writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp);
@@ -88,7 +95,7 @@ class Engine{
         int                    numTaxa;
         int                    numSpeciesTrees;
         int                    numLoci, numGenes;
-        // double                 treescale;
+        double                 treescale;
         bool                   doScaleTree;
         double                 outgroupFrac;
         MbRandom               rando;
@@ -100,6 +107,7 @@ class Engine{
         // gene tree paramters
         int                    individidualsPerPop, populationSize;
         double                 generationTime;
+        bool                   printOutputToScreen;
         
     public:
         
@@ -120,7 +128,9 @@ class Engine{
                                        int numTaxa,
                                        int nloci,
                                        int ngen,
-                                       double og);
+                                       double og,
+                                       bool sout,
+                                       bool mst);
                                 ~Engine();
         unsigned int            countNewickLeaves(const std::string stNewick);
         std::string             stripCommentsFromNewickTree(std::string stNewick);

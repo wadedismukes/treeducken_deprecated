@@ -25,7 +25,7 @@ void printHelp(){
     std::cout << "\t\t-nloc : number of loci to simulate [= 0]\n";
     std::cout << "\t\t-sc   : tree scale [= 1.0]\n";
     std::cout << "\t\t-sd1  : seed 1 (use this if you only pass in one seed) \n";
-    std::cout << "\t\t-sd1  : seed 2 \n";
+    std::cout << "\t\t-sd2  : seed 2 \n";
     std::cout << "\t\t-sbr  : species birth rate [= 0.5]\n";
     std::cout << "\t\t-sdr  : species death rate [= 0.2]\n";
     std::cout << "\t\t-gbr  : gene birth rate [= 0.0]\n";
@@ -37,11 +37,13 @@ void printHelp(){
     std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;
     std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n"; 
     std::cout << "\t\t-sc     : tree scale [=1.0] \n";  
+    std::cout << "\t\t-sout   : turn off standard output (improves runtime) \n";
+    std::cout << "\t\t-mst    : Moran species tree ";  
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
                    double gbr, double gdr, double lgtr, int ipp, int ne, int ngen, double og,
-                   std::string stn){
+                   std::string stn, bool mst){
     std::cout << "\t\toutput file name prefix         = " << of << "\n";
     std::cout << "\t\tNumber of extant taxa           = " << nt << "\n";
     std::cout << "\t\tNumber of replicates            = " << r << "\n";
@@ -57,6 +59,7 @@ void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, 
     std::cout << "\t\tTree fraction to set outgroup   = " << og << "\n";
     std::cout << "\t\tSpecies tree input as newick    = " << stn << "\n";
     std::cout << "\t\tTree scale                      = " << ts  << "\n";
+    std::cout << "\t\tMoran process species tree      = " << mst << "\n";
 }
 
 void printVersion(){
@@ -79,7 +82,9 @@ int main(int argc, char * argv[]) {
         std::string outName = "";
         std::string stn = "";
         int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 0;
-        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0, og = 0.0;
+        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = -1, og = 0.0;
+        bool sout = 1;
+        bool mst = 0;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];
                 if(strlen(curArg) > 1 && curArg[0] == '-'){
@@ -125,6 +130,10 @@ int main(int argc, char * argv[]) {
                                         ngen = atoi(line.substr(4, std::string::npos-1).c_str());
                                     else if(line.substr(0,6) == "-istnw")
                                         stn = line.substr(7, std::string::npos-1).c_str();
+                                    else if(line.substr(0,5) == "-sout")
+                                        sout = atoi(line.substr(6, std::string::npos-1).c_str());
+                                    else if(line.substr(0,4) == "-mst")
+                                        mst = atoi(line.substr(5, std::string::npos-1).c_str());
                                 }
                             }
                             
@@ -164,6 +173,10 @@ int main(int argc, char * argv[]) {
                         stn = argv[i+1];
                     else if(!strcmp(curArg, "-og"))
                         og = atof(argv[i+1]);
+                    else if(!strcmp(curArg, "-sout"))
+                        sout = atoi(argv[i+1]);
+                    else if(!strcmp(curArg, "-mst"))
+                        mst = atoi(argv[i+1]);
                     else if(!strcmp(curArg, "-h")){
                         printHelp();
                         return 0;
@@ -203,7 +216,7 @@ int main(int argc, char * argv[]) {
                             exit(1);
                         }
                     }
-                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
 
                 }
                 else if (ne <= 0 || ipp <= 0 || ipp > ne){
@@ -214,7 +227,7 @@ int main(int argc, char * argv[]) {
                 }
                 else{
                     std::cout << "Simulating locus and gene trees on input species tree.\n";
-                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
                 }
             }
         }
@@ -223,6 +236,7 @@ int main(int argc, char * argv[]) {
                 std::cerr << "Species birth rate of 0.0 is invalid, exiting...\n";
                 return 0;
             }
+
             if(nloc > 0){
                 if (gbr <= 0.0){
                     if(gbr < 0.0){
@@ -240,25 +254,27 @@ int main(int argc, char * argv[]) {
                             mt = 2;
                         }
                     }
-                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
 
                 }
                 else if (ne <= 0 || ipp <= 0 || ipp > ne){
                     mt = 2;
                     std::cout << "Gene tree parameters are incorrectly specified.\n";
                     std::cout << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
-                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
                 }
                 else{
                     mt = 3;
                     std::cout << "Simulating sets of three trees.\n";
-                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
                 }
             }
             else{
                 std::cout << "Number of loci to simulate is set to 0." << std::endl;
                 mt = 1;
-                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn);
+                printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
+                if(mst)
+                    mt = 5;
             }
         }
         phyEngine = new Engine(outName,
@@ -278,7 +294,9 @@ int main(int argc, char * argv[]) {
                                nt,
                                nloc, 
                                ngen,
-                               og);
+                               og,
+                               sout,
+                               mst);
         if(stn != ""){
             phyEngine->setInputSpeciesTree(stn);
             phyEngine->doRunSpTreeSet();

@@ -110,6 +110,7 @@ void SpeciesTree::setBranchLengths(){
 void SpeciesTree::setPresentTime(double currentT){
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
         (*it)->setDeathTime(currentT);
+        (*it)->setIsExtant(true);
     }
     this->setBranchLengths();
     this->setTreeTipNames();
@@ -117,7 +118,6 @@ void SpeciesTree::setPresentTime(double currentT){
 
 void SpeciesTree::setTreeInfo(){
   //  double trDepth = this->getTreeDepth();
-    unsigned nt = 0;
     std::set<double> deathTimes;
     std::vector<Node*>::iterator it = nodes.begin();
     (*it)->setBirthTime(0.0);
@@ -207,6 +207,15 @@ std::string SpeciesTree::printNewickTree(){
     std::string spTree = ss.str();
     return spTree;
 }
+
+std::string SpeciesTree::printExtNewickTree(){
+    std::stringstream ss;
+    recGetNewickTree(this->getRoot(), ss);
+    ss << ";";
+    std::string spTree = ss.str();
+    return spTree;
+}
+
 
 void SpeciesTree::setGSATipTreeFlags(){
     zeroAllFlags();
@@ -433,4 +442,52 @@ bool SpeciesTree::macroEvent(int indx){
     else
         isSpec = true;
     return isSpec;
+}
+
+void SpeciesTree::moranEvent(double curTime){
+    currentTime = curTime;
+    int nodeIndDead = rando->discreteUniformRv(0, numExtant - 1);
+    lineageDeathEvent(nodeIndDead);
+    int nodeIndSpec = rando->discreteUniformRv(0, numExtant - 1);
+    lineageBirthEvent(nodeIndSpec);
+    for(int i = extantNodes.size() - 2; i < extantNodes.size(); ++i){
+        int prevFlag = extantNodes[i]->getFlag();
+        extantNodes[i]->setFlag(prevFlag++);
+        }
+}
+
+double SpeciesTree::getTimeToNextEventMoran(){
+    return -log(rando->uniformRv()) / (double(numExtant) * speciationRate);
+}
+
+void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
+    // Make sure everything is clean
+    for(std::vector<Node*>::iterator p=extantNodes.begin(); p != extantNodes.end(); ++p){
+        delete (*p);
+        (*p) = nullptr;
+    }
+    extantNodes.clear();
+    nodes.clear();
+
+    Node *p;
+
+    // make nodes
+    for(int i = 0; i < numTaxaToSim; i++){
+        p = new Node();
+        p->setBirthTime(0.0);
+        p->setIndx(0);
+        p->setLdes(NULL);
+        p->setRdes(NULL);
+        p->setAnc(NULL);
+        p->setIsExtant(true);
+        p->setIsTip(true);
+        p->setIsExtinct(false);
+        extantNodes.push_back(p);
+        nodes.push_back(p);
+    }
+
+    numExtant = extantNodes.size();
+    numNodes = nodes.size();
+    root = nullptr;
+    extantRoot = nullptr;
 }

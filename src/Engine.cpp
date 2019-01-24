@@ -8,7 +8,26 @@
 
 #include "Engine.h"
 
-Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp, int popsize, double genTime, int sd1, int sd2, double treescale, int reps, int ntax, int nloci, int ngen, double og){
+Engine::Engine(std::string of,
+                 int mt,
+                 double sbr,
+                 double sdr,
+                 double gbr, 
+                 double gdr, 
+                 double lgtr, 
+                 int ipp, 
+                 int popsize, 
+                 double genTime, 
+                 int sd1, 
+                 int sd2, 
+                 double ts, 
+                 int reps, 
+                 int ntax, 
+                 int nloci, 
+                 int ngen, 
+                 double og,
+                 bool sout,
+                 bool mst){
     outfilename = of;
     inputSpTree = "";
     simType = mt;
@@ -18,9 +37,9 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     geneDeathRate = gdr;
     transferRate = lgtr;
     doScaleTree = false;
-    // treescale = 1.0;
+    treescale = ts;
     seedset = 0;
-
+    printOutputToScreen = sout;
     individidualsPerPop = ipp;
     populationSize = popsize;
     generationTime = genTime;
@@ -66,9 +85,11 @@ void Engine::doRunRun(){
                                            populationSize,
                                            generationTime,
                                            numGenes,
-                                           outgroupFrac);
-  
-        std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
+                                           outgroupFrac,
+                                           treescale,
+                                           printOutputToScreen);
+        if(printOutputToScreen)
+            std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
         
         switch(simType){
             case 1:
@@ -80,6 +101,10 @@ void Engine::doRunRun(){
             case 3:
                 treesim->simThreeTree();
                 break;
+            case 4:
+                treesim->simLocusGeneTrees();
+            case 5:
+                treesim->simMoranSpeciesTree();
             default:
                 treesim->simSpeciesTree();
                 break;
@@ -87,6 +112,10 @@ void Engine::doRunRun(){
         
         ti =  new TreeInfo(k, numLoci);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+        ti->setExtTreeStringInfo(treesim->printExtSpeciesTreeNewick());
+        ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
+        ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
+        ti->setNumberTransfers(treesim->findNumberTransfers());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(k, treesim->printLocusTreeNewick(i));
             if(simType == 3){
@@ -102,7 +131,6 @@ void Engine::doRunRun(){
     }
 
     this->writeTreeFiles();
-
 }
 
 
@@ -110,7 +138,9 @@ void Engine::writeTreeFiles(){
     
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
         int d = (int) std::distance(simSpeciesTrees.begin(), p);
+        (*p)->writeTreeStatsFile(d, outfilename);
         (*p)->writeWholeTreeFileInfo(d, outfilename);
+        (*p)->writeExtantTreeFileInfo(d, outfilename);
         for(int i = 0; i < numLoci; i++){
             (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
             if(simType == 3)
@@ -375,7 +405,9 @@ void Engine::doRunSpTreeSet(){
                                         populationSize,
                                         generationTime,
                                         numGenes,
-                                        outgroupFrac);
+                                        outgroupFrac,
+                                        treescale,
+                                        printOutputToScreen);
     
 
     treesim->setSpeciesTree(this->buildTreeFromNewick(inputSpTree));
@@ -384,12 +416,16 @@ void Engine::doRunSpTreeSet(){
 
     ti =  new TreeInfo(0, numLoci);
     ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
+    ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
+    ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
+    ti->setNumberTransfers(treesim->findNumberTransfers());
     for(int i = 0; i < numLoci; i++){
         ti->setLocusTreeByIndx(i, treesim->printLocusTreeNewick(i));
         if(simType == 3){
             for(int j = 0; j < numGenes; j++){
                 ti->setGeneTreeByIndx(i, j, treesim->printGeneTreeNewick(i, j));
                 ti->setExtantGeneTreeByIndx(i, j, treesim->printExtantGeneTreeNewick(i, j));
+            
             }
         }
     }
@@ -409,7 +445,9 @@ TreeInfo::TreeInfo(int idx, int nl){
     geneTrees.resize(nl);
     extGeneTrees.resize(nl);
     spTreeLength = 0.0;
+    extSpTreeLength = 0.0;
     spTreeDepth = 0.0;
+    extSpTreeDepth = 0.0;
     spTreeNess = 0.0;
     spAveTipLen = 0.0;
     loTreeLength = 0.0;
@@ -417,6 +455,7 @@ TreeInfo::TreeInfo(int idx, int nl){
     loTreeNess = 0.0;
     loAveTipLen = 0.0;
     aveTMRCAGeneTree = 0.0;
+    numTransfers = 0;
 }
 
 TreeInfo::~TreeInfo(){
@@ -425,6 +464,39 @@ TreeInfo::~TreeInfo(){
     geneTrees.clear();
     extGeneTrees.clear();
     speciesTree.clear();
+}
+
+void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
+    std::string path = "";
+    std::string fn = ofp;
+    std::stringstream tn;
+    tn << spIndx;
+    fn += "_" + tn.str() + ".sp.tre.stats.txt";
+    path += fn;
+    std::ofstream out(path);
+    out << "Species Tree Statistics\n";
+
+    tn.clear();
+    tn.str(std::string());
+    tn << getSpeciesTreeDepth();
+    out << "Tree depth\t" << tn.str() << std::endl;
+    
+    tn.clear();
+    tn.str(std::string());
+
+    tn << getExtSpeciesTreeDepth();
+    out << "Extant Tree depth\t" << tn.str() << std::endl;
+    
+    tn.clear();
+    tn.str(std::string());
+    // tn << getSpeciesAveTipLen();
+    // out << "Average branch length: " << tn.str() << std::endl;
+    tn << getNumberTransfers();
+    out << "Transfers\t" << tn.str() << std::endl;
+
+    tn.clear();
+    tn.str(std::string());
+    //TODO: add the statistics for locus and gene trees
 }
 
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
@@ -438,13 +510,32 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     // path +=  "/";
     
     
-    fn += "_" + tn.str() + ".sp.tre";
+    fn += "_" + tn.str() + ".sp.full.tre";
     path += fn;
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree wholeT_" << spIndx << " = ";
     out << getWholeSpeciesTree() << "\n";
     out << "end;";
 
+}
+
+void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
+   std::string path = "";
+    
+    std::string fn = ofp;
+    std::stringstream tn;
+    
+    tn << spIndx;
+    //path += tn.str();
+    // path +=  "/";
+    
+    
+    fn += "_" + tn.str() + ".sp.tre";
+    path += fn;
+    std::ofstream out(path);
+    out << "#NEXUS\nbegin trees;\n    tree extT_" << spIndx << " = ";
+    out << getExtantSpeciesTree() << "\n";
+    out << "end;";
 }
 
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){

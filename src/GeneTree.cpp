@@ -240,18 +240,18 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     else{
         Node *nRoot = new Node(); 
         t -= getCoalTime(2);
+        extantNodes[0]->setBirthTime(t);
         nRoot->setBirthTime(t);
         nRoot->setLdes(extantNodes[0]);
         nRoot->setRdes(this->getOutgroup());
         nRoot->setDeathTime(extantNodes[0]->getBirthTime());
         nRoot->setAsRoot(true);
+        
         this->setRoot(nRoot);
-
         this->getOutgroup()->setBirthTime(extantNodes[0]->getBirthTime());
         this->getOutgroup()->setAnc(nRoot);
         extantNodes[0]->setAnc(nRoot);
         nodes.push_back(nRoot);
-        nodes.push_back(this->getOutgroup());
 
     }
 
@@ -336,8 +336,6 @@ std::string GeneTree::printNewickTree(){
 
 std::string GeneTree::printExtantNewickTree(){
     std::stringstream ss;
-    // this->setExtantTreeFlags();
-    // this->reconstructTreeFromSim(this->getRoot());
     recGetNewickTree(this->getRoot(), ss);
     ss << ";";
     std::string geneTreeString = ss.str();

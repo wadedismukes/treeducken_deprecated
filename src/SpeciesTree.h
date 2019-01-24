@@ -20,7 +20,7 @@ class SpeciesTree : public Tree
     private:
     
         double        speciationRate, extinctionRate;
-        unsigned        extantStop;
+        unsigned      extantStop;
 
     public:
                       SpeciesTree(MbRandom *p, unsigned numTaxa, double curTime, double specRate, double extRate);
@@ -30,19 +30,24 @@ class SpeciesTree : public Tree
         void          setExtinctionRate(double er) {extinctionRate = er; }
 
         // tree-building functions
-        virtual double        getTimeToNextEvent();
+        virtual double        getTimeToNextEvent(); 
+        double        getTimeToNextEventMoran();
         virtual void          lineageBirthEvent(unsigned indx);
         virtual void          lineageDeathEvent(unsigned indx);
         void          ermEvent(double curTime);
+        void          moranEvent(double curTime); 
         void          setNewLineageInfo(unsigned indx, Node *r, Node *l);
+        void          initializeMoranProcess(unsigned numTaxa);
     
         // set node parameters across tree
         void          setBranchLengths();
         void          setPresentTime(double currentT);
         void          setTreeTipNames();
         void          recTipNamer(Node *p, unsigned &extinctCount, unsigned &tipCount);
-    
+        
+
         std::string   printNewickTree();
+        std::string   printExtNewickTree();
         void          recGetNewickTree(Node *p, std::stringstream &ss);
     
         // simulation functions
@@ -53,6 +58,7 @@ class SpeciesTree : public Tree
         void          recPopNodes(Node *p);
         void          reconstructLineageFromGSASim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
       //  void          setSampleFromFlags();
+        void          initializeMoranProcess(); // TODO: Write this function
         std::map<int,double>        getBirthTimesFromNodes();
         std::map<int,double>        getDeathTimesFromNodes();
         double                      getCurrentTimeFromExtant() {return extantNodes[0]->getDeathTime();}

@@ -170,11 +170,14 @@ double Tree::getTreeDepth(){
     double td = 0.0;
     Node *r = this->getRoot();
     while(r->getIsTip() == false){
-        td += r->getBranchLength();
         if(!(r->getLdes()->getIsExtinct()))
             r = r->getLdes();
         else
             r = r->getRdes();
+    }
+    while(r->getIsRoot() == false){
+        td += r->getBranchLength();
+        r = r->getAnc();
     }
     return td;
 }
@@ -290,32 +293,54 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
     }
 }
 // Gene tree version only 
-void Tree::getRootFromFlags(){
+void Tree::getRootFromFlags(bool isGeneTree){
     Node *p;
 
 	setExtantTreeFlags();
     int numNodes = nodes.size() - 1;
-	for(int i=numNodes; i > 0; i--){
-		p = nodes[i];
-		if(p->getFlag() >= 2){
-			extantRoot = p;
-			p->setAsRoot(true);
-			break;
-		}
-		
+    if(isGeneTree){
+        for(int i=numNodes; i > 0; i--){
+            p = nodes[i];
+            if(p->getFlag() >= 2){
+                extantRoot = p;
+                p->setAsRoot(true);
+                break;
+            }
+            
+        }
+    }
+    else{
+        if(outgrp != nullptr){
+            p = nodes[0]->getAnc();
+            extantRoot = p;
+            p->setAsRoot(true);
+        }
+        else{
+            // p = nodes[0];
+            // extantRoot = p;
+            // p->setAsRoot(true);
+            for(int i=0; i < numNodes; i++){
+                p = nodes[i];
+                if(p->getFlag() >= 2){
+                    extantRoot = p;
+                    p->setAsRoot(true);
+                    break;
+                }
+                
+            }
+        }
     }
 }
 
 void Tree::rescaleTreeByOutgroupFrac(double outgroupFrac, double treeDepth){
     double birthTime, deathTime;
-    double rescaleFactor = outgroupFrac * treeDepth;
+    double rescaleFactor = std::log(outgroupFrac) + std::log(treeDepth);
     for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
         birthTime = (*it)->getBirthTime();
         deathTime = (*it)->getDeathTime();
         
-        (*it)->setBirthTime(birthTime + rescaleFactor);
-        (*it)->setDeathTime(deathTime + rescaleFactor);
-
+        (*it)->setBirthTime(birthTime + std::exp(rescaleFactor));
+        (*it)->setDeathTime(deathTime + std::exp(rescaleFactor));
         (*it)->setBranchLength((*it)->getDeathTime() - (*it)->getBirthTime());
     }
 }
@@ -327,6 +352,7 @@ void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t
     rootN->setAsRoot(true);
     rootN->setLdes(currRoot);
     rootN->setRdes(outgroupN);
+    rootN->setFlag(2);
     // nodes.push_back(rootN);
     this->setRoot(rootN);
 
@@ -337,6 +363,7 @@ void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t
     outgroupN->setBirthTime(currRoot->getBirthTime());
     outgroupN->setDeathTime(t);
     outgroupN->setIsTip(true);
+    outgroupN->setFlag(1);
     outgroupN->setBranchLength(outgroupN->getDeathTime() - outgroupN->getBirthTime());
     outgroupN->setIsExtant(true);
     outgroupN->setAnc(rootN);
@@ -358,13 +385,13 @@ double Tree::getEndTime(){
     return tipDtime;
 }
 
-void Tree::scaleTree(double trScale){
+void Tree::scaleTree(double trScale, double currStime){
     double bt = 0.0;
     double dt = 0.0;
-    double bl = 0.0;
+    double scalingFactor = std::log(trScale / currStime);
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        bt = (*it)->getBirthTime() / trScale;
-        dt = (*it)->getBirthTime() / trScale;
+        bt = std::exp(std::log((*it)->getBirthTime()) + scalingFactor);
+        dt = std::exp(std::log((*it)->getDeathTime()) + scalingFactor);
         (*it)->setBirthTime(bt);
         (*it)->setDeathTime(dt);
         (*it)->setBranchLength(dt - bt);

@@ -23,12 +23,14 @@ class Simulator
         unsigned    numGenes;
         double      speciationRate, extinctionRate;
         double      samplingRate;
+        double      treeScale;
         double      geneBirthRate, geneDeathRate, transferRate;
         double      propTransfer, propDuplicate;
         unsigned    indPerPop;
         unsigned    popSize;
         double      generationTime;
         double      outgroupFrac;
+        bool        printSOUT;
         std::vector<SpeciesTree*>   gsaTrees;
         SpeciesTree*    spTree;
         LocusTree*      lociTree;
@@ -78,7 +80,9 @@ class Simulator
                 unsigned popSize,
                 double genTime,
                 int ng,
-                double og);
+                double og,
+                double ts,
+                bool sout);
         ~Simulator();
 
         void    setSpeciesTree(SpeciesTree *st) { spTree = st; }
@@ -92,12 +96,19 @@ class Simulator
         bool    simThreeTree();
         bool    simLocusGeneTrees();
         bool    gsaCheckStop();
+        bool    moranCheckStop();
         void    initializeSim();
         void    processGSASim();
         void    prepGSATreeForReconstruction();
         void    processSpTreeSim();
         void    graftOutgroup(Tree *tr, double trDepth);
+        double  calcSpeciesTreeDepth(); 
+        double  calcExtantSpeciesTreeDepth();
+        double  calcLocusTreeDepth(int i);
+        int     findNumberTransfers();
+        double  findTMRCAGeneTree(int i, int j);
         std::string    printSpeciesTreeNewick();
+        std::string    printExtSpeciesTreeNewick();
         std::string    printLocusTreeNewick(int i);
         std::string    printGeneTreeNewick(int i, int j);
         std::string    printExtantGeneTreeNewick(int i, int j);

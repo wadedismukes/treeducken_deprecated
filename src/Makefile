@@ -1,5 +1,5 @@
 # compiler
-CXX = clang++
+CXX = g++
 
 # control variables
 CXXFLAGS = -g -Wall
@@ -11,7 +11,7 @@ GitVersion.h:
 	git rev-parse HEAD | tr -d "\n" >> $@ && \
 	printf  '"\n#endif' >> $@
 
-install: $(objects) 
+install: $(objects)
 	$(CXX) -o ../treeducken $(objects)
 
 Treeducken.o: Treeducken.cpp SpeciesTree.h Simulator.h GeneTree.h LocusTree.h MbRandom.h Tree.h Engine.h GitVersion.h
@@ -26,7 +26,7 @@ Simulator.o: Simulator.h GeneTree.h
 GeneTree.o: GeneTree.h LocusTree.h
 	$(CXX) $(CXXFLAGS) -c GeneTree.cpp
 
-LocusTree.o: LocusTree.h 
+LocusTree.o: LocusTree.h
 	$(CXX) $(CXXFLAGS) -c LocusTree.cpp
 
 MbRandom.o: MbRandom.h
@@ -37,8 +37,8 @@ Tree.o: Tree.h MbRandom.h
 
 Engine.o: Engine.h Simulator.h
 	$(CXX) $(CXXFLAGS) -c Engine.cpp
- 
-.PHONY : clean 
-clean: 
+
+.PHONY : clean
+clean:
 	-rm ../treeducken $(objects)
 	-rm GitVersion.h
