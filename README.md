@@ -45,9 +45,10 @@ make clean
 ```
 ## Install using Docker 
 Provided in the repository with treeducken is a Dockerfile. To install using
-Docker, first install [Docker](https://docs.docker.com/install/). once
-Docker is installed move into the folder with treeducken and run the following
-command to build the docker file:
+Docker, first install [Docker](https://docs.docker.com/install/). Once
+Docker is installed move into the directory with treeducken (in OSX you will do this
+via terminal and in Windows using the Docker Toolbox. Once inside that directory run 
+the following command to build the docker file:
 
     docker build --rm --force-rm -t wadedismukes/treeducken
 
