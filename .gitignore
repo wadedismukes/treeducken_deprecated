@@ -4,5 +4,5 @@
 *.tre
 treeducken.dSYM/*
 GitVersion.h
-./treeducken
+treeducken
 *.stats.txt
