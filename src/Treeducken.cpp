@@ -121,7 +121,7 @@ int main(int argc, char * argv[]) {
                                     else if(line.substr(0,2) == "-r")
                                         r = atoi(line.substr(3, std::string::npos - 1).c_str());
                                     else if(line.substr(0,2) == "-o")
-                                        outName = line.substr(3, std::string::npos - 1);
+                                        outName = line.substr(3, std::string::npos - 1).c_str();
                                     else if(line.substr(0,4) == "-sd1")
                                         sd1 = atoi(line.substr(5, std::string::npos - 1).c_str());
                                     else if(line.substr(0,4) == "-sd2")
