@@ -1,0 +1,11 @@
+# number of replicates
+-r 10
+# number of extant tips
+-nt 10
+# speciation rate
+-sbr 1.0
+# extinction rate
+-sdr 0.25
+# outfile prefix
+-o 025-turnover
+

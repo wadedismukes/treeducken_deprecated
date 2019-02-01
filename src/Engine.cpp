@@ -5,26 +5,26 @@
 //  Created by Dismukes, Wade T [EEOBS] on 1/28/18.
 //  Copyright © 2018 Dismukes, Wade T [EEOBS]. All rights reserved.
 //
-
+//TODO: FIX OUTPUTFILE NAME PREFIX NOT WORKING
 #include "Engine.h"
 
 Engine::Engine(std::string of,
                  int mt,
                  double sbr,
                  double sdr,
-                 double gbr, 
-                 double gdr, 
-                 double lgtr, 
-                 int ipp, 
-                 int popsize, 
-                 double genTime, 
-                 int sd1, 
-                 int sd2, 
-                 double ts, 
-                 int reps, 
-                 int ntax, 
-                 int nloci, 
-                 int ngen, 
+                 double gbr,
+                 double gdr,
+                 double lgtr,
+                 int ipp,
+                 int popsize,
+                 double genTime,
+                 int sd1,
+                 int sd2,
+                 double ts,
+                 int reps,
+                 int ntax,
+                 int nloci,
+                 int ngen,
                  double og,
                  bool sout,
                  bool mst){
@@ -71,7 +71,7 @@ void Engine::doRunRun(){
     // double TS = 0.0;
     TreeInfo *ti = nullptr;
     for(int k = 0; k < numSpeciesTrees; k++){
-        
+
         Simulator *treesim = new Simulator(&rando,
                                            numTaxa,
                                            spBirthRate,
@@ -90,7 +90,7 @@ void Engine::doRunRun(){
                                            printOutputToScreen);
         if(printOutputToScreen)
             std::cout << "Simulating species tree replicate # " << k + 1 << std::endl;
-        
+
         switch(simType){
             case 1:
                 treesim->simSpeciesTree();
@@ -109,7 +109,7 @@ void Engine::doRunRun(){
                 treesim->simSpeciesTree();
                 break;
         }
-        
+
         ti =  new TreeInfo(k, numLoci);
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         ti->setExtTreeStringInfo(treesim->printExtSpeciesTreeNewick());
@@ -135,7 +135,7 @@ void Engine::doRunRun(){
 
 
 void Engine::writeTreeFiles(){
-    
+
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
         int d = (int) std::distance(simSpeciesTrees.begin(), p);
         (*p)->writeTreeStatsFile(d, outfilename);
@@ -177,14 +177,14 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
         out << (*p)->getSpeciesTreeDepth() << "\n";
     }
     out.close();
-    
+
     std::cout << "\n #### Average Root Age of Species Trees is " << (double) sumRH / numSpeciesTrees << " #####" << std::endl;
-    
-    
+
+
 }
 
 
-// these newick reading functions are heavily modified by those used by Paul Lewis 
+// these newick reading functions are heavily modified by those used by Paul Lewis
 // https://phylogeny.uconn.edu/phylogenetic-software-development-tutorial/build-a-tree-from-a-newick-description/#
 unsigned int Engine::countNewickLeaves(const std::string spTreeStr){
     std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
@@ -222,16 +222,16 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
     currNode->setAsRoot(true);
 
     enum {
-        Prev_Tok_LParen		= 0x01,	// previous token was a left parenthesis ('(') 
-        Prev_Tok_RParen		= 0x02,	// previous token was a right parenthesis (')') 
-        Prev_Tok_Colon		= 0x04,	// previous token was a colon (':') 
-        Prev_Tok_Comma		= 0x08,	// previous token was a comma (',') 
-        Prev_Tok_Name		= 0x10,	// previous token was a node name (e.g. '2', 'P._articulata') 
-        Prev_Tok_EdgeLen	= 0x20	// previous token was an edge length (e.g. '0.1', '1.7e-3') 
+        Prev_Tok_LParen		= 0x01,	// previous token was a left parenthesis ('(')
+        Prev_Tok_RParen		= 0x02,	// previous token was a right parenthesis (')')
+        Prev_Tok_Colon		= 0x04,	// previous token was a colon (':')
+        Prev_Tok_Comma		= 0x08,	// previous token was a comma (',')
+        Prev_Tok_Name		= 0x10,	// previous token was a node name (e.g. '2', 'P._articulata')
+        Prev_Tok_EdgeLen	= 0x20	// previous token was an edge length (e.g. '0.1', '1.7e-3')
     };
     unsigned previous = Prev_Tok_LParen;
 
-    // Some useful flag combinations 
+    // Some useful flag combinations
     unsigned LParen_Valid = (Prev_Tok_LParen | Prev_Tok_Comma);
     unsigned RParen_Valid = (Prev_Tok_RParen | Prev_Tok_Name | Prev_Tok_EdgeLen);
     unsigned Comma_Valid  = (Prev_Tok_RParen | Prev_Tok_Name | Prev_Tok_EdgeLen);
@@ -323,7 +323,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                     currNode->setName(tipname);
                     currNode->setIsTip(true);
                 }
-                
+
                 previous = Prev_Tok_Name;
                 break;
             }
@@ -342,7 +342,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                             std::cerr << "Invalid branch length character in tree description\n";
                             exit(1);
                         }
-                        std::string edge_length_str = std::string(jit,it+1);                
+                        std::string edge_length_str = std::string(jit,it+1);
                         currNode->setBranchLength(atof(edge_length_str.c_str()));
                         if (currNode->getBranchLength() < 1.e-10)
                             currNode->setBranchLength(1.e-10);
@@ -371,7 +371,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                         std::cerr << "Unexpected placement of name of tip. Exiting...\n";
                         exit(1);
                     }
-                    currNode->setIsTip(true);               
+                    currNode->setIsTip(true);
                     currNode->setName(tipname);
                     previous = Prev_Tok_Name;
                 }
@@ -391,7 +391,7 @@ void Engine::doRunSpTreeSet(){
 
     std::cout << "Setting species tree to this newick tree: " << inputSpTree << std::endl;
 
-    TreeInfo *ti = nullptr;    
+    TreeInfo *ti = nullptr;
     Simulator *treesim = new Simulator(&rando,
                                         numTaxa,
                                         spBirthRate,
@@ -408,7 +408,7 @@ void Engine::doRunSpTreeSet(){
                                         outgroupFrac,
                                         treescale,
                                         printOutputToScreen);
-    
+
 
     treesim->setSpeciesTree(this->buildTreeFromNewick(inputSpTree));
     treesim->simLocusGeneTrees();
@@ -425,7 +425,7 @@ void Engine::doRunSpTreeSet(){
             for(int j = 0; j < numGenes; j++){
                 ti->setGeneTreeByIndx(i, j, treesim->printGeneTreeNewick(i, j));
                 ti->setExtantGeneTreeByIndx(i, j, treesim->printExtantGeneTreeNewick(i, j));
-            
+
             }
         }
     }
@@ -480,13 +480,13 @@ void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
     tn.str(std::string());
     tn << getSpeciesTreeDepth();
     out << "Tree depth\t" << tn.str() << std::endl;
-    
+
     tn.clear();
     tn.str(std::string());
 
     tn << getExtSpeciesTreeDepth();
     out << "Extant Tree depth\t" << tn.str() << std::endl;
-    
+
     tn.clear();
     tn.str(std::string());
     // tn << getSpeciesAveTipLen();
@@ -501,15 +501,15 @@ void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
 
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     std::string path = "";
-    
+
     std::string fn = ofp;
     std::stringstream tn;
-    
+
     tn << spIndx;
     //path += tn.str();
     // path +=  "/";
-    
-    
+
+
     fn += "_" + tn.str() + ".sp.full.tre";
     path += fn;
     std::ofstream out(path);
@@ -521,15 +521,15 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
 
 void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
    std::string path = "";
-    
+
     std::string fn = ofp;
     std::stringstream tn;
-    
+
     tn << spIndx;
     //path += tn.str();
     // path +=  "/";
-    
-    
+
+
     fn += "_" + tn.str() + ".sp.tre";
     path += fn;
     std::ofstream out(path);
@@ -540,25 +540,25 @@ void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
 
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
     std::string path = "";
-    
+
     std::string fn = ofp;
     std::stringstream tn;
-    
+
     tn << spIndx;
     // path += tn.str();
     // path += "/";
-    
-    
+
+
     fn += "_" + tn.str();
-    
+
     tn.clear();
     tn.str(std::string());
-    
+
     tn << indx;
-    
+
     fn += "_" + tn.str() + ".loc.tre";
     path += fn;
-    
+
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree locT_" << indx << " = ";
     out << getLocusTreeByIndx(indx) << "\n";
@@ -567,30 +567,30 @@ void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string of
 
 void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp){
     std::string path = "";
-    
+
     std::string fn = ofp;
     std::stringstream tn;
-    
+
     tn << spIndx;
     //path += tn.str();
    // path += "/";
 
 
     fn += "_" + tn.str();
-    
+
     tn.clear();
     tn.str(std::string());
- 
+
     tn << Lindx;
-    
+
     fn += "_" + tn.str();
     tn.clear();
     tn.str(std::string());
-    
+
     tn << indx;
     fn += "_" + tn.str() + ".gen.tre";
     path += fn;
-    
+
     std::ofstream out(path);
     out << "#NEXUS\nbegin trees;\n    tree geneT_" << indx << " = ";
     out << getGeneTreeByIndx(Lindx, indx) << "\n";
@@ -602,30 +602,30 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std:
 
 void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
     std::string path = "";
-    
+
     std::string fn = ofp;
     std::stringstream tn;
-    
+
     tn << spIndx;
     //path += tn.str();
     // path += "/";
     fn += "genetrees_";
 
     fn += tn.str();
-    
+
     tn.clear();
     tn.str(std::string());
- 
+
     tn << Lindx;
-    
+
     fn += "_" + tn.str() + ".tre";;
     tn.clear();
     tn.str(std::string());
-    
+
     // tn << i;
     // fn += "_" + tn.str() + ".gen.tre";
     path += fn;
-    
+
     std::ofstream out(path);
     // out << "#NEXUS\nbegin trees;\n";
     // for(int i = 0; i < numGenes; i++){
@@ -633,8 +633,8 @@ void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std
     //         out << getGeneTreeByIndx(Lindx, indx) << "\n";
     // }
     // out << "end;";
-    
-    
+
+
     out << "#NEXUS\nbegin trees;\n";
     for(int i = 0; i < numGenes; i++){
         out << "tree extGeneT_" << i << " = ";
@@ -646,30 +646,30 @@ void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std
 
 void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
     std::string path = "";
-    
+
     std::string fn = ofp;
     std::stringstream tn;
-    
+
     tn << spIndx;
     //path += tn.str();
     // path += "/";
     fn += "genetrees_";
 
     fn += tn.str();
-    
+
     tn.clear();
     tn.str(std::string());
- 
+
     tn << Lindx;
-    
+
     fn += "_" + tn.str() + ".tre";;
     tn.clear();
     tn.str(std::string());
-    
+
     // tn << i;
     // fn += "_" + tn.str() + ".gen.tre";
     path += fn;
-    
+
     std::ofstream out(path);
     // out << "#NEXUS\nbegin trees;\n";
     // for(int i = 0; i < numGenes; i++){
@@ -677,8 +677,8 @@ void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::s
     //         out << getGeneTreeByIndx(Lindx, indx) << "\n";
     // }
     // out << "end;";
-    
-    
+
+
     out << "#NEXUS\nbegin trees;\n";
     for(int i = 0; i < numGenes; i++){
         out << "tree geneT_" << i << " = ";

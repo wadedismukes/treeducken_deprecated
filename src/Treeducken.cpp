@@ -38,7 +38,7 @@ void printHelp(){
     std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n"; 
     std::cout << "\t\t-sc     : tree scale [=1.0] \n";  
     std::cout << "\t\t-sout   : turn off standard output (improves runtime) \n";
-    std::cout << "\t\t-mst    : Moran species tree ";  
+//    std::cout << "\t\t-mst    : Moran species tree ";  
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
@@ -59,7 +59,7 @@ void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, 
     std::cout << "\t\tTree fraction to set outgroup   = " << og << "\n";
     std::cout << "\t\tSpecies tree input as newick    = " << stn << "\n";
     std::cout << "\t\tTree scale                      = " << ts  << "\n";
-    std::cout << "\t\tMoran process species tree      = " << mst << "\n";
+// std::cout << "\t\tMoran process species tree      = " << mst << "\n";
 }
 
 void printVersion(){
