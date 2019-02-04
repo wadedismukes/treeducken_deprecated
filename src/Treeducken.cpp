@@ -302,6 +302,7 @@ int main(int argc, char * argv[]) {
             phyEngine->doRunSpTreeSet();
         }
         else
+            // runs full simulation
             phyEngine->doRunRun();
 
 
