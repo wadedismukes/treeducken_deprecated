@@ -3,9 +3,9 @@
 # number of extant tips
 -nt 10
 # speciation rate
--sbr 1.0
+-sbr .1
 # extinction rate
--sdr 0.25
+-sdr 0.025
 # outfile prefix
 -o 025-turnover
 

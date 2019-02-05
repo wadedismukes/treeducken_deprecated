@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM alpine:latest
 COPY . /treeducken
 RUN apt-get update && apt-get install -y \
 	automake \
