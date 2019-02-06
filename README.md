@@ -32,7 +32,8 @@ git clone https://github.com/wadedismukes/treeducken.git
 ## Mac OSX/Debian/Ubuntu
 
 If working on any of the above operating systems installation can proceed in
-the following way. First change directory to `treeducken/src` and run the following command:
+the following way. You must have gcc version 7.3.0 or higher for this to install.
+First change directory to `treeducken/src` and run the following command:
 
 ```
 make install
@@ -90,9 +91,9 @@ Once treeducken has been installed, there are two ways to run the program. The f
 
 For example you could run:
 ```
-treeducken -r 10 -nt 100 -sbr 0.5 -sdr 0.4 
+treeducken -r 10 -nt 100 -sbr 0.05 -sdr 0.04 
 ```
-To simulate 10 replicates of species trees with 100 extant taxa at a species birth rate of 0.5 and a species death rate of 0.2. One may also use the `-i` flag with a settings file (see the example file) that has these parameters (or a combination of the two). 
+To simulate 10 replicates of species trees with 100 extant taxa at a species birth rate of 0.05 and a species death rate of 0.04. One may also use the `-i` flag with a settings file (see the example file) that has these parameters (or a combination of the two). 
 
 This command would look like this:
 ```
