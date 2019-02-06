@@ -1,14 +1,16 @@
-FROM alpine:latest
-COPY . /treeducken
-RUN apt-get update && apt-get install -y \
+FROM debian:latest as build
+RUN apt-get update -q && \
+	apt-get install -y -q \
 	automake \
-	curl \
 	build-essential \
 	git \
 	bash-completion
-
+RUN git clone --depth=1 https://github.com/wadedismukes/treeducken.git /treeducken
 RUN cd treeducken/src/ && make install
-ENV PATH="/treeducken/:${PATH}"
-RUN echo $PATH
 
+FROM debian:latest
+ENV PATH="/treeducken/:${PATH}"
+COPY --from=build /treeducken /treeducken/
+
+ENTRYPOINT ["treeducken/treeducken"]
 
