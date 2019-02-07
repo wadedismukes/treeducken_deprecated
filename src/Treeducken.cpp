@@ -212,6 +212,7 @@ int main(int argc, char * argv[]) {
                         else{
                             std::cerr << "Gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
                             std::cerr << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                            printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
                             printHelp();
                             exit(1);
                         }
@@ -222,6 +223,7 @@ int main(int argc, char * argv[]) {
                 else if (ne <= 0 || ipp <= 0 || ipp > ne){
                     std::cerr << "Gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
                     std::cerr << "Population size and individuals per population must both be positive integers and individuals per population must be less than or equal to the population size.\n";
+                    printSettings(outName, nt, r, nloc, ts, sbr, sdr, gbr, gdr, lgtr, ipp, ne, ngen, og, stn, mst);
                     printHelp();
                     exit(1);
                 }
@@ -236,7 +238,12 @@ int main(int argc, char * argv[]) {
                 std::cerr << "Species birth rate of 0.0 is invalid, exiting...\n";
                 return 0;
             }
+            if(sdr > sbr){
+                std::cerr << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+                std::cerr << "Species birth rate is higher than extinction rate. BE WARNED! (Also, <CTRL-C> to cancel run)\n";
+                std::cerr << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
 
+            }
             if(nloc > 0){
                 if (gbr <= 0.0){
                     if(gbr < 0.0){

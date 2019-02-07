@@ -11,5 +11,3 @@
 # species death rate
 -sdr 0.0
 -r 10
--mst 1
--nloc 0
