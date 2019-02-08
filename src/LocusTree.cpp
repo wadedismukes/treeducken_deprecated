@@ -1,6 +1,6 @@
  //
 //  LocusTree.cpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/13/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -18,6 +18,8 @@ LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double g
     geneDeathRate = gdr;
     transferRate = lgtrate;
     numTransfers = 0;
+    numLosses = 0;
+    numDuplications = 0;
     getRoot()->setLindx(0);
 }
 
@@ -73,6 +75,7 @@ void LocusTree::lineageBirthEvent(unsigned indx){
     right = new Node();
     sis = new Node();
     setNewLineageInfo(indx, right, sis);
+    numDuplications += 1;
 }
 
 void LocusTree::lineageDeathEvent(unsigned indx){
@@ -82,6 +85,7 @@ void LocusTree::lineageDeathEvent(unsigned indx){
     extantNodes[indx]->setIsExtinct(true);
     extantNodes.erase(extantNodes.begin() + indx);
     numExtinct += 1;
+    numLosses += 1;
     numExtant = (int) extantNodes.size();
 }
 
@@ -572,7 +576,7 @@ std::set<int> LocusTree::getExtLociIndx(){
     int indx;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsExtinct() && (*it)->getIsTip()){
-            indx = std::distance(nodes.begin(), it);
+            indx = (int) std::distance(nodes.begin(), it);
             doomedLoci.insert(doomedLoci.begin(), indx);
         }
     }
@@ -585,7 +589,7 @@ std::set<int> LocusTree::getCoalBounds(){
     int indx;
     for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
         if((*it)->getIsDuplication()){
-            indx = std::distance(nodes.begin(), it);
+            indx = (int) std::distance(nodes.begin(), it);
             coalBoundLoci.insert(coalBoundLoci.begin(), indx);
         }
     }
@@ -594,4 +598,12 @@ std::set<int> LocusTree::getCoalBounds(){
 
 int LocusTree::getNumberTransfers(){
     return numTransfers;
+}
+
+int LocusTree::getNumberDuplications(){
+    return numDuplications;
+}
+
+int LocusTree::getNumberLosses(){
+    return numLosses;
 }

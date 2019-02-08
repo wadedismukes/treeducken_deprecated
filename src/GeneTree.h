@@ -1,6 +1,6 @@
 //
 //  GeneTree.hpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 12/20/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -21,7 +21,7 @@ class GeneTree : public Tree {
     public:
                     GeneTree(MbRandom *rando, unsigned nt, unsigned ipp, unsigned ne, double genTime);
         virtual     ~GeneTree();
-        double      getCoalTime(int n); // what do you need to determine this?
+        double      getCoalTime(int n);
         Node*       coalescentEvent(double t, Node *p, Node *q);
         bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx, bool chck);
         void        initializeTree(std::vector< std::vector<int> > extantLociIndx, double presentTime);

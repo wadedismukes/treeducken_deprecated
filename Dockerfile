@@ -12,5 +12,5 @@ FROM debian:latest
 ENV PATH="/treeducken/:${PATH}"
 COPY --from=build /treeducken /treeducken/
 
-ENTRYPOINT ["treeducken/treeducken"]
+# ENTRYPOINT ["treeducken/treeducken"]
 

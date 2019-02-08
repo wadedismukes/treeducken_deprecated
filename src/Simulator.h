@@ -1,6 +1,6 @@
 //
 //  Simulator.hpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/9/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -106,6 +106,9 @@ class Simulator
         double  calcExtantSpeciesTreeDepth();
         double  calcLocusTreeDepth(int i);
         int     findNumberTransfers();
+        int     findNumberDuplications();
+        int     findNumberLosses();
+        std::vector<double>  findNumberGenerations();
         double  findTMRCAGeneTree(int i, int j);
         std::string    printSpeciesTreeNewick();
         std::string    printExtSpeciesTreeNewick();

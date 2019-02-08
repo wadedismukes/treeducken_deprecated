@@ -1,6 +1,6 @@
 //
 //  SpeciesTree.cpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/8/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -450,7 +450,7 @@ void SpeciesTree::moranEvent(double curTime){
     lineageDeathEvent(nodeIndDead);
     int nodeIndSpec = rando->discreteUniformRv(0, numExtant - 1);
     lineageBirthEvent(nodeIndSpec);
-    for(int i = extantNodes.size() - 2; i < extantNodes.size(); ++i){
+    for(int i = (int) extantNodes.size() - 2; i < extantNodes.size(); ++i){
         int prevFlag = extantNodes[i]->getFlag();
         extantNodes[i]->setFlag(prevFlag++);
         }
@@ -486,8 +486,8 @@ void SpeciesTree::initializeMoranProcess(unsigned numTaxaToSim){
         nodes.push_back(p);
     }
 
-    numExtant = extantNodes.size();
-    numNodes = nodes.size();
+    numExtant = (int) extantNodes.size();
+    numNodes = (int) nodes.size();
     root = nullptr;
     extantRoot = nullptr;
 }

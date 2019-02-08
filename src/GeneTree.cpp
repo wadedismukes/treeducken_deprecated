@@ -1,6 +1,6 @@
 //
 //  GeneTree.cpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 12/20/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -39,7 +39,7 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
     }
     extantNodes.clear();
     Node *p;
-    int numLociInPresnt = extantLociInd[0].size();
+    int numLociInPresnt = (int) extantLociInd[0].size();
     for(int i = 0; i < numLociInPresnt; i++){
         for(int j = 0; j < individualsPerPop; j++){
             p = new Node();
@@ -83,14 +83,14 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     std::vector<int> indInExtNodes;
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
         if((*it)->getLindx() == contempSpeciesIndx){
-            extIndx = std::distance(extantNodes.begin(), it);
+            extIndx = (int) std::distance(extantNodes.begin(), it);
             indInExtNodes.push_back(extIndx);
         }
     }
   //  std::cout << contempSpeciesIndx << "   ($)$)%    " << indInExtNodes.size() << std::endl;
     if(indInExtNodes.size() > 1){
         while(t > stopTime){
-            t -= getCoalTime(indInExtNodes.size());
+            t -= getCoalTime((int) indInExtNodes.size());
             // std::cout << t << std::endl;
             if(t < stopTime){
                 if(chck){
@@ -137,7 +137,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
             // }
             for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
                 if((*it)->getLindx() == contempSpeciesIndx){
-                    extIndx = std::distance(extantNodes.begin(), it);
+                    extIndx = (int) std::distance(extantNodes.begin(), it);
                     indInExtNodes.push_back(extIndx);
                 }
             }
@@ -220,7 +220,7 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
         (*it)->setLindx(0);
     }
     while(extantNodes.size() > 1){
-        t -= getCoalTime(extantNodes.size());
+        t -= getCoalTime((int) extantNodes.size());
 
         rightInd = rando->uniformRv(0, extantNodes.size() - 1);
         r = extantNodes[rightInd];

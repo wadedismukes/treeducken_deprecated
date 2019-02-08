@@ -1,6 +1,6 @@
 //
 //  Simulator.cpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/9/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -608,8 +608,36 @@ int Simulator::findNumberTransfers(){
     for(int i = 0; i < locusTrees.size(); i++){
         numTrans += locusTrees[i]->getNumberTransfers();
     }
-    return numTrans;
+    return numTrans / (int) locusTrees.size();
 } 
+
+int Simulator::findNumberDuplications(){
+    int numTrans = 0;
+    for(int i = 0; i < locusTrees.size(); i++){
+        numTrans += locusTrees[i]->getNumberDuplications();
+    }
+    return numTrans / (int) locusTrees.size();
+}
+
+int Simulator::findNumberLosses(){
+    int numTrans = 0;
+    for(int i = 0; i < locusTrees.size(); i++){
+        numTrans += locusTrees[i]->getNumberLosses();
+    }
+    return numTrans / (int) locusTrees.size();
+}
+
+std::vector<double> Simulator::findNumberGenerations(){
+    std::vector<double> numGenerations;
+    for(int i = 0; i < locusTrees.size(); i++){
+        numGenerations.push_back(0.0);
+        for(int j = 0; j < geneTrees.size(); j++){
+            numGenerations[i] += geneTrees[i][j]->getTreeDepth() * popSize;
+        }
+        numGenerations[i] /= geneTrees.size();
+    }
+    return numGenerations;
+}
 
 double Simulator::findTMRCAGeneTree(int i, int j){
     return geneTrees[i][j]->getTreeDepth();

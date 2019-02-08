@@ -1,11 +1,10 @@
 //
 //  Engine.cpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 1/28/18.
 //  Copyright © 2018 Dismukes, Wade T [EEOBS]. All rights reserved.
 //
-//TODO: FIX OUTPUTFILE NAME PREFIX NOT WORKING
 #include "Engine.h"
 
 Engine::Engine(std::string of,
@@ -111,11 +110,15 @@ void Engine::doRunRun(){
         }
 
         ti =  new TreeInfo(k, numLoci);
+        
         ti->setWholeTreeStringInfo(treesim->printSpeciesTreeNewick());
         ti->setExtTreeStringInfo(treesim->printExtSpeciesTreeNewick());
         ti->setSpeciesTreeDepth(treesim->calcSpeciesTreeDepth());
         ti->setExtSpeciesTreeDepth(treesim->calcExtantSpeciesTreeDepth());
         ti->setNumberTransfers(treesim->findNumberTransfers());
+        ti->setNumberDuplications(treesim->findNumberDuplications());
+        ti->setNumberLosses(treesim->findNumberLosses());
+        ti->setNumberGenerations(treesim->findNumberGenerations());
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(k, treesim->printLocusTreeNewick(i));
             if(simType == 3){
@@ -492,11 +495,28 @@ void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
     // tn << getSpeciesAveTipLen();
     // out << "Average branch length: " << tn.str() << std::endl;
     tn << getNumberTransfers();
-    out << "Transfers\t" << tn.str() << std::endl;
+    out << "Avaerage Transfers\t" << tn.str() << std::endl;
+    
 
     tn.clear();
     tn.str(std::string());
-    //TODO: add the statistics for locus and gene trees
+    tn << getNumberDuplications();
+    out << "Average Duplications\t" << tn.str() << std::endl;
+    
+    tn.clear();
+    tn.str(std::string());
+    tn << getNumberLosses();
+    out << "Average Losses\t" << tn.str() << std::endl;
+    
+    tn.clear();
+    tn.str(std::string());
+    out << "Average generations of gene trees per locus tree" << std::endl;
+    for(int i = 0; i < locusTrees.size(); i++){
+        tn.clear();
+        tn.str(std::string());
+        tn << getNumberGenerationsByLindx(i);
+        out << "Locus Tree " << std::to_string(i) << "\t" << tn.str() << std::endl;
+    }
 }
 
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){

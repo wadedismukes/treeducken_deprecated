@@ -1,6 +1,6 @@
 //
 //  Engine.h
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 1/28/18.
 //  Copyright © 2018 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -30,7 +30,9 @@ class TreeInfo{
             double                      extSpTreeLength, extSpTreeDepth;
             double                      loTreeLength, loTreeNess, loAveTipLen, loTreeDepth;
             double                      aveTMRCAGeneTree;
-            int                         numTransfers;
+            int                         numTransfers, numDuplications, numLosses;
+            std::vector<double>         numGenerations;
+    
 
     
         public:
@@ -51,9 +53,16 @@ class TreeInfo{
             double                      getLocusTreeDepth() {return loTreeDepth; }
             double                      getAveTMRCAGeneTree() {return aveTMRCAGeneTree; }
             int                         getNumberTransfers() { return numTransfers; }
+            int                         getNumberDuplications() { return numDuplications; }
+            int                         getNumberLosses() { return numLosses; }
+            std::vector<double>         getNumberGenerations() { return numGenerations; }
+            double                      getNumberGenerationsByLindx(int lindx) { return numGenerations[lindx]; }
             double                      getExtSpeciesTreeDepth() { return extSpTreeDepth; }
         
             void                        setNumberTransfers(int d) { numTransfers = d; }
+            void                        setNumberDuplications(int d) { numDuplications = d; }
+            void                        setNumberLosses(int d) { numLosses = d; }
+            void                        setNumberGenerations(std::vector<double> ng) { numGenerations = ng; }
             void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = ts; }
             void                        setExtTreeStringInfo(std::string ts) { extSpeciesTree = ts; }
             void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees.push_back(ts); }

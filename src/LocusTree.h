@@ -1,6 +1,6 @@
 //
 //  LocusTree.h
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/13/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -21,6 +21,8 @@ class LocusTree : public Tree
         double stopTime;
         unsigned numTaxa;
         unsigned numTransfers;
+        unsigned numDuplications;
+        unsigned numLosses;
 
     public:
         LocusTree(MbRandom *rando, unsigned nt, double stop, double gbr, double gdr, double lgtr);
@@ -45,6 +47,8 @@ class LocusTree : public Tree
         double  getCurrentTime() { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
         int     getNumberTransfers();
+        int     getNumberDuplications();
+        int     getNumberLosses();
         std::map<int,double>     getBirthTimesFromNodes();
         std::set<int>            getExtLociIndx();
         std::set<int>            getCoalBounds();

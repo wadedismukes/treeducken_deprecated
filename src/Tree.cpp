@@ -1,6 +1,6 @@
 //
 //  Tree.cpp
-//  multiTree
+//  treeducken
 //
 //  Created by Dismukes, Wade T [EEOBS] on 11/7/17.
 //  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
@@ -297,7 +297,7 @@ void Tree::getRootFromFlags(bool isGeneTree){
     Node *p;
 
 	setExtantTreeFlags();
-    int numNodes = nodes.size() - 1;
+    int numNodes = (int) nodes.size() - 1;
     if(isGeneTree){
         for(int i=numNodes; i > 0; i--){
             p = nodes[i];
