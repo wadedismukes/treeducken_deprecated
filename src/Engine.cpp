@@ -102,8 +102,10 @@ void Engine::doRunRun(){
                 break;
             case 4:
                 treesim->simLocusGeneTrees();
+                break;
             case 5:
                 treesim->simMoranSpeciesTree();
+                break;
             default:
                 treesim->simSpeciesTree();
                 break;

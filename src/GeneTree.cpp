@@ -343,7 +343,7 @@ std::string GeneTree::printExtantNewickTree(){
 }
 
 
-void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss, double brlen){ 
+void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss){ 
     if(p->getRdes() == NULL){
         if(p->getIsExtant())
             ss << p->getName();
@@ -353,10 +353,10 @@ void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss, double brlen)
         int flag = p->getFlag();
         if(flag == 2){
             ss << "(";
-            recGetExtNewickTree(p->getRdes(), ss, brlen);
+            recGetExtNewickTree(p->getRdes(), ss);
             ss << "[&index=" << p->getRdes()->getIndex() << "]" << ":" << p->getRdes()->getBranchLength();
             ss << ",";
-            recGetExtNewickTree(p->getLdes(), ss, brlen);
+            recGetExtNewickTree(p->getLdes(), ss);
             ss << "[&index=" << p->getLdes()->getIndex() << "]" << ":" << p->getLdes()->getBranchLength();
             ss << ")";
         }
@@ -366,10 +366,10 @@ void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss, double brlen)
             // }
             // else{
             if(p->getLdes()->getIsExtinct()){
-                recGetExtNewickTree(p->getRdes(), ss, brlen);
+                recGetExtNewickTree(p->getRdes(), ss);
             }
             if(p->getRdes()->getIsExtinct()){
-                recGetExtNewickTree(p->getLdes(), ss, brlen);
+                recGetExtNewickTree(p->getLdes(), ss);
             }
             //}
         }

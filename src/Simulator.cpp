@@ -531,19 +531,24 @@ std::string Simulator::printGeneTreeNewick(int i, int j){
 
 std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     std::string newickTree;
-    GeneTree *tt = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
-    geneTrees[i][j]->getRootFromFlags(true);
-    if(outgroupFrac > 0.0){
-        tt->setOutgroup(geneTrees[i][j]->getOutgroup());
-        tt->setRoot(geneTrees[i][j]->getOutgroup()->getAnc());
+    if(geneTrees[i][j]->getExtantNodes().size() > 1){
+        GeneTree *tt = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
+        geneTrees[i][j]->getRootFromFlags(true);
+        if(outgroupFrac > 0.0){
+            tt->setOutgroup(geneTrees[i][j]->getOutgroup());
+            tt->setRoot(geneTrees[i][j]->getOutgroup()->getAnc());
+        }
+        else
+            tt->setRoot(geneTrees[i][j]->getExtantRoot());
+        tt->setExtantRoot(geneTrees[i][j]->getExtantRoot());
+        tt->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
+        newickTree = tt->printExtantNewickTree();
+        delete tt;
+        tt = nullptr;
     }
-    else
-        tt->setRoot(geneTrees[i][j]->getExtantRoot());
-    tt->setExtantRoot(geneTrees[i][j]->getExtantRoot());
-    tt->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
-    newickTree = tt->printExtantNewickTree();
-    delete tt;
-    tt = nullptr;
+    else{
+        newickTree = ";";
+    }
     return newickTree;
 }
 

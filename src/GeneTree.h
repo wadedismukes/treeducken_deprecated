@@ -33,7 +33,7 @@ class GeneTree : public Tree {
         std::string printNewickTree();
         std::string printExtantNewickTree();
         void        recGetNewickTree(Node *r, std::stringstream &ss);
-        void        recGetExtNewickTree(Node *r, std::stringstream &ss, double brlen);
+        void        recGetExtNewickTree(Node *r, std::stringstream &ss);
         void        setTreeTipNames();
         void        addExtinctSpecies(double bt, int indx);
     

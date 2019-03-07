@@ -11,3 +11,10 @@
 # species death rate
 -sdr 0.0
 -r 10
+-nl 10
+-ng 10
+-gbr 0.01 
+-gdr 0.05
+-lgtr 0.01
+-ipp 1
+-ne 1
