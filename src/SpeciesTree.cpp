@@ -102,6 +102,9 @@ void SpeciesTree::setNewLineageInfo(unsigned int indx, Node *r, Node *l){
 void SpeciesTree::setBranchLengths(){
     double bl;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
+        if((*it)->getIsTip()){
+            std::cout << (*it)->getDeathTime() << std::endl;
+        }
         bl = (*it)->getDeathTime() - (*it)->getBirthTime();
         (*it)->setBranchLength(bl);
     }
@@ -202,6 +205,7 @@ void SpeciesTree::recGetNewickTree(Node *p, std::stringstream &ss){
 
 std::string SpeciesTree::printNewickTree(){
     std::stringstream ss;
+    ss.precision(8);
     recGetNewickTree(this->getRoot(), ss);
     ss << ";";
     std::string spTree = ss.str();
@@ -210,6 +214,7 @@ std::string SpeciesTree::printNewickTree(){
 
 std::string SpeciesTree::printExtNewickTree(){
     std::stringstream ss;
+    ss.precision(8);
     recGetNewickTree(this->getRoot(), ss);
     ss << ";";
     std::string spTree = ss.str();

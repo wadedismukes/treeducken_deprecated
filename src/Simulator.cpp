@@ -159,6 +159,7 @@ bool Simulator::gsaBDSim(){
     // delete spTree;
     spTree = gsaTrees[gsaRandomTreeID];
     processSpTreeSim();
+    spTree->setPresentTime(currentSimTime);
     spTree->setBranchLengths();
     spTree->setTreeTipNames();
     currentSimTime = spTree->getCurrentTimeFromExtant();
