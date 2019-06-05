@@ -102,9 +102,6 @@ void SpeciesTree::setNewLineageInfo(unsigned int indx, Node *r, Node *l){
 void SpeciesTree::setBranchLengths(){
     double bl;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        if((*it)->getIsTip()){
-            std::cout << (*it)->getDeathTime() << std::endl;
-        }
         bl = (*it)->getDeathTime() - (*it)->getBirthTime();
         (*it)->setBranchLength(bl);
     }
