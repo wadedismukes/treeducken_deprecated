@@ -637,7 +637,9 @@ std::vector<double> Simulator::findNumberGenerations(){
     for(int i = 0; i < locusTrees.size(); i++){
         numGenerations.push_back(0.0);
         for(int j = 0; j < geneTrees.size(); j++){
-            numGenerations[i] += geneTrees[i][j]->getTreeDepth() * popSize;
+            if(!(geneTrees[i].empty())){
+                numGenerations[i] += geneTrees[i][j]->getTreeDepth() * popSize;
+            }
         }
         numGenerations[i] /= geneTrees.size();
     }
