@@ -1,11 +1,3 @@
-//
-//  Engine.h
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 1/28/18.
-//  Copyright © 2018 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #ifndef Engine_h
 #define Engine_h
 
@@ -14,9 +6,11 @@
 #include <fstream>
 #include <regex>
 
-/*
- tree info class
-                */
+/**
+ * @brief Class for handling the trees and data about trees from the simulation
+ *        run. Holds vectors of newick trees as well as various tree statistics.
+ *
+ */
 
 class TreeInfo{
         private:
@@ -88,9 +82,11 @@ class TreeInfo{
 };      
 
 
-/*
-  engine class
-                */
+/**
+ * @brief The engine class captures the settings and uses those to run the
+ *        simulation functions. The member functions of this class are wrappers
+ *        for the simulation functions in the Simulator class.
+ */
 
 class Engine{
     

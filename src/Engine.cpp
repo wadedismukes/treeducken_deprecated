@@ -1,12 +1,25 @@
-//
-//  Engine.cpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 1/28/18.
-//  Copyright © 2018 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
 #include "Engine.h"
-
+/**
+ * @brief Constructor for the engine class
+ * @param of string giving the outfile prefix
+ * @param mt integer to be used by a switch to determine which simulation function to run
+ * @param sbr The species birth rate
+ * @param sdr The species death rate
+ * @param gbr The locus tree birth rate
+ * @param gdr The locus tree death rate
+ * @param lgtr The locus tree lateral gene transfer rate
+ * @param ipp Individuals per population (locus tree lineage) to be sampled from multi-locus coalescent
+ * @param popsize The total population size across locus tree lineages
+ * @param genTime The genTime is a scaling factor that represents a number of hypothetical generations per unit time to scale coalescent trees by
+ * @param sd1 The first RNG seed
+ * @param sd2 The second RNG seed.
+ * @param ts The scaling factor to scale the output species tree to
+ * @param reps Number of replicate species trees (and subsequent tree) to simulate
+ * @param ntax Number of taxa to simulate species tree to
+ * @param nloci Number of locus trees to simulate per species tree
+ * @param ngen Number of gene trees to simulate per gene tree
+ *
+ */
 Engine::Engine(std::string of,
                  int mt,
                  double sbr,
@@ -57,6 +70,10 @@ Engine::Engine(std::string of,
     std::cout << "\nSeeds = {" << gs1 << ", " << gs2 << "}" << std::endl;
 }
 
+/**
+ * @brief Destructor of engine class
+ *
+ */
 
 Engine::~Engine(){
     for(std::vector<TreeInfo*>::iterator p=simSpeciesTrees.begin(); p != simSpeciesTrees.end(); ++p){
@@ -65,7 +82,10 @@ Engine::~Engine(){
     simSpeciesTrees.clear();
 }
 
-
+/**
+ * @brief Function that creates a Simulator class and runs the simulation saving information in the TreeInfo class.
+ *
+ */
 void Engine::doRunRun(){
     // double TS = 0.0;
     TreeInfo *ti = nullptr;
@@ -138,7 +158,11 @@ void Engine::doRunRun(){
     this->writeTreeFiles();
 }
 
-
+/**
+ * @brief Writes two species tree files (one with all tips, one with only extant tips. Writes locus trees, writes gene trees. Also, writes a tree file. This function loops through the treeInfo class with information saved for each simulation and writes that information out.
+ *
+ *
+ */
 void Engine::writeTreeFiles(){
 
     for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
@@ -157,6 +181,12 @@ void Engine::writeTreeFiles(){
     }
 }
 
+/**
+ * @brief Finds a specific species tree (i.e. a simulation) within a vector of the TreeInfo class and outputs that TreeInfo class.
+ *
+ * @param i index of the species tree to be found
+ * @return TreeInfo class found at index i within a vector of TreeInfo class
+ */
 
 TreeInfo* Engine::findTreeByIndx(int i){
     TreeInfo *tf = 0;
@@ -172,7 +202,10 @@ TreeInfo* Engine::findTreeByIndx(int i){
     return tf;
 }
 
-
+/**
+ * @brief calculates the averages root age of all the saved species trees in the simulation run. This is saved to an outfile
+ * @todo connect this with the stats file output
+ */
 void Engine::calcAverageRootAgeSpeciesTrees(){
     std::ofstream out;
     out.open("Average_root_depths_spTree.out");
@@ -188,9 +221,11 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
 
 }
 
-
-// these newick reading functions are heavily modified by those used by Paul Lewis
-// https://phylogeny.uconn.edu/phylogenetic-software-development-tutorial/build-a-tree-from-a-newick-description/#
+/**
+ * @brief counts the number of leaves in a Newick string. This is heaveily modified by those used in a tutorial by Paul Lewis (https://phylogeny.uconn.edu/phylogenetic-software-development-tutorial/build-a-tree-from-a-newick-description/)
+ * @param spTreeStr Newick tree string input by user
+ * @return unsigned int Number of leaves
+ */
 unsigned int Engine::countNewickLeaves(const std::string spTreeStr){
     std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
     std::sregex_iterator it1(spTreeStr.begin(), spTreeStr.end(), taxonregexpr);
@@ -198,6 +233,12 @@ unsigned int Engine::countNewickLeaves(const std::string spTreeStr){
     return (unsigned) std::distance(it1, it2);
 }
 
+/**
+ * @brief Strips comments from input newick string
+ *
+ * @param spTreeStr Species tree string input with comments
+ * @return std::string Same species tree string stripped of comments
+ */
 std::string Engine::stripCommentsFromNewickTree(std::string spTreeStr){
     std::string commentlessNewick;
     std::regex commentregexpr ("\\[.*?\\]");
@@ -205,6 +246,12 @@ std::string Engine::stripCommentsFromNewickTree(std::string spTreeStr){
     return commentlessNewick;
 }
 
+/**
+ * @brief formats the names of tips given in input Newick string files to remove spaces and other tricky characters
+ * @param spTreeStr input newick tree
+ *
+ * @return std::string string with characters removed
+ */
 std::string Engine::formatTipNamesFromNewickTree(std::string spTreeStr){
     std::string formattedNewick;
     std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
@@ -213,6 +260,12 @@ std::string Engine::formatTipNamesFromNewickTree(std::string spTreeStr){
     return formattedNewick;
 }
 
+/**
+ * @brief Converts a Newick tree input into the Species Tree class.
+ *
+ * @param spTreeStr input Newick string
+ * @return SpeciesTree* pointer to SpeciesTree class
+ */
 SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
     SpeciesTree* spTree = nullptr;
     Node* currNode = nullptr;
@@ -391,7 +444,11 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
     spTree->setTreeInfo();
     return spTree;
 }
-
+/**
+ * @brief Called from doRunRun if Species tree is read in, simulates a locus tree, then gene trees.
+ *
+ *
+ */
 void Engine::doRunSpTreeSet(){
 
     std::cout << "Setting species tree to this newick tree: " << inputSpTree << std::endl;
@@ -443,9 +500,12 @@ void Engine::doRunSpTreeSet(){
 }
 
 
-/*
-    TreeInfo functions to write tree information to file in various file formats
-                                                                */
+/**
+ * @brief Constructor of TreeInfo class used to store simulated information.
+ *
+ * @param idx index of where the TreeInfo is stored in a vector
+ * @param nl number of gene trees to simulate
+ */
 TreeInfo::TreeInfo(int idx, int nl){
     geneTrees.resize(nl);
     extGeneTrees.resize(nl);
@@ -463,6 +523,10 @@ TreeInfo::TreeInfo(int idx, int nl){
     numTransfers = 0;
 }
 
+/**
+ * @brief Destructor of TreeInfo class.
+ *
+ */
 TreeInfo::~TreeInfo(){
     gsaTrees.clear();
     locusTrees.clear();
@@ -471,6 +535,12 @@ TreeInfo::~TreeInfo(){
     speciesTree.clear();
 }
 
+/**
+ * @brief writes a tree stats file out
+ *
+ * @param spIndx index of the simulation to write the statistics out of
+ * @param ofp string of the outfile prefix
+ */
 void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
     std::string path = "";
     std::string fn = ofp;
