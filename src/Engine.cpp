@@ -591,6 +591,14 @@ void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
     }
 }
 
+/**
+ * @brief writes out tree with all lineages as a nexus file
+ *
+ * @param spIndx species tree index of species tree to be written out
+ * @param ofp string of the outfile prefix
+ *
+ */
+
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
     std::string path = "";
 
@@ -611,6 +619,14 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
 
 }
 
+/**
+ * @brief writes out tree with only extant lineages as a nexus file
+ *
+ * @param spIndx species tree index of species tree to be written out
+ * @param ofp string of the outfile prefix
+ *
+ */
+
 void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
    std::string path = "";
 
@@ -630,6 +646,14 @@ void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
     out << "end;";
 }
 
+/**
+ * @brief writes out locus tree with all lineages as a nexus file
+ *
+ * @param spIndx species tree index of species tree to be written out
+ * @param indx index of locus tree within species tree of index spIndx
+ * @param ofp string of the outfile prefix
+ *
+ */
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
     std::string path = "";
 
@@ -657,6 +681,14 @@ void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string of
     out << "end;";
 }
 
+/**
+ * @brief writes out a gene tree of a specific locus tree within a specific species tree replicate
+ *
+ * @param spIndx replicate index
+ * @param Lindx index of locus tree within species tree of index spIndx
+ * @param indx index of gene tree within locus tree of index Lindx
+ * @param ofp string of outfile prefix name
+ */
 void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp){
     std::string path = "";
 
@@ -692,6 +724,14 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std:
 
 }
 
+/**
+ * @brief writes out all gene trees with only extant taxa of a specific locus tree within a specific species tree replicate into a nexus file
+ *
+ * @param spIndx replicate index
+ * @param Lindx index of locus tree within species tree of index spIndx
+ * @param numGenes size of gene trees to be output into a nexus file
+ * @param ofp string of outfile prefix name
+ */
 void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
     std::string path = "";
 
@@ -736,6 +776,15 @@ void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std
 
 }
 
+
+/**
+ * @brief writes out all gene trees with all taxa of a specific locus tree within a specific species tree replicate into a nexus file
+ *
+ * @param spIndx replicate index
+ * @param Lindx index of locus tree within species tree of index spIndx
+ * @param numGenes size of gene trees to be output into a nexus file
+ * @param ofp string of outfile prefix name
+ */
 void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
     std::string path = "";
 

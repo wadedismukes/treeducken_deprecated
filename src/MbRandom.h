@@ -1,11 +1,3 @@
-//
-//  MbRandom.hpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/11/16.
-//  Copyright © 2016 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 /*!
  * \file
  * In this file we declare a class for random variables. It contains one
@@ -73,7 +65,7 @@ typedef unsigned int seedType;
  */
 template <class T> class MbVector;
 class MbRandom {
-    
+
 public:
     MbRandom(void);                                                               /*!< constructor: initializes the seed with current time */
     MbRandom(seedType x);                                                         /*!< constructor: initializes the seed with supplied value */
@@ -133,11 +125,11 @@ public:
     double   poissonQuantile(double lambda, double p);                                     /*!< quantile of a Poisson(lambda) distribution */
     void   discretizeGamma(MbVector<double> &catRate, double a, double b, int nCats, bool median); /*!< calculates the average/median values for a discretized gamma distribution */
     double   lnGamma(double a);                                                            /*!< log of the gamma function */
-    
+
     // Stuff for CPP added by TAH from MrBayes 3.2
     double   psiGammaRv(double alpha);
-    
-    
+
+
 private:
     /* private functions */
     double   beta(double a, double b);                                                     /*!< calculates the beta function */
@@ -154,17 +146,17 @@ private:
     double   rndGamma(double s);                                                           /*!< function used when calculating gamma random variable */
     double   rndGamma1(double s);                                                          /*!< function used when calculating gamma random variable */
     double   rndGamma2(double s);                                                          /*!< function used when calculating gamma random variable */
-    
+
     // Stuff for CPP added by TAH from MrBayes 3.2
     double   psiExp(double alpha);
-    
+
     /* private data */
     seedType   I1,I2;                                                                         /*!< seed values for the random number generator */
     bool   initializedFacTable;                                                           /*!< a boolean which is false if the log factorial table has not been initialized */
     double   facTable[1024];                                                                /*!< a table containing the log of the factorial up to 1024 */
     bool   availableNormalRv;                                                             /*!< a boolean which is true if there is a normal random variable available */
     double   extraNormalRv;                                                                 /*!< a normally-distributed random variable which */
-    
+
 };
 
 
@@ -177,9 +169,9 @@ private:
  * \throws Does not throw an error.
  */
 inline double MbRandom::exponentialRv(double lambda) {
-    
+
     return -(1.0 / lambda) * std::log( uniformRv() );
-    
+
 }
 
 /*!
@@ -193,9 +185,9 @@ inline double MbRandom::exponentialRv(double lambda) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::exponentialPdf(double lambda, double x) {
-    
+
     return lambda * exp(-lambda * x);
-    
+
 }
 
 
@@ -210,9 +202,9 @@ inline double MbRandom::exponentialPdf(double lambda, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::exponentialCdf(double lambda, double x) {
-    
+
     return 1.0 - exp(-lambda * x);
-    
+
 }
 
 
@@ -227,9 +219,9 @@ inline double MbRandom::exponentialCdf(double lambda, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnExponentialPdf(double lambda, double x) {
-    
+
     return (std::log(lambda) - lambda * x);
-    
+
 }
 
 /*!
@@ -243,9 +235,9 @@ inline double MbRandom::lnExponentialPdf(double lambda, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::exponentialQuantile(double lambda, double p) {
-    
+
     return -(1.0 / lambda) * std::log(1.0 - p);
-    
+
 }
 
 
@@ -261,9 +253,9 @@ inline double MbRandom::exponentialQuantile(double lambda, double p) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::gammaQuantile(double a, double b, double p) {
-    
+
     return chiSquareQuantile(p, 2.0 * a) / (2.0*b);
-    
+
 }
 
 /*!
@@ -276,9 +268,9 @@ inline double MbRandom::gammaQuantile(double a, double b, double p) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::logNormalRv(double mu, double sigma) {
-    
+
     return exp( normalRv(mu, sigma) );
-    
+
 }
 
 
@@ -294,7 +286,7 @@ inline double MbRandom::logNormalRv(double mu, double sigma) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::logNormalPdf(double mu, double sigma, double x) {
-    
+
     double pdf;
     if ( x <= 0.0 )
     {
@@ -306,7 +298,7 @@ inline double MbRandom::logNormalPdf(double mu, double sigma, double x) {
         pdf = exp( -0.5 * y * y ) / ( sigma * x * sqrt(2.0 * PI) );
     }
     return pdf;
-    
+
 }
 
 /*!
@@ -321,7 +313,7 @@ inline double MbRandom::logNormalPdf(double mu, double sigma, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::logNormalCdf(double mu, double sigma, double x) {
-    
+
     double cdf;
     if ( x <= 0.0 )
     {
@@ -333,7 +325,7 @@ inline double MbRandom::logNormalCdf(double mu, double sigma, double x) {
         cdf = normalCdf( mu, sigma, logX );
     }
     return cdf;
-    
+
 }
 
 
@@ -350,9 +342,9 @@ inline double MbRandom::logNormalCdf(double mu, double sigma, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnLogNormalPdf(double mu, double sigma, double x) {
-    
+
     return ( - 0.5 * ( (std::log(x) - mu) / sigma ) * ( (std::log(x) - mu) / sigma ) ) - std::log( sigma * x * sqrt( 2.0 * PI ) );
-    
+
 }
 
 /*!
@@ -365,9 +357,9 @@ inline double MbRandom::lnLogNormalPdf(double mu, double sigma, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::normalRv(double mu, double sigma) {
-    
+
     return ( mu + sigma * normalRv() );
-    
+
 }
 
 /*!
@@ -382,10 +374,10 @@ inline double MbRandom::normalRv(double mu, double sigma) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::normalPdf(double mu, double sigma, double x) {
-    
+
     double y = ( x - mu ) / sigma;
     return exp( -0.5 * y * y )  / ( sigma * sqrt ( 2.0 * PI ) );
-    
+
 }
 
 /*!
@@ -400,9 +392,9 @@ inline double MbRandom::normalPdf(double mu, double sigma, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnNormalPdf(double mu, double sigma, double x) {
-    
+
     return -0.5 * std::log(2.0 * PI * sigma) - 0.5 * (x - mu) * (x - mu) / (sigma * sigma);
-    
+
 }
 
 /*!
@@ -414,9 +406,9 @@ inline double MbRandom::lnNormalPdf(double mu, double sigma, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::uniformPdf(void) {
-    
+
     return 1.0;
-    
+
 }
 
 /*!
@@ -428,9 +420,9 @@ inline double MbRandom::uniformPdf(void) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnUniformPdf(void) {
-    
+
     return 0.0;
-    
+
 }
 
 /*!
@@ -443,9 +435,9 @@ inline double MbRandom::lnUniformPdf(void) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::uniformQuantile(double p) {
-    
+
     return p;
-    
+
 }
 
 /*!
@@ -458,9 +450,9 @@ inline double MbRandom::uniformQuantile(double p) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::uniformRv(double a, double b) {
-    
+
     return ( a + uniformRv() * (b - a) );
-    
+
 }
 
 
@@ -476,9 +468,9 @@ inline double MbRandom::uniformRv(double a, double b) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::uniformPdf(double a, double b) {
-    
+
     return 1.0 / (b-a);
-    
+
 }
 
 
@@ -495,14 +487,14 @@ inline double MbRandom::uniformPdf(double a, double b) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::uniformCdf(double a, double b, double x) {
-    
+
     if ( x < a )
         return 0.0;
     else if ( x > b )
         return 1.0;
     else
         return (x-a) / (b-a);
-    
+
 }
 
 
@@ -518,9 +510,9 @@ inline double MbRandom::uniformCdf(double a, double b, double x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnUniformPdf(double a, double b) {
-    
+
     return ( -std::log(b-a) );
-    
+
 }
 
 
@@ -537,9 +529,9 @@ inline double MbRandom::lnUniformPdf(double a, double b) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::uniformQuantile(double a, double b, double p) {
-    
+
     return a + (b - a) * p;
-    
+
 }
 
 /*!
@@ -553,9 +545,9 @@ inline double MbRandom::uniformQuantile(double a, double b, double p) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::discreteUniformProb(int a, int b) {
-    
+
     return 1.0 / (b - a + 1);
-    
+
 }
 
 
@@ -571,9 +563,9 @@ inline double MbRandom::discreteUniformProb(int a, int b) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnDiscreteUniformProb(int a, int b) {
-    
+
     return std::log( 1.0 / (b - a + 1) );
-    
+
 }
 
 /*!
@@ -587,9 +579,9 @@ inline double MbRandom::lnDiscreteUniformProb(int a, int b) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::poissonProb(double lambda, int x) {
-    
+
     return exp(x * std::log(lambda) - lambda - lnFactorial(x));
-    
+
 }
 
 /*!
@@ -603,9 +595,9 @@ inline double MbRandom::poissonProb(double lambda, int x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::lnPoissonProb(double lambda, int x) {
-    
+
     return ( x * std::log(lambda) - lambda - lnFactorial(x) );
-    
+
 }
 
 
@@ -621,7 +613,7 @@ inline double MbRandom::lnPoissonProb(double lambda, int x) {
  * \throws Does not throw an error.
  */
 inline double MbRandom::poissonQuantile(double lambda, double p) {
-    
+
     /* Starting with x = 0, find the first value for which
      CDF(X-1) <= CDF <= CDF(X). */
     double sum = 0.0;
@@ -646,7 +638,7 @@ inline double MbRandom::poissonQuantile(double lambda, double p) {
     }
     //cout << "Poisson quantile warning" << endl;
     return xmax;
-    
+
 }
 
 #endif

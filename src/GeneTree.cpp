@@ -1,13 +1,16 @@
-//
-//  GeneTree.cpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 12/20/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #include "GeneTree.h"
 #include <iostream>
+
+/**
+ * @brief Constructor of the GeneTree class inherited from the Tree class
+ *
+ * @param MbRandom *p pointer to MrBayes RNG inherited from Tree class
+ * @param nt Number of taxa as a positive integer inherited from Tree class
+ * @param ipp Individuals per population to be sampled within each lineage branch
+ * @param ne Population size as an integer
+ * @param genTime Scaling factor for gene trees in units of generations per unit time
+ */
+
 GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double genTime) : Tree(p, nt){
     rando = p;
     numTaxa = nt;
@@ -17,6 +20,12 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
     delete root;
 }
 
+/**
+ * @brief Destructor of GeneTree class
+ *
+ *
+ */
+
 GeneTree::~GeneTree(){
     // for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
     //     if((*p) != nullptr){
@@ -24,8 +33,16 @@ GeneTree::~GeneTree(){
     //         (*p) = nullptr;
     //     }
     // }
-    //wclearNodes(extantRoot);
+    // clearNodes(extantRoot);
 }
+
+
+/**
+ * @brief Function that takes vector of vector of indices of loci at the present and creates a vector of class Node at the start of GeneTree simulation
+ *
+ * @param extantLociInd Vector of a vector of indices to get the indices corresponding to extant loci
+ * @param presentTime The time at present (or at end of locus tree)
+ */
 
 void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, double presentTime){
     for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
@@ -64,6 +81,14 @@ void GeneTree::initializeTree(std::vector< std::vector<int> > extantLociInd, dou
     }
 }
 
+/**
+ * @brief Gets the time to next coalescent event
+ *
+ *
+ * @param n Number of currently living individuals in lineage
+ * @return Time to event as a double
+ */
+
 double GeneTree::getCoalTime(int n){
     double ct;
     double lambda = (double)(n * (n - 1)) / (2 * popSize) ;
@@ -79,7 +104,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     Node *n;
     double t = startTime;
     bool allCoalesced = false;
-    // search extantNodes for members with Lindx = contempSpecisIndx 
+    // search extantNodes for members with Lindx = contempSpecisIndx
     std::vector<int> indInExtNodes;
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
         if((*it)->getLindx() == contempSpeciesIndx){
@@ -116,7 +141,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
             l = extantNodes[leftIndExtN];
 
             n = coalescentEvent(t, l, r);
-            //iter_swap(extantNodes.begin() + rightIndExtN, extantNodes.end() - 1);            
+            //iter_swap(extantNodes.begin() + rightIndExtN, extantNodes.end() - 1);
             //iter_swap(extantNodes.begin() + leftIndExtN, extantNodes.end() - 2);
             if(leftIndExtN > rightIndExtN){
                 extantNodes.erase(extantNodes.begin() + leftIndExtN);
@@ -124,7 +149,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
             }
             else{
                 extantNodes.erase(extantNodes.begin() + rightIndExtN);
-                extantNodes.erase(extantNodes.begin() + leftIndExtN);                
+                extantNodes.erase(extantNodes.begin() + leftIndExtN);
             }
             indInExtNodes.clear();
             //indInExtNodes.erase(indInExtNodes.begin(), indInExtNodes.begin() + 2);
@@ -158,7 +183,7 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
         // std::cout << "this shouldn't even be happnening" << std::endl;
         allCoalesced = true;
     }
-    
+
     if(allCoalesced == true){
         for(int i = 0; i < indInExtNodes.size(); ++i){
           //  std::cout << "**************" << std::endl;
@@ -181,16 +206,16 @@ Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
     n->setLindx(p->getLindx());
     n->setIndx(p->getIndex());
     nodes.push_back(n);
-    
+
     p->setBirthTime(t);
     p->setAnc(n);
    // p->setSib(q);
-    
+
     q->setBirthTime(t);
     q->setAnc(n);
     // q->setSib(p);
-    
-    
+
+
     return n;
 }
 
@@ -202,9 +227,9 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
         p.second = ((*it).second);
         rescaledTimeMap.insert(p);
     }
-    
+
     return rescaledTimeMap;
-    
+
 }
 
 
@@ -214,7 +239,7 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     Node *l, *r;
     Node *n;
     double t = startTime;
-    // search extantNodes for members with Lindx = contempSpecisIndx 
+    // search extantNodes for members with Lindx = contempSpecisIndx
     std::vector<int> indInExtNodes;
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end(); ++it){
         (*it)->setLindx(0);
@@ -238,7 +263,7 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
         this->setRoot(extantNodes[0]);
     }
     else{
-        Node *nRoot = new Node(); 
+        Node *nRoot = new Node();
         t -= getCoalTime(2);
         extantNodes[0]->setBirthTime(t);
         nRoot->setBirthTime(t);
@@ -246,7 +271,7 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
         nRoot->setRdes(this->getOutgroup());
         nRoot->setDeathTime(extantNodes[0]->getBirthTime());
         nRoot->setAsRoot(true);
-        
+
         this->setRoot(nRoot);
         this->getOutgroup()->setBirthTime(extantNodes[0]->getBirthTime());
         this->getOutgroup()->setAnc(nRoot);
@@ -343,7 +368,7 @@ std::string GeneTree::printExtantNewickTree(){
 }
 
 
-void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss){ 
+void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss){
     if(p->getRdes() == NULL){
         if(p->getIsExtant())
             ss << p->getName();

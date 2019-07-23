@@ -1,23 +1,18 @@
-//
-//  GeneTree.hpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 12/20/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #ifndef GeneTree_h
 #define GeneTree_h
 
 #include "LocusTree.h"
 #include <algorithm>
-
+/**
+ * @brief GeneTree class which is a child of the Tree class. GeneTree is produced via functions within the
+ *
+ */
 class GeneTree : public Tree {
     private:
-        unsigned individualsPerPop;
-        unsigned popSize;
-        double   generationTime; // specified in generations per year
-    
+        unsigned individualsPerPop; //! individuals per population to be sampled in coalescent functions
+        unsigned popSize; //! population size used in the getCoalTime function
+        double   generationTime; //! specified in generations per year
+
     public:
                     GeneTree(MbRandom *rando, unsigned nt, unsigned ipp, unsigned ne, double genTime);
         virtual     ~GeneTree();
@@ -36,7 +31,7 @@ class GeneTree : public Tree {
         void        recGetExtNewickTree(Node *r, std::stringstream &ss);
         void        setTreeTipNames();
         void        addExtinctSpecies(double bt, int indx);
-    
+
 };
 
 #endif /* GeneTree_hpp */

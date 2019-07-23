@@ -6,3 +6,8 @@ treeducken.dSYM/*
 GitVersion.h
 treeducken
 *.stats.txt
+.cproject
+.project
+.settings/
+src/.cproject
+src/.project

@@ -1,10 +1,3 @@
-//
-//  MbRandom.cpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/11/16.
-//  Copyright © 2016 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
 /*!
  * \file
  * This file contains the implementation of MbRandom, a
@@ -56,17 +49,17 @@ using namespace std;
  * any parameters and initializes the seed using the current
  * system time.
  *
- * \brief Constructor for MbRandom, initializing seed with system time.
- * \param Takes no parameter.
- * \return Returns no value.
- * \throws Does not throw an error.
+ * @brief Constructor for MbRandom, initializing seed with system time.
+ * @param Takes no parameter.
+ * @return Returns no value.
+ * @throws Does not throw an error.
  */
 MbRandom::MbRandom(void) {
-    
+
     setSeed();
     initializedFacTable = false;
     availableNormalRv = false;
-    
+
 }
 
 /*!
@@ -74,17 +67,17 @@ MbRandom::MbRandom(void) {
  * parameter a long integer with the user-supplied seed for the
  * random number generator.
  *
- * \brief Constructor for MbRandom, initializing seed with a user-supplied long integer.
- * \param x is a long integer with the user-supplied random number seed.
- * \return Returns no value.
- * \throws Does not throw an error.
+ * @brief Constructor for MbRandom, initializing seed with a user-supplied long integer.
+ * @param x is a long integer with the user-supplied random number seed.
+ * @return Returns no value.
+ * @throws Does not throw an error.
  */
 MbRandom::MbRandom(seedType x) {
-    
+
     setSeed(x, 0);
     initializedFacTable = false;
     availableNormalRv = false;
-    
+
 }
 
 #pragma mark Chi-Square Distribution
@@ -92,17 +85,17 @@ MbRandom::MbRandom(seedType x) {
 /*!
  * This function generates a chi square distributed random variable.
  *
- * \brief Chi-square random variable.
- * \param v is the degrees of freedom parameter of the chi-square distribution.
- * \return Returns a chi-square distributed random variable.
- * \throws Does not throw an error.
+ * @brief Chi-square random variable.
+ * @param v is the degrees of freedom parameter of the chi-square distribution.
+ * @return Returns a chi-square distributed random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::chiSquareRv(double v) {
-    
+
     /* Cast the degrees of freedom parameter as an integer. We will see
      if there is a decimal remainder later. */
     int n = (int)(v);
-    
+
     double x2;
     if ( (double)(n) == v && n <= 100 )
     {
@@ -125,21 +118,21 @@ double MbRandom::chiSquareRv(double v) {
         x2 = gammaRv(v/2.0, 0.5);
     }
     return x2;
-    
+
 }
 
 /*!
  * This function calculates the probability density
  * for a chi-square distributed random variable.
  *
- * \brief Chi-square probability density.
- * \param v is the degrees of freedom parameter of the chi-square.
- * \param x is the chi-square random variable.
- * \return Returns the probability density.
- * \throws Does not throw an error.
+ * @brief Chi-square probability density.
+ * @param v is the degrees of freedom parameter of the chi-square.
+ * @param x is the chi-square random variable.
+ * @return Returns the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::chiSquarePdf(double v, double x) {
-    
+
     double pdf;
     if ( x < 0.0 )
     {
@@ -151,58 +144,58 @@ double MbRandom::chiSquarePdf(double v, double x) {
         pdf = exp ( -0.5 * x ) * pow ( x, ( b - 1.0 ) ) / ( pow ( 2.0, b ) * gamma ( b ) );
     }
     return pdf;
-    
+
 }
 
 /*!
  * This function calculates the cumulative probability
  * for a chi-square distributed random variable.
  *
- * \brief Chi-square cumulative probability.
- * \param v is the degrees of freedom parameter of the chi-square.
- * \param x is the chi-square random variable.
- * \return Returns the cumulative probability.
- * \throws Does not throw an error.
+ * @brief Chi-square cumulative probability.
+ * @param v is the degrees of freedom parameter of the chi-square.
+ * @param x is the chi-square random variable.
+ * @return Returns the cumulative probability.
+ * @throws Does not throw an error.
  */
 double MbRandom::chiSquareCdf(double v, double x) {
-    
+
     return gammaCdf( v / 2.0, 0.5, x );
-    
+
 }
 
 /*!
  * This function calculates the natural log of the probability density
  * for a chi-square distributed random variable.
  *
- * \brief Natural log of chi-square probability density.
- * \param v is the degrees of freedom parameter of the chi-square.
- * \param x is the chi-square random variable.
- * \return Returns the natural log of the probability density.
- * \throws Does not throw an error.
+ * @brief Natural log of chi-square probability density.
+ * @param v is the degrees of freedom parameter of the chi-square.
+ * @param x is the chi-square random variable.
+ * @return Returns the natural log of the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::lnChiSquarePdf(double v, double x) {
-    
+
     double b = v / 2.0;
     return ( -(b * log(2.0) + lnGamma(b)) - b + (b - 1.0) * log(x) );
-    
+
 }
 
 /*!
  * This function calculates the quantile of a chi square distribution with v
  * degrees of freedom.
  *
- * \brief Quantile of a chi square distribution.
- * \param v is the degrees of freedom of the chi square.
- * \param prob is the probability up to the quantile.
- * \return Returns quantile value (or -1 if in error).
- * \throws Does not throw an error.
+ * @brief Quantile of a chi square distribution.
+ * @param v is the degrees of freedom of the chi square.
+ * @param prob is the probability up to the quantile.
+ * @return Returns quantile value (or -1 if in error).
+ * @throws Does not throw an error.
  */
 double MbRandom::chiSquareQuantile(double prob, double v) {
-    
+
     double 		e = 0.5e-6, aa = 0.6931471805, p = prob, g,
     xx, c, ch, a = 0.0, q = 0.0, p1 = 0.0, p2 = 0.0, t = 0.0,
     x = 0.0, b = 0.0, s1, s2, s3, s4, s5, s6;
-    
+
     if (p < 0.000002 || p > 0.999998 || v <= 0.0)
         return (-1.0);
     g = lnGamma(v/2.0);
@@ -257,7 +250,7 @@ l4:
     if (fabs(q/ch-1.0) > e)
         goto l4;
     return (ch);
-    
+
 }
 
 #pragma mark Gamma Distribution
@@ -265,50 +258,50 @@ l4:
 /*!
  * This function generates a gamma-distributed random variable.
  *
- * \brief Gamma random variable.
- * \param a is the shape parameter of the gamma.
- * \param b is the scale parameter of the gamma.
- * \return Returns a gamma-distributed random variable.
- * \throws Does not throw an error.
+ * @brief Gamma random variable.
+ * @param a is the shape parameter of the gamma.
+ * @param b is the scale parameter of the gamma.
+ * @return Returns a gamma-distributed random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::gammaRv(double a, double b) {
-    
+
     return (rndGamma(a) / b);
-    
+
 }
 
 /*!
  * This function calculates the probability density
  * for a gamma-distributed random variable.
  *
- * \brief Gamma probability density.
- * \param a is the shape parameter of the gamma.
- * \param b is the scale parameter of the gamma.
- * \param x is the gamma random variable.
- * \return Returns the probability density.
- * \throws Does not throw an error.
+ * @brief Gamma probability density.
+ * @param a is the shape parameter of the gamma.
+ * @param b is the scale parameter of the gamma.
+ * @param x is the gamma random variable.
+ * @return Returns the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::gammaPdf(double a, double b, double x) {
-    
+
     return (pow(b, a) / gamma(a)) * pow(x, a - 1.0) * exp(-x * b);
-    
+
 }
 
 /*!
  * This function calculates the cumulative probability
  * for a gamma-distributed random variable.
  *
- * \brief Gamma cumulative probability.
- * \param a is the shape parameter of the gamma.
+ * @brief Gamma cumulative probability.
+ * @param a is the shape parameter of the gamma.
  * \param b is the scale parameter of the gamma.
  * \param x is the gamma random variable.
  * \return Returns the cumulative probability.
  * \throws Does not throw an error.
  */
 double MbRandom::gammaCdf(double a, double b, double x) {
-    
+
     return incompleteGamma(b*x, a, lnGamma(a));
-    
+
 }
 
 /*!
@@ -323,9 +316,9 @@ double MbRandom::gammaCdf(double a, double b, double x) {
  * \throws Does not throw an error.
  */
 double MbRandom::lnGammaPdf(double a, double b, double x) {
-    
+
     return a * log(b) - lnGamma(a) + (a - 1.0) * log(x) - x * b;
-    
+
 }
 
 /*!
@@ -346,9 +339,9 @@ double MbRandom::lnGammaPdf(double a, double b, double x) {
  * \throws Does not throw an error.
  */
 void MbRandom::discretizeGamma(MbVector<double> &catRate, double a, double b, int nCats, bool median) {
-    
+
     double factor = a / b * nCats;
-    
+
     if (median)
     {
         /* the median value for each category is used to represent all of the values
@@ -382,7 +375,7 @@ void MbRandom::discretizeGamma(MbVector<double> &catRate, double a, double b, in
         }
         catRate[0] *= factor;
     }
-    
+
 }
 
 #pragma mark Log Normal Distribution
@@ -399,9 +392,9 @@ void MbRandom::discretizeGamma(MbVector<double> &catRate, double a, double b, in
  * \throws Does not throw an error.
  */
 double MbRandom::logNormalQuantile(double mu, double sigma, double p) {
-    
+
     return exp( normalQuantile(mu, sigma, p) );
-    
+
 }
 
 /*!
@@ -417,11 +410,11 @@ double MbRandom::logNormalQuantile(double mu, double sigma, double p) {
  * \throws Does not throw an error.
  */
 double MbRandom::normalCdf(double mu, double sigma, double x) {
-    
+
     double cdf;
     double q;
     double z = (x - mu) / sigma;
-    
+
     /* |X| <= 1.28 */
     if ( fabs(z) <= 1.28 )
     {
@@ -467,7 +460,7 @@ double MbRandom::normalCdf(double mu, double sigma, double x) {
         cdf = 1.0 - q;
     }
     return cdf;
-    
+
 }
 
 /*!
@@ -482,11 +475,11 @@ double MbRandom::normalCdf(double mu, double sigma, double x) {
  * \throws Does not throw an error.
  */
 double MbRandom::normalQuantile(double mu, double sigma, double p) {
-    
+
     double z = pointNormal(p);
     double x = z * sigma + mu;
     return x;
-    
+
 }
 
 #pragma mark Uniform Distribution
@@ -508,13 +501,13 @@ double MbRandom::normalQuantile(double mu, double sigma, double p) {
  * \see http://stat.fsu.edu/~geo/diehard.html
  */
 double MbRandom::uniformRv(void) {
-    
+
     // Returns a pseudo-random number between 0 and 1.
     I1 = 36969 * (I1 & 0177777) + (I1 >> 16);
     I2 = 18000 * (I2 & 0177777) + (I2 >> 16);
     return ((I1 << 16)^(I2 & 0177777)) * 2.328306437080797e-10; 	/*!< in [0,1) */
-    
-    
+
+
 }
 
 /*!
@@ -527,14 +520,14 @@ double MbRandom::uniformRv(void) {
  * \throws Does not throw an error.
  */
 double MbRandom::uniformCdf(double x) {
-    
+
     if ( x < 0.0 )
         return 0.0;
     else if ( x > 1.0 )
         return 1.0;
     else
         return x;
-    
+
 }
 
 /*!
@@ -549,9 +542,9 @@ double MbRandom::uniformCdf(double x) {
  * \throws Does not throw an error.
  */
 int MbRandom::discreteUniformRv(int a, int b) {
-    
+
     return (int)((b-a+1) * uniformRv()) + a;
-    
+
 }
 
 #pragma mark Beta Distribution
@@ -566,12 +559,12 @@ int MbRandom::discreteUniformRv(int a, int b) {
  * \throws Does not throw an error.
  */
 double MbRandom::betaRv(double a, double b) {
-    
+
     double z0 = rndGamma( a );
     double z1 = rndGamma( b );
     double sum = z0 + z1;
     double x = z0 / sum;
-    
+
     /*double mu = ( a - 1.0 ) / ( a + b - 2.0 );
      double stdev = 0.5 / sqrt( a + b - 2.0 );
      double x;
@@ -587,7 +580,7 @@ double MbRandom::betaRv(double a, double b) {
      break;
      }*/
     return x;
-    
+
 }
 
 /*!
@@ -601,14 +594,14 @@ double MbRandom::betaRv(double a, double b) {
  * \throws Does not throw an error.
  */
 double MbRandom::betaPdf(double a, double b, double x) {
-    
+
     double pdf;
     if ( x < 0.0 || 1.0 < x )
         pdf = 0.0;
     else
         pdf = pow(x, (a - 1.0)) * pow((1.0 - x), (b - 1.0)) / beta(a, b);
     return pdf;
-    
+
 }
 
 /*!
@@ -622,9 +615,9 @@ double MbRandom::betaPdf(double a, double b, double x) {
  * \throws Does not throw an error.
  */
 double MbRandom::lnBetaPdf(double a, double b, double x) {
-    
+
     return ( (lnGamma(a + b) - lnGamma(a) - lnGamma(b)) + (a - 1.0) * log(x) + (b - 1.0) * log(1.0 - x) );
-    
+
 }
 
 /*!
@@ -638,7 +631,7 @@ double MbRandom::lnBetaPdf(double a, double b, double x) {
  * \throws Does not throw an error.
  */
 double MbRandom::betaCdf(double a, double b, double x) {
-    
+
     double cdf;
     if ( x <= 0.0 )
         cdf = 0.0;
@@ -647,7 +640,7 @@ double MbRandom::betaCdf(double a, double b, double x) {
     else
         cdf = 1.0;
     return cdf;
-    
+
 }
 
 /*!
@@ -662,17 +655,17 @@ double MbRandom::betaCdf(double a, double b, double x) {
  * \throws Does not throw an error.
  */
 double MbRandom::betaQuantile(double a, double b, double p) {
-    
+
 #	define MAXK 20
-    
+
     double bcoeff;
     double error = 0.0001;
     double errapp = 0.01;
     int j;
-    
+
     /* estimate the solution */
     double x = a / ( a + b );
-    
+
     double xOld = 0.0;
     int loopCnt = 2;
     double d[MAXK * (MAXK-1)];
@@ -692,7 +685,7 @@ double MbRandom::betaQuantile(double a, double b, double p) {
         d[2-1+0*MAXK] = s1 + s2;
         double tail = d[2-1+0*MAXK] * q / 2.0;
         x = x + q + tail;
-        
+
         int k = 3;
         while ( error < fabs ( tail / x ) && k <= MAXK )
         {
@@ -728,7 +721,7 @@ double MbRandom::betaQuantile(double a, double b, double p) {
     }
     return x;
 #	undef MAXK
-    
+
 }
 
 #pragma mark Dirichlet Distribution
@@ -744,7 +737,7 @@ double MbRandom::betaQuantile(double a, double b, double p) {
  * \throws Does not throw an error.
  */
 void MbRandom::dirichletRv(const MbVector<double> &a, MbVector<double> &z) {
-    
+
     int n = a.size();
     double sum = 0.0;
     for(int i=0; i<n; i++)
@@ -755,7 +748,7 @@ void MbRandom::dirichletRv(const MbVector<double> &a, MbVector<double> &z) {
     }
     for(int i=0; i<n; i++)
         z[i] /= sum;
-    
+
 }
 
 /*!
@@ -770,12 +763,12 @@ void MbRandom::dirichletRv(const MbVector<double> &a, MbVector<double> &z) {
  * \throws Throws an MbException::ERROR.
  */
 double MbRandom::dirichletPdf(const MbVector<double> &a, const MbVector<double> &z) {
-    
+
     int n = a.size();
     double zSum = 0.0;
     for (int i=0; i<n; i++)
         zSum += z[i];
-    
+
     double tol = 0.0001;
     if ( tol < fabs( zSum - 1.0 ) )
     {
@@ -784,22 +777,22 @@ double MbRandom::dirichletPdf(const MbVector<double> &a, const MbVector<double> 
         //ui->error("Fatal error in dirichletPdf");
         //throw(MbException(MbException::ERROR));
     }
-    
+
     double aSum = 0.0;
     for (int i=0; i<n; i++)
         aSum += a[i];
-    
+
     double aProd = 1.0;
     for (int i=0; i<n; i++)
         aProd *= gamma(a[i]);
-    
+
     double pdf = gamma(aSum) / aProd;
-    
+
     for (int i=0; i<n; i++)
         pdf = pdf * pow( z[i], a[i] - 1.0 );
-    
+
     return pdf;
-    
+
 }
 
 /*!
@@ -815,7 +808,7 @@ double MbRandom::dirichletPdf(const MbVector<double> &a, const MbVector<double> 
  */
 double MbRandom::lnDirichletPdf(const MbVector<double> &a, const MbVector<double> &z) {
     int n = a.size(); //!< we assume that a and z have the same size
-    
+
     double alpha0 = 0.0;
     for (int i=0; i<n; i++)
         alpha0 += a[i];
@@ -825,7 +818,7 @@ double MbRandom::lnDirichletPdf(const MbVector<double> &a, const MbVector<double
     for (int i=0; i<n; i++)
         lnP += (a[i] - 1.0) * log(z[i]);
     return lnP;
-    
+
 }
 
 #pragma mark Poisson Distribution
@@ -840,7 +833,7 @@ double MbRandom::lnDirichletPdf(const MbVector<double> &a, const MbVector<double
  * \throws Does not throw an error.
  */
 int MbRandom::poissonRv(double lambda) {
-    
+
     if (lambda < 17.0)
     {
         if (lambda < 1.0e-6)
@@ -852,7 +845,7 @@ int MbRandom::poissonRv(double lambda) {
                 /* there should be an error here */
                 cout << "Parameter negative in poisson function" << endl;
             }
-            
+
             /* For extremely small lambda we calculate the probabilities of x = 1
              and x = 2 (ignoring higher x). The reason for using this
              method is to prevent numerical inaccuracies in other methods. */
@@ -874,7 +867,7 @@ int MbRandom::poissonRv(double lambda) {
         /* use the ratio-of-uniforms method */
         return poissonRatioUniforms(lambda);
     }
-    
+
 }
 
 /*!
@@ -888,7 +881,7 @@ int MbRandom::poissonRv(double lambda) {
  * \throws Does not throw an error.
  */
 double MbRandom::poissonCdf(double lambda, int x) {
-    
+
     if ( x < 0 )
         return 0.0;
     double next = exp(-lambda);
@@ -900,7 +893,7 @@ double MbRandom::poissonCdf(double lambda, int x) {
         cdf += next;
     }
     return cdf;
-    
+
 }
 
 /*!
@@ -913,9 +906,9 @@ double MbRandom::poissonCdf(double lambda, int x) {
  * \throws Does not throw an error.
  */
 double MbRandom::beta(double a, double b) {
-    
+
     return ( exp(lnGamma(a) + lnGamma(b) - lnGamma(a + b)) );
-    
+
 }
 
 /*!
@@ -927,7 +920,7 @@ double MbRandom::beta(double a, double b) {
  * \throws Does not throw an error.
  */
 double MbRandom::gamma(double x) {
-    
+
     double c[7] = { -1.910444077728E-03,
         8.4171387781295E-04,
         -5.952379913043012E-04,
@@ -966,19 +959,19 @@ double MbRandom::gamma(double x) {
     double y1;
     double ysq;
     double z;
-    
+
     parity = false;
     fact = 1.0;
     n = 0;
     y = x;
-    
+
     if ( y <= 0.0 )
     {
         /* argument negative */
         y = -x;
         y1 = ( double ) ( ( int ) ( y ) );
         value = y - y1;
-        
+
         if ( value != 0.0 )
         {
             if ( y1 != ( double ) ( ( int ) ( y1 * 0.5 ) ) * 2.0 )
@@ -1031,7 +1024,7 @@ double MbRandom::gamma(double x) {
             xnum = ( xnum + p[i] ) * z;
             xden = xden * z + q[i];
         }
-        
+
         value = xnum / xden + 1.0;
         /* adjust result for case  0.0 < argument < 1.0 */
         if ( y1 < y )
@@ -1069,7 +1062,7 @@ double MbRandom::gamma(double x) {
             value = HUGE_VAL;
             return value;
         }
-        
+
     }
     /* final adjustments and return */
     if ( parity )
@@ -1080,9 +1073,9 @@ double MbRandom::gamma(double x) {
     {
         value = fact / value;
     }
-    
+
     return value;
-    
+
 }
 
 #pragma mark Helper Functions
@@ -1103,9 +1096,9 @@ double MbRandom::gamma(double x) {
  *      Statistics, 22.
  */
 double MbRandom::incompleteBeta(double a, double b, double x) {
-    
+
     double tol = 1.0E-07;
-    
+
     double value;
     if ( x <= 0.0 )
     {
@@ -1117,10 +1110,10 @@ double MbRandom::incompleteBeta(double a, double b, double x) {
         value = 1.0;
         return value;
     }
-    
+
     /* change tail if necessary and determine S */
     double psq = a + b;
-    
+
     double xx, cx, pp, qq;
     bool indx;
     if ( a < (a + b) * x )
@@ -1139,19 +1132,19 @@ double MbRandom::incompleteBeta(double a, double b, double x) {
         qq = b;
         indx = false;
     }
-    
+
     double term = 1.0;
     int i = 1;
     value = 1.0;
     int ns = (int)(qq + cx * (a + b));
-    
+
     /* use Soper's reduction formulas */
     double rx = xx / cx;
-    
+
     double temp = qq - (double)i;
     if ( ns == 0 )
         rx = xx;
-    
+
     int it = 0;
     int it_max = 1000;
     for (;;)
@@ -1183,13 +1176,13 @@ double MbRandom::incompleteBeta(double a, double b, double x) {
             psq = psq + 1.0;
         }
     }
-    
+
     /* finish calculation */
     value = value * exp(pp * log(xx) + (qq - 1.0) * log(cx)) / (beta(a, b) * pp);
     if ( indx )
         value = 1.0 - value;
     return value;
-    
+
 }
 
 /*!
@@ -1205,18 +1198,18 @@ double MbRandom::incompleteBeta(double a, double b, double x) {
  *      Statistics, 19:285-287.
  */
 double MbRandom::incompleteGamma (double x, double alpha, double LnGamma_alpha) {
-    
+
     int 			i;
     double 		p = alpha, g = LnGamma_alpha,
     accurate = 1e-8, overflow = 1e30,
     factor, gin = 0.0, rn = 0.0, a = 0.0, b = 0.0, an = 0.0,
     dif = 0.0, term = 0.0, pn[6];
-    
+
     if (x == 0.0)
         return (0.0);
     if (x < 0 || p <= 0)
         return (-1.0);
-    
+
     factor = exp(p*log(x)-x-g);
     if (x>1 && x>=p)
         goto l30;
@@ -1269,7 +1262,7 @@ l42:
     gin = 1.0-factor*gin;
 l50:
     return (gin);
-    
+
 }
 
 /*!
@@ -1281,11 +1274,11 @@ l50:
  * \throws Does not throw an error.
  */
 void MbRandom::setSeed(void) {
-    
+
     seedType x = (seedType)( time( 0 ) );
     I1 = x & 0xFFFF;
     I2 = x >> 16;
-    
+
 }
 
 /*!
@@ -1300,7 +1293,7 @@ void MbRandom::setSeed(void) {
  * \throws Does not throw an error.
  */
 void MbRandom::setSeed(seedType seed1, seedType seed2) {
-    
+
     if(seed2 == 0)
     {
         I1 = seed1&0xFFFF;
@@ -1311,7 +1304,7 @@ void MbRandom::setSeed(seedType seed1, seedType seed2) {
         I1 = seed1;
         I2 = seed2;
     }
-    
+
 }
 
 /*!
@@ -1324,10 +1317,10 @@ void MbRandom::setSeed(seedType seed1, seedType seed2) {
  * \throws Does not throw an error.
  */
 void MbRandom::getSeed(seedType& i1, seedType& i2) {
-    
+
     i1 = I1;
     i2 = I2;
-    
+
 }
 
 /*!
@@ -1344,7 +1337,7 @@ void MbRandom::getSeed(seedType& i1, seedType& i2) {
  *      function. Communications of the Association for Computing Machinery, 9:684.
  */
 double MbRandom::lnGamma(double a) {
-    
+
     double x = a;
     double f = 0.0;
     double z;
@@ -1361,7 +1354,7 @@ double MbRandom::lnGamma(double a) {
     return  (f + (x-0.5)*log(x) - x + 0.918938533204673 +
              (((-0.000595238095238*z+0.000793650793651)*z-0.002777777777778)*z +
               0.083333333333333)/x);
-    
+
 }
 
 /*!
@@ -1375,7 +1368,7 @@ double MbRandom::lnGamma(double a) {
  * \throws Does not throw an error.
  */
 double MbRandom::mbEpsilon(void) {
-    
+
     double r = 1.0;
     while ( 1.0 < (double)(1.0 + r)  )
         r = r / 2.0;
@@ -1390,9 +1383,9 @@ double MbRandom::mbEpsilon(void) {
  * \throws Does not throw an error.
  */
 double MbRandom::normalRv(void) {
-    
+
     double fac, rsq, v1, v2;
-    
+
     if ( availableNormalRv == false )
     {
         do
@@ -1411,7 +1404,7 @@ double MbRandom::normalRv(void) {
         availableNormalRv = false;
         return extraNormalRv;
     }
-    
+
 }
 
 /*!
@@ -1429,7 +1422,7 @@ double MbRandom::normalRv(void) {
  *      points of the normal distribution. 26:118-121.
  */
 double MbRandom::pointNormal(double prob) {
-    
+
     double a0 = -0.322232431088;
     double a1 = -1.0;
     double a2 = -0.342242088547;
@@ -1447,7 +1440,7 @@ double MbRandom::pointNormal(double prob) {
     double y = sqrt( log(1.0/(p1*p1)) );
     double z = y + ((((y*a4+a3)*y+a2)*y+a1)*y+a0) / ((((y*b4+b3)*y+b2)*y+b1)*y+b0);
     return ( p < 0.5 ? -z : z );
-    
+
 }
 
 /*!
@@ -1461,7 +1454,7 @@ double MbRandom::pointNormal(double prob) {
  * \throws Does not throw an error.
  */
 int MbRandom::poissonLow(double lambda) {
-    
+
     double d, r;
     d = sqrt(lambda);
     if (uniformRv() >= d)
@@ -1472,7 +1465,7 @@ int MbRandom::poissonLow(double lambda) {
     if (r > 0.5 * lambda * lambda * (1.0 - lambda))
         return 1;
     return 2;
-    
+
 }
 
 /*!
@@ -1485,20 +1478,20 @@ int MbRandom::poissonLow(double lambda) {
  * \throws Does not throw an error.
  */
 int MbRandom::poissonInver(double lambda) {
-    
+
     const int bound = 130;
     static double p_L_last = -1.0;
     static double p_f0;
     double r;
     double f;
     int x;
-    
+
     if (lambda != p_L_last)
     {
         p_L_last = lambda;
         p_f0 = exp(-lambda);
     }
-    
+
     while (1)
     {
         r = uniformRv();
@@ -1514,7 +1507,7 @@ int MbRandom::poissonInver(double lambda) {
             r *= x;
         } while (x <= bound);
     }
-    
+
 }
 
 /*!
@@ -1530,7 +1523,7 @@ int MbRandom::poissonInver(double lambda) {
  *      Mathematics 31:181-189.
  */
 int MbRandom::poissonRatioUniforms(double lambda) {
-    
+
     static double p_L_last = -1.0;  /* previous L */
     static double p_a;              /* hat center */
     static double p_h;              /* hat width */
@@ -1542,7 +1535,7 @@ int MbRandom::poissonRatioUniforms(double lambda) {
     double lf;                      /* ln(f(x)) */
     double x;                       /* real sample */
     int k;                          /* integer sample */
-    
+
     if (p_L_last != lambda)
     {
         p_L_last = lambda;
@@ -1553,7 +1546,7 @@ int MbRandom::poissonRatioUniforms(double lambda) {
         p_h = sqrt(2.943035529371538573 * (lambda + 0.5)) + 0.8989161620588987408;
         p_bound = (int)(p_a + 6.0 * p_h);
     }
-    
+
     while(1)
     {
         u = uniformRv();
@@ -1572,7 +1565,7 @@ int MbRandom::poissonRatioUniforms(double lambda) {
             break;
     }
     return(k);
-    
+
 }
 
 /*
@@ -1584,7 +1577,7 @@ int MbRandom::poissonRatioUniforms(double lambda) {
  * \throws Does not throw an error.
  */
 double MbRandom::rndGamma(double s) {
-    
+
     double r=0.0;
     if (s <= 0.0)
         cout << "Gamma parameter less than zero" << endl;
@@ -1595,7 +1588,7 @@ double MbRandom::rndGamma(double s) {
     else
         r -= log(uniformRv());
     return (r);
-    
+
 }
 
 /*!
@@ -1607,11 +1600,11 @@ double MbRandom::rndGamma(double s) {
  * \throws Does not throw an error.
  */
 double MbRandom::rndGamma1(double s) {
-    
+
     double			r, x=0.0, small=1e-37, w;
     static double   a, p, uf, ss=10.0, d;
-    
-    if (s != ss) 
+
+    if (s != ss)
     {
         a  = 1.0 - s;
         p  = a / (a + s * exp(-a));
@@ -1619,95 +1612,95 @@ double MbRandom::rndGamma1(double s) {
         d  = a * log(a);
         ss = s;
     }
-    for (;;) 
+    for (;;)
     {
         r = uniformRv();
-        if (r > p)        
+        if (r > p)
             x = a - log((1.0 - r) / (1.0 - p)), w = a * log(x) - d;
-        else if (r>uf)  
+        else if (r>uf)
             x = a * pow(r / p, 1.0 / s), w = x;
-        else            
+        else
             return (0.0);
         r = uniformRv();
         if (1.0 - r <= w && r > 0.0)
-            if (r*(w + 1.0) >= 1.0 || -log(r) <= w)  
+            if (r*(w + 1.0) >= 1.0 || -log(r) <= w)
                 continue;
         break;
     }
-    
+
     return (x);
-    
+
 }
 
 /*!
  * This function is used when generating gamma-distributed random variables.
  *
  * \brief Subfunction for gamma random variables.
- * \param s is the shape parameter of the gamma. 
- * \return Returns a gamma-distributed random variable. 
+ * \param s is the shape parameter of the gamma.
+ * \return Returns a gamma-distributed random variable.
  * \throws Does not throw an error.
  */
 double MbRandom::rndGamma2(double s) {
-    
+
     double			r, d, f, g, x;
     static double	b, h, ss=0.0;
-    
-    if (s != ss) 
+
+    if (s != ss)
     {
         b  = s - 1.0;
         h  = sqrt(3.0 * s - 0.75);
         ss = s;
     }
-    for (;;) 
+    for (;;)
     {
         r = uniformRv();
         g = r - r * r;
         f = (r - 0.5) * h / sqrt(g);
         x = b + f;
-        if (x <= 0.0) 
+        if (x <= 0.0)
             continue;
         r = uniformRv();
         d = 64.0 * r * r * g * g * g;
-        if (d * x < x - 2.0 * f * f || log(d) < 2.0 * (b * log(x / b) - f))  
+        if (d * x < x - 2.0 * f * f || log(d) < 2.0 * (b * log(x / b) - f))
             break;
     }
-    
+
     return (x);
-    
+
 }
 
 /* log factorial ln(n!) */
 /*!
  * This function calculates the natural log of the factorial of n.
- * The first time this function is called, it constructs a table 
+ * The first time this function is called, it constructs a table
  * of the natural log of the factorial up to 1023 (inclusive). Every
  * call of this function after this for values of n < 1024, then,
  * is simply a look-up. For values of n >= 1024, the log of the factorial
  * is calculated using the Stirling approximation.
  *
  * \brief Natural log of the factorial.
- * \param n is the number for the factorial (n!). 
- * \return Returns the natural log of the factorial of n. 
+ * \param n is the number for the factorial (n!).
+ * \return Returns the natural log of the factorial of n.
  * \throws Does not throw an error.
  */
 double MbRandom::lnFactorial(int n) {
-    
-    static const double    
+
+    static const double
     C0 =  0.918938533204672722,
-    C1 =  1.0/12.0, 
+    C1 =  1.0/12.0,
     C3 = -1.0/360.0;
-    
-    if (n < 1024) 
+
+    if (n < 1024)
     {
-        if (n <= 1) 
+        if (n <= 1)
         {
             return 0.0;
         }
-        if ( initializedFacTable == false ) 
+        if ( initializedFacTable == false )
         {
             /* make table of ln(n!) */
             double sum = facTable[0] = 0.0;
-            for (int i=1; i<1024; i++) 
+            for (int i=1; i<1024; i++)
             {
                 sum += log((double)i);
                 facTable[i] = sum;
@@ -1716,12 +1709,12 @@ double MbRandom::lnFactorial(int n) {
         }
         return facTable[n];
     }
-    
+
     /* not found in table. use Stirling approximation */
     double  n1, r;
     n1 = n;  r  = 1.0 / n1;
     return (n1 + 0.5) * log(n1) - n1 + C0 + r*(C1 + r*r*C3);
-    
+
 }
 
 
@@ -1731,46 +1724,46 @@ double MbRandom::lnFactorial(int n) {
  |
  |   psiExp: Returns psi (also called digamma) exponentiated
  |		Algorithm from http://lib.stat.cmu.edu/apstat/103
-	
-	For simulation of Compound Poisson process 
+
+	For simulation of Compound Poisson process
  |
  ---------------------------------------------------------------------------------*/
 double  MbRandom::psiExp (double alpha)
 
 {
     double		digamma, y, r, s, c, s3, s4, s5, d1;
-    
+
     s = 1.0e-05;
     c = 8.5;
     s3 = 8.333333333333333333333333e-02;
     s4 = 8.333333333333333333333333e-03;
     s5 = 3.968253968e-03;
     d1 = -0.577215664901532860606512;	/* negative of Euler's constant */
-    
+
     digamma = 0.0;
     y = alpha;
     if (y <= 0.0)
         return (0.0);
-    
+
     if (y <= s)
     {
         digamma = d1 - 1.0 / y;
         return (exp (digamma));
     }
-    
+
     while (y < c)
     {
         digamma -= 1.0 / y;
         y += 1.0;
     }
-    
+
     r = 1.0 / y;
     digamma += (log (y) - 0.5 * r);
     r *= r;
     digamma -= r * (s3 - r * (s4 - r * s5));
-    
+
     return (exp (digamma));
-    
+
 }
 
 

@@ -1,11 +1,3 @@
-//
-//  Tree.hpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/7/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #ifndef Tree_h
 #define Tree_h
 
