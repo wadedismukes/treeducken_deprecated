@@ -1,21 +1,21 @@
 /*!
- * \file
+ * @file
  * This file contains the implementation of MbRandom, a
  * class that deals with random variables.
  *
- * \brief Implementation of MbRandom class
+ * @brief Implementation of MbRandom class
  *
  * MrBayes version 4.0 beta
  *
  * (c) Copyright 2005.
- * \version 4.0 beta
- * \date Last modified: $Date: 2006/09/11 17:29:51 $
- * \author John Huelsenbeck (1)
- * \author Bret Larget (2)
- * \author Paul van der Mark (3)
- * \author Fredrik Ronquist (3)
- * \author Donald Simon (4)
- * \author (authors listed in alphabetical order)
+ * @version 4.0 beta
+ * @date Last modified: $Date: 2006/09/11 17:29:51 $
+ * @author John Huelsenbeck (1)
+ * @author Bret Larget (2)
+ * @author Paul van der Mark (3)
+ * @author Fredrik Ronquist (3)
+ * @author Donald Simon (4)
+ * @author (authors listed in alphabetical order)
  * (1) Department of Integrative Biology, University of California, Berkeley
  * (2) Departments of Botany and of Statistics, University of Wisconsin - Madison
  * (3) School of Computational Science, Florida State University
@@ -233,7 +233,7 @@ l4:
     p1 = 0.5*ch;
     if ((t = incompleteGamma (p1, xx, g)) < 0.0)
     {
-        printf ("\nerr IncompleteGamma");
+        printf ("@nerr IncompleteGamma");
         return (-1.0);
     }
     p2 = p-t;
@@ -293,10 +293,10 @@ double MbRandom::gammaPdf(double a, double b, double x) {
  *
  * @brief Gamma cumulative probability.
  * @param a is the shape parameter of the gamma.
- * \param b is the scale parameter of the gamma.
- * \param x is the gamma random variable.
- * \return Returns the cumulative probability.
- * \throws Does not throw an error.
+ * @param b is the scale parameter of the gamma.
+ * @param x is the gamma random variable.
+ * @return Returns the cumulative probability.
+ * @throws Does not throw an error.
  */
 double MbRandom::gammaCdf(double a, double b, double x) {
 
@@ -308,12 +308,12 @@ double MbRandom::gammaCdf(double a, double b, double x) {
  * This function calculates the natural log of the probability density
  * for a gamma-distributed random variable.
  *
- * \brief Natural log of gamma probability density.
- * \param a is the shape parameter of the gamma.
- * \param b is the scale parameter of the gamma.
- * \param x is the gamma random variable.
- * \return Returns the natural log of the probability density.
- * \throws Does not throw an error.
+ * @brief Natural log of gamma probability density.
+ * @param a is the shape parameter of the gamma.
+ * @param b is the scale parameter of the gamma.
+ * @param x is the gamma random variable.
+ * @return Returns the natural log of the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::lnGammaPdf(double a, double b, double x) {
 
@@ -328,15 +328,15 @@ double MbRandom::lnGammaPdf(double a, double b, double x) {
  * probability. The mean or meadian value for each category is
  * then calculated.
  *
- * \brief Calculates the mean/median values for a discretized gamma.
- * \param catRate a pointer to a vector of doubles containing the nCats mean/median values.
- * \param a the shape parameter of the gamma distribution.
- * \param b the scale parameter of the gamma distribution.
- * \param nCats the number of discrete categories.
- * \param When true, the median of the category is calculated. Otherwise
+ * @brief Calculates the mean/median values for a discretized gamma.
+ * @param catRate a pointer to a vector of doubles containing the nCats mean/median values.
+ * @param a the shape parameter of the gamma distribution.
+ * @param b the scale parameter of the gamma distribution.
+ * @param nCats the number of discrete categories.
+ * @param When true, the median of the category is calculated. Otherwise
  the mean is used.
- * \return Does not return a value.
- * \throws Does not throw an error.
+ * @return Does not return a value.
+ * @throws Does not throw an error.
  */
 void MbRandom::discretizeGamma(MbVector<double> &catRate, double a, double b, int nCats, bool median) {
 
@@ -384,12 +384,12 @@ void MbRandom::discretizeGamma(MbVector<double> &catRate, double a, double b, in
  * This function returns the quantile of a normal probability
  * distribution.
  *
- * \brief Natural quantile.
- * \param mu is the mean parameter of the normal.
- * \param sigma is the variance parameter of the normal.
- * \param p is the probability up to the quantile.
- * \return Returns the quantile.
- * \throws Does not throw an error.
+ * @brief Natural quantile.
+ * @param mu is the mean parameter of the normal.
+ * @param sigma is the variance parameter of the normal.
+ * @param p is the probability up to the quantile.
+ * @return Returns the quantile.
+ * @throws Does not throw an error.
  */
 double MbRandom::logNormalQuantile(double mu, double sigma, double p) {
 
@@ -401,13 +401,13 @@ double MbRandom::logNormalQuantile(double mu, double sigma, double p) {
  * This function calculates the cumulative probability
  * for a normally-distributed random variable.
  *
- * \brief Normal cumulative probability.
- * \param mu is the mean parameter of the normal.
- * \param sigma is the variance parameter of the normal.
- * \param x is the normal random variable.
- * \return Returns the cumulative probability.
- * \see Adams, A. G. 1969. Areas under the normal curve. Cojputer J. 12:197-198.
- * \throws Does not throw an error.
+ * @brief Normal cumulative probability.
+ * @param mu is the mean parameter of the normal.
+ * @param sigma is the variance parameter of the normal.
+ * @param x is the normal random variable.
+ * @return Returns the cumulative probability.
+ * @see Adams, A. G. 1969. Areas under the normal curve. Cojputer J. 12:197-198.
+ * @throws Does not throw an error.
  */
 double MbRandom::normalCdf(double mu, double sigma, double x) {
 
@@ -467,12 +467,12 @@ double MbRandom::normalCdf(double mu, double sigma, double x) {
  * This function returns the quantile of a normal probability
  * distribution.
  *
- * \brief Natural quantile.
- * \param mu is the mean parameter of the normal.
- * \param sigma is the variance parameter of the normal.
- * \param p is the probability up to the quantile.
- * \return Returns the quantile.
- * \throws Does not throw an error.
+ * @brief Natural quantile.
+ * @param mu is the mean parameter of the normal.
+ * @param sigma is the variance parameter of the normal.
+ * @param p is the probability up to the quantile.
+ * @return Returns the quantile.
+ * @throws Does not throw an error.
  */
 double MbRandom::normalQuantile(double mu, double sigma, double p) {
 
@@ -495,10 +495,10 @@ double MbRandom::normalQuantile(double mu, double sigma, double p) {
  * This random generator has a period of 2^60, which ensures it has the maximum
  * period of 2^32 for unsigned ints (32 bit ints).
  *
- * \brief Uniform[0,1) random variable.
- * \return Returns a uniformly-distributed random variable on the interval [0,1).
- * \throws Does not throw an error.
- * \see http://stat.fsu.edu/~geo/diehard.html
+ * @brief Uniform[0,1) random variable.
+ * @return Returns a uniformly-distributed random variable on the interval [0,1).
+ * @throws Does not throw an error.
+ * @see http://stat.fsu.edu/~geo/diehard.html
  */
 double MbRandom::uniformRv(void) {
 
@@ -514,10 +514,10 @@ double MbRandom::uniformRv(void) {
  * This function calculates the cumulative probability
  * for a uniform(0,1) random variable.
  *
- * \brief Uniform(0,1) cumulative probability.
- * \param x is the uniform random variable.
- * \return Returns the cumulative probability.
- * \throws Does not throw an error.
+ * @brief Uniform(0,1) cumulative probability.
+ * @param x is the uniform random variable.
+ * @return Returns the cumulative probability.
+ * @throws Does not throw an error.
  */
 double MbRandom::uniformCdf(double x) {
 
@@ -534,12 +534,12 @@ double MbRandom::uniformCdf(double x) {
  * This function generates a discrete and uniformly-distributed random
  * variable on the interval (a,b).
  *
- * \brief Discrete uniform(a,b) random variable.
- * \param a is the lower bound on the uniform.
- * \param b is the upper bound on the uniform.
- * \return Returns a discrete and uniformly-distributed random variable
+ * @brief Discrete uniform(a,b) random variable.
+ * @param a is the lower bound on the uniform.
+ * @param b is the upper bound on the uniform.
+ * @return Returns a discrete and uniformly-distributed random variable
  *         on the interval (a,b).
- * \throws Does not throw an error.
+ * @throws Does not throw an error.
  */
 int MbRandom::discreteUniformRv(int a, int b) {
 
@@ -552,11 +552,11 @@ int MbRandom::discreteUniformRv(int a, int b) {
 /*!
  * This function generates a Beta-distributed random variable.
  *
- * \brief Beta random variable.
- * \param a parameter of the Beta.
- * \param b parameter of the Beta.
- * \return Returns the random variable.
- * \throws Does not throw an error.
+ * @brief Beta random variable.
+ * @param a parameter of the Beta.
+ * @param b parameter of the Beta.
+ * @return Returns the random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::betaRv(double a, double b) {
 
@@ -587,11 +587,11 @@ double MbRandom::betaRv(double a, double b) {
  * This function returns the probability density for a
  * Beta-distributed random variable.
  *
- * \brief Beta probability density.
- * \param a parameter of the Beta.
- * \param b parameter of the Beta.
- * \return Returns the probability density.
- * \throws Does not throw an error.
+ * @brief Beta probability density.
+ * @param a parameter of the Beta.
+ * @param b parameter of the Beta.
+ * @return Returns the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::betaPdf(double a, double b, double x) {
 
@@ -608,11 +608,11 @@ double MbRandom::betaPdf(double a, double b, double x) {
  * This function returns the natural log of the probability density
  * for a Beta-distributed random variable.
  *
- * \brief Beta log probability density.
- * \param a parameter of the Beta.
- * \param b parameter of the Beta.
- * \return Returns the natural log of the probability density.
- * \throws Does not throw an error.
+ * @brief Beta log probability density.
+ * @param a parameter of the Beta.
+ * @param b parameter of the Beta.
+ * @return Returns the natural log of the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::lnBetaPdf(double a, double b, double x) {
 
@@ -624,11 +624,11 @@ double MbRandom::lnBetaPdf(double a, double b, double x) {
  * This function returns the cumulative probability for a
  * Beta-distributed random variable.
  *
- * \brief Beta cumulative probability.
- * \param a parameter of the Beta.
- * \param b parameter of the Beta.
- * \return Returns the cumulative probability.
- * \throws Does not throw an error.
+ * @brief Beta cumulative probability.
+ * @param a parameter of the Beta.
+ * @param b parameter of the Beta.
+ * @return Returns the cumulative probability.
+ * @throws Does not throw an error.
  */
 double MbRandom::betaCdf(double a, double b, double x) {
 
@@ -647,12 +647,12 @@ double MbRandom::betaCdf(double a, double b, double x) {
  * This function returns the quantile for a
  * Beta-distributed random variable.
  *
- * \brief Beta quantile.
- * \param a parameter of the Beta.
- * \param b parameter of the Beta.
- * \param p is the probability up to the quantile.
- * \return Returns the quantile.
- * \throws Does not throw an error.
+ * @brief Beta quantile.
+ * @param a parameter of the Beta.
+ * @param b parameter of the Beta.
+ * @param p is the probability up to the quantile.
+ * @return Returns the quantile.
+ * @throws Does not throw an error.
  */
 double MbRandom::betaQuantile(double a, double b, double p) {
 
@@ -729,12 +729,12 @@ double MbRandom::betaQuantile(double a, double b, double p) {
 /*!
  * This function generates a Dirichlet-distributed random variable.
  *
- * \brief Dirichlet random variable.
- * \param *a is a pointer to a vector of doubles containing the parameters of the Dirichlet.
- * \param n is an integer with the number of Dirichlet prameters.
- * \param *z is a pointer to a vector of doubles containing the Dirichlet random variable.
- * \return Does not return a value (the random variable is initialized in the parameter z).
- * \throws Does not throw an error.
+ * @brief Dirichlet random variable.
+ * @param *a is a pointer to a vector of doubles containing the parameters of the Dirichlet.
+ * @param n is an integer with the number of Dirichlet prameters.
+ * @param *z is a pointer to a vector of doubles containing the Dirichlet random variable.
+ * @return Does not return a value (the random variable is initialized in the parameter z).
+ * @throws Does not throw an error.
  */
 void MbRandom::dirichletRv(const MbVector<double> &a, MbVector<double> &z) {
 
@@ -755,12 +755,12 @@ void MbRandom::dirichletRv(const MbVector<double> &a, MbVector<double> &z) {
  * This function calculates the probability density
  * for a Dirichlet-distributed random variable.
  *
- * \brief Dirichlet probability density.
- * \param *a is a pointer to a vector of doubles containing the Dirichlet parameters.
- * \param *z is a pointer to a vector of doubles containing the random variables.
- * \param n is the number of Dirichlet parameters/random variables.
- * \return Returns the probability density.
- * \throws Throws an MbException::ERROR.
+ * @brief Dirichlet probability density.
+ * @param *a is a pointer to a vector of doubles containing the Dirichlet parameters.
+ * @param *z is a pointer to a vector of doubles containing the random variables.
+ * @param n is the number of Dirichlet parameters/random variables.
+ * @return Returns the probability density.
+ * @throws Throws an MbException::ERROR.
  */
 double MbRandom::dirichletPdf(const MbVector<double> &a, const MbVector<double> &z) {
 
@@ -799,12 +799,12 @@ double MbRandom::dirichletPdf(const MbVector<double> &a, const MbVector<double> 
  * This function calculates the natural log of the probability density
  * for a Dirichlet-distributed random variable.
  *
- * \brief Natural log of Dirichlet probability density.
- * \param *a is a pointer to a vector of doubles containing the Dirichlet parameters.
- * \param *z is a pointer to a vector of doubles containing the random variables.
- * \param n is the number of Dirichlet parameters/random variables.
- * \return Returns the natural log of the probability density.
- * \throws Does not throw an error.
+ * @brief Natural log of Dirichlet probability density.
+ * @param *a is a pointer to a vector of doubles containing the Dirichlet parameters.
+ * @param *z is a pointer to a vector of doubles containing the random variables.
+ * @param n is the number of Dirichlet parameters/random variables.
+ * @return Returns the natural log of the probability density.
+ * @throws Does not throw an error.
  */
 double MbRandom::lnDirichletPdf(const MbVector<double> &a, const MbVector<double> &z) {
     int n = a.size(); //!< we assume that a and z have the same size
@@ -827,10 +827,10 @@ double MbRandom::lnDirichletPdf(const MbVector<double> &a, const MbVector<double
  * This function generates a Poisson-distributed random
  * variable with parameter lambda.
  *
- * \brief Poisson(lambda) random variable.
- * \param lambda the rate parameter of the Poisson.
- * \return This function returns a Poisson-distributed integer.
- * \throws Does not throw an error.
+ * @brief Poisson(lambda) random variable.
+ * @param lambda the rate parameter of the Poisson.
+ * @return This function returns a Poisson-distributed integer.
+ * @throws Does not throw an error.
  */
 int MbRandom::poissonRv(double lambda) {
 
@@ -874,11 +874,11 @@ int MbRandom::poissonRv(double lambda) {
  * This function calculates the cumulative probability for a
  * Poisson distribution.
  *
- * \brief Poisson cumulative probability.
- * \param lambda is the rate parameter of the Poisson.
- * \param x is the value of the random variable.
- * \return Returns the cumulative probability.
- * \throws Does not throw an error.
+ * @brief Poisson cumulative probability.
+ * @param lambda is the rate parameter of the Poisson.
+ * @param x is the value of the random variable.
+ * @return Returns the cumulative probability.
+ * @throws Does not throw an error.
  */
 double MbRandom::poissonCdf(double lambda, int x) {
 
@@ -899,11 +899,11 @@ double MbRandom::poissonCdf(double lambda, int x) {
 /*!
  * This function calculates the beta function.
  *
- * \brief Beta function.
- * \param a is an argument.
- * \param b is an argument.
- * \return Returns the value of the beta function.
- * \throws Does not throw an error.
+ * @brief Beta function.
+ * @param a is an argument.
+ * @param b is an argument.
+ * @return Returns the value of the beta function.
+ * @throws Does not throw an error.
  */
 double MbRandom::beta(double a, double b) {
 
@@ -914,10 +914,10 @@ double MbRandom::beta(double a, double b) {
 /*!
  * This function calculates the gamma function for real x.
  *
- * \brief Gamma function.
- * \param x is the argument.
- * \return Returns the value of the gamma function.
- * \throws Does not throw an error.
+ * @brief Gamma function.
+ * @param x is the argument.
+ * @return Returns the value of the gamma function.
+ * @throws Does not throw an error.
  */
 double MbRandom::gamma(double x) {
 
@@ -1086,13 +1086,13 @@ double MbRandom::gamma(double x) {
  * BI(a,b,x) = Integral(0 <= T <= X) T**(A-1) (1-T)**(B-1) dt /
  *             Integral(0 <= T <= 1) T**(A-1) (1-T)**(B-1) dt
  *
- * \brief Incomplete beta function.
- * \param a is a beta parameter.
- * \param b is a beta parameter.
- * \param x is the upper limit of integration.
- * \return Returns the incomplete beta function.
- * \throws Does not throw an error.
- * \see Majumder & Bhattacharjee. 1973. Algorithm AS63. Applied
+ * @brief Incomplete beta function.
+ * @param a is a beta parameter.
+ * @param b is a beta parameter.
+ * @param x is the upper limit of integration.
+ * @return Returns the incomplete beta function.
+ * @throws Does not throw an error.
+ * @see Majumder & Bhattacharjee. 1973. Algorithm AS63. Applied
  *      Statistics, 22.
  */
 double MbRandom::incompleteBeta(double a, double b, double x) {
@@ -1189,12 +1189,12 @@ double MbRandom::incompleteBeta(double a, double b, double x) {
  * This function returns the incomplete gamma ratio I(x,alpha) where x is
  * the upper limit of the integration and alpha is the shape parameter.
  *
- * \brief Incomplete gamma function.
- * \param alpha is the shape parameter of the gamma.
- * \param x is the upper limit of integration.
- * \return Returns -1 if in error and the incomplete gamma ratio otherwise.
- * \throws Does not throw an error.
- * \see Bhattacharjee, G. P. 1970. The incomplete gamma integral. Applied
+ * @brief Incomplete gamma function.
+ * @param alpha is the shape parameter of the gamma.
+ * @param x is the upper limit of integration.
+ * @return Returns -1 if in error and the incomplete gamma ratio otherwise.
+ * @throws Does not throw an error.
+ * @see Bhattacharjee, G. P. 1970. The incomplete gamma integral. Applied
  *      Statistics, 19:285-287.
  */
 double MbRandom::incompleteGamma (double x, double alpha, double LnGamma_alpha) {
@@ -1269,9 +1269,9 @@ l50:
  * This function sets the two seeds for the random number generator, using the current time.
  *
  *
- * \brief Initializes random number seeds.
- * \return This function does not return anything.
- * \throws Does not throw an error.
+ * @brief Initializes random number seeds.
+ * @return This function does not return anything.
+ * @throws Does not throw an error.
  */
 void MbRandom::setSeed(void) {
 
@@ -1288,9 +1288,9 @@ void MbRandom::setSeed(void) {
  * and the two most significant bytes shifted to the right as the second seed.
  *
  *
- * \brief Initializes random number seeds.
- * \return This function does not return anything.
- * \throws Does not throw an error.
+ * @brief Initializes random number seeds.
+ * @return This function does not return anything.
+ * @throws Does not throw an error.
  */
 void MbRandom::setSeed(seedType seed1, seedType seed2) {
 
@@ -1310,11 +1310,11 @@ void MbRandom::setSeed(seedType seed1, seedType seed2) {
 /*!
  * This function gets the two seeds from the random number generator.
  *
- * \brief Return the random number seeds.
- * \param i1 [in/out] the first seed
- * \param i2 [in/out] the second seed
- * \return This function does not return anything.
- * \throws Does not throw an error.
+ * @brief Return the random number seeds.
+ * @param i1 [in/out] the first seed
+ * @param i2 [in/out] the second seed
+ * @return This function does not return anything.
+ * @throws Does not throw an error.
  */
 void MbRandom::getSeed(seedType& i1, seedType& i2) {
 
@@ -1329,11 +1329,11 @@ void MbRandom::getSeed(seedType& i1, seedType& i2) {
  * The result is accurate to 10 decimal places. Stirling's formula is used
  * for the central polynomial part of the procedure.
  *
- * \brief Natural log of the gamma function.
- * \param alp is the parameter of the gamma function.
- * \return Returns the log of the gamma function.
- * \throws Does not throw an error.
- * \see Pike, M. C. and I. D. Hill. 1966. Algorithm 291: Logarithm of the gamma
+ * @brief Natural log of the gamma function.
+ * @param alp is the parameter of the gamma function.
+ * @return Returns the log of the gamma function.
+ * @throws Does not throw an error.
+ * @see Pike, M. C. and I. D. Hill. 1966. Algorithm 291: Logarithm of the gamma
  *      function. Communications of the Association for Computing Machinery, 9:684.
  */
 double MbRandom::lnGamma(double a) {
@@ -1363,9 +1363,9 @@ double MbRandom::lnGamma(double a) {
  * that, to the precision of the computer's arithmetic, 1 < 1 + r, but
  * 1 = 1 + r / 2. This function comes from John Burkardt.
  *
- * \brief Round off unity for floating point arithmetic.
- * \return Returns round off unity for floating point arithmetic.
- * \throws Does not throw an error.
+ * @brief Round off unity for floating point arithmetic.
+ * @return Returns round off unity for floating point arithmetic.
+ * @throws Does not throw an error.
  */
 double MbRandom::mbEpsilon(void) {
 
@@ -1378,9 +1378,9 @@ double MbRandom::mbEpsilon(void) {
 /*!
  * This function generates a normal(0,1) random variable.
  *
- * \brief Standard normal random variable.
- * \return Returns a standard normal random variable.
- * \throws Does not throw an error.
+ * @brief Standard normal random variable.
+ * @return Returns a standard normal random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::normalRv(void) {
 
@@ -1410,15 +1410,15 @@ double MbRandom::normalRv(void) {
 /*!
  * This function quantiles of a standard normal distribution.
  *
- * \brief Quantile of a standard normal distribution.
- * \param prob is the probability up to the quantile.
- * \return Returns quantile value.
- * \throws Does not throw an error.
- * \see Odeh, R. E. and J. O. Evans. 1974. The percentage points of the normal
+ * @brief Quantile of a standard normal distribution.
+ * @param prob is the probability up to the quantile.
+ * @return Returns quantile value.
+ * @throws Does not throw an error.
+ * @see Odeh, R. E. and J. O. Evans. 1974. The percentage points of the normal
  *      distribution. Applied Statistics, 22:96-97.
- * \see Wichura, M. J.  1988. Algorithm AS 241: The percentage points of the
+ * @see Wichura, M. J.  1988. Algorithm AS 241: The percentage points of the
  *      normal distribution. 37:477-484.
- * \see Beasley, JD & S. G. Springer. 1977. Algorithm AS 111: The percentage
+ * @see Beasley, JD & S. G. Springer. 1977. Algorithm AS 111: The percentage
  *      points of the normal distribution. 26:118-121.
  */
 double MbRandom::pointNormal(double prob) {
@@ -1448,10 +1448,10 @@ double MbRandom::pointNormal(double prob) {
  * small values of lambda. The method is a simple calculation of the
  * probabilities of x = 1 and x = 2. Larger values are ignored.
  *
- * \brief Poisson random variables for small lambda.
- * \param lambda is the rate parameter of the Poisson.
- * \return Returns a Poisson-distributed random variable.
- * \throws Does not throw an error.
+ * @brief Poisson random variables for small lambda.
+ * @param lambda is the rate parameter of the Poisson.
+ * @return Returns a Poisson-distributed random variable.
+ * @throws Does not throw an error.
  */
 int MbRandom::poissonLow(double lambda) {
 
@@ -1472,10 +1472,10 @@ int MbRandom::poissonLow(double lambda) {
  * This function generates a Poisson-distributed random variable using
  * inversion by the chop down method.
  *
- * \brief Poisson random variables using the chop down method.
- * \param lambda is the rate parameter of the Poisson.
- * \return Returns a Poisson-distributed random variable.
- * \throws Does not throw an error.
+ * @brief Poisson random variables using the chop down method.
+ * @param lambda is the rate parameter of the Poisson.
+ * @return Returns a Poisson-distributed random variable.
+ * @throws Does not throw an error.
  */
 int MbRandom::poissonInver(double lambda) {
 
@@ -1514,11 +1514,11 @@ int MbRandom::poissonInver(double lambda) {
  * This function generates a Poisson-distributed random variable using
  * the ratio-of-uniforms rejectin method.
  *
- * \brief Poisson random variables using the ratio-of-uniforms method.
- * \param lambda is the rate parameter of the Poisson.
- * \return Returns a Poisson-distributed random variable.
- * \throws Does not throw an error.
- * \see Stadlober, E. 1990. The ratio of uniforms approach for generating
+ * @brief Poisson random variables using the ratio-of-uniforms method.
+ * @param lambda is the rate parameter of the Poisson.
+ * @return Returns a Poisson-distributed random variable.
+ * @throws Does not throw an error.
+ * @see Stadlober, E. 1990. The ratio of uniforms approach for generating
  *      discrete random variates. Journal of Computational and Applied
  *      Mathematics 31:181-189.
  */
@@ -1571,10 +1571,10 @@ int MbRandom::poissonRatioUniforms(double lambda) {
 /*
  * This function is used when generating gamma-distributed random variables.
  *
- * \brief Subfunction for gamma random variables.
- * \param s is the shape parameter of the gamma.
- * \return Returns a gamma-distributed random variable.
- * \throws Does not throw an error.
+ * @brief Subfunction for gamma random variables.
+ * @param s is the shape parameter of the gamma.
+ * @return Returns a gamma-distributed random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::rndGamma(double s) {
 
@@ -1594,10 +1594,10 @@ double MbRandom::rndGamma(double s) {
 /*!
  * This function is used when generating gamma-distributed random variables.
  *
- * \brief Subfunction for gamma random variables.
- * \param s is the shape parameter of the gamma.
- * \return Returns a gamma-distributed random variable.
- * \throws Does not throw an error.
+ * @brief Subfunction for gamma random variables.
+ * @param s is the shape parameter of the gamma.
+ * @return Returns a gamma-distributed random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::rndGamma1(double s) {
 
@@ -1635,10 +1635,10 @@ double MbRandom::rndGamma1(double s) {
 /*!
  * This function is used when generating gamma-distributed random variables.
  *
- * \brief Subfunction for gamma random variables.
- * \param s is the shape parameter of the gamma.
- * \return Returns a gamma-distributed random variable.
- * \throws Does not throw an error.
+ * @brief Subfunction for gamma random variables.
+ * @param s is the shape parameter of the gamma.
+ * @return Returns a gamma-distributed random variable.
+ * @throws Does not throw an error.
  */
 double MbRandom::rndGamma2(double s) {
 
@@ -1678,10 +1678,10 @@ double MbRandom::rndGamma2(double s) {
  * is simply a look-up. For values of n >= 1024, the log of the factorial
  * is calculated using the Stirling approximation.
  *
- * \brief Natural log of the factorial.
- * \param n is the number for the factorial (n!).
- * \return Returns the natural log of the factorial of n.
- * \throws Does not throw an error.
+ * @brief Natural log of the factorial.
+ * @param n is the number for the factorial (n!).
+ * @return Returns the natural log of the factorial of n.
+ * @throws Does not throw an error.
  */
 double MbRandom::lnFactorial(int n) {
 

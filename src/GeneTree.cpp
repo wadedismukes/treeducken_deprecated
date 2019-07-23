@@ -96,6 +96,18 @@ double GeneTree::getCoalTime(int n){
     return ct;
 }
 
+/**
+ * @brief Function that coordinates the censored coalescent process
+ * @details While time is not 0, gets times to events, checks which Nodes are alive randomly selects two and deletes them adding in a new Node
+ *
+ * @param startTime Left-bound on times based on censoring
+ * @param stopTime Right-bound on times based on censoring
+ * @param contempSpeciesIndx SpeciesIndx of lineage being coalesced in
+ * @param ancSpIndx Index of the Ancestor of the Node of index contempSpecies Indx
+ * @param chck True if last coalescent time, otherwise false
+ * @return Bool indicating if number of nodes in Coalescent Process is now 1
+ */
+
 bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int contempSpeciesIndx, int ancSpIndx, bool chck){
     int leftInd, rightInd;
     int leftIndExtN, rightIndExtN;
@@ -195,6 +207,16 @@ bool GeneTree::censorCoalescentProcess(double startTime, double stopTime, int co
     return allCoalesced;
 }
 
+/**
+ * @brief Function for coalescing of 2 nodes at time t to 1 node
+ *
+ *
+ * @param t time of coalescent event
+ * @param p pointer to left Node of coalescent event
+ * @param q pointer to right Node of coalescent
+ * @return pointer to new Node
+ */
+
 Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
     Node *n = new Node();
     n->setDeathTime(t);
@@ -219,6 +241,14 @@ Node* GeneTree::coalescentEvent(double t, Node *p, Node *q){
     return n;
 }
 
+/**
+ * @brief rescales times based on timeMap
+ *
+ * @todo maybe delete this?
+ * @param timeMap a multimap of indices with respective times
+ * @return a multimap of recaled times with same indices
+ */
+
 std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> timeMap){
     std::multimap<int, double> rescaledTimeMap;
     std::pair<int, double> p;
@@ -232,7 +262,14 @@ std::multimap<int, double> GeneTree::rescaleTimes(std::multimap<int, double> tim
 
 }
 
-
+/**
+ * @brief Coalescent process that occurs at the root
+ * @details Loops through any remaining nodes and coalesces them at times given by getCoalTime. Note that this means negative branch lengths are possible - these indicate events occuring within the stem.
+ *
+ * @todo get rid of ogf because it is clunky and doesn't work?
+ * @param startTime time of root (final left-bound)
+ * @param ogf fraction of outgroup
+ */
 
 void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     int leftInd, rightInd;
@@ -284,6 +321,15 @@ void GeneTree::rootCoalescentProcess(double startTime, double ogf){
     this->setBranchLengths();
 }
 
+/**
+ * @brief Recursive function for rescaling times to remove negative branch lengths
+ * @todo check where this is called
+ *
+ *
+ * @param r Pointer to root Node (position one of nodes vector[Node*])
+ * @param add The number to add to put the coalescent tree root at 0
+ */
+
 void GeneTree::recursiveRescaleTimes(Node* r, double add){
     if(r != NULL){
         if( r->getRdes() == NULL){
@@ -304,6 +350,10 @@ void GeneTree::recursiveRescaleTimes(Node* r, double add){
     }
 }
 
+/**
+ * @brief Sets branch lengths of the GeneTree
+ * @details This is the same function as SpeciesTree and LocusTree
+ */
 void GeneTree::setBranchLengths(){
     double brlen;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
@@ -311,6 +361,14 @@ void GeneTree::setBranchLengths(){
         (*it)->setBranchLength(std::abs(brlen));
     }
 }
+
+/**
+ * @brief Adds in extinct species so that coalescent events can occur on these trees with same number of individuals as ipp indicates
+ *
+ *
+ * @param bt Time of death of the lineage (birth in coalescent process)
+ * @param indx index of the extinct lineage in nodes[*Node] vector of SpeciesTree class
+ */
 
 void GeneTree::addExtinctSpecies(double bt, int indx){
     Node *p;
@@ -333,6 +391,12 @@ void GeneTree::addExtinctSpecies(double bt, int indx){
 }
 
 
+/**
+ * @brief Resets indices of LocusTree class to indices of SpeciesTree class
+ *
+ *
+ * @param spToLocusMap map of species indices to locus indices
+ */
 void GeneTree::setIndicesBySpecies(std::map<int, int> spToLocusMap){
     int indx;
     int spIndx;
@@ -351,6 +415,12 @@ void GeneTree::setIndicesBySpecies(std::map<int, int> spToLocusMap){
     this->setTreeTipNames();
 }
 
+/**
+ * @brief Printing function for GeneTree class
+ * @details recursively writes tree by calling recGetNewickTree
+ * @return Newick string of the tree
+ */
+
 std::string GeneTree::printNewickTree(){
     std::stringstream ss;
     recGetNewickTree(this->getRoot(), ss);
@@ -359,6 +429,12 @@ std::string GeneTree::printNewickTree(){
     return geneTreeString;
 }
 
+/**
+ * @brief Prints tree found in GeneTree class with only extant tips
+ *
+ * @todo redundant code; delete!
+ * @return Newick string of the tree
+ */
 std::string GeneTree::printExtantNewickTree(){
     std::stringstream ss;
     recGetNewickTree(this->getRoot(), ss);
@@ -401,6 +477,13 @@ void GeneTree::recGetExtNewickTree(Node *p, std::stringstream &ss){
    }
 }
 
+/**
+ * @brief Recursively writes a Newick string using std::stringstream based on tree structure in nodes
+ *
+ *
+ * @param p Node at present to be written to ss
+ * @param ss stringstream of the string to be printed out
+ */
 void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
     if(p != NULL){
         if( p->getRdes() == NULL)
@@ -417,6 +500,10 @@ void GeneTree::recGetNewickTree(Node *p, std::stringstream &ss){
     }
 }
 
+/**
+ * @brief Loops through the vector of class Nodes and writes names to tips
+ *
+ */
 void GeneTree::setTreeTipNames(){
     int indNumber = 0;
     std::stringstream tn;
