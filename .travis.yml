@@ -1,8 +1,6 @@
 language: cpp
 sudo: required
-dist: trusty
-os:
-- linux
+cache: apt
 
 matrix:
     include:
@@ -19,7 +17,52 @@ matrix:
                 - g++-7
                 - pandoc
         - os: linux
-        
+          dist: xenial
+          env:
+          - CXX_COMPILER=/usr/bin/g++-8
+          - C_COMPILER=/usr/bin/gcc-8
+          addons:
+            apt:
+              sources:
+              - ubuntu-toolchain-r-test
+              packages:
+              - g++-8
+              - pandoc
+        - os: linux
+          dist: xenial
+          env:
+          - CXX_COMPILER=/usr/bin/g++-9
+          - C_COMPILER=/usr/bin/gcc-9
+          addons:
+            apt:
+              sources:
+              - ubuntu-toolchain-r-test
+              packages:
+              - g++-9
+              - pandoc
+            - os: linux
+          dist: xenial
+          compiler: clang++
+          env:
+            - CXX_COMPILER=/usr/local/clang-7.0.0/bin/clang++
+            - C_COMPILER=/usr/local/clang-7.0.0/bin/clang
+          addons:
+            apt:
+              sources:
+              - ubuntu-toolchain-r-test
+              - sourceline: 'ppa:mhier/libboost-latest'
+              packages:
+              - g++-8
+              - pandoc
+              - boost1.67
+        - os: osx
+          osx_image: xcode9.4
+          env: PYTHON=3.5.1
+        - os: osx
+          osx_image: xcode10.2
+          env: PYTHON=3.5.1
+
+
 before_install:
 - if [ -n "${C_COMPILER}" ]; then sudo update-alternatives --install /usr/bin/gcc  gcc "${C_COMPILER}"  90; fi
 - if [ -n "${CXX_COMPILER}" ]; then sudo update-alternatives --install /usr/bin/g++  g++ "${CXX_COMPILER}"  90; fi

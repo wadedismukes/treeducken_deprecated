@@ -10,6 +10,8 @@
 #include "SpeciesTree.h"
 #include "Simulator.h"
 #include "Engine.h"
+#include <string.h>
+
 #include "GitVersion.h"
 
 void printHelp();
@@ -35,10 +37,10 @@ void printHelp(){
     std::cout << "\t\t-ne   : effective population size per locus [= 0] \n";
     std::cout << "\t\t-ng   : number of genes to simulate per locus [= 0] \n";
     std::cout << "\t\t-og   : fraction of tree to use as length of branch between outgroup [=0.0] \n" ;
-    std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n"; 
-    std::cout << "\t\t-sc     : tree scale [=1.0] \n";  
+    std::cout << "\t\t-istnw  : input species tree (newick format) [=""] \n";
+    std::cout << "\t\t-sc     : tree scale [=1.0] \n";
     std::cout << "\t\t-sout   : turn off standard output (improves runtime) \n";
-//    std::cout << "\t\t-mst    : Moran species tree ";  
+//    std::cout << "\t\t-mst    : Moran species tree ";
 }
 
 void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
@@ -136,7 +138,7 @@ int main(int argc, char * argv[]) {
                                         mst = atoi(line.substr(5, std::string::npos-1).c_str());
                                 }
                             }
-                            
+
                         }
                         else{
                             std::cerr << "The input file was unable to be opened.\n" << std::endl;
@@ -299,7 +301,7 @@ int main(int argc, char * argv[]) {
                                ts,
                                r,
                                nt,
-                               nloc, 
+                               nloc,
                                ngen,
                                og,
                                sout,
@@ -314,7 +316,7 @@ int main(int argc, char * argv[]) {
 
 
     }
-    
+
     delete phyEngine;
     return 0;
 }
