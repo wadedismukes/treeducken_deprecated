@@ -1,18 +1,14 @@
-//
-//  LocusTree.h
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/13/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #ifndef LocusTree_h
 #define LocusTree_h
 
 #include "SpeciesTree.h"
 #include <algorithm>
 #include <set>
-
+/**
+ * @brief LocusTree class which is a child of the LocusTree class. 
+ * @details LocusTree is produced via functions within the Simulator class. Within the tree structure of the SpeciesTree class
+ *
+ */
 class LocusTree : public Tree 
 {
     private:

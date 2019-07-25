@@ -1,14 +1,17 @@
- //
-//  LocusTree.cpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/13/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved
-//
-
 #include <iostream>
 #include "LocusTree.h"
 
+/**
+ * @brief Constructor for the locus tree class 
+ * @details Inherited from the tree class, structure is based on the nodes vector of class Node* of the SpeciesTree class.
+ * 
+ * @param p MrBayes based RNG seed
+ * @param nt Number of tips in species tree as unsigned int
+ * @param stop time to stop at determined by SpeciesTree as double
+ * @param gbr Gene birth rate as double
+ * @param gdr Gene death rate as double
+ * @param lgtrate Lateral gene transfer rate 
+ */
 LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double gdr, double lgtrate) : Tree(p, nt, 0.0){
     rando = p;
     numTaxa = 1;
@@ -23,11 +26,22 @@ LocusTree::LocusTree(MbRandom *p, unsigned nt, double stop, double gbr, double g
     getRoot()->setLindx(0);
 }
 
+/**
+ * @brief Destructor of LocusTree class
+ */
+
 LocusTree::~LocusTree(){
 
 }
 
-
+/**
+ * @brief Function that sets information of Node during simulation
+ * @details for both left and right lineages sets information for descendants
+ * 
+ * @param indx Index of node that is splitting in the vector of class Node*
+ * @param r right Node*
+ * @param l left Node*
+ */
 
 void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     extantNodes[indx]->setLdes(l);
@@ -70,6 +84,13 @@ void LocusTree::setNewLineageInfo(int indx, Node *r, Node *l){
     numExtant = (int)extantNodes.size();
 }
 
+/**
+ * @brief Function for birth event of Node at indx in nodes vector
+ * 
+ * 
+ * @param indx Index of node being split into right and left descendant
+ */
+
 void LocusTree::lineageBirthEvent(unsigned indx){
     Node *sis, *right;
     right = new Node();
@@ -77,6 +98,13 @@ void LocusTree::lineageBirthEvent(unsigned indx){
     setNewLineageInfo(indx, right, sis);
     numDuplications += 1;
 }
+
+/**
+ * @brief Function for lineage extinction
+ * 
+ * 
+ * @param indx Index of lineage that is going extinct
+ */
 
 void LocusTree::lineageDeathEvent(unsigned indx){
     extantNodes[indx]->setDeathTime(currentTime);
@@ -88,6 +116,13 @@ void LocusTree::lineageDeathEvent(unsigned indx){
     numLosses += 1;
     numExtant = (int) extantNodes.size();
 }
+
+/**
+ * @brief Function for transfer of one locus lineage from one species lineage to another
+ *
+ * 
+ * @param indx Index of locus lineage that is to be transferred
+ */
 
 void LocusTree::lineageTransferEvent(int indx){
     unsigned spIndxD = extantNodes[indx]->getIndex();
@@ -181,6 +216,11 @@ void LocusTree::lineageTransferEvent(int indx){
     numExtant = (int) extantNodes.size();
 }
 
+/**
+ * @brief Function to determine time till the next event based on rates of events
+ * 
+ * @return Double of time till the next event
+ */
 double LocusTree::getTimeToNextEvent(){
     double sumrt = geneBirthRate + geneDeathRate + transferRate;
     double returnTime = 0.0;
@@ -189,6 +229,12 @@ double LocusTree::getTimeToNextEvent(){
     return returnTime;
 }
 
+/**
+ * @brief Event function to determine which event based on rates
+ * 
+ * 
+ * @param ct Time as double of event
+ */
 void LocusTree::ermEvent(double ct){
     double relBr = geneBirthRate / (geneDeathRate + geneBirthRate + transferRate);
     double relLGTr = transferRate / (geneBirthRate + geneDeathRate + transferRate) + relBr;
@@ -210,7 +256,15 @@ void LocusTree::ermEvent(double ct){
 }
 
 
-
+/**
+ * @brief Function that splits ALL locus lineages in a species lineage into species descendants
+ * @details Based on time splits all locus lineages in species lineage at indx and creates new lineages to be copied in descedants given in sibs
+ * 
+ * @param indx Index of species that speciates at time time
+ * @param time Time speciation event is occurring
+ * @param sibs Pair of indices of descendant lineages of species lineage at indx
+ * @return Number of lineages out
+ */
 int LocusTree::speciationEvent(int indx, double time, std::pair<int,int> sibs){
     // indx is the index of the species that is to speciate at the input time
     Node *r, *l;
@@ -265,6 +319,13 @@ int LocusTree::speciationEvent(int indx, double time, std::pair<int,int> sibs){
     return count;
 }
 
+/**
+ * @brief Extinction event for locus lineages in species lineage
+ * @details For extinction events in SpeciesTree at time time for lineage at indx deletes all locus lineages
+ * 
+ * @param indx Index of species lineage that is going extinct
+ * @param time double giving the time of extinction
+ */
 void LocusTree::extinctionEvent(int indx, double time){
     // indx is the index of the species that is to go extinct at the input time
     int lociExtNodesIndx;
@@ -286,6 +347,15 @@ void LocusTree::extinctionEvent(int indx, double time){
     numTaxa--;
 }
 
+/**
+ * @brief Sets new indices of locus lineages after speciation events
+ *
+ * 
+ * @param indx Index of species lineage that speciates
+ * @param sibs  Pair of indices giving left as 0 and right as 1 
+ * @param count Number of locus lineages to be set 
+ */
+
 void LocusTree::setNewIndices(int indx, std::pair<int,int> sibs, int count){
     int lociExtNodesIndx;
     for(std::vector<Node*>::iterator it = extantNodes.begin(); it != extantNodes.end();){
@@ -304,6 +374,13 @@ void LocusTree::setNewIndices(int indx, std::pair<int,int> sibs, int count){
     }
 }
 
+/**
+ * @brief Recursive function for printing Newick tree
+ * 
+ * 
+ * @param p Node to have index and branch length printed
+ * @param ss Stringstream where the Newick string tree is written to 
+ */
 
 void LocusTree::recGetNewickTree(Node *p, std::stringstream &ss){
     if(p != NULL){
@@ -335,6 +412,12 @@ void LocusTree::recGetNewickTree(Node *p, std::stringstream &ss){
     }
 }
 
+/**
+ * @brief Sets final time at end of locus tree simulation
+ * 
+ * @param currentT Current time as a double in simulation 
+ */
+
 void LocusTree::setPresentTime(double currentT){
     for(std::vector<Node*>::iterator it = nodes.begin(); it !=  nodes.end(); ++it){
         if((*it)->getIsExtant())
@@ -344,6 +427,7 @@ void LocusTree::setPresentTime(double currentT){
     this->setTreeTipNames();
 }
 
+//TODO: definitely make this a thing
 std::vector<std::string> LocusTree::printSubTrees(){
     std::vector<std::string> subTrees;
     std::stringstream ss;
@@ -359,6 +443,10 @@ std::vector<std::string> LocusTree::printSubTrees(){
     return subTrees;
 }
 
+/**
+ * @brief Function to call recGetNewickTree 
+ * @return Returns Newick string of a tree 
+ */
 std::string LocusTree::printNewickTree(){
     std::stringstream ss;
     recGetNewickTree(this->getRoot(), ss);
@@ -366,6 +454,11 @@ std::string LocusTree::printNewickTree(){
     std::string loTree = ss.str();
     return loTree;
 }
+
+/**
+ * @brief Sets the tip names of a tree according to species indices
+ * 
+ */
 
 void LocusTree::setTreeTipNames(){
     unsigned copyNumber = 0;
@@ -426,6 +519,7 @@ void LocusTree::setTreeTipNames(){
     }
 }
 
+// TODO: this isn't being used and might need to be deleted
 // NOTE: this names tips but doesn't have unique tip names
 void LocusTree::recTipNamer(Node *p, unsigned &copyNumber){
     if(p != NULL){
@@ -459,6 +553,11 @@ void LocusTree::recTipNamer(Node *p, unsigned &copyNumber){
 }
 
 
+/**
+ * @brief Sets branch lengths for a LocusTree
+ * @details Same for the other classes inherited from Tree
+ */
+
 void LocusTree::setBranchLengths(){
     double brlen;
     for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
@@ -467,6 +566,10 @@ void LocusTree::setBranchLengths(){
     }
 }
 
+/**
+ * @brief Function to get death times of all LocusTree nodes
+ * @return Multimap containing pairs of species tree nodes with death times
+ */
 std::multimap<int, double> LocusTree::getDeathTimesFromNodes(){
     int locusIndx;
     double deathTime;
@@ -479,6 +582,10 @@ std::multimap<int, double> LocusTree::getDeathTimesFromNodes(){
     return deathTimeMap;
 }
 
+/**
+ * @brief Function to get death times of LocusTree nodes that are going extinct
+ * @return Multimap containing pairs of species tree nodes with death times
+ */
 
 std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
     int locusIndx;
@@ -496,6 +603,10 @@ std::multimap<int, double> LocusTree::getDeathTimesFromExtinctNodes(){
     return deathTimeMap;
 }
 
+/**
+ * @brief Function to get birth times of all LocusTree nodes
+ * @return Multimap containing pairs of species tree nodes with birth times
+ */
 std::map<int, double> LocusTree::getBirthTimesFromNodes(){
     int locusIndx;
     double birthTime;
@@ -510,6 +621,14 @@ std::map<int, double> LocusTree::getBirthTimesFromNodes(){
     return birthTimeMap;
 }
 
+/**
+ * @brief Function to retrieve a vector of which loci are alive at which times slices
+ * @details Returns a vector of vector. The outer vector is of length equal to the number of 
+ epochs" defined by either branching events in locus tree or death events. The inner vectors are the indices alive within each epoch
+ * 
+ * @param epochs Set of epochs sorted from greatest to least
+ * @return Vector of epochs with members vectors of indices
+ */)
 std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::greater<double> > epochs){
 
     int locusIndx;
@@ -543,6 +662,13 @@ std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::g
     return locusInEpoch;
 }
 
+/**
+ * @brief Function to go in postorder (rootward) traversal
+ * 
+ * 
+ * @param indx Starting index
+ * @return Index of ancestor of indx
+ */
 int LocusTree::postOrderTraversalStep(int indx){
     Node* anc;
     int ancIndx;
@@ -555,6 +681,12 @@ int LocusTree::postOrderTraversalStep(int indx){
 
     return ancIndx;
 }
+
+/**
+ * @brief Function to get a map of loci indices associated with species indices
+ * 
+ * @return A map of loci indices with species indices
+ */
 
 std::map<int,int> LocusTree::getLocusToSpeciesMap(){
     std::map<int,int> locusToSpecies;
@@ -571,6 +703,10 @@ std::map<int,int> LocusTree::getLocusToSpeciesMap(){
     return locusToSpecies;
 }
 
+/**
+ * @brief Gets indices of lineages that go extinct before present
+ * @return Set of indices of Node* classes from LocusTree that are Extinct and Tips
+ */
 std::set<int> LocusTree::getExtLociIndx(){
     std::set<int> doomedLoci;
     int indx;
@@ -595,15 +731,24 @@ std::set<int> LocusTree::getCoalBounds(){
     }
     return coalBoundLoci;
 }
-
+/**
+ * @brief Returns the number of transfers that have occured in LocusTree history
+ * @return Integer of number of transfers
+ */
 int LocusTree::getNumberTransfers(){
     return numTransfers;
 }
-
+/**
+ * @brief Returns the number of gene duplications (births) that have occured in LocusTree history
+ * @return Integer of number of duplications
+ */
 int LocusTree::getNumberDuplications(){
     return numDuplications;
 }
-
+/**
+ * @brief Returns the number of gene losses (deaths) that have occured in LocusTree history
+ * @return Integer of number of gene losses
+ */
 int LocusTree::getNumberLosses(){
     return numLosses;
 }
