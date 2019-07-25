@@ -1,5 +1,6 @@
 language: cpp
 sudo: required
+cache: apt
 
 matrix:
     include:
@@ -18,8 +19,8 @@ matrix:
         - os: linux
           dist: xenial
           env:
-          - CXX_COMPILER=/usr/bin/g++-8
-          - C_COMPILER=/usr/bin/gcc-8
+           - CXX_COMPILER=/usr/bin/g++-8
+           - C_COMPILER=/usr/bin/gcc-8
           addons:
             apt:
               sources:
@@ -30,8 +31,8 @@ matrix:
         - os: linux
           dist: xenial
           env:
-          - CXX_COMPILER=/usr/bin/g++-9
-          - C_COMPILER=/usr/bin/gcc-9
+           - CXX_COMPILER=/usr/bin/g++-9
+           - C_COMPILER=/usr/bin/gcc-9
           addons:
             apt:
               sources:
