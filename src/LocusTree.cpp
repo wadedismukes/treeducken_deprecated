@@ -628,7 +628,7 @@ std::map<int, double> LocusTree::getBirthTimesFromNodes(){
  * 
  * @param epochs Set of epochs sorted from greatest to least
  * @return Vector of epochs with members vectors of indices
- */)
+ */
 std::vector< std::vector<int> > LocusTree::getExtantLoci(std::set<double, std::greater<double> > epochs){
 
     int locusIndx;
