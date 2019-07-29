@@ -1,0 +1,519 @@
+\hypertarget{class_locus_tree}{}\section{Locus\+Tree Class Reference}
+\label{class_locus_tree}\index{LocusTree@{LocusTree}}
+
+
+\mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class which is a child of the \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class.  
+
+
+
+
+{\ttfamily \#include $<$Locus\+Tree.\+h$>$}
+
+Inheritance diagram for Locus\+Tree\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_locus_tree}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_locus_tree_a42f3e86f07cf22caab268d6ffb79ce83}{Locus\+Tree}} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$rando, unsigned nt, double stop, double gbr, double gdr, double lgtr)
+\begin{DoxyCompactList}\small\item\em Constructor for the locus tree class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_locus_tree_a8b1037605f0f12240aa8b284b98db883}\label{class_locus_tree_a8b1037605f0f12240aa8b284b98db883}} 
+virtual \mbox{\hyperlink{class_locus_tree_a8b1037605f0f12240aa8b284b98db883}{$\sim$\+Locus\+Tree}} ()
+\begin{DoxyCompactList}\small\item\em Destructor of \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class. \end{DoxyCompactList}\item 
+virtual double \mbox{\hyperlink{class_locus_tree_aadc6be0b7998a9af9c815693b17bbd75}{get\+Time\+To\+Next\+Event}} ()
+\begin{DoxyCompactList}\small\item\em Function to determine time till the next event based on rates of events. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_locus_tree_a7753da5011b9c38cf2c6cdcebfd4e2a7}{lineage\+Birth\+Event}} (unsigned indx)
+\begin{DoxyCompactList}\small\item\em Function for birth event of \mbox{\hyperlink{class_node}{Node}} at indx in nodes vector. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_locus_tree_a8016a380d942ecb255e6bfe36275f398}{lineage\+Death\+Event}} (unsigned indx)
+\begin{DoxyCompactList}\small\item\em Function for lineage extinction. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_locus_tree_a37103788986521133f5b828b00cb7221}{set\+New\+Lineage\+Info}} (int indx, \mbox{\hyperlink{class_node}{Node}} $\ast$r, \mbox{\hyperlink{class_node}{Node}} $\ast$s)
+\begin{DoxyCompactList}\small\item\em Function that sets information of \mbox{\hyperlink{class_node}{Node}} during simulation. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_a8123a4d6570c6325e5924dfc6644d430}{lineage\+Transfer\+Event}} (int indx)
+\begin{DoxyCompactList}\small\item\em Function for transfer of one locus lineage from one species lineage to another. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_ac26a76f2505dc80a9e45a501f5463427}{erm\+Event}} (double ct)
+\begin{DoxyCompactList}\small\item\em Event function to determine which event based on rates. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_locus_tree_aa02492f9fddec2f4a340d8d3171c22fa}{speciation\+Event}} (int indx, double time, std\+::pair$<$ int, int $>$ sibs)
+\begin{DoxyCompactList}\small\item\em Function that splits A\+LL locus lineages in a species lineage into species descendants. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_a3834ac0ce434f88fabd27de70c950076}{extinction\+Event}} (int indx, double time)
+\begin{DoxyCompactList}\small\item\em Extinction event for locus lineages in species lineage. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_a6ae1511b9e291777a6ef9364c243722d}{set\+New\+Indices}} (int indx, std\+::pair$<$ int, int $>$ sibs, int count)
+\begin{DoxyCompactList}\small\item\em Sets new indices of locus lineages after speciation events. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_locus_tree_ab4a4727ab800808da5031a16eccb3162}{print\+Newick\+Tree}} ()
+\begin{DoxyCompactList}\small\item\em Function to call rec\+Get\+Newick\+Tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_aa35f5146960c0af19975152ae6f47e8c}{set\+Tree\+Tip\+Names}} ()
+\begin{DoxyCompactList}\small\item\em Sets the tip names of a tree according to species indices. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_locus_tree_ac9074deb777a4a09823a2a107ecd81c6}\label{class_locus_tree_ac9074deb777a4a09823a2a107ecd81c6}} 
+void {\bfseries rec\+Tip\+Namer} (\mbox{\hyperlink{class_node}{Node}} $\ast$p, unsigned \&copy\+Number)
+\item 
+void \mbox{\hyperlink{class_locus_tree_ae7ea80d7265d1a65949f32968b1ebb89}{rec\+Get\+Newick\+Tree}} (\mbox{\hyperlink{class_node}{Node}} $\ast$r, std\+::stringstream \&ss)
+\begin{DoxyCompactList}\small\item\em Recursive function for printing Newick tree. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_ad6debdb569a14d29e34fa9557b9c31aa}{set\+Branch\+Lengths}} ()
+\begin{DoxyCompactList}\small\item\em Sets branch lengths for a \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_locus_tree_af600f07120f0f4da36834046afd30c6b}{set\+Present\+Time}} (double currentT)
+\begin{DoxyCompactList}\small\item\em Sets final time at end of locus tree simulation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_locus_tree_a65f30de0ab5242fe10e9f0084b27b798}\label{class_locus_tree_a65f30de0ab5242fe10e9f0084b27b798}} 
+void {\bfseries set\+Stop\+Time} (double st)
+\item 
+\mbox{\Hypertarget{class_locus_tree_a68c138667f08a2c178d4d70ca8c4f425}\label{class_locus_tree_a68c138667f08a2c178d4d70ca8c4f425}} 
+double {\bfseries get\+Current\+Time} ()
+\item 
+\mbox{\Hypertarget{class_locus_tree_a7e1d46d1458f51669dd24146f938ecee}\label{class_locus_tree_a7e1d46d1458f51669dd24146f938ecee}} 
+void {\bfseries set\+Current\+Time} (double ct)
+\item 
+int \mbox{\hyperlink{class_locus_tree_a18be5f9a0732dd0e3eac0efac16bc258}{get\+Number\+Transfers}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of transfers that have occured in \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} history. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_locus_tree_a5ab14226be51de0219ac2eee98b18dec}{get\+Number\+Duplications}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of gene duplications (births) that have occured in \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} history. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_locus_tree_a4bbad232a6763f1c7a16162cd50ae12d}{get\+Number\+Losses}} ()
+\begin{DoxyCompactList}\small\item\em Returns the number of gene losses (deaths) that have occured in \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} history. \end{DoxyCompactList}\item 
+std\+::map$<$ int, double $>$ \mbox{\hyperlink{class_locus_tree_a230fa4aeec913f6d567c0021efe83cce}{get\+Birth\+Times\+From\+Nodes}} ()
+\begin{DoxyCompactList}\small\item\em Function to get birth times of all \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} nodes. \end{DoxyCompactList}\item 
+std\+::set$<$ int $>$ \mbox{\hyperlink{class_locus_tree_abf6fca34687f1cbe128caae5d1ac737f}{get\+Ext\+Loci\+Indx}} ()
+\begin{DoxyCompactList}\small\item\em Gets indices of lineages that go extinct before present. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_locus_tree_a6ab81966cf57c64fd765d82118ac3396}\label{class_locus_tree_a6ab81966cf57c64fd765d82118ac3396}} 
+std\+::set$<$ int $>$ {\bfseries get\+Coal\+Bounds} ()
+\item 
+std\+::multimap$<$ int, double $>$ \mbox{\hyperlink{class_locus_tree_a5cb41c31ce0966a42a14bf533a59628b}{get\+Death\+Times\+From\+Nodes}} ()
+\begin{DoxyCompactList}\small\item\em Function to get death times of all \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} nodes. \end{DoxyCompactList}\item 
+std\+::multimap$<$ int, double $>$ \mbox{\hyperlink{class_locus_tree_abb55c1a342d51d1c9c14ded1ec956b7d}{get\+Death\+Times\+From\+Extinct\+Nodes}} ()
+\begin{DoxyCompactList}\small\item\em Function to get death times of \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} nodes that are going extinct. \end{DoxyCompactList}\item 
+std\+::map$<$ int, int $>$ \mbox{\hyperlink{class_locus_tree_a33f60a30325b66eb6953e909517980a4}{get\+Locus\+To\+Species\+Map}} ()
+\begin{DoxyCompactList}\small\item\em Function to get a map of loci indices associated with species indices. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \mbox{\hyperlink{class_locus_tree_a73bb95535ffc07ef6c8ad5978a0b2a06}{get\+Extant\+Loci}} (std\+::set$<$ double, std\+::greater$<$ double $>$ $>$ epoch\+Set)
+\begin{DoxyCompactList}\small\item\em Function to retrieve a vector of which loci are alive at which times slices. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_locus_tree_a3386627735dce363c53bee66ed91e8d4}\label{class_locus_tree_a3386627735dce363c53bee66ed91e8d4}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries print\+Sub\+Trees} ()
+\item 
+int \mbox{\hyperlink{class_locus_tree_a612c899bfa5f06b2277f7032bca394d2}{post\+Order\+Traversal\+Step}} (int indx)
+\begin{DoxyCompactList}\small\item\em Function to go in postorder (rootward) traversal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class which is a child of the \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class. 
+
+\mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} is produced via functions within the \mbox{\hyperlink{class_simulator}{Simulator}} class. Within the tree structure of the \mbox{\hyperlink{class_species_tree}{Species\+Tree}} class 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_locus_tree_a42f3e86f07cf22caab268d6ffb79ce83}\label{class_locus_tree_a42f3e86f07cf22caab268d6ffb79ce83}} 
+\index{LocusTree@{LocusTree}!LocusTree@{LocusTree}}
+\index{LocusTree@{LocusTree}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{LocusTree()}{LocusTree()}}
+{\footnotesize\ttfamily Locus\+Tree\+::\+Locus\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$}]{p,  }\item[{unsigned}]{nt,  }\item[{double}]{stop,  }\item[{double}]{gbr,  }\item[{double}]{gdr,  }\item[{double}]{lgtrate }\end{DoxyParamCaption})}
+
+
+
+Constructor for the locus tree class. 
+
+Inherited from the tree class, structure is based on the nodes vector of class Node$\ast$ of the \mbox{\hyperlink{class_species_tree}{Species\+Tree}} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Mr\+Bayes based R\+NG seed \\
+\hline
+{\em nt} & Number of tips in species tree as unsigned int \\
+\hline
+{\em stop} & time to stop at determined by \mbox{\hyperlink{class_species_tree}{Species\+Tree}} as double \\
+\hline
+{\em gbr} & Gene birth rate as double \\
+\hline
+{\em gdr} & Gene death rate as double \\
+\hline
+{\em lgtrate} & Lateral gene transfer rate \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_locus_tree_ac26a76f2505dc80a9e45a501f5463427}\label{class_locus_tree_ac26a76f2505dc80a9e45a501f5463427}} 
+\index{LocusTree@{LocusTree}!ermEvent@{ermEvent}}
+\index{ermEvent@{ermEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{ermEvent()}{ermEvent()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::erm\+Event (\begin{DoxyParamCaption}\item[{double}]{ct }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Event function to determine which event based on rates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ct} & Time as double of event \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_locus_tree_a3834ac0ce434f88fabd27de70c950076}\label{class_locus_tree_a3834ac0ce434f88fabd27de70c950076}} 
+\index{LocusTree@{LocusTree}!extinctionEvent@{extinctionEvent}}
+\index{extinctionEvent@{extinctionEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{extinctionEvent()}{extinctionEvent()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::extinction\+Event (\begin{DoxyParamCaption}\item[{int}]{indx,  }\item[{double}]{time }\end{DoxyParamCaption})}
+
+
+
+Extinction event for locus lineages in species lineage. 
+
+For extinction events in \mbox{\hyperlink{class_species_tree}{Species\+Tree}} at time time for lineage at indx deletes all locus lineages
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of species lineage that is going extinct \\
+\hline
+{\em time} & double giving the time of extinction \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_a230fa4aeec913f6d567c0021efe83cce}\label{class_locus_tree_a230fa4aeec913f6d567c0021efe83cce}} 
+\index{LocusTree@{LocusTree}!getBirthTimesFromNodes@{getBirthTimesFromNodes}}
+\index{getBirthTimesFromNodes@{getBirthTimesFromNodes}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getBirthTimesFromNodes()}{getBirthTimesFromNodes()}}
+{\footnotesize\ttfamily std\+::map$<$ int, double $>$ Locus\+Tree\+::get\+Birth\+Times\+From\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to get birth times of all \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} nodes. 
+
+\begin{DoxyReturn}{Returns}
+Multimap containing pairs of species tree nodes with birth times 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_abb55c1a342d51d1c9c14ded1ec956b7d}\label{class_locus_tree_abb55c1a342d51d1c9c14ded1ec956b7d}} 
+\index{LocusTree@{LocusTree}!getDeathTimesFromExtinctNodes@{getDeathTimesFromExtinctNodes}}
+\index{getDeathTimesFromExtinctNodes@{getDeathTimesFromExtinctNodes}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getDeathTimesFromExtinctNodes()}{getDeathTimesFromExtinctNodes()}}
+{\footnotesize\ttfamily std\+::multimap$<$ int, double $>$ Locus\+Tree\+::get\+Death\+Times\+From\+Extinct\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to get death times of \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} nodes that are going extinct. 
+
+\begin{DoxyReturn}{Returns}
+Multimap containing pairs of species tree nodes with death times 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_a5cb41c31ce0966a42a14bf533a59628b}\label{class_locus_tree_a5cb41c31ce0966a42a14bf533a59628b}} 
+\index{LocusTree@{LocusTree}!getDeathTimesFromNodes@{getDeathTimesFromNodes}}
+\index{getDeathTimesFromNodes@{getDeathTimesFromNodes}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getDeathTimesFromNodes()}{getDeathTimesFromNodes()}}
+{\footnotesize\ttfamily std\+::multimap$<$ int, double $>$ Locus\+Tree\+::get\+Death\+Times\+From\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to get death times of all \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} nodes. 
+
+\begin{DoxyReturn}{Returns}
+Multimap containing pairs of species tree nodes with death times 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_a73bb95535ffc07ef6c8ad5978a0b2a06}\label{class_locus_tree_a73bb95535ffc07ef6c8ad5978a0b2a06}} 
+\index{LocusTree@{LocusTree}!getExtantLoci@{getExtantLoci}}
+\index{getExtantLoci@{getExtantLoci}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getExtantLoci()}{getExtantLoci()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::vector$<$ int $>$ $>$ Locus\+Tree\+::get\+Extant\+Loci (\begin{DoxyParamCaption}\item[{std\+::set$<$ double, std\+::greater$<$ double $>$ $>$}]{epochs }\end{DoxyParamCaption})}
+
+
+
+Function to retrieve a vector of which loci are alive at which times slices. 
+
+Returns a vector of vector. The outer vector is of length equal to the number of epochs" defined by either branching events in locus tree or death events. The inner vectors are the indices alive within each epoch
+
+
+\begin{DoxyParams}{Parameters}
+{\em epochs} & Set of epochs sorted from greatest to least \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector of epochs with members vectors of indices 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_abf6fca34687f1cbe128caae5d1ac737f}\label{class_locus_tree_abf6fca34687f1cbe128caae5d1ac737f}} 
+\index{LocusTree@{LocusTree}!getExtLociIndx@{getExtLociIndx}}
+\index{getExtLociIndx@{getExtLociIndx}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getExtLociIndx()}{getExtLociIndx()}}
+{\footnotesize\ttfamily std\+::set$<$ int $>$ Locus\+Tree\+::get\+Ext\+Loci\+Indx (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets indices of lineages that go extinct before present. 
+
+\begin{DoxyReturn}{Returns}
+Set of indices of Node$\ast$ classes from \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} that are Extinct and Tips 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_a33f60a30325b66eb6953e909517980a4}\label{class_locus_tree_a33f60a30325b66eb6953e909517980a4}} 
+\index{LocusTree@{LocusTree}!getLocusToSpeciesMap@{getLocusToSpeciesMap}}
+\index{getLocusToSpeciesMap@{getLocusToSpeciesMap}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getLocusToSpeciesMap()}{getLocusToSpeciesMap()}}
+{\footnotesize\ttfamily std\+::map$<$ int, int $>$ Locus\+Tree\+::get\+Locus\+To\+Species\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Function to get a map of loci indices associated with species indices. 
+
+\begin{DoxyReturn}{Returns}
+A map of loci indices with species indices 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_a5ab14226be51de0219ac2eee98b18dec}\label{class_locus_tree_a5ab14226be51de0219ac2eee98b18dec}} 
+\index{LocusTree@{LocusTree}!getNumberDuplications@{getNumberDuplications}}
+\index{getNumberDuplications@{getNumberDuplications}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getNumberDuplications()}{getNumberDuplications()}}
+{\footnotesize\ttfamily int Locus\+Tree\+::get\+Number\+Duplications (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the number of gene duplications (births) that have occured in \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} history. 
+
+\begin{DoxyReturn}{Returns}
+Integer of number of duplications 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_a4bbad232a6763f1c7a16162cd50ae12d}\label{class_locus_tree_a4bbad232a6763f1c7a16162cd50ae12d}} 
+\index{LocusTree@{LocusTree}!getNumberLosses@{getNumberLosses}}
+\index{getNumberLosses@{getNumberLosses}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getNumberLosses()}{getNumberLosses()}}
+{\footnotesize\ttfamily int Locus\+Tree\+::get\+Number\+Losses (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the number of gene losses (deaths) that have occured in \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} history. 
+
+\begin{DoxyReturn}{Returns}
+Integer of number of gene losses 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_a18be5f9a0732dd0e3eac0efac16bc258}\label{class_locus_tree_a18be5f9a0732dd0e3eac0efac16bc258}} 
+\index{LocusTree@{LocusTree}!getNumberTransfers@{getNumberTransfers}}
+\index{getNumberTransfers@{getNumberTransfers}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getNumberTransfers()}{getNumberTransfers()}}
+{\footnotesize\ttfamily int Locus\+Tree\+::get\+Number\+Transfers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Returns the number of transfers that have occured in \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} history. 
+
+\begin{DoxyReturn}{Returns}
+Integer of number of transfers 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_aadc6be0b7998a9af9c815693b17bbd75}\label{class_locus_tree_aadc6be0b7998a9af9c815693b17bbd75}} 
+\index{LocusTree@{LocusTree}!getTimeToNextEvent@{getTimeToNextEvent}}
+\index{getTimeToNextEvent@{getTimeToNextEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{getTimeToNextEvent()}{getTimeToNextEvent()}}
+{\footnotesize\ttfamily double Locus\+Tree\+::get\+Time\+To\+Next\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Function to determine time till the next event based on rates of events. 
+
+\begin{DoxyReturn}{Returns}
+Double of time till the next event 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_locus_tree_a7753da5011b9c38cf2c6cdcebfd4e2a7}\label{class_locus_tree_a7753da5011b9c38cf2c6cdcebfd4e2a7}} 
+\index{LocusTree@{LocusTree}!lineageBirthEvent@{lineageBirthEvent}}
+\index{lineageBirthEvent@{lineageBirthEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{lineageBirthEvent()}{lineageBirthEvent()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::lineage\+Birth\+Event (\begin{DoxyParamCaption}\item[{unsigned}]{indx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Function for birth event of \mbox{\hyperlink{class_node}{Node}} at indx in nodes vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of node being split into right and left descendant \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_a8016a380d942ecb255e6bfe36275f398}\label{class_locus_tree_a8016a380d942ecb255e6bfe36275f398}} 
+\index{LocusTree@{LocusTree}!lineageDeathEvent@{lineageDeathEvent}}
+\index{lineageDeathEvent@{lineageDeathEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{lineageDeathEvent()}{lineageDeathEvent()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::lineage\+Death\+Event (\begin{DoxyParamCaption}\item[{unsigned}]{indx }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Function for lineage extinction. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of lineage that is going extinct \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_a8123a4d6570c6325e5924dfc6644d430}\label{class_locus_tree_a8123a4d6570c6325e5924dfc6644d430}} 
+\index{LocusTree@{LocusTree}!lineageTransferEvent@{lineageTransferEvent}}
+\index{lineageTransferEvent@{lineageTransferEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{lineageTransferEvent()}{lineageTransferEvent()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::lineage\+Transfer\+Event (\begin{DoxyParamCaption}\item[{int}]{indx }\end{DoxyParamCaption})}
+
+
+
+Function for transfer of one locus lineage from one species lineage to another. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of locus lineage that is to be transferred \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_a612c899bfa5f06b2277f7032bca394d2}\label{class_locus_tree_a612c899bfa5f06b2277f7032bca394d2}} 
+\index{LocusTree@{LocusTree}!postOrderTraversalStep@{postOrderTraversalStep}}
+\index{postOrderTraversalStep@{postOrderTraversalStep}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{postOrderTraversalStep()}{postOrderTraversalStep()}}
+{\footnotesize\ttfamily int Locus\+Tree\+::post\+Order\+Traversal\+Step (\begin{DoxyParamCaption}\item[{int}]{indx }\end{DoxyParamCaption})}
+
+
+
+Function to go in postorder (rootward) traversal. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Starting index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of ancestor of indx 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_locus_tree_ab4a4727ab800808da5031a16eccb3162}\label{class_locus_tree_ab4a4727ab800808da5031a16eccb3162}} 
+\index{LocusTree@{LocusTree}!printNewickTree@{printNewickTree}}
+\index{printNewickTree@{printNewickTree}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{printNewickTree()}{printNewickTree()}}
+{\footnotesize\ttfamily std\+::string Locus\+Tree\+::print\+Newick\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Function to call rec\+Get\+Newick\+Tree. 
+
+\begin{DoxyReturn}{Returns}
+Returns Newick string of a tree 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_locus_tree_ae7ea80d7265d1a65949f32968b1ebb89}\label{class_locus_tree_ae7ea80d7265d1a65949f32968b1ebb89}} 
+\index{LocusTree@{LocusTree}!recGetNewickTree@{recGetNewickTree}}
+\index{recGetNewickTree@{recGetNewickTree}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{recGetNewickTree()}{recGetNewickTree()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::rec\+Get\+Newick\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{p,  }\item[{std\+::stringstream \&}]{ss }\end{DoxyParamCaption})}
+
+
+
+Recursive function for printing Newick tree. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{class_node}{Node}} to have index and branch length printed \\
+\hline
+{\em ss} & Stringstream where the Newick string tree is written to \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_ad6debdb569a14d29e34fa9557b9c31aa}\label{class_locus_tree_ad6debdb569a14d29e34fa9557b9c31aa}} 
+\index{LocusTree@{LocusTree}!setBranchLengths@{setBranchLengths}}
+\index{setBranchLengths@{setBranchLengths}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{setBranchLengths()}{setBranchLengths()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::set\+Branch\+Lengths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets branch lengths for a \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}}. 
+
+Same for the other classes inherited from \mbox{\hyperlink{class_tree}{Tree}} 
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_locus_tree_a6ae1511b9e291777a6ef9364c243722d}\label{class_locus_tree_a6ae1511b9e291777a6ef9364c243722d}} 
+\index{LocusTree@{LocusTree}!setNewIndices@{setNewIndices}}
+\index{setNewIndices@{setNewIndices}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{setNewIndices()}{setNewIndices()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::set\+New\+Indices (\begin{DoxyParamCaption}\item[{int}]{indx,  }\item[{std\+::pair$<$ int, int $>$}]{sibs,  }\item[{int}]{count }\end{DoxyParamCaption})}
+
+
+
+Sets new indices of locus lineages after speciation events. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of species lineage that speciates \\
+\hline
+{\em sibs} & Pair of indices giving left as 0 and right as 1 \\
+\hline
+{\em count} & Number of locus lineages to be set \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_a37103788986521133f5b828b00cb7221}\label{class_locus_tree_a37103788986521133f5b828b00cb7221}} 
+\index{LocusTree@{LocusTree}!setNewLineageInfo@{setNewLineageInfo}}
+\index{setNewLineageInfo@{setNewLineageInfo}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{setNewLineageInfo()}{setNewLineageInfo()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::set\+New\+Lineage\+Info (\begin{DoxyParamCaption}\item[{int}]{indx,  }\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{r,  }\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{l }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Function that sets information of \mbox{\hyperlink{class_node}{Node}} during simulation. 
+
+for both left and right lineages sets information for descendants
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of node that is splitting in the vector of class Node$\ast$ \\
+\hline
+{\em r} & right Node$\ast$ \\
+\hline
+{\em l} & left Node$\ast$ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_af600f07120f0f4da36834046afd30c6b}\label{class_locus_tree_af600f07120f0f4da36834046afd30c6b}} 
+\index{LocusTree@{LocusTree}!setPresentTime@{setPresentTime}}
+\index{setPresentTime@{setPresentTime}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{setPresentTime()}{setPresentTime()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::set\+Present\+Time (\begin{DoxyParamCaption}\item[{double}]{currentT }\end{DoxyParamCaption})}
+
+
+
+Sets final time at end of locus tree simulation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em currentT} & Current time as a double in simulation \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_locus_tree_aa35f5146960c0af19975152ae6f47e8c}\label{class_locus_tree_aa35f5146960c0af19975152ae6f47e8c}} 
+\index{LocusTree@{LocusTree}!setTreeTipNames@{setTreeTipNames}}
+\index{setTreeTipNames@{setTreeTipNames}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{setTreeTipNames()}{setTreeTipNames()}}
+{\footnotesize\ttfamily void Locus\+Tree\+::set\+Tree\+Tip\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets the tip names of a tree according to species indices. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_locus_tree_aa02492f9fddec2f4a340d8d3171c22fa}\label{class_locus_tree_aa02492f9fddec2f4a340d8d3171c22fa}} 
+\index{LocusTree@{LocusTree}!speciationEvent@{speciationEvent}}
+\index{speciationEvent@{speciationEvent}!LocusTree@{LocusTree}}
+\subsubsection{\texorpdfstring{speciationEvent()}{speciationEvent()}}
+{\footnotesize\ttfamily int Locus\+Tree\+::speciation\+Event (\begin{DoxyParamCaption}\item[{int}]{indx,  }\item[{double}]{time,  }\item[{std\+::pair$<$ int, int $>$}]{sibs }\end{DoxyParamCaption})}
+
+
+
+Function that splits A\+LL locus lineages in a species lineage into species descendants. 
+
+Based on time splits all locus lineages in species lineage at indx and creates new lineages to be copied in descedants given in sibs
+
+
+\begin{DoxyParams}{Parameters}
+{\em indx} & Index of species that speciates at time time \\
+\hline
+{\em time} & Time speciation event is occurring \\
+\hline
+{\em sibs} & Pair of indices of descendant lineages of species lineage at indx \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of lineages out 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Locus\+Tree.\+h\item 
+src/Locus\+Tree.\+cpp\end{DoxyCompactItemize}

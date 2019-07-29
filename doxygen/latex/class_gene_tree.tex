@@ -1,0 +1,364 @@
+\hypertarget{class_gene_tree}{}\section{Gene\+Tree Class Reference}
+\label{class_gene_tree}\index{GeneTree@{GeneTree}}
+
+
+\mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class which is a child of the \mbox{\hyperlink{class_tree}{Tree}} class. \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} is produced via functions within the.  
+
+
+
+
+{\ttfamily \#include $<$Gene\+Tree.\+h$>$}
+
+Inheritance diagram for Gene\+Tree\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_gene_tree}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gene_tree_a57636d1228af2bca9cc76f61eeacf133}{Gene\+Tree}} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$rando, unsigned nt, unsigned ipp, unsigned ne, double gen\+Time)
+\begin{DoxyCompactList}\small\item\em specified in generations per year \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_gene_tree_a3194730e7bf9234b64596b33ea80b206}{$\sim$\+Gene\+Tree}} ()
+\begin{DoxyCompactList}\small\item\em Destructor of \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_gene_tree_aa82ff207791d4fa7c10c60148fa0e0c7}{get\+Coal\+Time}} (int n)
+\begin{DoxyCompactList}\small\item\em Gets the time to next coalescent event. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ \mbox{\hyperlink{class_gene_tree_a42733fabd2023bb63ba2e329277d4203}{coalescent\+Event}} (double t, \mbox{\hyperlink{class_node}{Node}} $\ast$p, \mbox{\hyperlink{class_node}{Node}} $\ast$q)
+\begin{DoxyCompactList}\small\item\em Function for coalescing of 2 nodes at time t to 1 node. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_gene_tree_abc2bdf64c9b4e30a6a76d0b53543bdcf}{censor\+Coalescent\+Process}} (double start\+Time, double stop\+Time, int contemp\+Sp\+Indx, int new\+Sp\+Indx, bool chck)
+\begin{DoxyCompactList}\small\item\em Function that coordinates the censored coalescent process. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_a0a8c2983745b2e99585b467ab7bf1115}{initialize\+Tree}} (std\+::vector$<$ std\+::vector$<$ int $>$ $>$ extant\+Loci\+Indx, double present\+Time)
+\begin{DoxyCompactList}\small\item\em Function that takes vector of vector of indices of loci at the present and creates a vector of class \mbox{\hyperlink{class_node}{Node}} at the start of \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} simulation. \end{DoxyCompactList}\item 
+std\+::multimap$<$ int, double $>$ \mbox{\hyperlink{class_gene_tree_a6549561e4582a7a28a6b68c895c302e7}{rescale\+Times}} (std\+::multimap$<$ int, double $>$ time\+Map)
+\begin{DoxyCompactList}\small\item\em rescales times based on time\+Map \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_a0eac2f81800a4aa6734dd1d9ef329614}{root\+Coalescent\+Process}} (double start\+Time, double ogf)
+\begin{DoxyCompactList}\small\item\em Coalescent process that occurs at the root. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_a3f9736710802274e64f167ff984d42ca}{recursive\+Rescale\+Times}} (\mbox{\hyperlink{class_node}{Node}} $\ast$r, double add)
+\begin{DoxyCompactList}\small\item\em Recursive function for rescaling times to remove negative branch lengths. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_a3c0dbf4e22df508a00bb814c68f7fe54}{set\+Branch\+Lengths}} ()
+\begin{DoxyCompactList}\small\item\em Sets branch lengths of the \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_afa604551a08482b11d50f4cd65a96a2f}{set\+Indices\+By\+Species}} (std\+::map$<$ int, int $>$ sp\+To\+Locus\+Map)
+\begin{DoxyCompactList}\small\item\em Resets indices of \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class to indices of \mbox{\hyperlink{class_species_tree}{Species\+Tree}} class. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_gene_tree_a5c9b307d48f39ed63b1a300153e808e1}{print\+Newick\+Tree}} ()
+\begin{DoxyCompactList}\small\item\em Printing function for \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_gene_tree_a877e150b8f85aded8a8a80bf466e6038}{print\+Extant\+Newick\+Tree}} ()
+\begin{DoxyCompactList}\small\item\em Prints tree found in \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class with only extant tips. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_a47d25bac2bc3d18e96a1b9c970bf6dc2}{rec\+Get\+Newick\+Tree}} (\mbox{\hyperlink{class_node}{Node}} $\ast$r, std\+::stringstream \&ss)
+\begin{DoxyCompactList}\small\item\em Recursively writes a Newick string using std\+::stringstream based on tree structure in nodes. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_gene_tree_a0ab9bf53a7821e1c8fbb209aa56be876}\label{class_gene_tree_a0ab9bf53a7821e1c8fbb209aa56be876}} 
+void {\bfseries rec\+Get\+Ext\+Newick\+Tree} (\mbox{\hyperlink{class_node}{Node}} $\ast$r, std\+::stringstream \&ss)
+\item 
+void \mbox{\hyperlink{class_gene_tree_a7c67f2aa78bd6d46e6f1b2fede6c3284}{set\+Tree\+Tip\+Names}} ()
+\begin{DoxyCompactList}\small\item\em Loops through the vector of class Nodes and writes names to tips. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_gene_tree_ad79daade253cb04d531122307ca64367}{add\+Extinct\+Species}} (double bt, int indx)
+\begin{DoxyCompactList}\small\item\em Adds in extinct species so that coalescent events can occur on these trees with same number of individuals as ipp indicates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class which is a child of the \mbox{\hyperlink{class_tree}{Tree}} class. \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} is produced via functions within the. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_gene_tree_a57636d1228af2bca9cc76f61eeacf133}\label{class_gene_tree_a57636d1228af2bca9cc76f61eeacf133}} 
+\index{GeneTree@{GeneTree}!GeneTree@{GeneTree}}
+\index{GeneTree@{GeneTree}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{GeneTree()}{GeneTree()}}
+{\footnotesize\ttfamily Gene\+Tree\+::\+Gene\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$}]{p,  }\item[{unsigned}]{nt,  }\item[{unsigned}]{ipp,  }\item[{unsigned}]{ne,  }\item[{double}]{gen\+Time }\end{DoxyParamCaption})}
+
+
+
+specified in generations per year 
+
+Constructor of the \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class inherited from the \mbox{\hyperlink{class_tree}{Tree}} class.
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{class_mb_random}{Mb\+Random}}} & $\ast$p pointer to Mr\+Bayes R\+NG inherited from \mbox{\hyperlink{class_tree}{Tree}} class \\
+\hline
+{\em nt} & Number of taxa as a positive integer inherited from \mbox{\hyperlink{class_tree}{Tree}} class \\
+\hline
+{\em ipp} & Individuals per population to be sampled within each lineage branch \\
+\hline
+{\em ne} & Population size as an integer \\
+\hline
+{\em gen\+Time} & Scaling factor for gene trees in units of generations per unit time \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_a3194730e7bf9234b64596b33ea80b206}\label{class_gene_tree_a3194730e7bf9234b64596b33ea80b206}} 
+\index{GeneTree@{GeneTree}!````~GeneTree@{$\sim$GeneTree}}
+\index{````~GeneTree@{$\sim$GeneTree}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{$\sim$GeneTree()}{~GeneTree()}}
+{\footnotesize\ttfamily Gene\+Tree\+::$\sim$\+Gene\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Destructor of \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_gene_tree_ad79daade253cb04d531122307ca64367}\label{class_gene_tree_ad79daade253cb04d531122307ca64367}} 
+\index{GeneTree@{GeneTree}!addExtinctSpecies@{addExtinctSpecies}}
+\index{addExtinctSpecies@{addExtinctSpecies}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{addExtinctSpecies()}{addExtinctSpecies()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::add\+Extinct\+Species (\begin{DoxyParamCaption}\item[{double}]{bt,  }\item[{int}]{indx }\end{DoxyParamCaption})}
+
+
+
+Adds in extinct species so that coalescent events can occur on these trees with same number of individuals as ipp indicates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em bt} & Time of death of the lineage (birth in coalescent process) \\
+\hline
+{\em indx} & index of the extinct lineage in nodes\mbox{[}$\ast$\+Node\mbox{]} vector of \mbox{\hyperlink{class_species_tree}{Species\+Tree}} class \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_abc2bdf64c9b4e30a6a76d0b53543bdcf}\label{class_gene_tree_abc2bdf64c9b4e30a6a76d0b53543bdcf}} 
+\index{GeneTree@{GeneTree}!censorCoalescentProcess@{censorCoalescentProcess}}
+\index{censorCoalescentProcess@{censorCoalescentProcess}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{censorCoalescentProcess()}{censorCoalescentProcess()}}
+{\footnotesize\ttfamily bool Gene\+Tree\+::censor\+Coalescent\+Process (\begin{DoxyParamCaption}\item[{double}]{start\+Time,  }\item[{double}]{stop\+Time,  }\item[{int}]{contemp\+Species\+Indx,  }\item[{int}]{anc\+Sp\+Indx,  }\item[{bool}]{chck }\end{DoxyParamCaption})}
+
+
+
+Function that coordinates the censored coalescent process. 
+
+While time is not 0, gets times to events, checks which Nodes are alive randomly selects two and deletes them adding in a new \mbox{\hyperlink{class_node}{Node}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em start\+Time} & Left-\/bound on times based on censoring \\
+\hline
+{\em stop\+Time} & Right-\/bound on times based on censoring \\
+\hline
+{\em contemp\+Species\+Indx} & Species\+Indx of lineage being coalesced in \\
+\hline
+{\em anc\+Sp\+Indx} & Index of the Ancestor of the \mbox{\hyperlink{class_node}{Node}} of index contemp\+Species Indx \\
+\hline
+{\em chck} & True if last coalescent time, otherwise false \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Bool indicating if number of nodes in Coalescent Process is now 1 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gene_tree_a42733fabd2023bb63ba2e329277d4203}\label{class_gene_tree_a42733fabd2023bb63ba2e329277d4203}} 
+\index{GeneTree@{GeneTree}!coalescentEvent@{coalescentEvent}}
+\index{coalescentEvent@{coalescentEvent}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{coalescentEvent()}{coalescentEvent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_node}{Node}} $\ast$ Gene\+Tree\+::coalescent\+Event (\begin{DoxyParamCaption}\item[{double}]{t,  }\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{q }\end{DoxyParamCaption})}
+
+
+
+Function for coalescing of 2 nodes at time t to 1 node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em t} & time of coalescent event \\
+\hline
+{\em p} & pointer to left \mbox{\hyperlink{class_node}{Node}} of coalescent event \\
+\hline
+{\em q} & pointer to right \mbox{\hyperlink{class_node}{Node}} of coalescent \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to new \mbox{\hyperlink{class_node}{Node}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gene_tree_aa82ff207791d4fa7c10c60148fa0e0c7}\label{class_gene_tree_aa82ff207791d4fa7c10c60148fa0e0c7}} 
+\index{GeneTree@{GeneTree}!getCoalTime@{getCoalTime}}
+\index{getCoalTime@{getCoalTime}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{getCoalTime()}{getCoalTime()}}
+{\footnotesize\ttfamily double Gene\+Tree\+::get\+Coal\+Time (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+
+
+Gets the time to next coalescent event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & Number of currently living individuals in lineage \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Time to event as a double 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gene_tree_a0a8c2983745b2e99585b467ab7bf1115}\label{class_gene_tree_a0a8c2983745b2e99585b467ab7bf1115}} 
+\index{GeneTree@{GeneTree}!initializeTree@{initializeTree}}
+\index{initializeTree@{initializeTree}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{initializeTree()}{initializeTree()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::initialize\+Tree (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ int $>$ $>$}]{extant\+Loci\+Ind,  }\item[{double}]{present\+Time }\end{DoxyParamCaption})}
+
+
+
+Function that takes vector of vector of indices of loci at the present and creates a vector of class \mbox{\hyperlink{class_node}{Node}} at the start of \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} simulation. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em extant\+Loci\+Ind} & Vector of a vector of indices to get the indices corresponding to extant loci \\
+\hline
+{\em present\+Time} & The time at present (or at end of locus tree) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_a877e150b8f85aded8a8a80bf466e6038}\label{class_gene_tree_a877e150b8f85aded8a8a80bf466e6038}} 
+\index{GeneTree@{GeneTree}!printExtantNewickTree@{printExtantNewickTree}}
+\index{printExtantNewickTree@{printExtantNewickTree}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{printExtantNewickTree()}{printExtantNewickTree()}}
+{\footnotesize\ttfamily std\+::string Gene\+Tree\+::print\+Extant\+Newick\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints tree found in \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class with only extant tips. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000005}{Todo}}]redundant code; delete! \end{DoxyRefDesc}
+\begin{DoxyReturn}{Returns}
+Newick string of the tree 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gene_tree_a5c9b307d48f39ed63b1a300153e808e1}\label{class_gene_tree_a5c9b307d48f39ed63b1a300153e808e1}} 
+\index{GeneTree@{GeneTree}!printNewickTree@{printNewickTree}}
+\index{printNewickTree@{printNewickTree}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{printNewickTree()}{printNewickTree()}}
+{\footnotesize\ttfamily std\+::string Gene\+Tree\+::print\+Newick\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Printing function for \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} class. 
+
+recursively writes tree by calling rec\+Get\+Newick\+Tree \begin{DoxyReturn}{Returns}
+Newick string of the tree 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_gene_tree_a47d25bac2bc3d18e96a1b9c970bf6dc2}\label{class_gene_tree_a47d25bac2bc3d18e96a1b9c970bf6dc2}} 
+\index{GeneTree@{GeneTree}!recGetNewickTree@{recGetNewickTree}}
+\index{recGetNewickTree@{recGetNewickTree}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{recGetNewickTree()}{recGetNewickTree()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::rec\+Get\+Newick\+Tree (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{p,  }\item[{std\+::stringstream \&}]{ss }\end{DoxyParamCaption})}
+
+
+
+Recursively writes a Newick string using std\+::stringstream based on tree structure in nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \mbox{\hyperlink{class_node}{Node}} at present to be written to ss \\
+\hline
+{\em ss} & stringstream of the string to be printed out \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_a3f9736710802274e64f167ff984d42ca}\label{class_gene_tree_a3f9736710802274e64f167ff984d42ca}} 
+\index{GeneTree@{GeneTree}!recursiveRescaleTimes@{recursiveRescaleTimes}}
+\index{recursiveRescaleTimes@{recursiveRescaleTimes}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{recursiveRescaleTimes()}{recursiveRescaleTimes()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::recursive\+Rescale\+Times (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_node}{Node}} $\ast$}]{r,  }\item[{double}]{add }\end{DoxyParamCaption})}
+
+
+
+Recursive function for rescaling times to remove negative branch lengths. 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000004}{Todo}}]check where this is called\end{DoxyRefDesc}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em r} & Pointer to root \mbox{\hyperlink{class_node}{Node}} (position one of nodes vector\mbox{[}Node$\ast$\mbox{]}) \\
+\hline
+{\em add} & The number to add to put the coalescent tree root at 0 \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_a6549561e4582a7a28a6b68c895c302e7}\label{class_gene_tree_a6549561e4582a7a28a6b68c895c302e7}} 
+\index{GeneTree@{GeneTree}!rescaleTimes@{rescaleTimes}}
+\index{rescaleTimes@{rescaleTimes}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{rescaleTimes()}{rescaleTimes()}}
+{\footnotesize\ttfamily std\+::multimap$<$ int, double $>$ Gene\+Tree\+::rescale\+Times (\begin{DoxyParamCaption}\item[{std\+::multimap$<$ int, double $>$}]{time\+Map }\end{DoxyParamCaption})}
+
+
+
+rescales times based on time\+Map 
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]maybe delete this? \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em time\+Map} & a multimap of indices with respective times \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a multimap of recaled times with same indices 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_gene_tree_a0eac2f81800a4aa6734dd1d9ef329614}\label{class_gene_tree_a0eac2f81800a4aa6734dd1d9ef329614}} 
+\index{GeneTree@{GeneTree}!rootCoalescentProcess@{rootCoalescentProcess}}
+\index{rootCoalescentProcess@{rootCoalescentProcess}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{rootCoalescentProcess()}{rootCoalescentProcess()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::root\+Coalescent\+Process (\begin{DoxyParamCaption}\item[{double}]{start\+Time,  }\item[{double}]{ogf }\end{DoxyParamCaption})}
+
+
+
+Coalescent process that occurs at the root. 
+
+Loops through any remaining nodes and coalesces them at times given by get\+Coal\+Time. Note that this means negative branch lengths are possible -\/ these indicate events occuring within the stem.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000003}{Todo}}]get rid of ogf because it is clunky and doesn\textquotesingle{}t work? \end{DoxyRefDesc}
+
+\begin{DoxyParams}{Parameters}
+{\em start\+Time} & time of root (final left-\/bound) \\
+\hline
+{\em ogf} & fraction of outgroup \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_a3c0dbf4e22df508a00bb814c68f7fe54}\label{class_gene_tree_a3c0dbf4e22df508a00bb814c68f7fe54}} 
+\index{GeneTree@{GeneTree}!setBranchLengths@{setBranchLengths}}
+\index{setBranchLengths@{setBranchLengths}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{setBranchLengths()}{setBranchLengths()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::set\+Branch\+Lengths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Sets branch lengths of the \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}}. 
+
+This is the same function as \mbox{\hyperlink{class_species_tree}{Species\+Tree}} and \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} 
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+\mbox{\Hypertarget{class_gene_tree_afa604551a08482b11d50f4cd65a96a2f}\label{class_gene_tree_afa604551a08482b11d50f4cd65a96a2f}} 
+\index{GeneTree@{GeneTree}!setIndicesBySpecies@{setIndicesBySpecies}}
+\index{setIndicesBySpecies@{setIndicesBySpecies}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{setIndicesBySpecies()}{setIndicesBySpecies()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::set\+Indices\+By\+Species (\begin{DoxyParamCaption}\item[{std\+::map$<$ int, int $>$}]{sp\+To\+Locus\+Map }\end{DoxyParamCaption})}
+
+
+
+Resets indices of \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} class to indices of \mbox{\hyperlink{class_species_tree}{Species\+Tree}} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+To\+Locus\+Map} & map of species indices to locus indices \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_gene_tree_a7c67f2aa78bd6d46e6f1b2fede6c3284}\label{class_gene_tree_a7c67f2aa78bd6d46e6f1b2fede6c3284}} 
+\index{GeneTree@{GeneTree}!setTreeTipNames@{setTreeTipNames}}
+\index{setTreeTipNames@{setTreeTipNames}!GeneTree@{GeneTree}}
+\subsubsection{\texorpdfstring{setTreeTipNames()}{setTreeTipNames()}}
+{\footnotesize\ttfamily void Gene\+Tree\+::set\+Tree\+Tip\+Names (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Loops through the vector of class Nodes and writes names to tips. 
+
+
+
+Reimplemented from \mbox{\hyperlink{class_tree}{Tree}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Gene\+Tree.\+h\item 
+src/Gene\+Tree.\+cpp\end{DoxyCompactItemize}

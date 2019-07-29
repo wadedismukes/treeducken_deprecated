@@ -1,0 +1,326 @@
+\hypertarget{class_tree_info}{}\section{Tree\+Info Class Reference}
+\label{class_tree_info}\index{TreeInfo@{TreeInfo}}
+
+
+Class for handling the trees and data about trees from the simulation run. Holds vectors of newick trees as well as various tree statistics.  
+
+
+
+
+{\ttfamily \#include $<$Engine.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_tree_info_a2cab58c1fe56ca853e0c0798ea9ef0c8}{Tree\+Info}} (int idx, int nl)
+\begin{DoxyCompactList}\small\item\em Constructor of \mbox{\hyperlink{class_tree_info}{Tree\+Info}} class used to store simulated information. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_tree_info_a76d5ab3c523122e76f727e1a3455ea3b}{$\sim$\+Tree\+Info}} ()
+\begin{DoxyCompactList}\small\item\em Destructor of \mbox{\hyperlink{class_tree_info}{Tree\+Info}} class. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_tree_info_ab72b94242d5588c3a527ab8cceecb191}\label{class_tree_info_ab72b94242d5588c3a527ab8cceecb191}} 
+std\+::string {\bfseries get\+Whole\+Species\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a8a9abe0ec92bcb58c874f80a013530e0}\label{class_tree_info_a8a9abe0ec92bcb58c874f80a013530e0}} 
+std\+::string {\bfseries get\+Extant\+Species\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a343c75a13d8b255c43739e9f22b09bdd}\label{class_tree_info_a343c75a13d8b255c43739e9f22b09bdd}} 
+std\+::string {\bfseries get\+Locus\+Tree\+By\+Indx} (int idx)
+\item 
+\mbox{\Hypertarget{class_tree_info_a1e3a82c8f75bcedee7175e13d3077784}\label{class_tree_info_a1e3a82c8f75bcedee7175e13d3077784}} 
+std\+::string {\bfseries get\+Gene\+Tree\+By\+Indx} (int Lidx, int idx)
+\item 
+\mbox{\Hypertarget{class_tree_info_affc153f41343d0918c2807fc8c67eb5c}\label{class_tree_info_affc153f41343d0918c2807fc8c67eb5c}} 
+std\+::string {\bfseries get\+Ext\+Gene\+Tree\+By\+Indx} (int Lidx, int idx)
+\item 
+\mbox{\Hypertarget{class_tree_info_a0e982a6a72655a5a944f206c430a0c57}\label{class_tree_info_a0e982a6a72655a5a944f206c430a0c57}} 
+double {\bfseries get\+Species\+Tree\+Length} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a069b1de656460ec6fc34783cde8673c5}\label{class_tree_info_a069b1de656460ec6fc34783cde8673c5}} 
+double {\bfseries get\+Species\+Tree\+Ness} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_ac86de2c3121a4be42c5712aa5b3b051a}\label{class_tree_info_ac86de2c3121a4be42c5712aa5b3b051a}} 
+double {\bfseries get\+Species\+Ave\+Tip\+Len} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a71f3b4d335251c4580ec10e76d1df4ab}\label{class_tree_info_a71f3b4d335251c4580ec10e76d1df4ab}} 
+double {\bfseries get\+Species\+Tree\+Depth} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a285d48b8323a922c9968209c18b247ad}\label{class_tree_info_a285d48b8323a922c9968209c18b247ad}} 
+double {\bfseries get\+Locus\+Tree\+Length} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_ab873c161b24cb69cdcb50f025c25dafa}\label{class_tree_info_ab873c161b24cb69cdcb50f025c25dafa}} 
+double {\bfseries get\+Locus\+Tree\+Ness} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a9fcdb36b920fccb30fbb02b5a6bbb678}\label{class_tree_info_a9fcdb36b920fccb30fbb02b5a6bbb678}} 
+double {\bfseries get\+Locus\+Ave\+Tip\+Len} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a36472029ec92b19acd503226022e4156}\label{class_tree_info_a36472029ec92b19acd503226022e4156}} 
+double {\bfseries get\+Locus\+Tree\+Depth} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_aa8c36d3bfa92c2a35c7484d91d22b55a}\label{class_tree_info_aa8c36d3bfa92c2a35c7484d91d22b55a}} 
+double {\bfseries get\+Ave\+T\+M\+R\+C\+A\+Gene\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a36009367ab8b28bdfbdcc08a4f6b9d64}\label{class_tree_info_a36009367ab8b28bdfbdcc08a4f6b9d64}} 
+int {\bfseries get\+Number\+Transfers} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a7fe6c510d153e8fab3a64f441da37d49}\label{class_tree_info_a7fe6c510d153e8fab3a64f441da37d49}} 
+int {\bfseries get\+Number\+Duplications} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_af4ba25d86eb43de749e519ee59579fc5}\label{class_tree_info_af4ba25d86eb43de749e519ee59579fc5}} 
+int {\bfseries get\+Number\+Losses} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a76973d8e4b91c51eac102a8b75b1240d}\label{class_tree_info_a76973d8e4b91c51eac102a8b75b1240d}} 
+std\+::vector$<$ double $>$ {\bfseries get\+Number\+Generations} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_abb6030f12d958662d2765469d8f4de56}\label{class_tree_info_abb6030f12d958662d2765469d8f4de56}} 
+double {\bfseries get\+Number\+Generations\+By\+Lindx} (int lindx)
+\item 
+\mbox{\Hypertarget{class_tree_info_a4557a099751e3c627cea0b0227e3b46a}\label{class_tree_info_a4557a099751e3c627cea0b0227e3b46a}} 
+double {\bfseries get\+Ext\+Species\+Tree\+Depth} ()
+\item 
+\mbox{\Hypertarget{class_tree_info_a3e5aca76f7e8da6dcc2415b12b539b2e}\label{class_tree_info_a3e5aca76f7e8da6dcc2415b12b539b2e}} 
+void {\bfseries set\+Number\+Transfers} (int d)
+\item 
+\mbox{\Hypertarget{class_tree_info_a448fee4bce56657e85b012fc194c6f38}\label{class_tree_info_a448fee4bce56657e85b012fc194c6f38}} 
+void {\bfseries set\+Number\+Duplications} (int d)
+\item 
+\mbox{\Hypertarget{class_tree_info_a3e8727b034438ac04b86503f15393b0c}\label{class_tree_info_a3e8727b034438ac04b86503f15393b0c}} 
+void {\bfseries set\+Number\+Losses} (int d)
+\item 
+\mbox{\Hypertarget{class_tree_info_adcb46ac88af15080e39adcd75c066e3c}\label{class_tree_info_adcb46ac88af15080e39adcd75c066e3c}} 
+void {\bfseries set\+Number\+Generations} (std\+::vector$<$ double $>$ ng)
+\item 
+\mbox{\Hypertarget{class_tree_info_a97f7138dc419c54c6774f6e7799081cb}\label{class_tree_info_a97f7138dc419c54c6774f6e7799081cb}} 
+void {\bfseries set\+Whole\+Tree\+String\+Info} (std\+::string ts)
+\item 
+\mbox{\Hypertarget{class_tree_info_ad8732cad13019a4eda73409d32d81301}\label{class_tree_info_ad8732cad13019a4eda73409d32d81301}} 
+void {\bfseries set\+Ext\+Tree\+String\+Info} (std\+::string ts)
+\item 
+\mbox{\Hypertarget{class_tree_info_a7d1959d8ae515a36441cfd47b6027170}\label{class_tree_info_a7d1959d8ae515a36441cfd47b6027170}} 
+void {\bfseries set\+Locus\+Tree\+By\+Indx} (int indx, std\+::string ts)
+\item 
+\mbox{\Hypertarget{class_tree_info_a210124b610317a42b2e016b328582b30}\label{class_tree_info_a210124b610317a42b2e016b328582b30}} 
+void {\bfseries set\+Gene\+Tree\+By\+Indx} (int Lindx, int indx, std\+::string ts)
+\item 
+\mbox{\Hypertarget{class_tree_info_a89af7855cad9530eebb204bc843f46cb}\label{class_tree_info_a89af7855cad9530eebb204bc843f46cb}} 
+void {\bfseries set\+Extant\+Gene\+Tree\+By\+Indx} (int Lindx, int indx, std\+::string ts)
+\item 
+\mbox{\Hypertarget{class_tree_info_a95f5c0764015478acb0a1ce61cc185f0}\label{class_tree_info_a95f5c0764015478acb0a1ce61cc185f0}} 
+void {\bfseries set\+Species\+Tree\+Length} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_a2d985fc20e362d40ccf3472d55f25997}\label{class_tree_info_a2d985fc20e362d40ccf3472d55f25997}} 
+void {\bfseries set\+Species\+Tree\+Ness} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_ab6dd316c60ab321e1b58889d15d0d665}\label{class_tree_info_ab6dd316c60ab321e1b58889d15d0d665}} 
+void {\bfseries set\+Species\+Ave\+Tip\+Len} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_af7bbba5ab2b151d18593765bb30889e9}\label{class_tree_info_af7bbba5ab2b151d18593765bb30889e9}} 
+void {\bfseries set\+Species\+Tree\+Depth} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_a3761922d622d5a1baeac1e706bf25b84}\label{class_tree_info_a3761922d622d5a1baeac1e706bf25b84}} 
+void {\bfseries set\+Locus\+Tree\+Length} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_a2f692222e034f9581e9ddd27896d40fa}\label{class_tree_info_a2f692222e034f9581e9ddd27896d40fa}} 
+void {\bfseries set\+Locus\+Tree\+Ness} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_a85d4f0671b072440e44e19607376357b}\label{class_tree_info_a85d4f0671b072440e44e19607376357b}} 
+void {\bfseries set\+Locus\+Ave\+Tip\+Len} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_ae7bc08749c4ab96733b66b85f354573d}\label{class_tree_info_ae7bc08749c4ab96733b66b85f354573d}} 
+void {\bfseries set\+Locus\+Tree\+Depth} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_a9adaf906c4a63185e6c5a879b2d19f25}\label{class_tree_info_a9adaf906c4a63185e6c5a879b2d19f25}} 
+void {\bfseries set\+Ave\+T\+M\+R\+C\+A\+Gene\+Tree} (double b)
+\item 
+\mbox{\Hypertarget{class_tree_info_a29b70b3fb063fecbefde61da373dfef4}\label{class_tree_info_a29b70b3fb063fecbefde61da373dfef4}} 
+void {\bfseries set\+Ext\+Species\+Tree\+Depth} (double b)
+\item 
+void \mbox{\hyperlink{class_tree_info_a022d5d76bffb9712d31c081925bfab46}{write\+Tree\+Stats\+File}} (int sp\+Indx, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes a tree stats file out \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tree_info_aabdbd68d218fcdd3b4e9d9044393123f}{write\+Extant\+Tree\+File\+Info}} (int sp\+Indx, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes out tree with only extant lineages as a nexus file \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tree_info_ae72e367c9d23a150e6f7b9dcda53d1f6}{write\+Whole\+Tree\+File\+Info}} (int sp\+Indx, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes out tree with all lineages as a nexus file \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tree_info_ae6ee15543dea722e8f32358398f2ef3b}{write\+Locus\+Tree\+File\+Info\+By\+Indx}} (int sp\+Indx, int indx, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes out locus tree with all lineages as a nexus file \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tree_info_a072518831dd34d1d933e1367283a4389}{write\+Gene\+Tree\+File\+Info\+By\+Indx}} (int sp\+Indx, int Lindx, int indx, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes out a gene tree of a specific locus tree within a specific species tree replicate \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tree_info_a17ecaff23a95f37356c51ddfa9453fbb}{write\+Gene\+Tree\+File\+Info}} (int sp\+Indx, int Lindx, int numgene, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes out all gene trees with all taxa of a specific locus tree within a specific species tree replicate into a nexus file \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_tree_info_adcbbda0e1deadd68ae4f19d44a42b173}{write\+Ext\+Gene\+Tree\+File\+Info}} (int sp\+Indx, int Lindx, int numgene, std\+::string ofp)
+\begin{DoxyCompactList}\small\item\em writes out all gene trees with only extant taxa of a specific locus tree within a specific species tree replicate into a nexus file \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class for handling the trees and data about trees from the simulation run. Holds vectors of newick trees as well as various tree statistics. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_tree_info_a2cab58c1fe56ca853e0c0798ea9ef0c8}\label{class_tree_info_a2cab58c1fe56ca853e0c0798ea9ef0c8}} 
+\index{TreeInfo@{TreeInfo}!TreeInfo@{TreeInfo}}
+\index{TreeInfo@{TreeInfo}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{TreeInfo()}{TreeInfo()}}
+{\footnotesize\ttfamily Tree\+Info\+::\+Tree\+Info (\begin{DoxyParamCaption}\item[{int}]{idx,  }\item[{int}]{nl }\end{DoxyParamCaption})}
+
+
+
+Constructor of \mbox{\hyperlink{class_tree_info}{Tree\+Info}} class used to store simulated information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em idx} & index of where the \mbox{\hyperlink{class_tree_info}{Tree\+Info}} is stored in a vector \\
+\hline
+{\em nl} & number of gene trees to simulate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_a76d5ab3c523122e76f727e1a3455ea3b}\label{class_tree_info_a76d5ab3c523122e76f727e1a3455ea3b}} 
+\index{TreeInfo@{TreeInfo}!````~TreeInfo@{$\sim$TreeInfo}}
+\index{````~TreeInfo@{$\sim$TreeInfo}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{$\sim$TreeInfo()}{~TreeInfo()}}
+{\footnotesize\ttfamily Tree\+Info\+::$\sim$\+Tree\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Destructor of \mbox{\hyperlink{class_tree_info}{Tree\+Info}} class. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tree_info_aabdbd68d218fcdd3b4e9d9044393123f}\label{class_tree_info_aabdbd68d218fcdd3b4e9d9044393123f}} 
+\index{TreeInfo@{TreeInfo}!writeExtantTreeFileInfo@{writeExtantTreeFileInfo}}
+\index{writeExtantTreeFileInfo@{writeExtantTreeFileInfo}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeExtantTreeFileInfo()}{writeExtantTreeFileInfo()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Extant\+Tree\+File\+Info (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes out tree with only extant lineages as a nexus file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & species tree index of species tree to be written out \\
+\hline
+{\em ofp} & string of the outfile prefix \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_adcbbda0e1deadd68ae4f19d44a42b173}\label{class_tree_info_adcbbda0e1deadd68ae4f19d44a42b173}} 
+\index{TreeInfo@{TreeInfo}!writeExtGeneTreeFileInfo@{writeExtGeneTreeFileInfo}}
+\index{writeExtGeneTreeFileInfo@{writeExtGeneTreeFileInfo}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeExtGeneTreeFileInfo()}{writeExtGeneTreeFileInfo()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Ext\+Gene\+Tree\+File\+Info (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{int}]{Lindx,  }\item[{int}]{num\+Genes,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes out all gene trees with only extant taxa of a specific locus tree within a specific species tree replicate into a nexus file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & replicate index \\
+\hline
+{\em Lindx} & index of locus tree within species tree of index sp\+Indx \\
+\hline
+{\em num\+Genes} & size of gene trees to be output into a nexus file \\
+\hline
+{\em ofp} & string of outfile prefix name \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_a17ecaff23a95f37356c51ddfa9453fbb}\label{class_tree_info_a17ecaff23a95f37356c51ddfa9453fbb}} 
+\index{TreeInfo@{TreeInfo}!writeGeneTreeFileInfo@{writeGeneTreeFileInfo}}
+\index{writeGeneTreeFileInfo@{writeGeneTreeFileInfo}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeGeneTreeFileInfo()}{writeGeneTreeFileInfo()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Gene\+Tree\+File\+Info (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{int}]{Lindx,  }\item[{int}]{num\+Genes,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes out all gene trees with all taxa of a specific locus tree within a specific species tree replicate into a nexus file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & replicate index \\
+\hline
+{\em Lindx} & index of locus tree within species tree of index sp\+Indx \\
+\hline
+{\em num\+Genes} & size of gene trees to be output into a nexus file \\
+\hline
+{\em ofp} & string of outfile prefix name \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_a072518831dd34d1d933e1367283a4389}\label{class_tree_info_a072518831dd34d1d933e1367283a4389}} 
+\index{TreeInfo@{TreeInfo}!writeGeneTreeFileInfoByIndx@{writeGeneTreeFileInfoByIndx}}
+\index{writeGeneTreeFileInfoByIndx@{writeGeneTreeFileInfoByIndx}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeGeneTreeFileInfoByIndx()}{writeGeneTreeFileInfoByIndx()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Gene\+Tree\+File\+Info\+By\+Indx (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{int}]{Lindx,  }\item[{int}]{indx,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes out a gene tree of a specific locus tree within a specific species tree replicate 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & replicate index \\
+\hline
+{\em Lindx} & index of locus tree within species tree of index sp\+Indx \\
+\hline
+{\em indx} & index of gene tree within locus tree of index Lindx \\
+\hline
+{\em ofp} & string of outfile prefix name \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_ae6ee15543dea722e8f32358398f2ef3b}\label{class_tree_info_ae6ee15543dea722e8f32358398f2ef3b}} 
+\index{TreeInfo@{TreeInfo}!writeLocusTreeFileInfoByIndx@{writeLocusTreeFileInfoByIndx}}
+\index{writeLocusTreeFileInfoByIndx@{writeLocusTreeFileInfoByIndx}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeLocusTreeFileInfoByIndx()}{writeLocusTreeFileInfoByIndx()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Locus\+Tree\+File\+Info\+By\+Indx (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{int}]{indx,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes out locus tree with all lineages as a nexus file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & species tree index of species tree to be written out \\
+\hline
+{\em indx} & index of locus tree within species tree of index sp\+Indx \\
+\hline
+{\em ofp} & string of the outfile prefix \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_a022d5d76bffb9712d31c081925bfab46}\label{class_tree_info_a022d5d76bffb9712d31c081925bfab46}} 
+\index{TreeInfo@{TreeInfo}!writeTreeStatsFile@{writeTreeStatsFile}}
+\index{writeTreeStatsFile@{writeTreeStatsFile}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeTreeStatsFile()}{writeTreeStatsFile()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Tree\+Stats\+File (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes a tree stats file out 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & index of the simulation to write the statistics out of \\
+\hline
+{\em ofp} & string of the outfile prefix \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_tree_info_ae72e367c9d23a150e6f7b9dcda53d1f6}\label{class_tree_info_ae72e367c9d23a150e6f7b9dcda53d1f6}} 
+\index{TreeInfo@{TreeInfo}!writeWholeTreeFileInfo@{writeWholeTreeFileInfo}}
+\index{writeWholeTreeFileInfo@{writeWholeTreeFileInfo}!TreeInfo@{TreeInfo}}
+\subsubsection{\texorpdfstring{writeWholeTreeFileInfo()}{writeWholeTreeFileInfo()}}
+{\footnotesize\ttfamily void Tree\+Info\+::write\+Whole\+Tree\+File\+Info (\begin{DoxyParamCaption}\item[{int}]{sp\+Indx,  }\item[{std\+::string}]{ofp }\end{DoxyParamCaption})}
+
+
+
+writes out tree with all lineages as a nexus file 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp\+Indx} & species tree index of species tree to be written out \\
+\hline
+{\em ofp} & string of the outfile prefix \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Engine.\+h\item 
+src/Engine.\+cpp\end{DoxyCompactItemize}

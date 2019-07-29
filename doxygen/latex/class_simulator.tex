@@ -1,0 +1,330 @@
+\hypertarget{class_simulator}{}\section{Simulator Class Reference}
+\label{class_simulator}\index{Simulator@{Simulator}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_simulator_ad76f54c9f7089e19fa2e79749064a233}{Simulator}} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa\+To\+Sim, double speciation\+Rate, double extinction\+Rate, double rho)
+\item 
+\mbox{\hyperlink{class_simulator_abdd673afec81537e76e9fd9aecb5b07e}{Simulator}} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa\+To\+Sim, double speciation\+Rate, double extinction\+Rate, double rho, unsigned num\+Loci\+To\+Sim, double gene\+Birth\+Rate, double gene\+Death\+Rate, double transfer\+Rate)
+\item 
+\mbox{\Hypertarget{class_simulator_a79e5c8af2a23cf4853432e4b329a1ed4}\label{class_simulator_a79e5c8af2a23cf4853432e4b329a1ed4}} 
+{\bfseries Simulator} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa\+To\+Sim, double speciation\+Rate, double extinction\+Rate, double rho, unsigned num\+Loci\+To\+Sim, double gene\+Birth\+Rate, double gene\+Death\+Rate, double transfer\+Rate, double prop\+Transfer)
+\item 
+\mbox{\hyperlink{class_simulator_a3583cdc1848ee5b9d92567bd6f15469a}{Simulator}} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa\+To\+Sim, double speciation\+Rate, double extinction\+Rate, double rho, unsigned num\+Loci\+To\+Sim, double gene\+Birth\+Rate, double gene\+Death\+Rate, double transfer\+Rate, unsigned ind\+Per\+Pop, unsigned pop\+Size, double gen\+Time, int ng, double og, double ts, bool sout)
+\item 
+\mbox{\hyperlink{class_simulator_a0f49aa04f42060a785adf77346b9de9f}{$\sim$\+Simulator}} ()
+\item 
+\mbox{\Hypertarget{class_simulator_abd3de29725cf974dc9cbe46978aa6614}\label{class_simulator_abd3de29725cf974dc9cbe46978aa6614}} 
+void {\bfseries set\+Species\+Tree} (\mbox{\hyperlink{class_species_tree}{Species\+Tree}} $\ast$st)
+\item 
+bool \mbox{\hyperlink{class_simulator_aa48bbe1603f0f11e9d0a73bd6764de25}{gsa\+B\+D\+Sim}} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a594bb753a9e8a95b895360f7a2d288d7}\label{class_simulator_a594bb753a9e8a95b895360f7a2d288d7}} 
+bool {\bfseries bdsa\+B\+D\+Sim} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a403e43a1ccc4d975fbca7699fb3cdf77}\label{class_simulator_a403e43a1ccc4d975fbca7699fb3cdf77}} 
+bool {\bfseries moran\+Species\+Sim} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a550ebe8001a6674d1762f53d47934355}\label{class_simulator_a550ebe8001a6674d1762f53d47934355}} 
+bool {\bfseries coalescent\+Sim} ()
+\item 
+\mbox{\Hypertarget{class_simulator_ac76f803132f16e9257bb3c318c16b29e}\label{class_simulator_ac76f803132f16e9257bb3c318c16b29e}} 
+bool {\bfseries sim\+Species\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a11a40d9b2459a96763bc9cc47da69860}\label{class_simulator_a11a40d9b2459a96763bc9cc47da69860}} 
+bool {\bfseries sim\+Moran\+Species\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_simulator_af302a2ffee1399151be2b117edd68d0e}\label{class_simulator_af302a2ffee1399151be2b117edd68d0e}} 
+bool {\bfseries sim\+Species\+Loci\+Trees} ()
+\item 
+\mbox{\Hypertarget{class_simulator_aa2f17d707d8e3d8ec06f629d19d7dd3e}\label{class_simulator_aa2f17d707d8e3d8ec06f629d19d7dd3e}} 
+bool {\bfseries sim\+Three\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a05f8daaf88686a43aca01ccf016a2bff}\label{class_simulator_a05f8daaf88686a43aca01ccf016a2bff}} 
+bool {\bfseries sim\+Locus\+Gene\+Trees} ()
+\item 
+bool \mbox{\hyperlink{class_simulator_a4773bc1cd4fb3b407044dd8db796b297}{gsa\+Check\+Stop}} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a9e777ed450bf361dcc64e48c8e628f40}\label{class_simulator_a9e777ed450bf361dcc64e48c8e628f40}} 
+bool {\bfseries moran\+Check\+Stop} ()
+\item 
+void \mbox{\hyperlink{class_simulator_a7146d0d7fffe8f78d99a1956ba51bc11}{initialize\+Sim}} ()
+\item 
+void \mbox{\hyperlink{class_simulator_a16a8faee8487c96a8a0e00db292d5029}{process\+G\+S\+A\+Sim}} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a0f2e8d45f88a2fd7b58a1e8da356bc09}\label{class_simulator_a0f2e8d45f88a2fd7b58a1e8da356bc09}} 
+void {\bfseries prep\+G\+S\+A\+Tree\+For\+Reconstruction} ()
+\item 
+void \mbox{\hyperlink{class_simulator_ab88791e8609fa9f8076157516eb9ab1b}{process\+Sp\+Tree\+Sim}} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a02924abe5f79ca1c9ac70c49a7947977}\label{class_simulator_a02924abe5f79ca1c9ac70c49a7947977}} 
+void {\bfseries graft\+Outgroup} (\mbox{\hyperlink{class_tree}{Tree}} $\ast$tr, double tr\+Depth)
+\item 
+\mbox{\Hypertarget{class_simulator_a3b720bc00028bd2722ec4bea8a18ebe6}\label{class_simulator_a3b720bc00028bd2722ec4bea8a18ebe6}} 
+double {\bfseries calc\+Species\+Tree\+Depth} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a0036d7652cf8a777b12892c842aef1ae}\label{class_simulator_a0036d7652cf8a777b12892c842aef1ae}} 
+double {\bfseries calc\+Extant\+Species\+Tree\+Depth} ()
+\item 
+\mbox{\Hypertarget{class_simulator_ac8a1a45a3a0f2e420a772615654a2ead}\label{class_simulator_ac8a1a45a3a0f2e420a772615654a2ead}} 
+double {\bfseries calc\+Locus\+Tree\+Depth} (int i)
+\item 
+\mbox{\Hypertarget{class_simulator_a9b86c16407230bbb9cdf476245b5c789}\label{class_simulator_a9b86c16407230bbb9cdf476245b5c789}} 
+int {\bfseries find\+Number\+Transfers} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a56c575c6092df2e6415ac3104ae9e60b}\label{class_simulator_a56c575c6092df2e6415ac3104ae9e60b}} 
+int {\bfseries find\+Number\+Duplications} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a1b9baa98cbc1ba7c3055a6314d22b8cd}\label{class_simulator_a1b9baa98cbc1ba7c3055a6314d22b8cd}} 
+int {\bfseries find\+Number\+Losses} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a2ec0d83a756cbc5c4f2dad456dcdc8d8}\label{class_simulator_a2ec0d83a756cbc5c4f2dad456dcdc8d8}} 
+std\+::vector$<$ double $>$ {\bfseries find\+Number\+Generations} ()
+\item 
+\mbox{\Hypertarget{class_simulator_aa5b343432884746471a99d6508cf7fd5}\label{class_simulator_aa5b343432884746471a99d6508cf7fd5}} 
+double {\bfseries find\+T\+M\+R\+C\+A\+Gene\+Tree} (int i, int j)
+\item 
+\mbox{\Hypertarget{class_simulator_abf6ee7eae9c75f72ad45be9b731b04b6}\label{class_simulator_abf6ee7eae9c75f72ad45be9b731b04b6}} 
+std\+::string {\bfseries print\+Species\+Tree\+Newick} ()
+\item 
+\mbox{\Hypertarget{class_simulator_ab205a2e713e3c2056844b560b93ce7ba}\label{class_simulator_ab205a2e713e3c2056844b560b93ce7ba}} 
+std\+::string {\bfseries print\+Ext\+Species\+Tree\+Newick} ()
+\item 
+\mbox{\Hypertarget{class_simulator_a97a59d13372af9e44e5a77ffb52f691f}\label{class_simulator_a97a59d13372af9e44e5a77ffb52f691f}} 
+std\+::string {\bfseries print\+Locus\+Tree\+Newick} (int i)
+\item 
+\mbox{\Hypertarget{class_simulator_a66f898c3509caa6fed6f2541b6f5e18d}\label{class_simulator_a66f898c3509caa6fed6f2541b6f5e18d}} 
+std\+::string {\bfseries print\+Gene\+Tree\+Newick} (int i, int j)
+\item 
+\mbox{\Hypertarget{class_simulator_a2fec1961177cc3fc467c32758985c2b5}\label{class_simulator_a2fec1961177cc3fc467c32758985c2b5}} 
+std\+::string {\bfseries print\+Extant\+Gene\+Tree\+Newick} (int i, int j)
+\item 
+\mbox{\Hypertarget{class_simulator_ad9fea6b4be6b5f88108b2ad84a016074}\label{class_simulator_ad9fea6b4be6b5f88108b2ad84a016074}} 
+std\+::set$<$ double, std\+::greater$<$ double $>$ $>$ {\bfseries get\+Epochs} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simulator_a3eb24e849f10dbd8bef87da970511c7b}\label{class_simulator_a3eb24e849f10dbd8bef87da970511c7b}} 
+\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$ {\bfseries rando}
+\item 
+\mbox{\Hypertarget{class_simulator_adf98331a1a0ebb7a1069b61a8976f4a1}\label{class_simulator_adf98331a1a0ebb7a1069b61a8976f4a1}} 
+double {\bfseries current\+Sim\+Time}
+\item 
+\mbox{\Hypertarget{class_simulator_a0e84e88de706df317cd1063e541f8ac1}\label{class_simulator_a0e84e88de706df317cd1063e541f8ac1}} 
+unsigned {\bfseries sim\+Type}
+\item 
+\mbox{\Hypertarget{class_simulator_a115e62bbda9ef2e5752e2f81715ecf2f}\label{class_simulator_a115e62bbda9ef2e5752e2f81715ecf2f}} 
+unsigned {\bfseries num\+Taxa\+To\+Sim}
+\item 
+\mbox{\Hypertarget{class_simulator_acd694573dc9c43fcdcb6b66dd9154922}\label{class_simulator_acd694573dc9c43fcdcb6b66dd9154922}} 
+unsigned {\bfseries gsa\+Stop}
+\item 
+\mbox{\Hypertarget{class_simulator_a44e52c29507eb9f839a9639549edb090}\label{class_simulator_a44e52c29507eb9f839a9639549edb090}} 
+unsigned {\bfseries num\+Loci}
+\item 
+\mbox{\Hypertarget{class_simulator_a0fccba7c833003a8fa9f2bfb1932d722}\label{class_simulator_a0fccba7c833003a8fa9f2bfb1932d722}} 
+unsigned {\bfseries num\+Genes}
+\item 
+\mbox{\Hypertarget{class_simulator_abf61f355da53b56851551e2bae7515d9}\label{class_simulator_abf61f355da53b56851551e2bae7515d9}} 
+double {\bfseries speciation\+Rate}
+\item 
+\mbox{\Hypertarget{class_simulator_ac302a3cf8940ffcca2f573b53c66470c}\label{class_simulator_ac302a3cf8940ffcca2f573b53c66470c}} 
+double {\bfseries extinction\+Rate}
+\item 
+\mbox{\Hypertarget{class_simulator_a30d21940bc8123bfbe314b04610b7734}\label{class_simulator_a30d21940bc8123bfbe314b04610b7734}} 
+double {\bfseries sampling\+Rate}
+\item 
+\mbox{\Hypertarget{class_simulator_ad75c237a9f496ed7352ec729e22f8b49}\label{class_simulator_ad75c237a9f496ed7352ec729e22f8b49}} 
+double {\bfseries tree\+Scale}
+\item 
+\mbox{\Hypertarget{class_simulator_a326077ed8ca491b83a4d0eeaa204d126}\label{class_simulator_a326077ed8ca491b83a4d0eeaa204d126}} 
+double {\bfseries gene\+Birth\+Rate}
+\item 
+\mbox{\Hypertarget{class_simulator_a24d9deceb3ff05d56fd10ad11215045b}\label{class_simulator_a24d9deceb3ff05d56fd10ad11215045b}} 
+double {\bfseries gene\+Death\+Rate}
+\item 
+\mbox{\Hypertarget{class_simulator_a49cc449e3f51f3295b78f740d7df58fa}\label{class_simulator_a49cc449e3f51f3295b78f740d7df58fa}} 
+double {\bfseries transfer\+Rate}
+\item 
+\mbox{\Hypertarget{class_simulator_a5970e663047823de02d4fae87188936f}\label{class_simulator_a5970e663047823de02d4fae87188936f}} 
+double {\bfseries prop\+Transfer}
+\item 
+\mbox{\Hypertarget{class_simulator_a8df7f8d554eda45b873fbd6f78e4cb13}\label{class_simulator_a8df7f8d554eda45b873fbd6f78e4cb13}} 
+double {\bfseries prop\+Duplicate}
+\item 
+\mbox{\Hypertarget{class_simulator_aaa955e40c2a1eac8c1b2e8f0b56e2abb}\label{class_simulator_aaa955e40c2a1eac8c1b2e8f0b56e2abb}} 
+unsigned {\bfseries ind\+Per\+Pop}
+\item 
+\mbox{\Hypertarget{class_simulator_a4947162ee0da82ea1317727986c3cb40}\label{class_simulator_a4947162ee0da82ea1317727986c3cb40}} 
+unsigned {\bfseries pop\+Size}
+\item 
+\mbox{\Hypertarget{class_simulator_ae349983db8f9e1a995cac05ae1cba5e9}\label{class_simulator_ae349983db8f9e1a995cac05ae1cba5e9}} 
+double {\bfseries generation\+Time}
+\item 
+\mbox{\Hypertarget{class_simulator_a9af5bf95e488f1e0bcceb02f0587c6f4}\label{class_simulator_a9af5bf95e488f1e0bcceb02f0587c6f4}} 
+double {\bfseries outgroup\+Frac}
+\item 
+\mbox{\Hypertarget{class_simulator_ac56195883559364983f0f6b9d076d66b}\label{class_simulator_ac56195883559364983f0f6b9d076d66b}} 
+bool {\bfseries print\+S\+O\+UT}
+\item 
+\mbox{\Hypertarget{class_simulator_aaec5ca415d0893606508f7fe5b42d811}\label{class_simulator_aaec5ca415d0893606508f7fe5b42d811}} 
+std\+::vector$<$ \mbox{\hyperlink{class_species_tree}{Species\+Tree}} $\ast$ $>$ {\bfseries gsa\+Trees}
+\item 
+\mbox{\Hypertarget{class_simulator_a9d7c1978d7330d49a0d75b4185ccf2ff}\label{class_simulator_a9d7c1978d7330d49a0d75b4185ccf2ff}} 
+\mbox{\hyperlink{class_species_tree}{Species\+Tree}} $\ast$ {\bfseries sp\+Tree}
+\item 
+\mbox{\Hypertarget{class_simulator_a334b7cdcd14a2c20043cd2212eb83b2a}\label{class_simulator_a334b7cdcd14a2c20043cd2212eb83b2a}} 
+\mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} $\ast$ {\bfseries loci\+Tree}
+\item 
+\mbox{\Hypertarget{class_simulator_af52bda62c9dfede2a9a2ab0e5cfe018e}\label{class_simulator_af52bda62c9dfede2a9a2ab0e5cfe018e}} 
+std\+::vector$<$ \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} $\ast$ $>$ {\bfseries locus\+Trees}
+\item 
+\mbox{\Hypertarget{class_simulator_ab5e1926df85b2a47897cfc60216d96b0}\label{class_simulator_ab5e1926df85b2a47897cfc60216d96b0}} 
+\mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} $\ast$ {\bfseries gene\+Tree}
+\item 
+\mbox{\Hypertarget{class_simulator_aeac23cc32472dae5e7d6485ca78368e6}\label{class_simulator_aeac23cc32472dae5e7d6485ca78368e6}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{class_gene_tree}{Gene\+Tree}} $\ast$ $>$ $>$ {\bfseries gene\+Trees}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_simulator_ad76f54c9f7089e19fa2e79749064a233}\label{class_simulator_ad76f54c9f7089e19fa2e79749064a233}} 
+\index{Simulator@{Simulator}!Simulator@{Simulator}}
+\index{Simulator@{Simulator}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{Simulator()}{Simulator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Simulator\+::\+Simulator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$}]{p,  }\item[{unsigned}]{nt,  }\item[{double}]{lambda,  }\item[{double}]{mu,  }\item[{double}]{rho }\end{DoxyParamCaption})}
+
+Constructor for \mbox{\hyperlink{class_simulator}{Simulator}} class for simulations for only species trees 
+\begin{DoxyParams}{Parameters}
+{\em p} & R\+NG seed from Mr\+Bayes code \\
+\hline
+{\em nt} & number of taxa to be used in simulation \\
+\hline
+{\em lambda} & birth rate as double \\
+\hline
+{\em mu} & death rate as double \\
+\hline
+{\em rho} & Sampling fraction \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_abdd673afec81537e76e9fd9aecb5b07e}\label{class_simulator_abdd673afec81537e76e9fd9aecb5b07e}} 
+\index{Simulator@{Simulator}!Simulator@{Simulator}}
+\index{Simulator@{Simulator}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{Simulator()}{Simulator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Simulator\+::\+Simulator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$}]{p,  }\item[{unsigned}]{ntax,  }\item[{double}]{lambda,  }\item[{double}]{mu,  }\item[{double}]{rho,  }\item[{unsigned}]{num\+Loci\+To\+Sim,  }\item[{double}]{gbr,  }\item[{double}]{gdr,  }\item[{double}]{lgtr }\end{DoxyParamCaption})}
+
+Constructor for \mbox{\hyperlink{class_simulator}{Simulator}} class used in simulations of \mbox{\hyperlink{class_species_tree}{Species\+Tree}} and \mbox{\hyperlink{class_locus_tree}{Locus\+Tree}} classes only 
+\begin{DoxyParams}{Parameters}
+{\em p} & R\+NG seed from Mr\+Bayes code \\
+\hline
+{\em ntax} & Number of taxa to simulate \\
+\hline
+{\em lambda} & Rate of birth as double \\
+\hline
+{\em mu} & Rate of death as double \\
+\hline
+{\em rho} & Sampling Fraction (currently not implemented) \\
+\hline
+{\em num\+Loci\+To\+Sim} & Number of loci to simulate per species tre \\
+\hline
+{\em gbr} & Gene birth rate as double \\
+\hline
+{\em gdr} & Gene death rate as double \\
+\hline
+{\em lgtr} & Lateral gene transfer rate \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_a3583cdc1848ee5b9d92567bd6f15469a}\label{class_simulator_a3583cdc1848ee5b9d92567bd6f15469a}} 
+\index{Simulator@{Simulator}!Simulator@{Simulator}}
+\index{Simulator@{Simulator}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{Simulator()}{Simulator()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Simulator\+::\+Simulator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$}]{p,  }\item[{unsigned}]{ntax,  }\item[{double}]{lambda,  }\item[{double}]{mu,  }\item[{double}]{rho,  }\item[{unsigned}]{num\+Loci\+To\+Sim,  }\item[{double}]{gbr,  }\item[{double}]{gdr,  }\item[{double}]{lgtr,  }\item[{unsigned}]{ipp,  }\item[{unsigned}]{Ne,  }\item[{double}]{gen\+Time,  }\item[{int}]{ng,  }\item[{double}]{og,  }\item[{double}]{ts,  }\item[{bool}]{sout }\end{DoxyParamCaption})}
+
+Constructor of \mbox{\hyperlink{class_simulator}{Simulator}} class for full three-\/tree model 
+\begin{DoxyParams}{Parameters}
+{\em p} & R\+NG seed from Mr\+Bayes code \\
+\hline
+{\em ntax} & Number of taxa to simulate \\
+\hline
+{\em lambda} & Rate of birth as double \\
+\hline
+{\em mu} & Rate of death as double \\
+\hline
+{\em rho} & Sampling Fraction (currently not implemented) \\
+\hline
+{\em num\+Loci\+To\+Sim} & Number of loci to simulate per species tre \\
+\hline
+{\em gbr} & Gene birth rate as double \\
+\hline
+{\em gdr} & Gene death rate as double \\
+\hline
+{\em lgtr} & Lateral gene transfer rate \\
+\hline
+{\em ipp} & Individuals per locus tree lineage to perform coalescent process on \\
+\hline
+{\em Ne} & Total population size of each locus tree lineage \\
+\hline
+{\em gen\+Time} & Scaling factor for converting from coalescent units to absolute time entered as generations per unit time \\
+\hline
+{\em ng} & Number of gene trees to simulate for each locus tree lineage \\
+\hline
+{\em og} & Outgroup fraction, pastes a fake outgroup on tree with branch length set to some fraction of total tree depth \\
+\hline
+{\em ts} & Scaling factor for tree entered as a double to convert trees to some length (e.\+g. 1.\+0) \\
+\hline
+{\em sout} & Bool for turning off stdout (speeds up the program) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_simulator_a0f49aa04f42060a785adf77346b9de9f}\label{class_simulator_a0f49aa04f42060a785adf77346b9de9f}} 
+\index{Simulator@{Simulator}!````~Simulator@{$\sim$Simulator}}
+\index{````~Simulator@{$\sim$Simulator}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{$\sim$Simulator()}{~Simulator()}}
+{\footnotesize\ttfamily Simulator\+::$\sim$\+Simulator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Destructor for \mbox{\hyperlink{class_simulator}{Simulator}} classes 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simulator_aa48bbe1603f0f11e9d0a73bd6764de25}\label{class_simulator_aa48bbe1603f0f11e9d0a73bd6764de25}} 
+\index{Simulator@{Simulator}!gsaBDSim@{gsaBDSim}}
+\index{gsaBDSim@{gsaBDSim}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{gsaBDSim()}{gsaBDSim()}}
+{\footnotesize\ttfamily bool Simulator\+::gsa\+B\+D\+Sim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Generalized Sampling Algorithm for generating birth-\/death trees of the correct length
+
+Below is the machinery to use G\+SA sampling (Hartmann 2010) to simulate a species tree. Much of this code is modified from Fossil\+Gen (written by Tracy Heath) \mbox{\Hypertarget{class_simulator_a4773bc1cd4fb3b407044dd8db796b297}\label{class_simulator_a4773bc1cd4fb3b407044dd8db796b297}} 
+\index{Simulator@{Simulator}!gsaCheckStop@{gsaCheckStop}}
+\index{gsaCheckStop@{gsaCheckStop}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{gsaCheckStop()}{gsaCheckStop()}}
+{\footnotesize\ttfamily bool Simulator\+::gsa\+Check\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function for checking whether the simulation has reached the stopping point \begin{DoxyReturn}{Returns}
+Bool for whether to keep\+Simulating or not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_simulator_a7146d0d7fffe8f78d99a1956ba51bc11}\label{class_simulator_a7146d0d7fffe8f78d99a1956ba51bc11}} 
+\index{Simulator@{Simulator}!initializeSim@{initializeSim}}
+\index{initializeSim@{initializeSim}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{initializeSim()}{initializeSim()}}
+{\footnotesize\ttfamily void Simulator\+::initialize\+Sim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function for intializing the simulation starting with creating the \mbox{\hyperlink{class_species_tree}{Species\+Tree}} class \mbox{\Hypertarget{class_simulator_a16a8faee8487c96a8a0e00db292d5029}\label{class_simulator_a16a8faee8487c96a8a0e00db292d5029}} 
+\index{Simulator@{Simulator}!processGSASim@{processGSASim}}
+\index{processGSASim@{processGSASim}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{processGSASim()}{processGSASim()}}
+{\footnotesize\ttfamily void Simulator\+::process\+G\+S\+A\+Sim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Function for completing the simulation
+
+this prunes the desired species tree from the larger simulated tree according to Hartmann et al. 2010 \mbox{\Hypertarget{class_simulator_ab88791e8609fa9f8076157516eb9ab1b}\label{class_simulator_ab88791e8609fa9f8076157516eb9ab1b}} 
+\index{Simulator@{Simulator}!processSpTreeSim@{processSpTreeSim}}
+\index{processSpTreeSim@{processSpTreeSim}!Simulator@{Simulator}}
+\subsubsection{\texorpdfstring{processSpTreeSim()}{processSpTreeSim()}}
+{\footnotesize\ttfamily void Simulator\+::process\+Sp\+Tree\+Sim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Simulator.\+h\item 
+src/Simulator.\+cpp\end{DoxyCompactItemize}

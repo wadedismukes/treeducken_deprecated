@@ -1,0 +1,170 @@
+\hypertarget{class_tree}{}\section{Tree Class Reference}
+\label{class_tree}\index{Tree@{Tree}}
+Inheritance diagram for Tree\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tree}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_a1c13cc2e86efe61ad51f0e031fedacf0}\label{class_tree_a1c13cc2e86efe61ad51f0e031fedacf0}} 
+{\bfseries Tree} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Extant, double c\+Time)
+\item 
+\mbox{\Hypertarget{class_tree_a984b42b862522bdcc5ace09d3d99254c}\label{class_tree_a984b42b862522bdcc5ace09d3d99254c}} 
+{\bfseries Tree} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa)
+\item 
+\mbox{\Hypertarget{class_tree_a94691772f16f53dc4664836448b7a535}\label{class_tree_a94691772f16f53dc4664836448b7a535}} 
+void {\bfseries set\+Outgroup} (\mbox{\hyperlink{class_node}{Node}} $\ast$og)
+\item 
+\mbox{\Hypertarget{class_tree_a1a2caefc4f191ab60bcd0dd5d8a345fb}\label{class_tree_a1a2caefc4f191ab60bcd0dd5d8a345fb}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries get\+Outgroup} ()
+\item 
+\mbox{\Hypertarget{class_tree_a34ace6b8eb8a67d8246ece6a04bf6344}\label{class_tree_a34ace6b8eb8a67d8246ece6a04bf6344}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries get\+Root} ()
+\item 
+\mbox{\Hypertarget{class_tree_ad522924b6683bf5df5bc4e38235b7ad1}\label{class_tree_ad522924b6683bf5df5bc4e38235b7ad1}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries get\+Extant\+Root} ()
+\item 
+\mbox{\Hypertarget{class_tree_ab15227cfa1e31e0c3d7ae1e0de6f0856}\label{class_tree_ab15227cfa1e31e0c3d7ae1e0de6f0856}} 
+void {\bfseries set\+Extant\+Root} (\mbox{\hyperlink{class_node}{Node}} $\ast$r)
+\item 
+\mbox{\Hypertarget{class_tree_af4e1e6762ea92763e46f15f3233869f7}\label{class_tree_af4e1e6762ea92763e46f15f3233869f7}} 
+void {\bfseries set\+Root} (\mbox{\hyperlink{class_node}{Node}} $\ast$r)
+\item 
+\mbox{\Hypertarget{class_tree_a0b0b609ae1b9fdbd480ed2f724e5286c}\label{class_tree_a0b0b609ae1b9fdbd480ed2f724e5286c}} 
+double {\bfseries get\+Num\+Extant} ()
+\item 
+\mbox{\Hypertarget{class_tree_a5f7d67f4724184e4724516887d34ff29}\label{class_tree_a5f7d67f4724184e4724516887d34ff29}} 
+double {\bfseries get\+Num\+Extinct} ()
+\item 
+\mbox{\Hypertarget{class_tree_a96eca8b854f3cc0ad60562961df0d411}\label{class_tree_a96eca8b854f3cc0ad60562961df0d411}} 
+int {\bfseries get\+Nodes\+Size} ()
+\item 
+\mbox{\Hypertarget{class_tree_a578d40a7bf15a9db100bc8b2e7a9bef3}\label{class_tree_a578d40a7bf15a9db100bc8b2e7a9bef3}} 
+double {\bfseries get\+Total\+Tree\+Length} ()
+\item 
+\mbox{\Hypertarget{class_tree_a6d6a59aba8e6900676a8f44304177375}\label{class_tree_a6d6a59aba8e6900676a8f44304177375}} 
+double {\bfseries get\+Tree\+Depth} ()
+\item 
+\mbox{\Hypertarget{class_tree_a3b17c505980d590707862e8359f05711}\label{class_tree_a3b17c505980d590707862e8359f05711}} 
+double {\bfseries get\+Current\+Time} ()
+\item 
+\mbox{\Hypertarget{class_tree_a4e3bcfaf2b2631ffb88f1275ddf7dafd}\label{class_tree_a4e3bcfaf2b2631ffb88f1275ddf7dafd}} 
+double {\bfseries get\+End\+Time} ()
+\item 
+\mbox{\Hypertarget{class_tree_ad043692b45509e1457ece5ed6abb6587}\label{class_tree_ad043692b45509e1457ece5ed6abb6587}} 
+void {\bfseries rescale\+Tree\+By\+Outgroup\+Frac} (double outgroup\+Frac, double get\+Tree\+Depth)
+\item 
+\mbox{\Hypertarget{class_tree_a9dbc4fac0f489383e233ee72a0207e29}\label{class_tree_a9dbc4fac0f489383e233ee72a0207e29}} 
+void {\bfseries clear\+Nodes} (\mbox{\hyperlink{class_node}{Node}} $\ast$cur)
+\item 
+\mbox{\Hypertarget{class_tree_ad6e5368b4973c714f0821a8ed7d9f43f}\label{class_tree_ad6e5368b4973c714f0821a8ed7d9f43f}} 
+void {\bfseries zero\+All\+Flags} ()
+\item 
+\mbox{\Hypertarget{class_tree_a4637f41a9a1d678c9aaf431176c30814}\label{class_tree_a4637f41a9a1d678c9aaf431176c30814}} 
+void {\bfseries set\+Whole\+Tree\+Flags} ()
+\item 
+\mbox{\Hypertarget{class_tree_a6982f7dbc9d9997b12e22a677eb717fc}\label{class_tree_a6982f7dbc9d9997b12e22a677eb717fc}} 
+void {\bfseries set\+Extant\+Tree\+Flags} ()
+\item 
+\mbox{\Hypertarget{class_tree_a197ff1df11a9b035a01883a3f199e708}\label{class_tree_a197ff1df11a9b035a01883a3f199e708}} 
+void {\bfseries set\+Sample\+From\+Flags} ()
+\item 
+\mbox{\Hypertarget{class_tree_a1aa1d75606f62fbdf6a1cf4d275f26d9}\label{class_tree_a1aa1d75606f62fbdf6a1cf4d275f26d9}} 
+void {\bfseries get\+Root\+From\+Flags} (bool is\+Gene\+Tree=false)
+\item 
+\mbox{\Hypertarget{class_tree_abfc0d16344bcd0ecfee5199d10217b1b}\label{class_tree_abfc0d16344bcd0ecfee5199d10217b1b}} 
+void {\bfseries get\+Extant\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_tree_a9305a4ecd2cc070f27a8a86196afe059}\label{class_tree_a9305a4ecd2cc070f27a8a86196afe059}} 
+void {\bfseries set\+New\+Root\+Info} (\mbox{\hyperlink{class_node}{Node}} $\ast$new\+Root, \mbox{\hyperlink{class_node}{Node}} $\ast$outgroup, \mbox{\hyperlink{class_node}{Node}} $\ast$old\+Root, double t)
+\item 
+\mbox{\Hypertarget{class_tree_a4d9bbfb9ba4ce389592a27e60bd13f73}\label{class_tree_a4d9bbfb9ba4ce389592a27e60bd13f73}} 
+std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} $\ast$ $>$ {\bfseries get\+Nodes} ()
+\item 
+\mbox{\Hypertarget{class_tree_add7e5124e4c1ea3e90527ee757870527}\label{class_tree_add7e5124e4c1ea3e90527ee757870527}} 
+std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} $\ast$ $>$ {\bfseries get\+Extant\+Nodes} ()
+\item 
+\mbox{\Hypertarget{class_tree_a70850fb0eb058cbc09d7f04e415a73a6}\label{class_tree_a70850fb0eb058cbc09d7f04e415a73a6}} 
+void {\bfseries scale\+Tree} (double tree\+Scale, double currtime)
+\item 
+\mbox{\Hypertarget{class_tree_a0fecac6bee43cec92ff33ea7d72f272a}\label{class_tree_a0fecac6bee43cec92ff33ea7d72f272a}} 
+void {\bfseries reconstruct\+Tree\+From\+Sim} (\mbox{\hyperlink{class_node}{Node}} $\ast$o\+Root)
+\item 
+\mbox{\Hypertarget{class_tree_a363bc24cf9a55c692a1a46e84490759a}\label{class_tree_a363bc24cf9a55c692a1a46e84490759a}} 
+void {\bfseries reconstruct\+Lineage\+From\+Sim} (\mbox{\hyperlink{class_node}{Node}} $\ast$currN, \mbox{\hyperlink{class_node}{Node}} $\ast$prevN, unsigned \&tip\+Counter, unsigned \&int\+Node\+Counter)
+\item 
+\mbox{\Hypertarget{class_tree_a7c01dc7704c6260ffe45eaff909a32ed}\label{class_tree_a7c01dc7704c6260ffe45eaff909a32ed}} 
+virtual double {\bfseries get\+Time\+To\+Next\+Event} ()
+\item 
+\mbox{\Hypertarget{class_tree_a79f1029861423074c987d87047e157dc}\label{class_tree_a79f1029861423074c987d87047e157dc}} 
+virtual void {\bfseries lineage\+Birth\+Event} (unsigned int indx)
+\item 
+\mbox{\Hypertarget{class_tree_aa7c4d744180deb03c6d7baa49220b332}\label{class_tree_aa7c4d744180deb03c6d7baa49220b332}} 
+virtual void {\bfseries lineage\+Death\+Event} (unsigned int indx)
+\item 
+\mbox{\Hypertarget{class_tree_a1c35efd5f2d5a80f9358853be4e6390d}\label{class_tree_a1c35efd5f2d5a80f9358853be4e6390d}} 
+virtual void {\bfseries set\+Tree\+Tip\+Names} ()
+\item 
+\mbox{\Hypertarget{class_tree_aa678f8726c2b4ed00490e815e7620a1b}\label{class_tree_aa678f8726c2b4ed00490e815e7620a1b}} 
+virtual void {\bfseries erm\+Event} (double ct)
+\item 
+\mbox{\Hypertarget{class_tree_a4fe4b0140f623adf84f72a8ae5c1ac87}\label{class_tree_a4fe4b0140f623adf84f72a8ae5c1ac87}} 
+virtual void {\bfseries set\+Branch\+Lengths} ()
+\item 
+\mbox{\Hypertarget{class_tree_a6fc5ae8938331ced5295a29593cbedd6}\label{class_tree_a6fc5ae8938331ced5295a29593cbedd6}} 
+virtual std\+::string {\bfseries print\+Newick\+Tree} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_ad8e46ce0aead5778cbdd784d1e370d5f}\label{class_tree_ad8e46ce0aead5778cbdd784d1e370d5f}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries root}
+\item 
+\mbox{\Hypertarget{class_tree_a3ae8502b493477241406a50cb0cf74d7}\label{class_tree_a3ae8502b493477241406a50cb0cf74d7}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries extant\+Root}
+\item 
+\mbox{\Hypertarget{class_tree_a6e7b2b7c1fe7f83754a17db795d1aa0f}\label{class_tree_a6e7b2b7c1fe7f83754a17db795d1aa0f}} 
+\mbox{\hyperlink{class_node}{Node}} $\ast$ {\bfseries outgrp}
+\item 
+\mbox{\Hypertarget{class_tree_ae5f01790f27d8d3e6b05f4cb4d3a963e}\label{class_tree_ae5f01790f27d8d3e6b05f4cb4d3a963e}} 
+std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} $\ast$ $>$ {\bfseries nodes}
+\item 
+\mbox{\Hypertarget{class_tree_a74584e5f9bc5917202c72fd2654db906}\label{class_tree_a74584e5f9bc5917202c72fd2654db906}} 
+std\+::vector$<$ \mbox{\hyperlink{class_node}{Node}} $\ast$ $>$ {\bfseries extant\+Nodes}
+\item 
+\mbox{\Hypertarget{class_tree_a629f2ba59432dedd2aabd507f8101758}\label{class_tree_a629f2ba59432dedd2aabd507f8101758}} 
+unsigned {\bfseries num\+Taxa}
+\item 
+\mbox{\Hypertarget{class_tree_ac81f7ba8069985a4891ad6596078f96e}\label{class_tree_ac81f7ba8069985a4891ad6596078f96e}} 
+unsigned {\bfseries num\+Nodes}
+\item 
+\mbox{\Hypertarget{class_tree_a70bc3919efa4f4b90ea2d36ba46fff2b}\label{class_tree_a70bc3919efa4f4b90ea2d36ba46fff2b}} 
+unsigned {\bfseries num\+Total\+Tips}
+\item 
+\mbox{\Hypertarget{class_tree_ae0a13090b405156713927015a6493d7a}\label{class_tree_ae0a13090b405156713927015a6493d7a}} 
+unsigned {\bfseries num\+Extant}
+\item 
+\mbox{\Hypertarget{class_tree_a64386001335e337564edd20f67d8b461}\label{class_tree_a64386001335e337564edd20f67d8b461}} 
+unsigned {\bfseries num\+Extinct}
+\item 
+\mbox{\Hypertarget{class_tree_ac39ea17b4c3526658b21ef5a0b35b6a8}\label{class_tree_ac39ea17b4c3526658b21ef5a0b35b6a8}} 
+double {\bfseries current\+Time}
+\item 
+\mbox{\Hypertarget{class_tree_aaab6ace75d1a7324d6dd5a0c44830386}\label{class_tree_aaab6ace75d1a7324d6dd5a0c44830386}} 
+\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$ {\bfseries rando}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tree_a6db9d28bd448a131448276ee03de1e6d}\label{class_tree_a6db9d28bd448a131448276ee03de1e6d}} 
+class {\bfseries Node}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Tree.\+h\item 
+src/Tree.\+cpp\end{DoxyCompactItemize}

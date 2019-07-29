@@ -1,0 +1,1800 @@
+\hypertarget{class_mb_random}{}\section{Mb\+Random Class Reference}
+\label{class_mb_random}\index{MbRandom@{MbRandom}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_mb_random_a93258da000d2831829903edc33c4d09c}{Mb\+Random}} (void)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_mb_random}{Mb\+Random}}, initializing seed with system time. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_random_abdb7e84805b33b3158a4d0d121330f84}{Mb\+Random}} (\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} x)
+\begin{DoxyCompactList}\small\item\em Constructor for \mbox{\hyperlink{class_mb_random}{Mb\+Random}}, initializing seed with a user-\/supplied long integer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mb_random_a5a143a97da5fa43d5220fc628ceabe25}{get\+Seed}} (\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} \&seed1, \mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} \&seed2)
+\begin{DoxyCompactList}\small\item\em Return the random number seeds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mb_random_a2ec0fc6f556b74b4dbac8daee90268f6}{set\+Seed}} (void)
+\begin{DoxyCompactList}\small\item\em Initializes random number seeds. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mb_random_a737fb472831030eaa72d86e93a47d365}{set\+Seed}} (\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} seed1, \mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} seed2)
+\begin{DoxyCompactList}\small\item\em Initializes random number seeds. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_aadb67cce448b60c9837edef5792c0a8a}{chi\+Square\+Rv}} (double v)
+\begin{DoxyCompactList}\small\item\em Chi-\/square random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ad690dfe778f65e8fb6b00789396186fd}{chi\+Square\+Pdf}} (double v, double x)
+\begin{DoxyCompactList}\small\item\em Chi-\/square probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a814eac2d13019b2f99af06d50eb48499}{ln\+Chi\+Square\+Pdf}} (double v, double x)
+\begin{DoxyCompactList}\small\item\em Natural log of chi-\/square probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a251af825995d41479ca15e965077d101}{chi\+Square\+Cdf}} (double v, double x)
+\begin{DoxyCompactList}\small\item\em Chi-\/square cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a065a95c81bf9009ad4708d0fce9861be}{chi\+Square\+Quantile}} (double prob, double v)
+\begin{DoxyCompactList}\small\item\em Quantile of a chi square distribution. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a52cdee648466e81c29c27d4729af8245}{exponential\+Rv}} (double lambda)
+\begin{DoxyCompactList}\small\item\em Exponential random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a3a9018e4866bd9c61b0e8bc28c2f177e}{exponential\+Pdf}} (double lambda, double x)
+\begin{DoxyCompactList}\small\item\em Exponential probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a3438c95566d2a0ddbc1b252a8a4197c3}{ln\+Exponential\+Pdf}} (double lambda, double x)
+\begin{DoxyCompactList}\small\item\em Natural log of exponential probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a700869de26a58dd792f31f13fcf2331d}{exponential\+Cdf}} (double lambda, double x)
+\begin{DoxyCompactList}\small\item\em Exponential cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a329f440ae9e26adca8cbdd42acd2d480}{exponential\+Quantile}} (double lambda, double p)
+\begin{DoxyCompactList}\small\item\em Exponential quantile. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ac5f030bb3dab8a93bd3430e8b9319d88}{gamma\+Rv}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Gamma random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a38890666f1288b6d06df22508ff9b2ec}{gamma\+Pdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Gamma probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_aa48ff75522fc4c5426af0133753ce19e}{ln\+Gamma\+Pdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Natural log of gamma probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a623acd4af1a73f29ee4f7cc603a38231}{gamma\+Cdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Gamma cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a86ea5b619fe0646d64a55c043e9655e0}{gamma\+Quantile}} (double a, double b, double p)
+\begin{DoxyCompactList}\small\item\em Gamma quantile. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a00b39bcea83dab8c487abf7653b3d917}{log\+Normal\+Rv}} (double mu, double sigma)
+\begin{DoxyCompactList}\small\item\em Log normal random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a86c722ab7cde1304040f6ec60cb0e66a}{log\+Normal\+Pdf}} (double mu, double sigma, double x)
+\begin{DoxyCompactList}\small\item\em Log normal probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ae5f654e3f6e19e5d783b894418cac720}{ln\+Log\+Normal\+Pdf}} (double mu, double sigma, double x)
+\begin{DoxyCompactList}\small\item\em Natural log of the log normal probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a63f5082668019288ec45debb0404bfb6}{log\+Normal\+Cdf}} (double mu, double sigma, double x)
+\begin{DoxyCompactList}\small\item\em Log normal cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a2d1ef18aad6db3a05838c977d0a0a07a}{log\+Normal\+Quantile}} (double mu, double sigma, double p)
+\begin{DoxyCompactList}\small\item\em Natural quantile. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ae0e340dd8f57f26a6b4cba0fa9b0fafc}{normal\+Rv}} (double mu, double sigma)
+\begin{DoxyCompactList}\small\item\em Normal random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a15d74c49ce89d4743728fe81c901947f}{normal\+Pdf}} (double mu, double sigma, double x)
+\begin{DoxyCompactList}\small\item\em Normal probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a63ee512328a66f5f3f15f45b7d66f476}{ln\+Normal\+Pdf}} (double mu, double sigma, double x)
+\begin{DoxyCompactList}\small\item\em Natural log of normal probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a7093d47caddfb2225cbd409a5c00a206}{normal\+Cdf}} (double mu, double sigma, double x)
+\begin{DoxyCompactList}\small\item\em Normal cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a4fd385a54556283dd40e130ea1155035}{normal\+Quantile}} (double mu, double sigma, double p)
+\begin{DoxyCompactList}\small\item\em Natural quantile. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_af7e99ee2ca8a02c2ae163e1c00f528bf}{uniform\+Rv}} (void)
+\begin{DoxyCompactList}\small\item\em Uniform\mbox{[}0,1) random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a9988ff0258360c8f05ef907f8d9c0805}{uniform\+Pdf}} (void)
+\begin{DoxyCompactList}\small\item\em Uniform(0,1) probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a586a679287cdba3195ee0620d6cb15f8}{ln\+Uniform\+Pdf}} (void)
+\begin{DoxyCompactList}\small\item\em Natural log of uniform(0,1) probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_aa975313092805421e835bfa934512111}{uniform\+Cdf}} (double x)
+\begin{DoxyCompactList}\small\item\em Uniform(0,1) cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ade8b412ea092c006f041ac7034e9b102}{uniform\+Quantile}} (double p)
+\begin{DoxyCompactList}\small\item\em Uniform(0,1) quantile. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a277d841d32f82f756c95b87eb6184ed2}{uniform\+Rv}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Uniform(a,b) random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a9db5772a5efc8c19681c46fcbfb60972}{uniform\+Pdf}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Uniform(a,b) probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ae9126d13b2ea42cc8f51ec8e400a2ba0}{ln\+Uniform\+Pdf}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Natural log of uniform(a,b) probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_adbc7c859738c1cc4bcf485fc835db98e}{uniform\+Cdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Uniform(a,b) cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a086d186a0bc4d52738dd571dc9f0b8e2}{uniform\+Quantile}} (double a, double b, double p)
+\begin{DoxyCompactList}\small\item\em Uniform(a,b) quantile. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a254ae9c1ddbb886ff8dba78eac35e3ee}{beta\+Rv}} (double a, double b)
+\begin{DoxyCompactList}\small\item\em Beta random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a5a2eb3c7ef62e1a6e537d1b530070de5}{beta\+Pdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Beta probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a19fb90a7e1297c3e0e0227e52d678f9f}{ln\+Beta\+Pdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Beta log probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a25c29accd700da05a331f46a4151d6ce}{beta\+Cdf}} (double a, double b, double x)
+\begin{DoxyCompactList}\small\item\em Beta cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a09212ae872506d80046e9be639591248}{beta\+Quantile}} (double a, double b, double p)
+\begin{DoxyCompactList}\small\item\em Beta quantile. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mb_random_a349f74622dd56fd83fbab97399fc0ce0}{dirichlet\+Rv}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&a, \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&z)
+\begin{DoxyCompactList}\small\item\em Dirichlet random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ac784a996ea66522ed1ef83c699284e12}{dirichlet\+Pdf}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&a, const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&z)
+\begin{DoxyCompactList}\small\item\em Dirichlet probability density. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_af4159ebe2cf7f73331f4087ce3ce1a15}{ln\+Dirichlet\+Pdf}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&a, const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&z)
+\begin{DoxyCompactList}\small\item\em Natural log of Dirichlet probability density. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_mb_random_a0088ae321ad8b45bc36b18ae9d4b2896}{discrete\+Uniform\+Rv}} (int a, int b)
+\begin{DoxyCompactList}\small\item\em Discrete uniform(a,b) random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a59af6e67ee8e16ea0f0269ee803bb258}{discrete\+Uniform\+Prob}} (int a, int b)
+\begin{DoxyCompactList}\small\item\em Natural log of discrete uniform probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a80fbc24c9c2f2f95a1cf7b4d3d47f9cf}{ln\+Discrete\+Uniform\+Prob}} (int a, int b)
+\begin{DoxyCompactList}\small\item\em Natural log of discrete uniform probability. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_mb_random_a1bdf06beaf449852a1b5247a79246b5f}{poisson\+Rv}} (double lambda)
+\begin{DoxyCompactList}\small\item\em Poisson(lambda) random variable. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a5ecfd1d9b7c3c426842b27d82b37d524}{poisson\+Prob}} (double lambda, int x)
+\begin{DoxyCompactList}\small\item\em Natural log of Poisson probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_a9d842b9c60ccd77094cfe97b53fd205c}{ln\+Poisson\+Prob}} (double lambda, int x)
+\begin{DoxyCompactList}\small\item\em Natural log of Poisson probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_adb0a8b9aa025f68a6ef519581c28d37b}{poisson\+Cdf}} (double lambda, int x)
+\begin{DoxyCompactList}\small\item\em Poisson cumulative probability. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_afe0079c445520c19cfda7f03131acf46}{poisson\+Quantile}} (double lambda, double p)
+\begin{DoxyCompactList}\small\item\em Poisson(lambda) quantile. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_mb_random_ab8f819e7f62ab1c2b1f165b2d3efe315}{discretize\+Gamma}} (\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&cat\+Rate, double a, double b, int n\+Cats, bool median)
+\begin{DoxyCompactList}\small\item\em Calculates the mean/median values for a discretized gamma. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_mb_random_ae27b57bf2122981b6c589b6f39d0cf6c}{ln\+Gamma}} (double a)
+\begin{DoxyCompactList}\small\item\em Natural log of the gamma function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_random_a4e0d16a617cfe4bddf892748b4860661}\label{class_mb_random_a4e0d16a617cfe4bddf892748b4860661}} 
+double {\bfseries psi\+Gamma\+Rv} (double alpha)
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_mb_random_a93258da000d2831829903edc33c4d09c}\label{class_mb_random_a93258da000d2831829903edc33c4d09c}} 
+\index{MbRandom@{MbRandom}!MbRandom@{MbRandom}}
+\index{MbRandom@{MbRandom}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{MbRandom()}{MbRandom()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Mb\+Random\+::\+Mb\+Random (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{class_mb_random}{Mb\+Random}}, initializing seed with system time. 
+
+constructor\+: initializes the seed with current time
+
+Constructor for \mbox{\hyperlink{class_mb_random}{Mb\+Random}} class. This constructor does not take any parameters and initializes the seed using the current system time.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Takes} & no parameter. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns no value. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_abdb7e84805b33b3158a4d0d121330f84}\label{class_mb_random_abdb7e84805b33b3158a4d0d121330f84}} 
+\index{MbRandom@{MbRandom}!MbRandom@{MbRandom}}
+\index{MbRandom@{MbRandom}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{MbRandom()}{MbRandom()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Mb\+Random\+::\+Mb\+Random (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}}}]{x }\end{DoxyParamCaption})}
+
+
+
+Constructor for \mbox{\hyperlink{class_mb_random}{Mb\+Random}}, initializing seed with a user-\/supplied long integer. 
+
+constructor\+: initializes the seed with supplied value
+
+Constructor for \mbox{\hyperlink{class_mb_random}{Mb\+Random}} class. This constructor takes as a parameter a long integer with the user-\/supplied seed for the random number generator.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & is a long integer with the user-\/supplied random number seed. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns no value. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mb_random_a25c29accd700da05a331f46a4151d6ce}\label{class_mb_random_a25c29accd700da05a331f46a4151d6ce}} 
+\index{MbRandom@{MbRandom}!betaCdf@{betaCdf}}
+\index{betaCdf@{betaCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{betaCdf()}{betaCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::beta\+Cdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Beta cumulative probability. 
+
+Beta cumulative probability
+
+This function returns the cumulative probability for a Beta-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & parameter of the Beta. \\
+\hline
+{\em b} & parameter of the Beta. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a5a2eb3c7ef62e1a6e537d1b530070de5}\label{class_mb_random_a5a2eb3c7ef62e1a6e537d1b530070de5}} 
+\index{MbRandom@{MbRandom}!betaPdf@{betaPdf}}
+\index{betaPdf@{betaPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{betaPdf()}{betaPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::beta\+Pdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Beta probability density. 
+
+$<$ Beta random variable Beta probability density
+
+This function returns the probability density for a Beta-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & parameter of the Beta. \\
+\hline
+{\em b} & parameter of the Beta. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a09212ae872506d80046e9be639591248}\label{class_mb_random_a09212ae872506d80046e9be639591248}} 
+\index{MbRandom@{MbRandom}!betaQuantile@{betaQuantile}}
+\index{betaQuantile@{betaQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{betaQuantile()}{betaQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::beta\+Quantile (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{p }\end{DoxyParamCaption})}
+
+
+
+Beta quantile. 
+
+quantile of the Beta distribution
+
+This function returns the quantile for a Beta-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & parameter of the Beta. \\
+\hline
+{\em b} & parameter of the Beta. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a254ae9c1ddbb886ff8dba78eac35e3ee}\label{class_mb_random_a254ae9c1ddbb886ff8dba78eac35e3ee}} 
+\index{MbRandom@{MbRandom}!betaRv@{betaRv}}
+\index{betaRv@{betaRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{betaRv()}{betaRv()}}
+{\footnotesize\ttfamily double Mb\+Random\+::beta\+Rv (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})}
+
+
+
+Beta random variable. 
+
+This function generates a Beta-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & parameter of the Beta. \\
+\hline
+{\em b} & parameter of the Beta. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the random variable. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a251af825995d41479ca15e965077d101}\label{class_mb_random_a251af825995d41479ca15e965077d101}} 
+\index{MbRandom@{MbRandom}!chiSquareCdf@{chiSquareCdf}}
+\index{chiSquareCdf@{chiSquareCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{chiSquareCdf()}{chiSquareCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::chi\+Square\+Cdf (\begin{DoxyParamCaption}\item[{double}]{v,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Chi-\/square cumulative probability. 
+
+the chi-\/square cumulative probability
+
+This function calculates the cumulative probability for a chi-\/square distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & is the degrees of freedom parameter of the chi-\/square. \\
+\hline
+{\em x} & is the chi-\/square random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ad690dfe778f65e8fb6b00789396186fd}\label{class_mb_random_ad690dfe778f65e8fb6b00789396186fd}} 
+\index{MbRandom@{MbRandom}!chiSquarePdf@{chiSquarePdf}}
+\index{chiSquarePdf@{chiSquarePdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{chiSquarePdf()}{chiSquarePdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::chi\+Square\+Pdf (\begin{DoxyParamCaption}\item[{double}]{v,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Chi-\/square probability density. 
+
+$<$ Chi-\/square random variable the chi-\/square probability density
+
+This function calculates the probability density for a chi-\/square distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & is the degrees of freedom parameter of the chi-\/square. \\
+\hline
+{\em x} & is the chi-\/square random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a065a95c81bf9009ad4708d0fce9861be}\label{class_mb_random_a065a95c81bf9009ad4708d0fce9861be}} 
+\index{MbRandom@{MbRandom}!chiSquareQuantile@{chiSquareQuantile}}
+\index{chiSquareQuantile@{chiSquareQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{chiSquareQuantile()}{chiSquareQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::chi\+Square\+Quantile (\begin{DoxyParamCaption}\item[{double}]{prob,  }\item[{double}]{v }\end{DoxyParamCaption})}
+
+
+
+Quantile of a chi square distribution. 
+
+quantile of a chi square distribution
+
+This function calculates the quantile of a chi square distribution with v degrees of freedom.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & is the degrees of freedom of the chi square. \\
+\hline
+{\em prob} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns quantile value (or -\/1 if in error). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_aadb67cce448b60c9837edef5792c0a8a}\label{class_mb_random_aadb67cce448b60c9837edef5792c0a8a}} 
+\index{MbRandom@{MbRandom}!chiSquareRv@{chiSquareRv}}
+\index{chiSquareRv@{chiSquareRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{chiSquareRv()}{chiSquareRv()}}
+{\footnotesize\ttfamily double Mb\+Random\+::chi\+Square\+Rv (\begin{DoxyParamCaption}\item[{double}]{v }\end{DoxyParamCaption})}
+
+
+
+Chi-\/square random variable. 
+
+This function generates a chi square distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & is the degrees of freedom parameter of the chi-\/square distribution. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a chi-\/square distributed random variable. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ac784a996ea66522ed1ef83c699284e12}\label{class_mb_random_ac784a996ea66522ed1ef83c699284e12}} 
+\index{MbRandom@{MbRandom}!dirichletPdf@{dirichletPdf}}
+\index{dirichletPdf@{dirichletPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{dirichletPdf()}{dirichletPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::dirichlet\+Pdf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{a,  }\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{z }\end{DoxyParamCaption})}
+
+
+
+Dirichlet probability density. 
+
+$<$ Dirichlet random variable Dirichlet probability density
+
+This function calculates the probability density for a Dirichlet-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$a} & is a pointer to a vector of doubles containing the Dirichlet parameters. \\
+\hline
+{\em $\ast$z} & is a pointer to a vector of doubles containing the random variables. \\
+\hline
+{\em n} & is the number of Dirichlet parameters/random variables. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Throws} & an Mb\+Exception\+::\+E\+R\+R\+OR. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a349f74622dd56fd83fbab97399fc0ce0}\label{class_mb_random_a349f74622dd56fd83fbab97399fc0ce0}} 
+\index{MbRandom@{MbRandom}!dirichletRv@{dirichletRv}}
+\index{dirichletRv@{dirichletRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{dirichletRv()}{dirichletRv()}}
+{\footnotesize\ttfamily void Mb\+Random\+::dirichlet\+Rv (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{a,  }\item[{\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{z }\end{DoxyParamCaption})}
+
+
+
+Dirichlet random variable. 
+
+This function generates a Dirichlet-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$a} & is a pointer to a vector of doubles containing the parameters of the Dirichlet. \\
+\hline
+{\em n} & is an integer with the number of Dirichlet prameters. \\
+\hline
+{\em $\ast$z} & is a pointer to a vector of doubles containing the Dirichlet random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Does not return a value (the random variable is initialized in the parameter z). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a59af6e67ee8e16ea0f0269ee803bb258}\label{class_mb_random_a59af6e67ee8e16ea0f0269ee803bb258}} 
+\index{MbRandom@{MbRandom}!discreteUniformProb@{discreteUniformProb}}
+\index{discreteUniformProb@{discreteUniformProb}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{discreteUniformProb()}{discreteUniformProb()}}
+{\footnotesize\ttfamily double Mb\+Random\+::discrete\+Uniform\+Prob (\begin{DoxyParamCaption}\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of discrete uniform probability. 
+
+$<$ discrete uniform random variable discrete uniform probability
+
+This function calculates the natural log of the probability for a discrete uniform distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a0088ae321ad8b45bc36b18ae9d4b2896}\label{class_mb_random_a0088ae321ad8b45bc36b18ae9d4b2896}} 
+\index{MbRandom@{MbRandom}!discreteUniformRv@{discreteUniformRv}}
+\index{discreteUniformRv@{discreteUniformRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{discreteUniformRv()}{discreteUniformRv()}}
+{\footnotesize\ttfamily int Mb\+Random\+::discrete\+Uniform\+Rv (\begin{DoxyParamCaption}\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})}
+
+
+
+Discrete uniform(a,b) random variable. 
+
+This function generates a discrete and uniformly-\/distributed random variable on the interval (a,b).
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a discrete and uniformly-\/distributed random variable on the interval (a,b). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ab8f819e7f62ab1c2b1f165b2d3efe315}\label{class_mb_random_ab8f819e7f62ab1c2b1f165b2d3efe315}} 
+\index{MbRandom@{MbRandom}!discretizeGamma@{discretizeGamma}}
+\index{discretizeGamma@{discretizeGamma}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{discretizeGamma()}{discretizeGamma()}}
+{\footnotesize\ttfamily void Mb\+Random\+::discretize\+Gamma (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{cat\+Rate,  }\item[{double}]{a,  }\item[{double}]{b,  }\item[{int}]{n\+Cats,  }\item[{bool}]{median }\end{DoxyParamCaption})}
+
+
+
+Calculates the mean/median values for a discretized gamma. 
+
+calculates the average/median values for a discretized gamma distribution
+
+This function calculates the average or median values of the categories for a discretized gamma distribution. The gamma is broken into K categories, with each category having equal probability. The mean or meadian value for each category is then calculated.
+
+
+\begin{DoxyParams}{Parameters}
+{\em cat\+Rate} & a pointer to a vector of doubles containing the n\+Cats mean/median values. \\
+\hline
+{\em a} & the shape parameter of the gamma distribution. \\
+\hline
+{\em b} & the scale parameter of the gamma distribution. \\
+\hline
+{\em n\+Cats} & the number of discrete categories. \\
+\hline
+{\em When} & true, the median of the category is calculated. Otherwise the mean is used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Does not return a value. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a700869de26a58dd792f31f13fcf2331d}\label{class_mb_random_a700869de26a58dd792f31f13fcf2331d}} 
+\index{MbRandom@{MbRandom}!exponentialCdf@{exponentialCdf}}
+\index{exponentialCdf@{exponentialCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{exponentialCdf()}{exponentialCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::exponential\+Cdf (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Exponential cumulative probability. 
+
+Exponential cumulative probability
+
+This function calculates the cumulative probability for an exponentially-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the exponential. \\
+\hline
+{\em x} & is the exponential random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a3a9018e4866bd9c61b0e8bc28c2f177e}\label{class_mb_random_a3a9018e4866bd9c61b0e8bc28c2f177e}} 
+\index{MbRandom@{MbRandom}!exponentialPdf@{exponentialPdf}}
+\index{exponentialPdf@{exponentialPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{exponentialPdf()}{exponentialPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::exponential\+Pdf (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Exponential probability density. 
+
+$<$ exponential random variable Exponential probability density
+
+This function calculates the probability density for an exponentially-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the exponential. \\
+\hline
+{\em x} & is the exponential random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a329f440ae9e26adca8cbdd42acd2d480}\label{class_mb_random_a329f440ae9e26adca8cbdd42acd2d480}} 
+\index{MbRandom@{MbRandom}!exponentialQuantile@{exponentialQuantile}}
+\index{exponentialQuantile@{exponentialQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{exponentialQuantile()}{exponentialQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::exponential\+Quantile (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{double}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Exponential quantile. 
+
+quantile of an exponential distribution
+
+This function returns the quantile of a exponential probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a52cdee648466e81c29c27d4729af8245}\label{class_mb_random_a52cdee648466e81c29c27d4729af8245}} 
+\index{MbRandom@{MbRandom}!exponentialRv@{exponentialRv}}
+\index{exponentialRv@{exponentialRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{exponentialRv()}{exponentialRv()}}
+{\footnotesize\ttfamily double Mb\+Random\+::exponential\+Rv (\begin{DoxyParamCaption}\item[{double}]{lambda }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Exponential random variable. 
+
+This function generates an exponentially-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the exponential. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns an exponentially-\/distributed random variable. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a623acd4af1a73f29ee4f7cc603a38231}\label{class_mb_random_a623acd4af1a73f29ee4f7cc603a38231}} 
+\index{MbRandom@{MbRandom}!gammaCdf@{gammaCdf}}
+\index{gammaCdf@{gammaCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{gammaCdf()}{gammaCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::gamma\+Cdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Gamma cumulative probability. 
+
+Gamma cumulative probability
+
+This function calculates the cumulative probability for a gamma-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the shape parameter of the gamma. \\
+\hline
+{\em b} & is the scale parameter of the gamma. \\
+\hline
+{\em x} & is the gamma random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a38890666f1288b6d06df22508ff9b2ec}\label{class_mb_random_a38890666f1288b6d06df22508ff9b2ec}} 
+\index{MbRandom@{MbRandom}!gammaPdf@{gammaPdf}}
+\index{gammaPdf@{gammaPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{gammaPdf()}{gammaPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::gamma\+Pdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Gamma probability density. 
+
+$<$ gamma random variable Gamma probability density
+
+This function calculates the probability density for a gamma-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the shape parameter of the gamma. \\
+\hline
+{\em b} & is the scale parameter of the gamma. \\
+\hline
+{\em x} & is the gamma random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a86ea5b619fe0646d64a55c043e9655e0}\label{class_mb_random_a86ea5b619fe0646d64a55c043e9655e0}} 
+\index{MbRandom@{MbRandom}!gammaQuantile@{gammaQuantile}}
+\index{gammaQuantile@{gammaQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{gammaQuantile()}{gammaQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::gamma\+Quantile (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gamma quantile. 
+
+quantile of gamma distribution
+
+This function returns the quantile of a gamma probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the shape parameter. \\
+\hline
+{\em b} & is the scale parameter. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ac5f030bb3dab8a93bd3430e8b9319d88}\label{class_mb_random_ac5f030bb3dab8a93bd3430e8b9319d88}} 
+\index{MbRandom@{MbRandom}!gammaRv@{gammaRv}}
+\index{gammaRv@{gammaRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{gammaRv()}{gammaRv()}}
+{\footnotesize\ttfamily double Mb\+Random\+::gamma\+Rv (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})}
+
+
+
+Gamma random variable. 
+
+This function generates a gamma-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the shape parameter of the gamma. \\
+\hline
+{\em b} & is the scale parameter of the gamma. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a gamma-\/distributed random variable. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a5a143a97da5fa43d5220fc628ceabe25}\label{class_mb_random_a5a143a97da5fa43d5220fc628ceabe25}} 
+\index{MbRandom@{MbRandom}!getSeed@{getSeed}}
+\index{getSeed@{getSeed}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{getSeed()}{getSeed()}}
+{\footnotesize\ttfamily void Mb\+Random\+::get\+Seed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} \&}]{i1,  }\item[{\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}} \&}]{i2 }\end{DoxyParamCaption})}
+
+
+
+Return the random number seeds. 
+
+retreives the seeds
+
+This function gets the two seeds from the random number generator.
+
+
+\begin{DoxyParams}{Parameters}
+{\em i1} & \mbox{[}in/out\mbox{]} the first seed \\
+\hline
+{\em i2} & \mbox{[}in/out\mbox{]} the second seed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This function does not return anything. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a19fb90a7e1297c3e0e0227e52d678f9f}\label{class_mb_random_a19fb90a7e1297c3e0e0227e52d678f9f}} 
+\index{MbRandom@{MbRandom}!lnBetaPdf@{lnBetaPdf}}
+\index{lnBetaPdf@{lnBetaPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnBetaPdf()}{lnBetaPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Beta\+Pdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Beta log probability density. 
+
+natural log of the Beta probability density
+
+This function returns the natural log of the probability density for a Beta-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & parameter of the Beta. \\
+\hline
+{\em b} & parameter of the Beta. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a814eac2d13019b2f99af06d50eb48499}\label{class_mb_random_a814eac2d13019b2f99af06d50eb48499}} 
+\index{MbRandom@{MbRandom}!lnChiSquarePdf@{lnChiSquarePdf}}
+\index{lnChiSquarePdf@{lnChiSquarePdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnChiSquarePdf()}{lnChiSquarePdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Chi\+Square\+Pdf (\begin{DoxyParamCaption}\item[{double}]{v,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Natural log of chi-\/square probability density. 
+
+natural log of the chi-\/square probability density
+
+This function calculates the natural log of the probability density for a chi-\/square distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em v} & is the degrees of freedom parameter of the chi-\/square. \\
+\hline
+{\em x} & is the chi-\/square random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_af4159ebe2cf7f73331f4087ce3ce1a15}\label{class_mb_random_af4159ebe2cf7f73331f4087ce3ce1a15}} 
+\index{MbRandom@{MbRandom}!lnDirichletPdf@{lnDirichletPdf}}
+\index{lnDirichletPdf@{lnDirichletPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnDirichletPdf()}{lnDirichletPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Dirichlet\+Pdf (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{a,  }\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ double $>$ \&}]{z }\end{DoxyParamCaption})}
+
+
+
+Natural log of Dirichlet probability density. 
+
+natural log of Dirichlet probability density
+
+This function calculates the natural log of the probability density for a Dirichlet-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$a} & is a pointer to a vector of doubles containing the Dirichlet parameters. \\
+\hline
+{\em $\ast$z} & is a pointer to a vector of doubles containing the random variables. \\
+\hline
+{\em n} & is the number of Dirichlet parameters/random variables. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+$<$ we assume that a and z have the same size \mbox{\Hypertarget{class_mb_random_a80fbc24c9c2f2f95a1cf7b4d3d47f9cf}\label{class_mb_random_a80fbc24c9c2f2f95a1cf7b4d3d47f9cf}} 
+\index{MbRandom@{MbRandom}!lnDiscreteUniformProb@{lnDiscreteUniformProb}}
+\index{lnDiscreteUniformProb@{lnDiscreteUniformProb}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnDiscreteUniformProb()}{lnDiscreteUniformProb()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Discrete\+Uniform\+Prob (\begin{DoxyParamCaption}\item[{int}]{a,  }\item[{int}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of discrete uniform probability. 
+
+natural log of discrete uniform probability
+
+This function calculates the natural log of the probability for a discrete uniform distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a3438c95566d2a0ddbc1b252a8a4197c3}\label{class_mb_random_a3438c95566d2a0ddbc1b252a8a4197c3}} 
+\index{MbRandom@{MbRandom}!lnExponentialPdf@{lnExponentialPdf}}
+\index{lnExponentialPdf@{lnExponentialPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnExponentialPdf()}{lnExponentialPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Exponential\+Pdf (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of exponential probability density. 
+
+natural log of Exponential probability density
+
+This function calculates the natural log of the probability density for an exponentially-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the exponential. \\
+\hline
+{\em x} & is the exponential random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ae27b57bf2122981b6c589b6f39d0cf6c}\label{class_mb_random_ae27b57bf2122981b6c589b6f39d0cf6c}} 
+\index{MbRandom@{MbRandom}!lnGamma@{lnGamma}}
+\index{lnGamma@{lnGamma}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnGamma()}{lnGamma()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Gamma (\begin{DoxyParamCaption}\item[{double}]{a }\end{DoxyParamCaption})}
+
+
+
+Natural log of the gamma function. 
+
+log of the gamma function
+
+This function calculates the log of the gamma function, which is equal to\+: Gamma(alp) = \{integral from 0 to infinity\} t$^\wedge$\{alp-\/1\} e$^\wedge$-\/t dt The result is accurate to 10 decimal places. Stirling\textquotesingle{}s formula is used for the central polynomial part of the procedure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em alp} & is the parameter of the gamma function. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the log of the gamma function. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+Pike, M. C. and I. D. Hill. 1966. Algorithm 291\+: Logarithm of the gamma function. Communications of the Association for Computing Machinery, 9\+:684. 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{class_mb_random_aa48ff75522fc4c5426af0133753ce19e}\label{class_mb_random_aa48ff75522fc4c5426af0133753ce19e}} 
+\index{MbRandom@{MbRandom}!lnGammaPdf@{lnGammaPdf}}
+\index{lnGammaPdf@{lnGammaPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnGammaPdf()}{lnGammaPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Gamma\+Pdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Natural log of gamma probability density. 
+
+natural log of Gamma probability density
+
+This function calculates the natural log of the probability density for a gamma-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the shape parameter of the gamma. \\
+\hline
+{\em b} & is the scale parameter of the gamma. \\
+\hline
+{\em x} & is the gamma random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ae5f654e3f6e19e5d783b894418cac720}\label{class_mb_random_ae5f654e3f6e19e5d783b894418cac720}} 
+\index{MbRandom@{MbRandom}!lnLogNormalPdf@{lnLogNormalPdf}}
+\index{lnLogNormalPdf@{lnLogNormalPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnLogNormalPdf()}{lnLogNormalPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Log\+Normal\+Pdf (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of the log normal probability density. 
+
+natural log of log normal probability density
+
+This function calculates the natural log of the probability density for a log normally distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the log normal. \\
+\hline
+{\em sigma} & is the variance parameter of the log normal. \\
+\hline
+{\em x} & is the log normal random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a63ee512328a66f5f3f15f45b7d66f476}\label{class_mb_random_a63ee512328a66f5f3f15f45b7d66f476}} 
+\index{MbRandom@{MbRandom}!lnNormalPdf@{lnNormalPdf}}
+\index{lnNormalPdf@{lnNormalPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnNormalPdf()}{lnNormalPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Normal\+Pdf (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of normal probability density. 
+
+natural log of Normal probability density
+
+This function calculates the natural log of the probability density for a normally-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the normal. \\
+\hline
+{\em sigma} & is the variance parameter of the normal. \\
+\hline
+{\em x} & is the normal random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a9d842b9c60ccd77094cfe97b53fd205c}\label{class_mb_random_a9d842b9c60ccd77094cfe97b53fd205c}} 
+\index{MbRandom@{MbRandom}!lnPoissonProb@{lnPoissonProb}}
+\index{lnPoissonProb@{lnPoissonProb}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnPoissonProb()}{lnPoissonProb()}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Poisson\+Prob (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of Poisson probability. 
+
+natural log of Poisson probability
+
+This function calculates the natural log of the probability for a Poisson distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the Poisson. \\
+\hline
+{\em x} & is the value of the random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a586a679287cdba3195ee0620d6cb15f8}\label{class_mb_random_a586a679287cdba3195ee0620d6cb15f8}} 
+\index{MbRandom@{MbRandom}!lnUniformPdf@{lnUniformPdf}}
+\index{lnUniformPdf@{lnUniformPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnUniformPdf()}{lnUniformPdf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Uniform\+Pdf (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of uniform(0,1) probability density. 
+
+natural log of Uniform(0,1) probability density
+
+This function calculates the natural log of the probability density for a uniform(0,1) random variable.
+
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ae9126d13b2ea42cc8f51ec8e400a2ba0}\label{class_mb_random_ae9126d13b2ea42cc8f51ec8e400a2ba0}} 
+\index{MbRandom@{MbRandom}!lnUniformPdf@{lnUniformPdf}}
+\index{lnUniformPdf@{lnUniformPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{lnUniformPdf()}{lnUniformPdf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::ln\+Uniform\+Pdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of uniform(a,b) probability density. 
+
+natural log of Uniform(a,b) probability density
+
+This function calculates the natural log of the probability density for a uniform(a,b) random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a63f5082668019288ec45debb0404bfb6}\label{class_mb_random_a63f5082668019288ec45debb0404bfb6}} 
+\index{MbRandom@{MbRandom}!logNormalCdf@{logNormalCdf}}
+\index{logNormalCdf@{logNormalCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{logNormalCdf()}{logNormalCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::log\+Normal\+Cdf (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Log normal cumulative probability. 
+
+log normal cumulative probability
+
+This function calculates the cumulative probability for a log normally distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the log normal. \\
+\hline
+{\em sigma} & is the variance parameter of the log normal. \\
+\hline
+{\em x} & is the log normal random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a86c722ab7cde1304040f6ec60cb0e66a}\label{class_mb_random_a86c722ab7cde1304040f6ec60cb0e66a}} 
+\index{MbRandom@{MbRandom}!logNormalPdf@{logNormalPdf}}
+\index{logNormalPdf@{logNormalPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{logNormalPdf()}{logNormalPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::log\+Normal\+Pdf (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Log normal probability density. 
+
+$<$ log normal random variable log normal probability density
+
+This function calculates the probability density for a log normally distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the log normal. \\
+\hline
+{\em sigma} & is the variance parameter of the log normal. \\
+\hline
+{\em x} & is the log normal random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a2d1ef18aad6db3a05838c977d0a0a07a}\label{class_mb_random_a2d1ef18aad6db3a05838c977d0a0a07a}} 
+\index{MbRandom@{MbRandom}!logNormalQuantile@{logNormalQuantile}}
+\index{logNormalQuantile@{logNormalQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{logNormalQuantile()}{logNormalQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::log\+Normal\+Quantile (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{p }\end{DoxyParamCaption})}
+
+
+
+Natural quantile. 
+
+quantile of log normal distribution
+
+This function returns the quantile of a normal probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the normal. \\
+\hline
+{\em sigma} & is the variance parameter of the normal. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a00b39bcea83dab8c487abf7653b3d917}\label{class_mb_random_a00b39bcea83dab8c487abf7653b3d917}} 
+\index{MbRandom@{MbRandom}!logNormalRv@{logNormalRv}}
+\index{logNormalRv@{logNormalRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{logNormalRv()}{logNormalRv()}}
+{\footnotesize\ttfamily double Mb\+Random\+::log\+Normal\+Rv (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Log normal random variable. 
+
+This function generates a log normally distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the log normal. \\
+\hline
+{\em sigma} & is the variance parameter of the log normal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a log normally distributed random variable. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a7093d47caddfb2225cbd409a5c00a206}\label{class_mb_random_a7093d47caddfb2225cbd409a5c00a206}} 
+\index{MbRandom@{MbRandom}!normalCdf@{normalCdf}}
+\index{normalCdf@{normalCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{normalCdf()}{normalCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::normal\+Cdf (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Normal cumulative probability. 
+
+Normal cumulative probability
+
+This function calculates the cumulative probability for a normally-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the normal. \\
+\hline
+{\em sigma} & is the variance parameter of the normal. \\
+\hline
+{\em x} & is the normal random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+Adams, A. G. 1969. Areas under the normal curve. Cojputer J. 12\+:197-\/198. 
+\end{DoxySeeAlso}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a15d74c49ce89d4743728fe81c901947f}\label{class_mb_random_a15d74c49ce89d4743728fe81c901947f}} 
+\index{MbRandom@{MbRandom}!normalPdf@{normalPdf}}
+\index{normalPdf@{normalPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{normalPdf()}{normalPdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::normal\+Pdf (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Normal probability density. 
+
+$<$ normal(mu,sigma) random variable Normal probability density
+
+This function calculates the probability density for a normally-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the normal. \\
+\hline
+{\em sigma} & is the variance parameter of the normal. \\
+\hline
+{\em x} & is the normal random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a4fd385a54556283dd40e130ea1155035}\label{class_mb_random_a4fd385a54556283dd40e130ea1155035}} 
+\index{MbRandom@{MbRandom}!normalQuantile@{normalQuantile}}
+\index{normalQuantile@{normalQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{normalQuantile()}{normalQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::normal\+Quantile (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma,  }\item[{double}]{p }\end{DoxyParamCaption})}
+
+
+
+Natural quantile. 
+
+quantile of normal distribution
+
+This function returns the quantile of a normal probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean parameter of the normal. \\
+\hline
+{\em sigma} & is the variance parameter of the normal. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ae0e340dd8f57f26a6b4cba0fa9b0fafc}\label{class_mb_random_ae0e340dd8f57f26a6b4cba0fa9b0fafc}} 
+\index{MbRandom@{MbRandom}!normalRv@{normalRv}}
+\index{normalRv@{normalRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{normalRv()}{normalRv()}}
+{\footnotesize\ttfamily double Mb\+Random\+::normal\+Rv (\begin{DoxyParamCaption}\item[{double}]{mu,  }\item[{double}]{sigma }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Normal random variable. 
+
+This function generates a normally-\/distributed random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mu} & is the mean of the normal. \\
+\hline
+{\em sigma} & is the variance of the normal. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a normally-\/distributed random variable. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_adb0a8b9aa025f68a6ef519581c28d37b}\label{class_mb_random_adb0a8b9aa025f68a6ef519581c28d37b}} 
+\index{MbRandom@{MbRandom}!poissonCdf@{poissonCdf}}
+\index{poissonCdf@{poissonCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{poissonCdf()}{poissonCdf()}}
+{\footnotesize\ttfamily double Mb\+Random\+::poisson\+Cdf (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{int}]{x }\end{DoxyParamCaption})}
+
+
+
+Poisson cumulative probability. 
+
+Poisson cumulative probability
+
+This function calculates the cumulative probability for a Poisson distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the Poisson. \\
+\hline
+{\em x} & is the value of the random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a5ecfd1d9b7c3c426842b27d82b37d524}\label{class_mb_random_a5ecfd1d9b7c3c426842b27d82b37d524}} 
+\index{MbRandom@{MbRandom}!poissonProb@{poissonProb}}
+\index{poissonProb@{poissonProb}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{poissonProb()}{poissonProb()}}
+{\footnotesize\ttfamily double Mb\+Random\+::poisson\+Prob (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Natural log of Poisson probability. 
+
+$<$ Poisson random variable Poisson probability
+
+This function calculates the natural log of the probability for a Poisson distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the Poisson. \\
+\hline
+{\em x} & is the value of the random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the natural log of the probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_afe0079c445520c19cfda7f03131acf46}\label{class_mb_random_afe0079c445520c19cfda7f03131acf46}} 
+\index{MbRandom@{MbRandom}!poissonQuantile@{poissonQuantile}}
+\index{poissonQuantile@{poissonQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{poissonQuantile()}{poissonQuantile()}}
+{\footnotesize\ttfamily double Mb\+Random\+::poisson\+Quantile (\begin{DoxyParamCaption}\item[{double}]{lambda,  }\item[{double}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Poisson(lambda) quantile. 
+
+quantile of a Poisson(lambda) distribution
+
+This function returns the quantile of a Poisson probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & is the rate parameter of the Poisson. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a1bdf06beaf449852a1b5247a79246b5f}\label{class_mb_random_a1bdf06beaf449852a1b5247a79246b5f}} 
+\index{MbRandom@{MbRandom}!poissonRv@{poissonRv}}
+\index{poissonRv@{poissonRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{poissonRv()}{poissonRv()}}
+{\footnotesize\ttfamily int Mb\+Random\+::poisson\+Rv (\begin{DoxyParamCaption}\item[{double}]{lambda }\end{DoxyParamCaption})}
+
+
+
+Poisson(lambda) random variable. 
+
+This function generates a Poisson-\/distributed random variable with parameter lambda.
+
+
+\begin{DoxyParams}{Parameters}
+{\em lambda} & the rate parameter of the Poisson. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This function returns a Poisson-\/distributed integer. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a2ec0fc6f556b74b4dbac8daee90268f6}\label{class_mb_random_a2ec0fc6f556b74b4dbac8daee90268f6}} 
+\index{MbRandom@{MbRandom}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{setSeed()}{setSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Mb\+Random\+::set\+Seed (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Initializes random number seeds. 
+
+initializes the seeds using the current time
+
+This function sets the two seeds for the random number generator, using the current time.
+
+\begin{DoxyReturn}{Returns}
+This function does not return anything. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a737fb472831030eaa72d86e93a47d365}\label{class_mb_random_a737fb472831030eaa72d86e93a47d365}} 
+\index{MbRandom@{MbRandom}!setSeed@{setSeed}}
+\index{setSeed@{setSeed}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{setSeed()}{setSeed()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Mb\+Random\+::set\+Seed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}}}]{seed1,  }\item[{\mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}}}]{seed2 }\end{DoxyParamCaption})}
+
+
+
+Initializes random number seeds. 
+
+initializes the seeds
+
+This function sets the two seeds for the random number generator. If only one starting value is given we set the two seeds by using the two least signficant bytes as one seed and the two most significant bytes shifted to the right as the second seed.
+
+\begin{DoxyReturn}{Returns}
+This function does not return anything. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_aa975313092805421e835bfa934512111}\label{class_mb_random_aa975313092805421e835bfa934512111}} 
+\index{MbRandom@{MbRandom}!uniformCdf@{uniformCdf}}
+\index{uniformCdf@{uniformCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformCdf()}{uniformCdf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Cdf (\begin{DoxyParamCaption}\item[{double}]{x }\end{DoxyParamCaption})}
+
+
+
+Uniform(0,1) cumulative probability. 
+
+Uniform(0,1) cumulative probability
+
+This function calculates the cumulative probability for a uniform(0,1) random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & is the uniform random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_adbc7c859738c1cc4bcf485fc835db98e}\label{class_mb_random_adbc7c859738c1cc4bcf485fc835db98e}} 
+\index{MbRandom@{MbRandom}!uniformCdf@{uniformCdf}}
+\index{uniformCdf@{uniformCdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformCdf()}{uniformCdf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Cdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Uniform(a,b) cumulative probability. 
+
+Uniform(a,b) cumulative probability
+
+This function calculates the cumulative probability for a uniform(a,b) random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+{\em x} & is the uniform random variable. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the cumulative probability. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a9988ff0258360c8f05ef907f8d9c0805}\label{class_mb_random_a9988ff0258360c8f05ef907f8d9c0805}} 
+\index{MbRandom@{MbRandom}!uniformPdf@{uniformPdf}}
+\index{uniformPdf@{uniformPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformPdf()}{uniformPdf()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Pdf (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Uniform(0,1) probability density. 
+
+$<$ uniform(0,1) random variable Uniform(0,1) probability density
+
+This function calculates the probability density for a uniform(0,1) random variable.
+
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a9db5772a5efc8c19681c46fcbfb60972}\label{class_mb_random_a9db5772a5efc8c19681c46fcbfb60972}} 
+\index{MbRandom@{MbRandom}!uniformPdf@{uniformPdf}}
+\index{uniformPdf@{uniformPdf}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformPdf()}{uniformPdf()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Pdf (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Uniform(a,b) probability density. 
+
+$<$ uniform(a,b) random variable Uniform(a,b) probability density
+
+This function calculates the probability density for a uniform(a,b) random variable.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the probability density. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_ade8b412ea092c006f041ac7034e9b102}\label{class_mb_random_ade8b412ea092c006f041ac7034e9b102}} 
+\index{MbRandom@{MbRandom}!uniformQuantile@{uniformQuantile}}
+\index{uniformQuantile@{uniformQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformQuantile()}{uniformQuantile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Quantile (\begin{DoxyParamCaption}\item[{double}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Uniform(0,1) quantile. 
+
+quantile of a uniform(0,1) distribuiton
+
+This function returns the quantile of a uniform(0,1) probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_a086d186a0bc4d52738dd571dc9f0b8e2}\label{class_mb_random_a086d186a0bc4d52738dd571dc9f0b8e2}} 
+\index{MbRandom@{MbRandom}!uniformQuantile@{uniformQuantile}}
+\index{uniformQuantile@{uniformQuantile}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformQuantile()}{uniformQuantile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Quantile (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b,  }\item[{double}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Uniform(a,b) quantile. 
+
+quantile of a uniform(a,b) distribuiton
+
+This function returns the quantile of a uniform(a,b) probability distribution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+{\em p} & is the probability up to the quantile. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the quantile. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{class_mb_random_af7e99ee2ca8a02c2ae163e1c00f528bf}\label{class_mb_random_af7e99ee2ca8a02c2ae163e1c00f528bf}} 
+\index{MbRandom@{MbRandom}!uniformRv@{uniformRv}}
+\index{uniformRv@{uniformRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformRv()}{uniformRv()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Rv (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Uniform\mbox{[}0,1) random variable. 
+
+This function generates a uniformly-\/distributed random variable on the interval \mbox{[}0,1). It is a version of the Marsaglia Multi-\/\+Carry.
+
+Taken from\+: Mathlib \+: A C Library of Special Functions Copyright (C) 2000, 2003 The R Development Core Team
+
+This random generator has a period of 2$^\wedge$60, which ensures it has the maximum period of 2$^\wedge$32 for unsigned ints (32 bit ints).
+
+\begin{DoxyReturn}{Returns}
+Returns a uniformly-\/distributed random variable on the interval \mbox{[}0,1). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxySeeAlso}{See also}
+\href{http://stat.fsu.edu/~geo/diehard.html}{\texttt{ http\+://stat.\+fsu.\+edu/$\sim$geo/diehard.\+html}} 
+\end{DoxySeeAlso}
+$<$ in \mbox{[}0,1) \mbox{\Hypertarget{class_mb_random_a277d841d32f82f756c95b87eb6184ed2}\label{class_mb_random_a277d841d32f82f756c95b87eb6184ed2}} 
+\index{MbRandom@{MbRandom}!uniformRv@{uniformRv}}
+\index{uniformRv@{uniformRv}!MbRandom@{MbRandom}}
+\subsubsection{\texorpdfstring{uniformRv()}{uniformRv()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily double Mb\+Random\+::uniform\+Rv (\begin{DoxyParamCaption}\item[{double}]{a,  }\item[{double}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Uniform(a,b) random variable. 
+
+This function generates a uniformly-\/distributed random variable on the interval (a,b).
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & is the lower bound on the uniform. \\
+\hline
+{\em b} & is the upper bound on the uniform. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a uniformly-\/distributed random variable on the interval (a,b). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Does} & not throw an error. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_mb_random_8h}{Mb\+Random.\+h}}\item 
+src/\mbox{\hyperlink{_mb_random_8cpp}{Mb\+Random.\+cpp}}\end{DoxyCompactItemize}

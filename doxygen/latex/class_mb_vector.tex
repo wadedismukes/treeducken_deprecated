@@ -1,0 +1,315 @@
+\hypertarget{class_mb_vector}{}\section{Mb\+Vector$<$ T $>$ Class Template Reference}
+\label{class_mb_vector}\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+
+
+\mbox{\hyperlink{class_mb_random}{Mb\+Random}} is a class for generating random variables.  
+
+
+
+
+{\ttfamily \#include $<$Mb\+Random.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_mb_vector_a34994ea552d4d102c8b1f715deb994dc}{Mb\+Vector}} (void)
+\begin{DoxyCompactList}\small\item\em null constructor (zero-\/length vector) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector_a456d0204f259781913d6c628879a2322}{Mb\+Vector}} (int x)
+\begin{DoxyCompactList}\small\item\em creates vector of length n without initializing values \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector_ac0a3ab84a77f584df145f16d1f873042}{Mb\+Vector}} (int x, T $\ast$a)
+\begin{DoxyCompactList}\small\item\em creates vector of length n as a view of vector a \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector_a24fc5dce7588ec1fe94c5456c15b4ff1}{Mb\+Vector}} (int x, const T \&a)
+\begin{DoxyCompactList}\small\item\em creates vector of length n initializing all elements with value a \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector_a9170642bc4f080109660df9eb3f713bc}{Mb\+Vector}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \&A)
+\begin{DoxyCompactList}\small\item\em creates vector of length n sharing data with vector A \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector_ac1e7793d625f395232e8d2c1479f065d}{$\sim$\+Mb\+Vector}} (void)
+\begin{DoxyCompactList}\small\item\em destructor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_afecf672c7a4563b6c1534dfc3a2b3ef5}\label{class_mb_vector_afecf672c7a4563b6c1534dfc3a2b3ef5}} 
+\mbox{\hyperlink{class_mb_vector_afecf672c7a4563b6c1534dfc3a2b3ef5}{operator T $\ast$}} ()
+\begin{DoxyCompactList}\small\item\em type cast to T pointer \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_a9c6f9b64b62048b36c2ee889bd4e921c}\label{class_mb_vector_a9c6f9b64b62048b36c2ee889bd4e921c}} 
+\mbox{\hyperlink{class_mb_vector_a9c6f9b64b62048b36c2ee889bd4e921c}{operator const T $\ast$}} ()
+\begin{DoxyCompactList}\small\item\em type cast to T pointer for const \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \& \mbox{\hyperlink{class_mb_vector_a1ffe936bb9037ce910da8a095782a929}{operator=}} (const T \&a)
+\begin{DoxyCompactList}\small\item\em assignment operator (all elements have the value a) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_af75698d54f82729644619a277606762b}\label{class_mb_vector_af75698d54f82729644619a277606762b}} 
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \& \mbox{\hyperlink{class_mb_vector_af75698d54f82729644619a277606762b}{operator=}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \&A)
+\begin{DoxyCompactList}\small\item\em assignment operator (shallow copy, elements share data) \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_mb_vector_a8f2620606cadfa0e0ba937fd4725ac3c}{operator==}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \&A) const
+\begin{DoxyCompactList}\small\item\em equality operator \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_a013ee5f6f44187dbd1ecbbbd9e8f7785}\label{class_mb_vector_a013ee5f6f44187dbd1ecbbbd9e8f7785}} 
+T \& \mbox{\hyperlink{class_mb_vector_a013ee5f6f44187dbd1ecbbbd9e8f7785}{operator\mbox{[}$\,$\mbox{]}}} (int i)
+\begin{DoxyCompactList}\small\item\em indexing operator (allows reference of data using \mbox{[}\mbox{]} notation) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_abb85893f61c5ff21fb2864a48e2a830a}\label{class_mb_vector_abb85893f61c5ff21fb2864a48e2a830a}} 
+const T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (int i) const
+\item 
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \& \mbox{\hyperlink{class_mb_vector_af32339427953f6173daeb55a47098907}{ref}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \&A)
+\begin{DoxyCompactList}\small\item\em indexing operator (allows reference of data using \mbox{[}\mbox{]} notation) (const) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \mbox{\hyperlink{class_mb_vector_afa32c2ecf3505826f287b20a3ef60cc1}{copy}} (void) const
+\begin{DoxyCompactList}\small\item\em creates a copy of another array (deep copy, with separate data elements) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_a8bda3ea5c35ae194e403888883ad025d}\label{class_mb_vector_a8bda3ea5c35ae194e403888883ad025d}} 
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \& \mbox{\hyperlink{class_mb_vector_a8bda3ea5c35ae194e403888883ad025d}{inject}} (const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} \&A)
+\begin{DoxyCompactList}\small\item\em copy the values of elements from one array to another \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_a8fa74ce55ec03ba4720d4e403dfc6f07}\label{class_mb_vector_a8fa74ce55ec03ba4720d4e403dfc6f07}} 
+int \mbox{\hyperlink{class_mb_vector_a8fa74ce55ec03ba4720d4e403dfc6f07}{dim1}} (void) const
+\begin{DoxyCompactList}\small\item\em get the dimensions of the vector (number of elements of vector) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_aca53f44c61062378aa857e5a2a12350e}\label{class_mb_vector_aca53f44c61062378aa857e5a2a12350e}} 
+int \mbox{\hyperlink{class_mb_vector_aca53f44c61062378aa857e5a2a12350e}{dim}} (void) const
+\begin{DoxyCompactList}\small\item\em get the dimensions of the vector (number of elements of vector) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_af48cfa4fd2383bb5505f9545e60bbfa8}\label{class_mb_vector_af48cfa4fd2383bb5505f9545e60bbfa8}} 
+int \mbox{\hyperlink{class_mb_vector_af48cfa4fd2383bb5505f9545e60bbfa8}{get\+Ref\+Count}} (void) const
+\begin{DoxyCompactList}\small\item\em get the number of vectors that share the same data \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_af68c1d86ed75dc29fdd7eb9070b751a3}\label{class_mb_vector_af68c1d86ed75dc29fdd7eb9070b751a3}} 
+int \mbox{\hyperlink{class_mb_vector_af68c1d86ed75dc29fdd7eb9070b751a3}{size}} () const
+\begin{DoxyCompactList}\small\item\em get the number of elements of the vector \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_mb_vector_ac80a49eb5c2cfc07e264f049530d14d0}\label{class_mb_vector_ac80a49eb5c2cfc07e264f049530d14d0}} 
+T $\ast$ \mbox{\hyperlink{class_mb_vector_ac80a49eb5c2cfc07e264f049530d14d0}{v}}
+\begin{DoxyCompactList}\small\item\em pointer to values \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_a190e77a423352dbfcd566ca3cfcc3ea9}\label{class_mb_vector_a190e77a423352dbfcd566ca3cfcc3ea9}} 
+int \mbox{\hyperlink{class_mb_vector_a190e77a423352dbfcd566ca3cfcc3ea9}{n}}
+\begin{DoxyCompactList}\small\item\em number of elements \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_mb_vector_aaffe4fea3e516a528aa7f17db3424e53}\label{class_mb_vector_aaffe4fea3e516a528aa7f17db3424e53}} 
+int $\ast$ \mbox{\hyperlink{class_mb_vector_aaffe4fea3e516a528aa7f17db3424e53}{ref\+Count}}
+\begin{DoxyCompactList}\small\item\em number of references to the vector \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class Mb\+Vector$<$ T $>$}
+
+\mbox{\hyperlink{class_mb_random}{Mb\+Random}} is a class for generating random variables. 
+
+Vector class.
+
+\mbox{\hyperlink{class_mb_random}{Mb\+Random}} is a class that works with random variables. On creating an instance of this class, a seed for a uniform random number is initialized. One can then obtain random variables with different probability distributions, by transforming a uniform(0,1) random variable in different ways. The class can either be instantiated with a long integer, in which case the seed is set to the long integers value (i.\+e., the class takes on a user-\/supplied seed) or the class can be instantiated with no value passed in, in which case the seed is initialized using the system time. The class also has functions for calculating the probability or probability density for a random variable or for calculating the quantiles of a probability distribution.
+
+Mr\+Bayes templated vector type. We used the Template Numerical Toolkit (T\+NT) code as a model for this class. T\+NT vectors are similar to the L\+A\+P\+A\+Ck vector type. The T\+NT code comes with the following disclaimer\+:
+
+"Template Numerical Toolkit (T\+NT)
+
+Mathematical and Computational Sciences Division National Institute of Technology, Gaithersburg, MD U\+SA
+
+This software was developed at the National Institute of Standards and Technology (N\+I\+ST) by employees of the Federal Government in the course of their official duties. Pursuant to title 17 Section 105 of the United States Code, this software is not subject to copyright protection and is in the public domain. N\+I\+ST assumes no responsibility whatsoever for its use by other parties, and makes no guarantees, expressed or implied, about its quality, reliability, or any other characteristic."
+
+This header file provides a one-\/dimensional, numerical array which looks like a conventional C array. Elements are accessed via the familiar A\mbox{[}i\mbox{]} notation.
+
+Array assignment is by reference (i.\+e. shallow assignment). That is, B=A implies that the A and B point to the same array, so modifications to the elements of A will be reflected in B. If an independent copy is required, then B = A.\+copy() can be used. Note that this facilitates returning arrays from functions without relying on compiler optimizations to eliminate extensive data copying.
+
+The indexing and layout of this array object makes it compatible with C and C++ algorithms that utilize the familiar C\mbox{[}i\mbox{]} notation. This includes numerous textbooks, such as Numercial Recipes, and various public domain codes.
+
+This class employs its own garbage collection via the use of reference counts. That is, whenever an internal array storage no longer has any references to it, it is destroyed. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_mb_vector_a34994ea552d4d102c8b1f715deb994dc}\label{class_mb_vector_a34994ea552d4d102c8b1f715deb994dc}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!MbVector@{MbVector}}
+\index{MbVector@{MbVector}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{MbVector()}{MbVector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+null constructor (zero-\/length vector) 
+
+Null constructor.
+
+Null constructor. Creates a 0-\/length (N\+U\+LL) vector. Note that the reference count will be set to 1 for this null vector. This is to simplify the rest of the code at the cost of allocating and deleting an int everytime a null vector is needed. \mbox{\Hypertarget{class_mb_vector_a456d0204f259781913d6c628879a2322}\label{class_mb_vector_a456d0204f259781913d6c628879a2322}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!MbVector@{MbVector}}
+\index{MbVector@{MbVector}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{MbVector()}{MbVector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+creates vector of length n without initializing values 
+
+Constructor of uninitialized vector.
+
+Create a new vector of length n, without initializing vector elements. If x is not positive, a null vector is created. Note that the reference count will be set to 1 regardless of whether we create a null vector. This is to simplify the rest of the code at the cost of allocating and deleting an int every time a null vector is needed.
+
+This version avoids the O(n) initialization overhead.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Dimension (length) of new vector \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mb_vector_ac0a3ab84a77f584df145f16d1f873042}\label{class_mb_vector_ac0a3ab84a77f584df145f16d1f873042}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!MbVector@{MbVector}}
+\index{MbVector@{MbVector}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{MbVector()}{MbVector()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{T $\ast$}]{a }\end{DoxyParamCaption})}
+
+
+
+creates vector of length n as a view of vector a 
+
+Create a new x-\/length vector as a view of an existing one-\/dimensional C array. The storage for this pre-\/existing array will never be destroyed by the \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} class since the reference count is set to 2. When the field is lost by \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}, the reference count will still be 1 and the field is not garbage collected.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The dimension (length) of the new vector \\
+\hline
+{\em a} & Pointer to C array used as data storage \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mb_vector_a24fc5dce7588ec1fe94c5456c15b4ff1}\label{class_mb_vector_a24fc5dce7588ec1fe94c5456c15b4ff1}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!MbVector@{MbVector}}
+\index{MbVector@{MbVector}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{MbVector()}{MbVector()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{const T \&}]{a }\end{DoxyParamCaption})}
+
+
+
+creates vector of length n initializing all elements with value a 
+
+Constructor of initialized vector.
+
+Constructor, which creates a vector with x elements. The elements will be initialized to the constant specified by the second argument. Most often used to create a vector of zeros, as in \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} A(n, 0.\+0).
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Number of elements. \\
+\hline
+{\em a} & Value for initialization. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mb_vector_a9170642bc4f080109660df9eb3f713bc}\label{class_mb_vector_a9170642bc4f080109660df9eb3f713bc}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!MbVector@{MbVector}}
+\index{MbVector@{MbVector}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{MbVector()}{MbVector()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$ \&}]{A }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+creates vector of length n sharing data with vector A 
+
+Shallow copy constructor.
+
+Copy constructor, which creates a shallow copy of the \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} argument. Vector data are not copied but shared. Thus, in \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} B(\+A), subsequent changes to A will be reflected by changes in B. For an independent copy, use \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} B(A.\+copy()), or B = A.\+copy(), instead. Note the use of garbage collection in this class, through the reference counter ref\+Count.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Vector to copy \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_mb_vector_ac1e7793d625f395232e8d2c1479f065d}\label{class_mb_vector_ac1e7793d625f395232e8d2c1479f065d}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!````~MbVector@{$\sim$MbVector}}
+\index{````~MbVector@{$\sim$MbVector}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{$\sim$MbVector()}{~MbVector()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::$\sim$\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+destructor 
+
+Destructor with garbage collection.
+
+Destructor. Note that ref\+Count is decreased and only if ref\+Count reaches 0 do we delete allocated memory. This is garbage collection as implemented in J\+A\+VA and other languages. Note that null vectors also have a reference count allocated, so that we can always access the value of ref\+Count. 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mb_vector_afa32c2ecf3505826f287b20a3ef60cc1}\label{class_mb_vector_afa32c2ecf3505826f287b20a3ef60cc1}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!copy@{copy}}
+\index{copy@{copy}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$ \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::copy (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption}) const}
+
+
+
+creates a copy of another array (deep copy, with separate data elements) 
+
+Create independent copy.
+
+Create a new version of an existing vector. Used in B = A.\+copy() or in the construction of a new vector that does not share data with the copied vector, e.\+g. in \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}} B(A.\+copy()).
+
+\begin{DoxyReturn}{Returns}
+Copy of this. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mb_vector_a1ffe936bb9037ce910da8a095782a929}\label{class_mb_vector_a1ffe936bb9037ce910da8a095782a929}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$ \& \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const T \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+assignment operator (all elements have the value a) 
+
+Assign scalar to all elements.
+
+Assign all elements of the vector the value of the constant scalar a.
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Scalar used in assignment \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Assigned vector 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mb_vector_a8f2620606cadfa0e0ba937fd4725ac3c}\label{class_mb_vector_a8f2620606cadfa0e0ba937fd4725ac3c}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+bool \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$ \&}]{A }\end{DoxyParamCaption}) const}
+
+
+
+equality operator 
+
+Equality operator.
+
+Equality operator. The dimensions of the two vectors are first compared. If it is not the same, then false is returned. Second, all elements are compared. If they are the same, true is returned, otherwise false is returned. Note that this operator is not useful for float and double vectors, but it is handy for int and bool vectors, as well as for vectors of other types that have a sensible operator!= defined.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Vector to compare this to. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if this==A, false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_mb_vector_af32339427953f6173daeb55a47098907}\label{class_mb_vector_af32339427953f6173daeb55a47098907}} 
+\index{MbVector$<$ T $>$@{MbVector$<$ T $>$}!ref@{ref}}
+\index{ref@{ref}!MbVector$<$ T $>$@{MbVector$<$ T $>$}}
+\subsubsection{\texorpdfstring{ref()}{ref()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+\mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$ \& \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$\+::ref (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_mb_vector}{Mb\+Vector}}$<$ T $>$ \&}]{A }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+indexing operator (allows reference of data using \mbox{[}\mbox{]} notation) (const) 
+
+Make this reference to A.
+
+creates a reference to another array (shallow copy)
+
+Create a reference (shallow assignment) to another existing vector. In B.\+ref(\+A), B and A share the same data and subsequent changes to the vector elements of one will be reflected in the other. Note that the reference counter is always allocated, even for null vectors, so we need not test whether ref\+Count is N\+U\+LL.
+
+This is what operator= calls, and B=A and B.\+ref(\+A) are equivalent operations.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & Vector to take reference of \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Vector for which reference was set to A 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{_mb_random_8h}{Mb\+Random.\+h}}\item 
+src/\mbox{\hyperlink{_mb_vector_8h}{Mb\+Vector.\+h}}\end{DoxyCompactItemize}

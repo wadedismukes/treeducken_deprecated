@@ -1,0 +1,72 @@
+\hypertarget{_mb_random_8h}{}\section{src/\+Mb\+Random.h File Reference}
+\label{_mb_random_8h}\index{src/MbRandom.h@{src/MbRandom.h}}
+
+
+This file contains a definition for a class for random variables.  
+
+
+{\ttfamily \#include $<$cmath$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_mb_vector}{Mb\+Vector$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_mb_random}{Mb\+Random}} is a class for generating random variables. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_mb_random}{Mb\+Random}}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_mb_random_8h_a598a3330b3c21701223ee0ca14316eca}\label{_mb_random_8h_a598a3330b3c21701223ee0ca14316eca}} 
+\#define {\bfseries PI}~3.\+141592653589793
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains a definition for a class for random variables. 
+
+In this file we declare a class for random variables. It contains one class, \mbox{\hyperlink{class_mb_random}{Mb\+Random}}, which when instantiated gives a stream of uniform random variables. It also can transform the uniform random variable to generate random variables with different distributions (such as exponential, gamma, normal, etc.).
+
+Mr\+Bayes version 4.\+0 beta
+
+(c) Copyright 2005. \begin{DoxyVersion}{Version}
+4.\+0 beta 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+Last modified\+: 
+\end{DoxyDate}
+\begin{DoxyParagraph}{Date}
+2006/09/11 17\+:29\+:51 
+\end{DoxyParagraph}
+\begin{DoxyAuthor}{Author}
+John Huelsenbeck (1) 
+
+Bret Larget (2) 
+
+Paul van der Mark (3) 
+
+Fredrik Ronquist (3) 
+
+Donald Simon (4) 
+
+(authors listed in alphabetical order) (1) Department of Integrative Biology, University of California, Berkeley (2) Departments of Botany and of Statistics, University of Wisconsin -\/ Madison (3) School of Computational Science, Florida State University (4) Department of Mathematics/\+Computer Science, Duquesne University
+\end{DoxyAuthor}
+This program is distributed in the hope that it will be useful, but W\+I\+T\+H\+O\+UT A\+NY W\+A\+R\+R\+A\+N\+TY; without even the implied warranty of M\+E\+R\+C\+H\+A\+N\+T\+A\+B\+I\+L\+I\+TY or F\+I\+T\+N\+E\+SS F\+OR A P\+A\+R\+T\+I\+C\+U\+L\+AR P\+U\+R\+P\+O\+SE. See the G\+NU General Public License (the file gpl.\+txt included with this distribution or \href{http://www.gnu.org/licenses/gpl.txt}{\texttt{ http\+://www.\+gnu.\+org/licenses/gpl.\+txt}} for more details.
+
+\begin{DoxyParagraph}{Id}
+\mbox{\hyperlink{_mb_random_8h}{Mb\+Random.\+h}},v 1.\+3 2006/09/11 17\+:29\+:51 paulvdm Exp 
+\end{DoxyParagraph}
+
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}\label{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}} 
+\index{MbRandom.h@{MbRandom.h}!seedType@{seedType}}
+\index{seedType@{seedType}!MbRandom.h@{MbRandom.h}}
+\subsubsection{\texorpdfstring{seedType}{seedType}}
+{\footnotesize\ttfamily typedef unsigned int \mbox{\hyperlink{_mb_random_8h_a4aa644a391dc423f6cb86710cc056d8b}{seed\+Type}}}
+
+The Marsaglia Multi-\/\+Carry random number generator used in Mr\+Bayes 4 assumes a 32-\/bit data type for seeds. An unsigned int is 32 bits for both 32-\/bit and 64-\/bits processors. 

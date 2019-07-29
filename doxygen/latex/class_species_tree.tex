@@ -1,0 +1,117 @@
+\hypertarget{class_species_tree}{}\section{Species\+Tree Class Reference}
+\label{class_species_tree}\index{SpeciesTree@{SpeciesTree}}
+Inheritance diagram for Species\+Tree\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_species_tree}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_species_tree_a7fd5c3c36552ec14f8ef16ddeebb177f}\label{class_species_tree_a7fd5c3c36552ec14f8ef16ddeebb177f}} 
+{\bfseries Species\+Tree} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa, double cur\+Time, double spec\+Rate, double ext\+Rate)
+\item 
+\mbox{\Hypertarget{class_species_tree_aade16d74539d448009775e0987a6aa41}\label{class_species_tree_aade16d74539d448009775e0987a6aa41}} 
+{\bfseries Species\+Tree} (\mbox{\hyperlink{class_mb_random}{Mb\+Random}} $\ast$p, unsigned num\+Taxa)
+\item 
+\mbox{\Hypertarget{class_species_tree_a9f1d99b8e8816c61c974416ffeee8e9c}\label{class_species_tree_a9f1d99b8e8816c61c974416ffeee8e9c}} 
+void {\bfseries set\+Speciation\+Rate} (double sr)
+\item 
+\mbox{\Hypertarget{class_species_tree_ae376be8408ed64c45aac0e25e8cbf96f}\label{class_species_tree_ae376be8408ed64c45aac0e25e8cbf96f}} 
+void {\bfseries set\+Extinction\+Rate} (double er)
+\item 
+\mbox{\Hypertarget{class_species_tree_a56deafb42c0b687fbc74913b7753b17c}\label{class_species_tree_a56deafb42c0b687fbc74913b7753b17c}} 
+virtual double {\bfseries get\+Time\+To\+Next\+Event} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_abcbedd95875af3092d6d686b52d441ab}\label{class_species_tree_abcbedd95875af3092d6d686b52d441ab}} 
+double {\bfseries get\+Time\+To\+Next\+Event\+Moran} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a2f19666c08a685abe8d67163733995d3}\label{class_species_tree_a2f19666c08a685abe8d67163733995d3}} 
+virtual void {\bfseries lineage\+Birth\+Event} (unsigned indx)
+\item 
+\mbox{\Hypertarget{class_species_tree_ad7f06953774f19b5bcf4cda53d871332}\label{class_species_tree_ad7f06953774f19b5bcf4cda53d871332}} 
+virtual void {\bfseries lineage\+Death\+Event} (unsigned indx)
+\item 
+\mbox{\Hypertarget{class_species_tree_a3c1bdbd2d23157f31db83601da8656e0}\label{class_species_tree_a3c1bdbd2d23157f31db83601da8656e0}} 
+void {\bfseries erm\+Event} (double cur\+Time)
+\item 
+\mbox{\Hypertarget{class_species_tree_ac24b2addd2cb8886b4132a108cd5f118}\label{class_species_tree_ac24b2addd2cb8886b4132a108cd5f118}} 
+void {\bfseries moran\+Event} (double cur\+Time)
+\item 
+\mbox{\Hypertarget{class_species_tree_a3d2f062c83f58d1ce292572603d830ef}\label{class_species_tree_a3d2f062c83f58d1ce292572603d830ef}} 
+void {\bfseries set\+New\+Lineage\+Info} (unsigned indx, \mbox{\hyperlink{class_node}{Node}} $\ast$r, \mbox{\hyperlink{class_node}{Node}} $\ast$l)
+\item 
+\mbox{\Hypertarget{class_species_tree_a9601d07f6e42decab6bbf68a549064be}\label{class_species_tree_a9601d07f6e42decab6bbf68a549064be}} 
+void {\bfseries initialize\+Moran\+Process} (unsigned num\+Taxa)
+\item 
+\mbox{\Hypertarget{class_species_tree_a7a49ddcc35dc7f6b51aa4cf5b403e29c}\label{class_species_tree_a7a49ddcc35dc7f6b51aa4cf5b403e29c}} 
+void {\bfseries set\+Branch\+Lengths} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_ada6de8c8471a9006410cc922d2c4671a}\label{class_species_tree_ada6de8c8471a9006410cc922d2c4671a}} 
+void {\bfseries set\+Present\+Time} (double currentT)
+\item 
+\mbox{\Hypertarget{class_species_tree_ab36ef4fd1630ba1e41c98de7b9a60adc}\label{class_species_tree_ab36ef4fd1630ba1e41c98de7b9a60adc}} 
+void {\bfseries set\+Tree\+Tip\+Names} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a8268e21fa7f2aef107cc541a3d2ff38b}\label{class_species_tree_a8268e21fa7f2aef107cc541a3d2ff38b}} 
+void {\bfseries rec\+Tip\+Namer} (\mbox{\hyperlink{class_node}{Node}} $\ast$p, unsigned \&extinct\+Count, unsigned \&tip\+Count)
+\item 
+\mbox{\Hypertarget{class_species_tree_a39c321c46972b2124e94762a31238eed}\label{class_species_tree_a39c321c46972b2124e94762a31238eed}} 
+std\+::string {\bfseries print\+Newick\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_afc6af7f5a65660f3de48d95659d19227}\label{class_species_tree_afc6af7f5a65660f3de48d95659d19227}} 
+std\+::string {\bfseries print\+Ext\+Newick\+Tree} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_ae861cac65f57edd749ba8f4f02e43474}\label{class_species_tree_ae861cac65f57edd749ba8f4f02e43474}} 
+void {\bfseries rec\+Get\+Newick\+Tree} (\mbox{\hyperlink{class_node}{Node}} $\ast$p, std\+::stringstream \&ss)
+\item 
+\mbox{\Hypertarget{class_species_tree_a95f0df3146f38e58d2af1c3ea6ee550f}\label{class_species_tree_a95f0df3146f38e58d2af1c3ea6ee550f}} 
+void {\bfseries set\+G\+S\+A\+Tip\+Tree\+Flags} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a9b22bdc02bf64315a85e1770a2e26030}\label{class_species_tree_a9b22bdc02bf64315a85e1770a2e26030}} 
+void {\bfseries reconstruct\+Tree\+From\+G\+S\+A\+Sim} (\mbox{\hyperlink{class_node}{Node}} $\ast$o\+Root)
+\item 
+\mbox{\Hypertarget{class_species_tree_aea563f1022c8fbc7d0cb73d5169dd231}\label{class_species_tree_aea563f1022c8fbc7d0cb73d5169dd231}} 
+void {\bfseries set\+Tree\+Info} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_acd341c4b7f6a009fa9eb2657392106d8}\label{class_species_tree_acd341c4b7f6a009fa9eb2657392106d8}} 
+void {\bfseries pop\+Nodes} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a7dafd94885175051f8f2eee1df0db688}\label{class_species_tree_a7dafd94885175051f8f2eee1df0db688}} 
+void {\bfseries rec\+Pop\+Nodes} (\mbox{\hyperlink{class_node}{Node}} $\ast$p)
+\item 
+\mbox{\Hypertarget{class_species_tree_a3cbfb25be6d326f6696a7475d29bfa80}\label{class_species_tree_a3cbfb25be6d326f6696a7475d29bfa80}} 
+void {\bfseries reconstruct\+Lineage\+From\+G\+S\+A\+Sim} (\mbox{\hyperlink{class_node}{Node}} $\ast$currN, \mbox{\hyperlink{class_node}{Node}} $\ast$prevN, unsigned \&tip\+Counter, unsigned \&int\+Node\+Counter)
+\item 
+\mbox{\Hypertarget{class_species_tree_a5697162b12530024340498f10bd3ab92}\label{class_species_tree_a5697162b12530024340498f10bd3ab92}} 
+void {\bfseries initialize\+Moran\+Process} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a7e308ac0193a1bd6662e8b309a71f63c}\label{class_species_tree_a7e308ac0193a1bd6662e8b309a71f63c}} 
+std\+::map$<$ int, double $>$ {\bfseries get\+Birth\+Times\+From\+Nodes} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a1f7eb666255d2142fbde6828c8a5d21b}\label{class_species_tree_a1f7eb666255d2142fbde6828c8a5d21b}} 
+std\+::map$<$ int, double $>$ {\bfseries get\+Death\+Times\+From\+Nodes} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_aeeab6072c1a0092c3e711adafcced587}\label{class_species_tree_aeeab6072c1a0092c3e711adafcced587}} 
+double {\bfseries get\+Current\+Time\+From\+Extant} ()
+\item 
+\mbox{\Hypertarget{class_species_tree_a4ec054f9a22acabed3b4d5d69321512a}\label{class_species_tree_a4ec054f9a22acabed3b4d5d69321512a}} 
+bool {\bfseries get\+Is\+Extant\+From\+Indx} (int indx)
+\item 
+\mbox{\Hypertarget{class_species_tree_ac7fdbcc589a48209f7baeaaf9201e5a7}\label{class_species_tree_ac7fdbcc589a48209f7baeaaf9201e5a7}} 
+bool {\bfseries macro\+Event} (int indx)
+\item 
+\mbox{\Hypertarget{class_species_tree_a23f69b85d7167c512d6224d1b42d5656}\label{class_species_tree_a23f69b85d7167c512d6224d1b42d5656}} 
+std\+::pair$<$ int, int $>$ {\bfseries preorder\+Traversal\+Step} (int index)
+\item 
+\mbox{\Hypertarget{class_species_tree_af5469dd46ef03e8b428ef849b9ba7dd6}\label{class_species_tree_af5469dd46ef03e8b428ef849b9ba7dd6}} 
+int {\bfseries post\+Order\+Traversal\+Step} (int index)
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/Species\+Tree.\+h\item 
+src/Species\+Tree.\+cpp\end{DoxyCompactItemize}

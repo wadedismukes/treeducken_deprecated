@@ -1,0 +1,103 @@
+\href{https://travis-ci.com/wadedismukes/treeducken}{\texttt{ }}
+
+treeducken, named after the infamous \href{https://en.wikipedia.org/wiki/Turducken}{\texttt{ dish}}, is for the simulation of phylogenies under the three tree model (Rasmussen \& Kellis 2012). These three trees represent the species tree, locus (i.\+e. gene family) tree, and the gene tree. If you prefer, you may think of the species tree as the turkey, locus tree as the duck, and gene tree as the chicken in our phylogenetic three-\/bird roast.
+
+
+
+
+
+\section*{Brief description of the simulator}
+
+The simulations require the input of the following parameters\+:
+
+
+\begin{DoxyItemize}
+\item number of species to simulate
+\item species birth rate
+\item species death rate
+\item gene birth rate
+\item gene death rate
+\item gene transfer rate
+\item individuals to sample per population
+\item effective population size
+\item number of loci to simulate on the species tree
+\item number of genes to simulate for each locus
+\end{DoxyItemize}
+
+After inputting these parameters the simulation proceeds as follows. First, a species tree is simulated under the constant rate birth-\/death process until the specified number of species is obtained using the generalized sampling algorithm given in Hartmann 2010. Next, a set of locus tree is forward simulated along the species tree using a birth-\/death process where transfers are treated as birth events where one loci is transferred to a randomly-\/selected contemporaneous species, and the other loci stays within the donor lineage. Note that this does simulate along lineages that are bound for extinction. The locus tree simulation process is repeated for the number of loci to simulate on the species tree. For each of those simulated locus trees a gene tree is backward simulated using the multi-\/locus coalescent. For this multilocus coalescent each tip in the tree starts with the individuals to sample per population.
+
+\section*{Installing treeducken}
+
+To install treeducken, start by cloning the repository by doing the following\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git clone https://github.com/wadedismukes/treeducken.git}
+\end{DoxyCode}
+
+
+\subsection*{Mac O\+S\+X/\+Debian/\+Ubuntu}
+
+If working on any of the above operating systems installation can proceed in the following way. You must have gcc version 7.\+3.\+0 or higher for this to install. First change directory to {\ttfamily treeducken/src} and run the following command\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make install}
+\end{DoxyCode}
+
+
+treeducken is now installed in the {\ttfamily treeducken} directory. To uninstall simply type\+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{make clean}
+\end{DoxyCode}
+ \subsection*{Install using Docker}
+
+Provided in the repository with treeducken is a Dockerfile. To install using Docker, first install \href{https://docs.docker.com/install/}{\texttt{ Docker}}. Once Docker is installed move into the directory with treeducken (in O\+SX you will do this via terminal and in Windows using a U\+N\+IX terminal emulator (e.\+g. git bash, putty). Once inside that directory run the following command to build the docker file\+: \begin{DoxyVerb}docker build --rm --force-rm -t wadedismukes/treeducken .
+\end{DoxyVerb}
+
+
+Now you can run and use the image in an interactive shell. \begin{DoxyVerb}docker run -it --name treeducken wadedismukes/treeducken 
+\end{DoxyVerb}
+
+
+Or if you would like to have a directory from your computer available on the docker image you could type something like\+: \begin{DoxyVerb}docker run -it -v /host/path/:/container/path --name treeducken wadedismukes/treeducken
+\end{DoxyVerb}
+
+
+Replacing {\ttfamily /host/path/} and {\ttfamily /container/path/} with whichever directory you would like to have in the container and whatever path you would like to use inside of the container. This will allow you to work in that directory generating simulated data that you can then use outside of the container. In either case of running the image for Windows machines you will need to prepend the command {\ttfamily winpty} before {\ttfamily docker ...}.
+
+\section*{Using treeducken}
+
+Once treeducken has been installed, there are two ways to run the program. The first way entails using command line arguments (see below) to specify the simulation parameters\+:
+
+
+\begin{DoxyItemize}
+\item number of simulation replicates ({\ttfamily -\/r})
+\item number of species to simulate ({\ttfamily -\/nt})
+\item species birth rate ({\ttfamily -\/sbr})
+\item species death rate ({\ttfamily -\/sdr})
+\item gene birth rate ({\ttfamily -\/gbr})
+\item gene death rate ({\ttfamily -\/gdr})
+\item gene transfer rate ({\ttfamily -\/lgtr})
+\item individuals to sample per population ({\ttfamily -\/ipp})
+\item effective population size ({\ttfamily -\/ne})
+\item number of loci to simulate on the species tree ({\ttfamily -\/nl})
+\item number of genes to simulate on the locus tree ({\ttfamily -\/ng})
+\item add outgroup with root branch length scaled to fraction (input as fraction) ({\ttfamily -\/og})
+\item outfile prefix ({\ttfamily -\/o})
+\item input settings file ({\ttfamily -\/i})
+\end{DoxyItemize}
+
+For example you could run\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{treeducken -r 10 -nt 100 -sbr 0.05 -sdr 0.04 }
+\end{DoxyCode}
+ To simulate 10 replicates of species trees with 100 extant taxa at a species birth rate of 0.\+05 and a species death rate of 0.\+04. One may also use the {\ttfamily -\/i} flag with a settings file (see the example file) that has these parameters (or a combination of the two).
+
+This command would look like this\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{treeducken -i sim\_settings.txt}
+\end{DoxyCode}
+ 

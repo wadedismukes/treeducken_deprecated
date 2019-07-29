@@ -1,14 +1,13 @@
-//
-//  Simulator.cpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/9/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #include "Simulator.h"
 #include <iostream>
-
+/**
+ * Constructor for Simulator class for simulations for only species trees
+ * @param p RNG seed from MrBayes code
+ * @param nt number of taxa to be used in simulation
+ * @param lambda  birth rate as double
+ * @param mu death rate as double
+ * @param rho Sampling fraction
+ */
 Simulator::Simulator(MbRandom *p, unsigned nt, double lambda, double mu, double rho)
 {
     spTree = nullptr;
@@ -35,6 +34,18 @@ Simulator::Simulator(MbRandom *p, unsigned nt, double lambda, double mu, double 
     
 }
 
+/**
+ * Constructor for Simulator class used in simulations of SpeciesTree and LocusTree classes only
+ * @param p RNG seed from MrBayes code
+ * @param ntax Number of taxa to simulate
+ * @param lambda Rate of birth as double
+ * @param mu Rate of death as double
+ * @param rho Sampling Fraction (currently not implemented)
+ * @param numLociToSim Number of loci to simulate per species tre
+ * @param gbr Gene birth rate as double
+ * @param gdr Gene death rate as double
+ * @param lgtr Lateral gene transfer rate
+ */
 
 Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr)
 {
@@ -61,6 +72,25 @@ Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, doubl
     
 }
 
+/**
+ * Constructor of Simulator class for full three-tree model
+ * @param p RNG seed from MrBayes code
+ * @param ntax Number of taxa to simulate
+ * @param lambda Rate of birth as double
+ * @param mu Rate of death as double
+ * @param rho Sampling Fraction (currently not implemented)
+ * @param numLociToSim Number of loci to simulate per species tre
+ * @param gbr Gene birth rate as double
+ * @param gdr Gene death rate as double
+ * @param lgtr Lateral gene transfer rate
+ * @param ipp Individuals per locus tree lineage to perform coalescent process on
+ * @param Ne Total population size of each locus tree lineage
+ * @param genTime Scaling factor for converting from coalescent units to absolute time entered as generations per unit time
+ * @param ng Number of gene trees to simulate for each locus tree lineage
+ * @param og Outgroup fraction, pastes a fake outgroup on tree with branch length set to some fraction of total tree depth
+ * @param ts Scaling factor for tree entered as a double to convert trees to some length (e.g. 1.0)
+ * @param sout Bool for turning off stdout (speeds up the program)
+ */
 Simulator::Simulator(MbRandom *p,
                      unsigned ntax,
                      double lambda,
@@ -103,7 +133,9 @@ Simulator::Simulator(MbRandom *p,
     geneTrees.resize(numLoci);
     treeScale = ts;
 }
-
+/**
+ * Destructor for Simulator classes
+ */
 Simulator::~Simulator(){
     for(std::vector<SpeciesTree*>::iterator p=gsaTrees.begin(); p != gsaTrees.end(); ++p){
         delete (*p);
@@ -123,14 +155,18 @@ Simulator::~Simulator(){
         
 }
 
+/**
+ * Function for intializing the simulation starting with creating the SpeciesTree class
+ */
 void Simulator::initializeSim(){
     spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
 }
 
 
-/*
- Below is the machinery to use GSA sampling (Hartmann 2010) to simulate a species tree.
- Much of this code is modified from FossilGen (written by Tracy Heath)
+/**
+ * Generalized Sampling Algorithm for generating birth-death trees of the correct length
+ *
+ * @details Below is the machinery to use GSA sampling (Hartmann 2010) to simulate a species tree. Much of this code is modified from FossilGen (written by Tracy Heath)
  */
 bool Simulator::gsaBDSim(){
     double timeIntv, sampTime;
@@ -172,6 +208,10 @@ bool Simulator::gsaBDSim(){
     return treeComplete;
 }
 
+/**
+ * Function for checking whether the simulation has reached the stopping point
+ * @return Bool for whether to keepSimulating or not
+ */
 
 bool Simulator::gsaCheckStop(){
   
@@ -184,6 +224,10 @@ bool Simulator::gsaCheckStop(){
   return keepSimulating;
 }
 
+/**
+ * Function for completing the simulation
+ * @details this prunes the desired species tree from the larger simulated tree according to Hartmann et al. 2010
+ */
 void Simulator::processGSASim(){
     SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim + spTree->getNumExtinct());
     this->prepGSATreeForReconstruction();
@@ -193,6 +237,9 @@ void Simulator::processGSASim(){
     gsaTrees.push_back(tt);    
 }
 
+/**
+ *
+ */
 void Simulator::processSpTreeSim(){
     spTree->setSpeciationRate(speciationRate);
     spTree->setExtinctionRate(extinctionRate);
@@ -213,7 +260,7 @@ bool Simulator::simMoranSpeciesTree(){
 }
 
 bool Simulator::moranSpeciesSim(){
-    bool treeComplete = false;
+    bool treeComplete;
     SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     spTree = &st;
     spTree->initializeMoranProcess(numTaxaToSim);
