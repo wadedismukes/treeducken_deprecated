@@ -4,10 +4,10 @@
 
 Node::Node()
 {
-    ldes = NULL;
-    rdes = NULL;
-    anc = NULL;
-    sib = NULL;
+    ldes = nullptr;
+    rdes = nullptr;
+    anc = nullptr;
+    sib = nullptr;
     indx = -1;
     Lindx = -1;
     flag = -1;
@@ -23,16 +23,13 @@ Node::Node()
     
 }
 
-Node::~Node(){
-    
-}
+Node::~Node()= default;
 
 
 
 
 Tree::Tree(MbRandom *p, unsigned numExta, double curTime){
     rando = p;
-    numNodes = 0;
     outgrp = nullptr;
     // intialize tree with root
     root = new Node();
@@ -52,7 +49,6 @@ Tree::Tree(MbRandom *p, unsigned numExta, double curTime){
 Tree::Tree(MbRandom *p, unsigned numTax){
     numTaxa = numTax;
     rando = p;
-    numNodes = 2 * numTax - 1;
     outgrp = nullptr;
     // intialize tree with root
     // root = new Node();
@@ -95,22 +91,21 @@ void Tree::clearNodes(Node *currNode){
     clearNodes(currNode->getRdes());
     clearNodes(currNode->getLdes());
     delete currNode;
-    currNode = nullptr;
 
 }
 
 void Tree::zeroAllFlags(){
-    for(std::vector<Node*>::iterator it=nodes.begin(); it!=nodes.end(); it++){
-        (*it)->setFlag(0);
+    for(auto & node : nodes){
+        node->setFlag(0);
     }
 }
 
 void Tree::setWholeTreeFlags(){
     this->zeroAllFlags();
     numTotalTips = 0;
-    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
-        if((*p)->getIsTip()){
-            (*p)->setFlag(1);
+    for(auto & node : nodes){
+        if(node->getIsTip()){
+            node->setFlag(1);
             numTotalTips++;
         }
     }
@@ -121,9 +116,9 @@ void Tree::setWholeTreeFlags(){
 void Tree::setExtantTreeFlags(){
     this->zeroAllFlags();
     numTotalTips = 0;
-    for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
-        if((*p)->getIsExtant())
-            (*p)->setFlag(1);
+    for(auto & node : nodes){
+        if(node->getIsExtant())
+            node->setFlag(1);
     }
     this->setSampleFromFlags();
 }
@@ -131,18 +126,18 @@ void Tree::setExtantTreeFlags(){
 
 void Tree::setSampleFromFlags(){
     int flag;
-    Node *q = NULL;
-    for(std::vector<Node *>::iterator p=nodes.begin(); p!=nodes.end(); ++p){
-        if((*p)->getIsTip()){
-            flag = (*p)->getFlag();
-            q = (*p);
+    Node *q = nullptr;
+    for(auto & node : nodes){
+        if(node->getIsTip()){
+            flag = node->getFlag();
+            q = node;
             if(flag == 1){
                 do{
                     q = q->getAnc();
                     flag = q->getFlag();
                     flag++;
                     q->setFlag(flag);
-                }while (q->getIsRoot() == false && flag < 2);
+                }while (!q->getIsRoot() && flag < 2);
             }
         }
     }
@@ -151,8 +146,7 @@ void Tree::setSampleFromFlags(){
 
 double Tree::getTotalTreeLength(){
     double sum = 0.0;
-    for(std::vector<Node*>::iterator p = nodes.begin(); p != nodes.end(); ++p){
-        Node *n = (*p);
+    for(auto n : nodes){
         sum += n->getBranchLength();
     }
     return sum;
@@ -161,13 +155,13 @@ double Tree::getTotalTreeLength(){
 double Tree::getTreeDepth(){
     double td = 0.0;
     Node *r = this->getRoot();
-    while(r->getIsTip() == false){
+    while(!r->getIsTip()){
         if(!(r->getLdes()->getIsExtinct()))
             r = r->getLdes();
         else
             r = r->getRdes();
     }
-    while(r->getIsRoot() == false){
+    while(!r->getIsRoot()){
         td += r->getBranchLength();
         r = r->getAnc();
     }
@@ -211,9 +205,9 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
         p->setIsExtant(prevN->getIsExtant());
         p->setIsExtinct(prevN->getIsExtinct());
         p->setAnc(currN);
-        if(currN->getLdes() == NULL)
+        if(currN->getLdes() == nullptr)
             currN->setLdes(p);
-        else if(currN->getRdes() == NULL)
+        else if(currN->getRdes() == nullptr)
             currN->setRdes(p);
         else{
             std::cerr << "ERROR: Problem adding a tip to the tree!" << std::endl;
@@ -231,7 +225,7 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
                 reconstructLineageFromSim(s1, prevN->getRdes(), tipCounter, intNodeCounter);
             
             
-            if(rootN == false){
+            if(!rootN){
                 Node *prevAnc = prevN->getAnc();
                 int ancFlag = prevAnc->getFlag();
                 if(ancFlag == 1){
@@ -244,14 +238,14 @@ void Tree::reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCoun
                     }
                 }
                 
-                if(currN != NULL){
+                if(currN != nullptr){
                     s1->setBranchLength(brlen);
                     s1->setBirthTime(prevN->getBirthTime());
                     s1->setDeathTime(prevN->getDeathTime());
                     s1->setAnc(currN);
-                    if(currN->getLdes() == NULL)
+                    if(currN->getLdes() == nullptr)
                         currN->setLdes(s1);
-                    else if(currN->getRdes() == NULL)
+                    else if(currN->getRdes() == nullptr)
                         currN->setRdes(s1);
                     else{
                         std::cerr << "ERROR: Probem adding an internal node to the tree" << std::endl;
@@ -327,13 +321,13 @@ void Tree::getRootFromFlags(bool isGeneTree){
 void Tree::rescaleTreeByOutgroupFrac(double outgroupFrac, double treeDepth){
     double birthTime, deathTime;
     double rescaleFactor = std::log(outgroupFrac) + std::log(treeDepth);
-    for(std::vector<Node*>::iterator it=nodes.begin(); it != nodes.end(); ++it){
-        birthTime = (*it)->getBirthTime();
-        deathTime = (*it)->getDeathTime();
+    for(auto & node : nodes){
+        birthTime = node->getBirthTime();
+        deathTime = node->getDeathTime();
         
-        (*it)->setBirthTime(birthTime + std::exp(rescaleFactor));
-        (*it)->setDeathTime(deathTime + std::exp(rescaleFactor));
-        (*it)->setBranchLength((*it)->getDeathTime() - (*it)->getBirthTime());
+        node->setBirthTime(birthTime + std::exp(rescaleFactor));
+        node->setDeathTime(deathTime + std::exp(rescaleFactor));
+        node->setBranchLength(node->getDeathTime() - node->getBirthTime());
     }
 }
 
@@ -359,17 +353,17 @@ void Tree::setNewRootInfo(Node *rootN, Node *outgroupN, Node *currRoot, double t
     outgroupN->setBranchLength(outgroupN->getDeathTime() - outgroupN->getBirthTime());
     outgroupN->setIsExtant(true);
     outgroupN->setAnc(rootN);
-    outgroupN->setLdes(NULL);
-    outgroupN->setRdes(NULL);
+    outgroupN->setLdes(nullptr);
+    outgroupN->setRdes(nullptr);
     this->setOutgroup(outgroupN);
     // nodes.push_back(outgroupN);
 }
 
 double Tree::getEndTime(){
     double tipDtime = 0.0;
-    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        if((*it)->getIsTip() && (*it)->getIsExtant()){
-            tipDtime = (*it)->getDeathTime();
+    for(auto & node : nodes){
+        if(node->getIsTip() && node->getIsExtant()){
+            tipDtime = node->getDeathTime();
             break;
         }
     }
@@ -378,15 +372,14 @@ double Tree::getEndTime(){
 }
 
 void Tree::scaleTree(double trScale, double currStime){
-    double bt = 0.0;
-    double dt = 0.0;
+    double bt;
+    double dt;
     double scalingFactor = std::log(trScale / currStime);
-    for(std::vector<Node*>::iterator it = nodes.begin(); it != nodes.end(); ++it){
-        bt = std::exp(std::log((*it)->getBirthTime()) + scalingFactor);
-        dt = std::exp(std::log((*it)->getDeathTime()) + scalingFactor);
-        (*it)->setBirthTime(bt);
-        (*it)->setDeathTime(dt);
-        (*it)->setBranchLength(dt - bt);
+    for(auto & node : nodes){
+        bt = std::exp(std::log(node->getBirthTime()) + scalingFactor);
+        dt = std::exp(std::log(node->getDeathTime()) + scalingFactor);
+        node->setBirthTime(bt);
+        node->setDeathTime(dt);
+        node->setBranchLength(dt - bt);
     }
-    return;
 }

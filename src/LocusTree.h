@@ -12,9 +12,9 @@
 class LocusTree : public Tree 
 {
     private:
+        double stopTime;
         double geneBirthRate, geneDeathRate, transferRate;
         double currentTime;
-        double stopTime;
         unsigned numTaxa;
         unsigned numTransfers;
         unsigned numDuplications;
@@ -32,14 +32,14 @@ class LocusTree : public Tree
     
         int     speciationEvent(int indx, double time, std::pair<int,int> sibs);
         void    extinctionEvent(int indx, double time);
-        void    setNewIndices(int indx, std::pair<int,int> sibs, int count);
+
         std::string   printNewickTree();
         void    setTreeTipNames();
         void    recTipNamer(Node *p, unsigned &copyNumber);
-        void    recGetNewickTree(Node *r, std::stringstream &ss);
+        static void    recGetNewickTree(Node *r, std::stringstream &ss);
         void    setBranchLengths();
         void    setPresentTime(double currentT);
-        void    setStopTime(double st) {stopTime = st; currentTime = 0;}
+        void    setStopTime(double st) {stopTime = st;}
         double  getCurrentTime() { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
         int     getNumberTransfers();
@@ -51,7 +51,7 @@ class LocusTree : public Tree
         std::multimap<int,double>     getDeathTimesFromNodes();
         std::multimap<int,double>     getDeathTimesFromExtinctNodes();
         std::map<int,int>             getLocusToSpeciesMap();
-        std::vector< std::vector<int> >     getExtantLoci(std::set<double, std::greater<double> > epochSet);
+        std::vector< std::vector<int> >     getExtantLoci(const std::set<double, std::greater<double> >& epochSet);
         std::vector< std::string >    printSubTrees();
         int     postOrderTraversalStep(int indx);
     

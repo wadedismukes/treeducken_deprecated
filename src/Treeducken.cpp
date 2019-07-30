@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  treeducken
-//
-//  Created by Dismukes, Wade T [EEOBS] on 11/7/17.
-//  Copyright © 2017 Dismukes, Wade T [EEOBS]. All rights reserved.
-//
-
 #include <iostream>
 #include "SpeciesTree.h"
 #include "Simulator.h"
@@ -43,9 +35,9 @@ void printHelp(){
 //    std::cout << "\t\t-mst    : Moran species tree ";
 }
 
-void printSettings(std::string of, int nt, int r, int nloc, int ts, double sbr, double sdr,
+void printSettings(const std::string& of, int nt, int r, int nloc, int ts, double sbr, double sdr,
                    double gbr, double gdr, double lgtr, int ipp, int ne, int ngen, double og,
-                   std::string stn, bool mst){
+                   const std::string& stn, bool mst){
     std::cout << "\t\toutput file name prefix         = " << of << "\n";
     std::cout << "\t\tNumber of extant taxa           = " << nt << "\n";
     std::cout << "\t\tNumber of replicates            = " << r << "\n";
@@ -81,12 +73,12 @@ int main(int argc, char * argv[]) {
         return 0;
     }
     else{
-        std::string outName = "";
-        std::string stn = "";
+        std::string outName;
+        std::string stn;
         int nt = 100, r = 10, nloc = 10, ipp = 0, ne = 0, sd1 = 0, sd2 = 0, ngen = 0;
-        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = -1, og = 0.0;
-        bool sout = 1;
-        bool mst = 0;
+        double sbr = 0.5, sdr = 0.2, gbr = 0.0, gdr = 0.0, lgtr = 0.0, ts = 1.0, og = 0.0;
+        bool sout = true;
+        bool mst = false;
         for (int i = 0; i < argc; i++){
                 char *curArg = argv[i];
                 if(strlen(curArg) > 1 && curArg[0] == '-'){
@@ -196,7 +188,7 @@ int main(int argc, char * argv[]) {
                     }
                 }
         }
-        if(stn != ""){
+        if(!stn.empty()){
             mt = 4;
             std::cout << "Species tree is set. Simulating only locus and gene trees...\n";
             if(nloc > 0){
@@ -305,7 +297,7 @@ int main(int argc, char * argv[]) {
                                ngen,
                                og,
                                sout);
-        if(stn != ""){
+        if(!stn.empty()){
             phyEngine->setInputSpeciesTree(stn);
             phyEngine->doRunSpTreeSet();
         }

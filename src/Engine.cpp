@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "Engine.h"
 /**
  * @brief Constructor for the engine class
@@ -23,7 +25,7 @@
 Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp,
                int popsize, double genTime, int sd1, int sd2, double ts, int reps, int ntax, int nloci, int ngen,
                double og, bool sout) {
-    outfilename = of;
+    outfilename = std::move(of);
     inputSpTree = "";
     simType = mt;
     spBirthRate = sbr;
@@ -33,7 +35,6 @@ Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, doubl
     transferRate = lgtr;
     doScaleTree = false;
     treescale = ts;
-    seedset = 0;
     printOutputToScreen = sout;
     individidualsPerPop = ipp;
     populationSize = popsize;
@@ -478,6 +479,8 @@ void Engine::doRunSpTreeSet(){
     this->writeTreeFiles();
 
 }
+
+void Engine::setInputSpeciesTree(const std::string &stNewick) { inputSpTree = stNewick; }
 
 
 /**

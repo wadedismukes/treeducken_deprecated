@@ -1,3 +1,5 @@
+#include <utility>
+
 #ifndef Tree_h
 #define Tree_h
 
@@ -37,7 +39,7 @@ class Node
         void    setRdes(Node *r) {rdes = r; }
         void    setAnc(Node *a) {anc = a; }
         void    setSib(Node *s) {sib = s; }
-        void    setName(std::string f) { name = f; }
+        void    setName(std::string f) { name = std::move(f); }
         void    setBranchLength(double bl) {branchLength = bl; } 
         void    setFlag(int d) { flag = d; }
         void    setIndx(int i) {indx = i; }
@@ -68,13 +70,13 @@ class Tree
 {
     protected:
         Node    *root;
-        Node    *extantRoot;
+        Node    *extantRoot{};
         Node    *outgrp;
         std::vector<Node*> nodes;
         std::vector<Node*> extantNodes;
-        unsigned numTaxa, numNodes, numTotalTips;
-        unsigned numExtant, numExtinct;
-        double  currentTime;
+        unsigned numTaxa, numTotalTips{};
+        unsigned numExtant{}, numExtinct{};
+        double  currentTime{};
         MbRandom *rando;
 
     public:
@@ -89,13 +91,14 @@ class Tree
         void        setRoot(Node *r) { root = r; }
         double      getNumExtant() {return numExtant; }
         double      getNumExtinct() {return numExtinct; }
-        int         getNodesSize() { return (int) nodes.size(); }
+
         double      getTotalTreeLength();
         double      getTreeDepth();
-        double      getCurrentTime() {return currentTime; }
+
+        virtual double      getCurrentTime() {return currentTime; }
         double      getEndTime();
         void        rescaleTreeByOutgroupFrac(double outgroupFrac, double getTreeDepth);
-        void        clearNodes(Node *cur);
+        static void        clearNodes(Node *cur);
         void        zeroAllFlags();
         void        setWholeTreeFlags();
         void        setExtantTreeFlags();
@@ -110,11 +113,11 @@ class Tree
         void        reconstructLineageFromSim(Node *currN, Node *prevN, unsigned &tipCounter, unsigned &intNodeCounter);
     
         virtual double  getTimeToNextEvent() { return 0.0; }
-        virtual void    lineageBirthEvent(unsigned int indx) { return; }
-        virtual void    lineageDeathEvent(unsigned int indx) { return; }
-        virtual void    setTreeTipNames()  { return; }
-        virtual void    ermEvent(double ct) { return; }
-        virtual void    setBranchLengths() { return; }
+        virtual void    lineageBirthEvent(unsigned int indx) { }
+        virtual void    lineageDeathEvent(unsigned int indx) { }
+        virtual void    setTreeTipNames()  { }
+        virtual void    ermEvent(double ct) { }
+        virtual void    setBranchLengths() { }
         virtual std::string    printNewickTree() { return "t";}
 
         friend class Node;

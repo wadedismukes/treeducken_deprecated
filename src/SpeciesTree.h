@@ -19,11 +19,11 @@ class SpeciesTree : public Tree
 {
     private:
     
-        double        speciationRate, extinctionRate;
+        double        speciationRate{}, extinctionRate{};
         unsigned      extantStop;
 
     public:
-                      SpeciesTree(MbRandom *p, unsigned numTaxa, double curTime, double specRate, double extRate);
+                      SpeciesTree(MbRandom *p, unsigned numTaxa, double br, double dr);
                       SpeciesTree(MbRandom *p, unsigned numTaxa);
         virtual       ~SpeciesTree();
         void          setSpeciationRate(double sr) {speciationRate = sr; }
@@ -43,7 +43,7 @@ class SpeciesTree : public Tree
         void          setBranchLengths();
         void          setPresentTime(double currentT);
         void          setTreeTipNames();
-        void          recTipNamer(Node *p, unsigned &extinctCount, unsigned &tipCount);
+        static void          recTipNamer(Node *p, unsigned &extinctCount, unsigned &tipCount);
         
 
         std::string   printNewickTree();

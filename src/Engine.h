@@ -1,3 +1,7 @@
+#include <utility>
+
+#include <utility>
+
 #ifndef Engine_h
 #define Engine_h
 
@@ -56,12 +60,12 @@ class TreeInfo{
             void                        setNumberTransfers(int d) { numTransfers = d; }
             void                        setNumberDuplications(int d) { numDuplications = d; }
             void                        setNumberLosses(int d) { numLosses = d; }
-            void                        setNumberGenerations(std::vector<double> ng) { numGenerations = ng; }
-            void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = ts; }
-            void                        setExtTreeStringInfo(std::string ts) { extSpeciesTree = ts; }
-            void                        setLocusTreeByIndx(int indx, std::string ts) { locusTrees.push_back(ts); }
-            void                        setGeneTreeByIndx(int Lindx, int indx, std::string ts) { geneTrees[Lindx].push_back(ts); }
-            void                        setExtantGeneTreeByIndx(int Lindx, int indx, std::string ts) { extGeneTrees[Lindx].push_back(ts); }
+            void                        setNumberGenerations(std::vector<double> ng) { numGenerations = std::move(ng); }
+            void                        setWholeTreeStringInfo(std::string ts ) { speciesTree = std::move(ts); }
+            void                        setExtTreeStringInfo(std::string ts) { extSpeciesTree = std::move(ts); }
+            void                        setLocusTreeByIndx(int indx, const std::string& ts) { locusTrees.push_back(ts); }
+            void                        setGeneTreeByIndx(int Lindx, int indx, const std::string& ts) { geneTrees[Lindx].push_back(ts); }
+            void                        setExtantGeneTreeByIndx(int Lindx, int indx, const std::string& ts) { extGeneTrees[Lindx].push_back(ts); }
             void                        setSpeciesTreeLength(double b) { spTreeLength = b; }
             void                        setSpeciesTreeNess(double b) { spTreeNess = b; }
             void                        setSpeciesAveTipLen(double b) {spAveTipLen = b; }
@@ -96,7 +100,6 @@ class Engine{
         std::string inputSpTree;
         std::vector<TreeInfo*> simSpeciesTrees;
         int                    simType;
-        int                    seedset;
         int                    numTaxa;
         int                    numSpeciesTrees;
         int                    numLoci, numGenes;
@@ -125,7 +128,7 @@ class Engine{
         unsigned int            countNewickLeaves(const std::string& stNewick);
         std::string             stripCommentsFromNewickTree(const std::string& stNewick);
         std::string             formatTipNamesFromNewickTree(const std::string& stNewick);
-        void                    setInputSpeciesTree(const std::string stNewick) { inputSpTree = stNewick; }
+        void                    setInputSpeciesTree(const std::string& stNewick);
         std::string             getInputSpeciesTree() { return inputSpTree; }
         void                    doRunRun();
         void                    doRunSpTreeSet();

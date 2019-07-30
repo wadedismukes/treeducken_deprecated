@@ -94,7 +94,7 @@ Simulator::~Simulator(){
 bool Simulator::gsaBDSim(){
     double timeInterval, sampTime;
     bool treeComplete;
-    auto st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    auto st = SpeciesTree(rando, numTaxaToSim, speciationRate, extinctionRate);
     spTree = &st;
     double eventTime;
     
@@ -206,7 +206,7 @@ bool Simulator::simMoranSpeciesTree(){
  */
 bool Simulator::moranSpeciesSim(){
     bool treeComplete;
-    SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    SpeciesTree st = SpeciesTree(rando, numTaxaToSim, speciationRate, extinctionRate);
     spTree = &st;
     spTree->initializeMoranProcess(numTaxaToSim);
     double eventTime;
@@ -600,13 +600,13 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
  * @param trDepth Depth of the tree stored at *tr
  */
 void Simulator::graftOutgroup(Tree *tr, double trDepth){
-    Node *rootN = new Node();
-    Node *currRoot = tr->getRoot();
-    rootN->setBirthTime(currRoot->getBirthTime());
-    Node *outgroupN = new Node();
+    auto *rootNode = new Node();
+    Node *currentRoot = tr->getRoot();
+    rootNode->setBirthTime(currentRoot->getBirthTime());
+    auto *outgroupNode = new Node();
     tr->rescaleTreeByOutgroupFrac(outgroupFrac, trDepth);
     double tipTime = tr->getEndTime();
-    tr->setNewRootInfo(rootN, outgroupN, currRoot, tipTime);
+    tr->setNewRootInfo(rootNode, outgroupNode, currentRoot, tipTime);
 }
 
 /**
@@ -679,22 +679,22 @@ double Simulator::calcLocusTreeDepth(int i){
  * @return The average transfers of the locus trees simulated for Simulator class
  */
 int Simulator::findNumberTransfers(){
-    int numTrans = 0;
+    auto numberTranfers = 0;
     for(auto & locusTree : locusTrees){
-        numTrans += locusTree->getNumberTransfers();
+        numberTranfers += locusTree->getNumberTransfers();
     }
-    return numTrans / (int) locusTrees.size();
+    return numberTranfers / (int) locusTrees.size();
 } 
 /**
  * Finds the average number of duplications in the simulated LocusTree for Simulator class
  * @return Average number of duplications
  */
 int Simulator::findNumberDuplications(){
-    int numTrans = 0;
+    auto numberDuplications = 0;
     for(auto & locusTree : locusTrees){
-        numTrans += locusTree->getNumberDuplications();
+        numberDuplications += locusTree->getNumberDuplications();
     }
-    return numTrans / (int) locusTrees.size();
+    return numberDuplications / (int) locusTrees.size();
 }
 /**
  * Finds the average number of losses in the simulated LocusTree for Simulator class
@@ -702,26 +702,26 @@ int Simulator::findNumberDuplications(){
  */
 
 int Simulator::findNumberLosses(){
-    int numTrans = 0;
+    auto numberLosses = 0;
     for(auto & locusTree : locusTrees){
-        numTrans += locusTree->getNumberLosses();
+        numberLosses += locusTree->getNumberLosses();
     }
-    return numTrans / (int) locusTrees.size();
+    return numberLosses / (int) locusTrees.size();
 }
 /**
  * Finds average number of generations in gene trees for each locus tree
  * @return Average number of generations
  */
 std::vector<double> Simulator::findNumberGenerations(){
-    std::vector<double> numGenerations;
+    std::vector<double> numberGenerations;
     for(int i = 0; i < locusTrees.size(); i++){
-        numGenerations.push_back(0.0);
+        numberGenerations.push_back(0.0);
         for(int j = 0; j < geneTrees.size(); j++){
             if(!(geneTrees[i].empty())){
-                numGenerations[i] += geneTrees[i][j]->getTreeDepth() * popSize;
+                numberGenerations[i] += geneTrees[i][j]->getTreeDepth() * popSize;
             }
         }
-        numGenerations[i] /= geneTrees.size();
+        numberGenerations[i] /= geneTrees.size();
     }
-    return numGenerations;
+    return numberGenerations;
 }

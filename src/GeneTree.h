@@ -20,9 +20,9 @@ class GeneTree : public Tree {
         Node*       coalescentEvent(double t, Node *p, Node *q);
         bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx, bool chck);
         void        initializeTree(std::vector< std::vector<int> > extantLociIndx, double presentTime);
-        std::multimap<int,double> rescaleTimes(std::multimap<int, double> timeMap);
+        std::multimap<int,double> rescaleTimes(const std::multimap<int, double>& timeMap);
         void        rootCoalescentProcess(double startTime, double ogf);
-        void        recursiveRescaleTimes(Node *r, double add);
+        static void        recursiveRescaleTimes(Node *r, double add);
         void        setBranchLengths();
         void        setIndicesBySpecies(std::map<int,int> spToLocusMap);
         std::string printNewickTree();
