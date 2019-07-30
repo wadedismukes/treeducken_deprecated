@@ -39,23 +39,8 @@ class Simulator
         std::vector<std::vector<GeneTree*> > geneTrees;
 
     public:
-        // Simulating species tree only
-        Simulator(MbRandom *p, 
-                  unsigned numTaxaToSim, 
-                  double speciationRate, 
-                  double extinctionRate, 
-                  double rho);
-        // Simulating species and locus tree
-        Simulator(MbRandom *p, 
-                  unsigned numTaxaToSim, 
-                  double speciationRate, 
-                  double extinctionRate, 
-                  double rho, 
-                  unsigned numLociToSim, 
-                  double geneBirthRate, 
-                  double geneDeathRate, 
-                  double transferRate);
-        // Simulating species and locus tree with proportion of transfer (e.g. hybridization, linkage)
+
+    // Simulating species and locus tree with proportion of transfer (e.g. hybridization, linkage)
         Simulator(MbRandom *p,
                 unsigned numTaxaToSim,
                 double speciationRate,
@@ -97,8 +82,8 @@ class Simulator
         bool    simLocusGeneTrees();
         bool    gsaCheckStop();
         bool    moranCheckStop();
-        void    initializeSim();
-        void    processGSASim();
+
+    void    processGSASim();
         void    prepGSATreeForReconstruction();
         void    processSpTreeSim();
         void    graftOutgroup(Tree *tr, double trDepth);

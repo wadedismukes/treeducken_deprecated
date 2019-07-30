@@ -304,8 +304,7 @@ int main(int argc, char * argv[]) {
                                nloc,
                                ngen,
                                og,
-                               sout,
-                               mst);
+                               sout);
         if(stn != ""){
             phyEngine->setInputSpeciesTree(stn);
             phyEngine->doRunSpTreeSet();

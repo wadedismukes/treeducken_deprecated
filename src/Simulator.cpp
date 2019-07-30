@@ -1,76 +1,5 @@
 #include "Simulator.h"
 #include <iostream>
-/**
- * Constructor for Simulator class for simulations for only species trees
- * @param p RNG seed from MrBayes code
- * @param nt number of taxa to be used in simulation
- * @param lambda  birth rate as double
- * @param mu death rate as double
- * @param rho Sampling fraction
- */
-Simulator::Simulator(MbRandom *p, unsigned nt, double lambda, double mu, double rho)
-{
-    spTree = nullptr;
-    geneTree = nullptr;
-    lociTree = nullptr;
-    simType = 1;
-    currentSimTime = 0.0;
-    rando = p;
-    numTaxaToSim = nt;
-    gsaStop = 100*nt;
-    speciationRate = lambda;
-    extinctionRate = mu;
-    samplingRate = rho;
-    
-    
-    numLoci = 0;
-    numGenes = 0;
-    geneBirthRate = 0.0;
-    geneDeathRate = 0.0;
-    transferRate = 0.0;
-    propTransfer = 0.0;
-    indPerPop = 0;
-    popSize = 0;
-    
-}
-
-/**
- * Constructor for Simulator class used in simulations of SpeciesTree and LocusTree classes only
- * @param p RNG seed from MrBayes code
- * @param ntax Number of taxa to simulate
- * @param lambda Rate of birth as double
- * @param mu Rate of death as double
- * @param rho Sampling Fraction (currently not implemented)
- * @param numLociToSim Number of loci to simulate per species tre
- * @param gbr Gene birth rate as double
- * @param gdr Gene death rate as double
- * @param lgtr Lateral gene transfer rate
- */
-
-Simulator::Simulator(MbRandom *p, unsigned ntax, double lambda, double mu, double rho, unsigned numLociToSim, double gbr, double gdr, double lgtr)
-{
-    spTree = nullptr;
-    geneTree = nullptr;
-    lociTree = nullptr;
-    simType = 2;
-    currentSimTime = 0.0;
-    rando = p;
-    numTaxaToSim = ntax;
-    gsaStop = 100*ntax;
-    speciationRate = lambda;
-    extinctionRate = mu;
-    samplingRate = rho;
-    
-    numLoci = numLociToSim;
-    geneBirthRate = gbr;
-    geneDeathRate = gdr;
-    transferRate = lgtr;
-    propTransfer = 0.0;
-    indPerPop = 0;
-    popSize = 0;
-    
-    
-}
 
 /**
  * Constructor of Simulator class for full three-tree model
@@ -132,20 +61,21 @@ Simulator::Simulator(MbRandom *p,
     outgroupFrac = og;
     geneTrees.resize(numLoci);
     treeScale = ts;
+    propDuplicate = -1;
 }
 /**
  * Destructor for Simulator classes
  */
 Simulator::~Simulator(){
-    for(std::vector<SpeciesTree*>::iterator p=gsaTrees.begin(); p != gsaTrees.end(); ++p){
-        delete (*p);
+    for(auto & gsaTree : gsaTrees){
+        delete gsaTree;
     }
     gsaTrees.clear();
     int i = 0;
-    for(std::vector<LocusTree*>::iterator p=locusTrees.begin(); p != locusTrees.end(); ++p){
-        delete (*p);
-        for(std::vector<GeneTree*>::iterator q=geneTrees[i].begin(); q != geneTrees[i].end(); ++q){
-            delete (*q);
+    for(auto & locusTree : locusTrees){
+        delete locusTree;
+        for(auto & q : geneTrees[i]){
+            delete q;
         }
         geneTrees[i].clear();
         ++i;
@@ -155,13 +85,6 @@ Simulator::~Simulator(){
         
 }
 
-/**
- * Function for intializing the simulation starting with creating the SpeciesTree class
- */
-void Simulator::initializeSim(){
-    spTree = new SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
-}
-
 
 /**
  * Generalized Sampling Algorithm for generating birth-death trees of the correct length
@@ -169,9 +92,9 @@ void Simulator::initializeSim(){
  * @details Below is the machinery to use GSA sampling (Hartmann 2010) to simulate a species tree. Much of this code is modified from FossilGen (written by Tracy Heath)
  */
 bool Simulator::gsaBDSim(){
-    double timeIntv, sampTime;
-    bool treeComplete = false;
-    SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
+    double timeInterval, sampTime;
+    bool treeComplete;
+    auto st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
     spTree = &st;
     double eventTime;
     
@@ -184,8 +107,8 @@ bool Simulator::gsaBDSim(){
             return treeComplete;
         }
         else if(spTree->getNumExtant() == numTaxaToSim){
-            timeIntv = spTree->getTimeToNextEvent();
-            sampTime = rando->uniformRv(0, timeIntv) + currentSimTime;
+            timeInterval = spTree->getTimeToNextEvent();
+            sampTime = rando->uniformRv(0, timeInterval) + currentSimTime;
             spTree->setPresentTime(sampTime);
             processGSASim();
         }
@@ -214,8 +137,9 @@ bool Simulator::gsaBDSim(){
  */
 
 bool Simulator::gsaCheckStop(){
-  
-  bool keepSimulating = true;
+
+    bool keepSimulating;
+    keepSimulating = true;
   
   if(spTree->getNumExtant() >= gsaStop){
       keepSimulating = false;
@@ -229,7 +153,7 @@ bool Simulator::gsaCheckStop(){
  * @details this prunes the desired species tree from the larger simulated tree according to Hartmann et al. 2010
  */
 void Simulator::processGSASim(){
-    SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim + spTree->getNumExtinct());
+    auto *tt = new SpeciesTree(rando, numTaxaToSim + spTree->getNumExtinct());
     this->prepGSATreeForReconstruction();
     Node *simRoot = spTree->getRoot();
     tt->setRoot(simRoot);
@@ -238,7 +162,10 @@ void Simulator::processGSASim(){
 }
 
 /**
+ * Function for processing the final result of a species tree simulation
+ * @details This is performed after the tree is rebuilt using the recursive function reconstructTreeFromGSASim, repopulates the nodes vector in SpeciesTree class
  *
+ * @see reconstructTreeFromGSASim()
  */
 void Simulator::processSpTreeSim(){
     spTree->setSpeciationRate(speciationRate);
@@ -247,18 +174,36 @@ void Simulator::processSpTreeSim(){
 
 }
 
+/**
+ * Sets flags from the SpeciesTree class for pruning
+ *
+ * @see reconstructTreeFromGSASim()
+ */
 void Simulator::prepGSATreeForReconstruction(){
     spTree->setGSATipTreeFlags();
 }
 
+/**
+ * Function for calling simulation function for a species tree under a Moran model
+ *
+ * @details Currently does not work
+ *
+ * @return A bool indicating whether the simulation completed correctly
+ */
 bool Simulator::simMoranSpeciesTree(){
-    bool simgood = false;
-    while(!simgood){
-        simgood = moranSpeciesSim();
+    auto simulationComplete = false;
+    while(!simulationComplete){
+        simulationComplete = moranSpeciesSim();
     }
-    return simgood;
+    return simulationComplete;
 }
 
+/**
+ * Simulates a species tree under a Moran process
+ *
+ * @todo fix this function
+ * @return a bool passed to simMoranSpeciesTree for ensuring a complete tree is simulated
+ */
 bool Simulator::moranSpeciesSim(){
     bool treeComplete;
     SpeciesTree st =  SpeciesTree(rando, numTaxaToSim, currentSimTime, speciationRate, extinctionRate);
@@ -288,18 +233,25 @@ bool Simulator::moranSpeciesSim(){
     return treeComplete;
 }
 
-
+/**
+ * Checks if simulation is complete
+ * @return True to keep simulating, false otherwise
+ */
 bool Simulator::moranCheckStop(){
-  
-  bool keepSimulating = true;
+
+    auto keepSimulating = true;
   
   if((spTree->getNumExtant() * 2) <= currentSimTime){
       keepSimulating = false;
   }
   
-  return keepSimulating;    ;
+  return keepSimulating;
 }
 
+/**
+ * Calls simulation function and ensures that function provides a good simulation
+ * @return a bool if the simulation is completed succesfully true, false otherwise
+ */
 bool Simulator::simSpeciesTree(){
     bool good = false;
     while(!good){
@@ -310,8 +262,12 @@ bool Simulator::simSpeciesTree(){
     return good;
 }
 
+/**
+ * Prints a Newick tree with only extant species on it pruning the remaining taxa
+ * @return A Newick string
+ */
 std::string Simulator::printExtSpeciesTreeNewick(){
-    SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim);
+    auto *tt = new SpeciesTree(rando, numTaxaToSim);
     spTree->getRootFromFlags(false);
     if(outgroupFrac > 0.0){
         tt->setOutgroup(spTree->getOutgroup());
@@ -324,16 +280,23 @@ std::string Simulator::printExtSpeciesTreeNewick(){
     tt->reconstructTreeFromSim(spTree->getRoot());
     std::string newickTree = tt->printExtNewickTree();
     delete tt;
-    tt = nullptr;
     return newickTree;
 }
 
+/**
+ * Wrapper for printNewickTree of Tree class
+ * @return A Newick string showing the structure of the SpeciesTree class held in spTree
+ */
 std::string Simulator::printSpeciesTreeNewick(){
     return spTree->printNewickTree();
 }
 
+/**
+ * Simulates a locus tree storing the tree stucture in the LocusTree class
+ * @return a bool indicating if all the simulated trees simulated to completion
+ */
 bool Simulator::bdsaBDSim(){
-    bool treesComplete = false;
+    bool treesComplete;
     double stopTime = spTree->getCurrentTimeFromExtant();
     double eventTime;
     bool isSpeciation;
@@ -354,7 +317,7 @@ bool Simulator::bdsaBDSim(){
     while(currentSimTime < stopTime){
         eventTime = lociTree->getTimeToNextEvent();
         currentSimTime += eventTime;
-        for(std::set<int>::iterator it = contempSpecies.begin(); it != contempSpecies.end();){
+        for(auto it = contempSpecies.begin(); it != contempSpecies.end();){
             if(currentSimTime > speciesDeathTimes[(*it)]){
                 isSpeciation = spTree->macroEvent((*it));
                 if(isSpeciation){
@@ -403,6 +366,10 @@ bool Simulator::bdsaBDSim(){
     return treesComplete;
 }
 
+/**
+ * Function that calls gsaBDSim and then for each of loci bdsaSim to generate numLoci classes of LocusTree
+ * @return a bool indicating if both completed
+ */
 bool Simulator::simSpeciesLociTrees(){
     bool good = false;
     bool spGood = false;
@@ -427,19 +394,29 @@ bool Simulator::simSpeciesLociTrees(){
     return good;
 }
 
+/**
+ * Prints out a locus tree at index i from the vector of class LocusTree a
+ * @param i index of the locus tree to be printed out
+ * @return a Newick string of the locus tree at index i of the vector of class LocusTree
+ */
 std::string Simulator::printLocusTreeNewick(int i){
     std::string newickTree;
-    std::vector<LocusTree*>::iterator it = locusTrees.begin();
+    auto it = locusTrees.begin();
     std::advance(it, i);
     newickTree = (*it)->printNewickTree();
     return newickTree;
 }
 
-
+/**
+ * Function to create a set of sorted doubles of epochs
+ * @details epochs are defined by branching points on the LocusTree and extinction events of nodes dying before present on the locus tree. sorted in reverse order
+ * @return A set containing the epoch times of a LocusTree stored in lociTree
+ */
 std::set<double, std::greater<double> > Simulator::getEpochs(){
     std::set<double, std::greater<double> > epochs;
     std::vector<Node*> lociTreeNodes = lociTree->getNodes();
-    for(std::vector<Node*>::iterator it = lociTreeNodes.begin(); it != lociTreeNodes.end(); ++it){
+    std::vector<Node *, std::__1::allocator<Node *>>::iterator it;
+    for(it = lociTreeNodes.begin(); it != lociTreeNodes.end(); ++it){
         if(!((*it)->getIsExtinct())){
             if((*it)->getIsTip())
                 epochs.insert((*it)->getDeathTime());
@@ -451,7 +428,10 @@ std::set<double, std::greater<double> > Simulator::getEpochs(){
     return epochs;
 }
 
-
+/**
+ * Simulates a censored coalescent process and stores resulting coalescent tree in geneTree
+ * @return A bool indicating if the censored coalescent process finished
+ */
 bool Simulator::coalescentSim(){
     bool treeGood = false;
     geneTree = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
@@ -462,7 +442,8 @@ bool Simulator::coalescentSim(){
     int epochCount = 0;
 
     double stopTime, stopTimeEpoch, stopTimeLoci;
-    bool allCoalesced = false, deathCheck = false;
+    bool deathCheck;
+    bool allCoalesced;
     bool is_ext;
 
     std::set<double, std::greater<double> > epochs = getEpochs();
@@ -476,7 +457,8 @@ bool Simulator::coalescentSim(){
         contempLoci[0].pop_back();
     std::set<int>::iterator extFolksIt;
 
-    for(std::set<double, std::greater<double> >::iterator epIter = epochs.begin(); epIter != epochs.end(); ++epIter){
+    std::set<double, std::__1::greater<double>, std::__1::allocator<double>>::iterator epIter;
+    for(epIter = epochs.begin(); epIter != epochs.end(); ++epIter){
         currentSimTime = *epIter;
         if(epochCount != numEpochs - 1){
             epIter = std::next(epIter, 1);
@@ -515,8 +497,6 @@ bool Simulator::coalescentSim(){
                         }
                     }
                 }
-                allCoalesced = false;
-                is_ext = false;
             }
             epIter = std::prev(epIter, 1); 
         }
@@ -533,6 +513,11 @@ bool Simulator::coalescentSim(){
     return treeGood;
 }
 
+/**
+ * Wrapper for a full simulation of the three-tree model
+ * @details First simulates a species tree, for each species tree numLoci LocusTree classes are simulated, for each LocusTree class numGene GeneTree classes are simulated
+ * @return a bool indicating that the simulation completed
+ */
 bool Simulator::simThreeTree(){
     bool gGood = false;
     bool spGood = false;
@@ -569,17 +554,27 @@ bool Simulator::simThreeTree(){
     return gGood;
 }
 
-
+/**
+ * Prints Newick string for GeneTree j found in LocusTree i of simulator class
+ * @param i index of LocusTree in Simulator class
+ * @param j index of GeneTree in Simulator class
+ * @return
+ */
 std::string Simulator::printGeneTreeNewick(int i, int j){
     std::string newickTree;
     newickTree = geneTrees[i][j]->printNewickTree();
     return newickTree;
 }
-
+/**
+ * Prints Newick string containing only extant taxa for gene tree j found in LocusTree i of Simulator class
+ * @param i
+ * @param j
+ * @return
+ */
 std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     std::string newickTree;
     if(geneTrees[i][j]->getExtantNodes().size() > 1){
-        GeneTree *tt = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
+        auto *tt = new GeneTree(rando, numTaxaToSim, indPerPop, popSize, generationTime);
         geneTrees[i][j]->getRootFromFlags(true);
         if(outgroupFrac > 0.0){
             tt->setOutgroup(geneTrees[i][j]->getOutgroup());
@@ -591,7 +586,6 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
         tt->reconstructTreeFromSim(geneTrees[i][j]->getRoot());
         newickTree = tt->printExtantNewickTree();
         delete tt;
-        tt = nullptr;
     }
     else{
         newickTree = ";";
@@ -599,7 +593,12 @@ std::string Simulator::printExtantGeneTreeNewick(int i, int j){
     return newickTree;
 }
 
-
+/**
+ * Function graft an outgroup onto a tree
+ *
+ * @param tr tree to be grafted
+ * @param trDepth Depth of the tree stored at *tr
+ */
 void Simulator::graftOutgroup(Tree *tr, double trDepth){
     Node *rootN = new Node();
     Node *currRoot = tr->getRoot();
@@ -610,6 +609,12 @@ void Simulator::graftOutgroup(Tree *tr, double trDepth){
     tr->setNewRootInfo(rootN, outgroupN, currRoot, tipTime);
 }
 
+/**
+ * Wrapper for simulating locus and then gene trees
+ *
+ *
+ * @return A bool indicating a completed simulation
+ */
 bool Simulator::simLocusGeneTrees(){
     bool loGood = false;
     bool gGood = false;
@@ -635,50 +640,78 @@ bool Simulator::simLocusGeneTrees(){
     return gGood;
 }
 
+
+/**
+ * Calculates the tree depth as total branch length from root to tip
+ * @return The tree depth as a double
+ */
 double Simulator::calcSpeciesTreeDepth(){
     return spTree->getTreeDepth();
 }
 
+
+/**
+ * Calculates the tree depth of the tree with extinct tips pruned off
+ * @return The tree depth of the pruned tree
+ */
 double Simulator::calcExtantSpeciesTreeDepth(){
-    SpeciesTree *tt = new SpeciesTree(rando, numTaxaToSim);
+    auto *tt = new SpeciesTree(rando, numTaxaToSim);
     spTree->getRootFromFlags(false);
     tt->setRoot(spTree->getExtantRoot());
     tt->setExtantRoot(tt->getRoot());
     tt->reconstructTreeFromSim(tt->getExtantRoot());
     double extTreeDepth = tt->getTreeDepth();
     delete tt;
-    tt = nullptr;
     return extTreeDepth;
 }
 
+/**
+ * Calculates the tree depth of the locus tree at index i in the vector of constructor LocusTree
+ * @param i index of the locus tree
+ * @return tree depth of the locus tree
+ */
 double Simulator::calcLocusTreeDepth(int i){
     return locusTrees[i]->getTreeDepth();
 }
 
+/**
+ * Identifies the average number of transfers of all locus trees found in the vector of constructor LocusTree
+ * @return The average transfers of the locus trees simulated for Simulator class
+ */
 int Simulator::findNumberTransfers(){
     int numTrans = 0;
-    for(int i = 0; i < locusTrees.size(); i++){
-        numTrans += locusTrees[i]->getNumberTransfers();
+    for(auto & locusTree : locusTrees){
+        numTrans += locusTree->getNumberTransfers();
     }
     return numTrans / (int) locusTrees.size();
 } 
-
+/**
+ * Finds the average number of duplications in the simulated LocusTree for Simulator class
+ * @return Average number of duplications
+ */
 int Simulator::findNumberDuplications(){
     int numTrans = 0;
-    for(int i = 0; i < locusTrees.size(); i++){
-        numTrans += locusTrees[i]->getNumberDuplications();
+    for(auto & locusTree : locusTrees){
+        numTrans += locusTree->getNumberDuplications();
     }
     return numTrans / (int) locusTrees.size();
 }
+/**
+ * Finds the average number of losses in the simulated LocusTree for Simulator class
+ * @return Average number of losses
+ */
 
 int Simulator::findNumberLosses(){
     int numTrans = 0;
-    for(int i = 0; i < locusTrees.size(); i++){
-        numTrans += locusTrees[i]->getNumberLosses();
+    for(auto & locusTree : locusTrees){
+        numTrans += locusTree->getNumberLosses();
     }
     return numTrans / (int) locusTrees.size();
 }
-
+/**
+ * Finds average number of generations in gene trees for each locus tree
+ * @return Average number of generations
+ */
 std::vector<double> Simulator::findNumberGenerations(){
     std::vector<double> numGenerations;
     for(int i = 0; i < locusTrees.size(); i++){
@@ -691,8 +724,4 @@ std::vector<double> Simulator::findNumberGenerations(){
         numGenerations[i] /= geneTrees.size();
     }
     return numGenerations;
-}
-
-double Simulator::findTMRCAGeneTree(int i, int j){
-    return geneTrees[i][j]->getTreeDepth();
 }

@@ -20,26 +20,9 @@
  * @param ngen Number of gene trees to simulate per gene tree
  *
  */
-Engine::Engine(std::string of,
-                 int mt,
-                 double sbr,
-                 double sdr,
-                 double gbr,
-                 double gdr,
-                 double lgtr,
-                 int ipp,
-                 int popsize,
-                 double genTime,
-                 int sd1,
-                 int sd2,
-                 double ts,
-                 int reps,
-                 int ntax,
-                 int nloci,
-                 int ngen,
-                 double og,
-                 bool sout,
-                 bool mst){
+Engine::Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr, double lgtr, int ipp,
+               int popsize, double genTime, int sd1, int sd2, double ts, int reps, int ntax, int nloci, int ngen,
+               double og, bool sout) {
     outfilename = of;
     inputSpTree = "";
     simType = mt;
@@ -76,8 +59,8 @@ Engine::Engine(std::string of,
  */
 
 Engine::~Engine(){
-    for(std::vector<TreeInfo*>::iterator p=simSpeciesTrees.begin(); p != simSpeciesTrees.end(); ++p){
-        delete (*p);
+    for(auto & simSpeciesTree : simSpeciesTrees){
+        delete simSpeciesTree;
     }
     simSpeciesTrees.clear();
 }
@@ -91,7 +74,7 @@ void Engine::doRunRun(){
     TreeInfo *ti = nullptr;
     for(int k = 0; k < numSpeciesTrees; k++){
 
-        Simulator *treesim = new Simulator(&rando,
+        auto *treesim = new Simulator(&rando,
                                            numTaxa,
                                            spBirthRate,
                                            spDeathRate,
@@ -152,7 +135,6 @@ void Engine::doRunRun(){
         }
         simSpeciesTrees.push_back(ti);
         delete treesim;
-        treesim = nullptr;
     }
 
     this->writeTreeFiles();
@@ -165,12 +147,12 @@ void Engine::doRunRun(){
  */
 void Engine::writeTreeFiles(){
 
-    for(std::vector<TreeInfo *>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
+    for(auto p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); p++){
         int d = (int) std::distance(simSpeciesTrees.begin(), p);
         (*p)->writeTreeStatsFile(d, outfilename);
         (*p)->writeWholeTreeFileInfo(d, outfilename);
         (*p)->writeExtantTreeFileInfo(d, outfilename);
-        for(int i = 0; i < numLoci; i++){
+        for(auto i = 0; i < numLoci; i++){
             (*p)->writeLocusTreeFileInfoByIndx(d, i, outfilename);
             if(simType == 3)
                 // for(int j = 0; j < numGenes; j++){
@@ -189,11 +171,11 @@ void Engine::writeTreeFiles(){
  */
 
 TreeInfo* Engine::findTreeByIndx(int i){
-    TreeInfo *tf = 0;
+    TreeInfo *tf = nullptr;
     int count = 0;
-    for(std::vector<TreeInfo*>::iterator it = simSpeciesTrees.begin(); it != simSpeciesTrees.end(); ++it){
+    for(auto & simSpeciesTree : simSpeciesTrees){
         if(count == i){
-            tf = (*it);
+            tf = simSpeciesTree;
             break;
         }
         else
@@ -210,9 +192,9 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
     std::ofstream out;
     out.open("Average_root_depths_spTree.out");
     double sumRH = 0.0;
-    for(std::vector<TreeInfo*>::iterator p = simSpeciesTrees.begin(); p != simSpeciesTrees.end(); ++p){
-        sumRH += (*p)->getSpeciesTreeDepth();
-        out << (*p)->getSpeciesTreeDepth() << "\n";
+    for(auto & simSpeciesTree : simSpeciesTrees){
+        sumRH += simSpeciesTree->getSpeciesTreeDepth();
+        out << simSpeciesTree->getSpeciesTreeDepth() << "\n";
     }
     out.close();
 
@@ -226,8 +208,8 @@ void Engine::calcAverageRootAgeSpeciesTrees(){
  * @param spTreeStr Newick tree string input by user
  * @return unsigned int Number of leaves
  */
-unsigned int Engine::countNewickLeaves(const std::string spTreeStr){
-    std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
+unsigned int Engine::countNewickLeaves(const std::string& spTreeStr){
+    std::regex taxonregexpr (R"((\w*\.?[\w|\s|\.]?\w*)\:)");
     std::sregex_iterator it1(spTreeStr.begin(), spTreeStr.end(), taxonregexpr);
     std::sregex_iterator it2;
     return (unsigned) std::distance(it1, it2);
@@ -239,7 +221,7 @@ unsigned int Engine::countNewickLeaves(const std::string spTreeStr){
  * @param spTreeStr Species tree string input with comments
  * @return std::string Same species tree string stripped of comments
  */
-std::string Engine::stripCommentsFromNewickTree(std::string spTreeStr){
+std::string Engine::stripCommentsFromNewickTree(const std::string& spTreeStr){
     std::string commentlessNewick;
     std::regex commentregexpr ("\\[.*?\\]");
     commentlessNewick = std::regex_replace(spTreeStr,commentregexpr,std::string(""));
@@ -252,9 +234,9 @@ std::string Engine::stripCommentsFromNewickTree(std::string spTreeStr){
  *
  * @return std::string string with characters removed
  */
-std::string Engine::formatTipNamesFromNewickTree(std::string spTreeStr){
+std::string Engine::formatTipNamesFromNewickTree(const std::string& spTreeStr){
     std::string formattedNewick;
-    std::regex taxonregexpr ("(\\w*\\.?[\\w|\\s|\\.]?\\w*)\\:");
+    std::regex taxonregexpr (R"((\w*\.?[\w|\s|\.]?\w*)\:)");
 
     formattedNewick = std::regex_replace(spTreeStr,taxonregexpr, "'$1':");
     return formattedNewick;
@@ -266,11 +248,12 @@ std::string Engine::formatTipNamesFromNewickTree(std::string spTreeStr){
  * @param spTreeStr input Newick string
  * @return SpeciesTree* pointer to SpeciesTree class
  */
-SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
+SpeciesTree* Engine::buildTreeFromNewick(const std::string& spTreeStr){
     SpeciesTree* spTree = nullptr;
     Node* currNode = nullptr;
     Node* prevNode = nullptr;
-    std::string commentlessSpTreeStr = spTreeStr;
+    std::string commentlessSpTreeStr;
+    commentlessSpTreeStr = spTreeStr;
     commentlessSpTreeStr = stripCommentsFromNewickTree(commentlessSpTreeStr);
     numTaxa = countNewickLeaves(commentlessSpTreeStr);
     commentlessSpTreeStr = formatTipNamesFromNewickTree(commentlessSpTreeStr);
@@ -335,8 +318,6 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                     std::cerr << "A right parenthetical is not in the right place maybe...\n";
                     exit(1);
                 }
-                //prevNode = currNode;
-                prevNode = nullptr;
                 currNode = currNode->getAnc();
                 previous = Prev_Tok_RParen;
                 break;
@@ -358,7 +339,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                 break;
             }
             case '\'': {
-                std::string tipname = "";
+                std::string tipname;
                 for (++it; it != commentlessSpTreeStr.end(); ++it){
                     ch = *it;
                     if (ch == '\''){
@@ -409,7 +390,7 @@ SpeciesTree* Engine::buildTreeFromNewick(const std::string spTreeStr){
                 }
                 else{
                     // Get the node name
-                    std::string tipname = "";
+                    std::string tipname;
                     for (; it != commentlessSpTreeStr.end(); ++it){
                         ch = *it;
                         if (ch == '('){
@@ -454,7 +435,7 @@ void Engine::doRunSpTreeSet(){
     std::cout << "Setting species tree to this newick tree: " << inputSpTree << std::endl;
 
     TreeInfo *ti = nullptr;
-    Simulator *treesim = new Simulator(&rando,
+    auto *treesim = new Simulator(&rando,
                                         numTaxa,
                                         spBirthRate,
                                         spDeathRate,
@@ -493,7 +474,6 @@ void Engine::doRunSpTreeSet(){
     }
     simSpeciesTrees.push_back(ti);
     delete treesim;
-    treesim = nullptr;
 
     this->writeTreeFiles();
 
@@ -521,6 +501,8 @@ TreeInfo::TreeInfo(int idx, int nl){
     loAveTipLen = 0.0;
     aveTMRCAGeneTree = 0.0;
     numTransfers = 0;
+    numDuplications = 0;
+    numLosses = 0;
 }
 
 /**
@@ -542,8 +524,8 @@ TreeInfo::~TreeInfo(){
  * @param ofp string of the outfile prefix
  */
 void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
-    std::string path = "";
-    std::string fn = ofp;
+    std::string path;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
     tn << spIndx;
     fn += "_" + tn.str() + ".sp.tre.stats.txt";
@@ -600,9 +582,9 @@ void TreeInfo::writeTreeStatsFile(int spIndx, std::string ofp){
  */
 
 void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
-    std::string path = "";
+    std::string path;
 
-    std::string fn = ofp;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
 
     tn << spIndx;
@@ -628,9 +610,9 @@ void TreeInfo::writeWholeTreeFileInfo(int spIndx, std::string ofp){
  */
 
 void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
-   std::string path = "";
+   std::string path;
 
-    std::string fn = ofp;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
 
     tn << spIndx;
@@ -655,9 +637,9 @@ void TreeInfo::writeExtantTreeFileInfo(int spIndx, std::string ofp){
  *
  */
 void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string ofp){
-    std::string path = "";
+    std::string path;
 
-    std::string fn = ofp;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
 
     tn << spIndx;
@@ -690,15 +672,15 @@ void TreeInfo::writeLocusTreeFileInfoByIndx(int spIndx, int indx, std::string of
  * @param ofp string of outfile prefix name
  */
 void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std::string ofp){
-    std::string path = "";
+    std::string path;
 
-    std::string fn = ofp;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
 
     tn << spIndx;
     //path += tn.str();
    // path += "/";
-
+//TODO: not to deleted work to be done on this guy
 
     fn += "_" + tn.str();
 
@@ -733,9 +715,9 @@ void TreeInfo::writeGeneTreeFileInfoByIndx(int spIndx, int Lindx, int indx, std:
  * @param ofp string of outfile prefix name
  */
 void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
-    std::string path = "";
+    std::string path;
 
-    std::string fn = ofp;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
 
     tn << spIndx;
@@ -750,7 +732,7 @@ void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std
 
     tn << Lindx;
 
-    fn += "_" + tn.str() + ".tre";;
+    fn += "_" + tn.str() + ".tre";
     tn.clear();
     tn.str(std::string());
 
@@ -786,9 +768,9 @@ void TreeInfo::writeExtGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std
  * @param ofp string of outfile prefix name
  */
 void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::string ofp){
-    std::string path = "";
+    std::string path;
 
-    std::string fn = ofp;
+    std::string fn = std::move(ofp);
     std::stringstream tn;
 
     tn << spIndx;
@@ -803,7 +785,7 @@ void TreeInfo::writeGeneTreeFileInfo(int spIndx, int Lindx, int numGenes, std::s
 
     tn << Lindx;
 
-    fn += "_" + tn.str() + ".tre";;
+    fn += "_" + tn.str() + ".tre";
     tn.clear();
     tn.str(std::string());
 

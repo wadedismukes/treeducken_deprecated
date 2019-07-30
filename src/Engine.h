@@ -24,7 +24,7 @@ class TreeInfo{
             double                      extSpTreeLength, extSpTreeDepth;
             double                      loTreeLength, loTreeNess, loAveTipLen, loTreeDepth;
             double                      aveTMRCAGeneTree;
-            int                         numTransfers, numDuplications, numLosses;
+            int                         numTransfers, numDuplications{}, numLosses{};
             std::vector<double>         numGenerations;
     
 
@@ -116,30 +116,15 @@ class Engine{
         
     public:
         
-                                Engine(std::string of,
-                                       int mt,
-                                       double sbr,
-                                       double sdr,
-                                       double gbr,
-                                       double gdr,
-                                       double lgtr,
-                                       int ipp,
-                                       int popsize,
-                                       double genTime,
-                                       int sd1,
-                                       int sd2,
-                                       double treescale,
-                                       int reps,
-                                       int numTaxa,
-                                       int nloci,
-                                       int ngen,
-                                       double og,
-                                       bool sout,
-                                       bool mst);
+                                Engine(std::string of, int mt, double sbr, double sdr, double gbr, double gdr,
+                                       double lgtr, int ipp,
+                                       int popsize, double genTime, int sd1, int sd2, double ts, int reps, int ntax,
+                                       int nloci, int ngen,
+                                       double og, bool sout);
                                 ~Engine();
-        unsigned int            countNewickLeaves(const std::string stNewick);
-        std::string             stripCommentsFromNewickTree(std::string stNewick);
-        std::string             formatTipNamesFromNewickTree(std::string stNewick);
+        unsigned int            countNewickLeaves(const std::string& stNewick);
+        std::string             stripCommentsFromNewickTree(const std::string& stNewick);
+        std::string             formatTipNamesFromNewickTree(const std::string& stNewick);
         void                    setInputSpeciesTree(const std::string stNewick) { inputSpTree = stNewick; }
         std::string             getInputSpeciesTree() { return inputSpTree; }
         void                    doRunRun();
@@ -147,7 +132,7 @@ class Engine{
         void                    writeTreeFiles();
         TreeInfo                *findTreeByIndx(int i);
         void                    calcAverageRootAgeSpeciesTrees();
-        SpeciesTree*            buildTreeFromNewick(std::string spTree);
+        SpeciesTree*            buildTreeFromNewick(const std::string& spTree);
         
 };
 
