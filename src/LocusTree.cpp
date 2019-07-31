@@ -600,7 +600,7 @@ std::vector< std::vector<int> > LocusTree::getExtantLoci(const std::set<double, 
     int epCount = 0;
     int numEpochs = (int) epochs.size();
     std::vector< std::vector<int> > locusInEpoch(numEpochs);
-    for(std::__1::__tree_const_iterator<double, std::__1::__tree_node<double, void *> *, long>::value_type epoch : epochs){
+    for(std::__tree_const_iterator<double, std::__tree_node<double, void *> *, long>::value_type epoch : epochs){
         for(auto & node : nodes){
             if(epCount == 0){
                 if(node->getIsExtant()){
