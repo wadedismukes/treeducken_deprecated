@@ -278,7 +278,6 @@ int main(int argc, char * argv[]) {
                     mt = 5;
             }
         }
-        printSettings();
         phyEngine = new Engine(outName,
                                mt,
                                sbr,
