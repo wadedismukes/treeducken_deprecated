@@ -48,7 +48,7 @@ class SpeciesTree : public Tree
 
         std::string   printNewickTree();
         std::string   printExtNewickTree();
-        void          recGetNewickTree(Node *p, std::stringstream &ss);
+        static void          recGetNewickTree(Node *p, std::stringstream &ss);
     
         // simulation functions
         void          setGSATipTreeFlags();
@@ -64,8 +64,8 @@ class SpeciesTree : public Tree
         double                      getCurrentTimeFromExtant() {return extantNodes[0]->getDeathTime();}
         bool                        getIsExtantFromIndx(int indx) { return nodes[indx]->getIsExtant(); }
         bool                        macroEvent(int indx);
-        std::pair<int, int>         preorderTraversalStep(int index);
-        int                         postOrderTraversalStep(int index);
+        std::pair<int, int>         tipwiseStep(int index);
+        int                         rootwiseStep(int index);
 };
 
 

@@ -321,7 +321,7 @@ bool Simulator::bdsaBDSim(){
             if(currentSimTime > speciesDeathTimes[(*it)]){
                 isSpeciation = spTree->macroEvent((*it));
                 if(isSpeciation){
-                    sibs = spTree->preorderTraversalStep(*it);
+                    sibs = spTree->tipwiseStep(*it);
                     lociTree->speciationEvent((*it), speciesDeathTimes[(*it)], sibs);
                     it = contempSpecies.erase(it);
                     it = contempSpecies.insert( it, sibs.second);

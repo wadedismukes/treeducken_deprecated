@@ -22,25 +22,25 @@ class LocusTree : public Tree
 
     public:
         LocusTree(MbRandom *rando, unsigned nt, double stop, double gbr, double gdr, double lgtr);
-        virtual         ~LocusTree();
-        virtual double  getTimeToNextEvent();
-        virtual void    lineageBirthEvent(unsigned indx);
-        virtual void    lineageDeathEvent(unsigned indx);
-        virtual void    setNewLineageInfo(int indx, Node *r, Node *s);
+        ~LocusTree() override;
+        double  getTimeToNextEvent() override;
+        void    lineageBirthEvent(unsigned indx) override;
+        void    lineageDeathEvent(unsigned indx) override;
+        void    setNewLineageInfo(int indx, Node *r, Node *s) override;
         void    lineageTransferEvent(int indx);
-        void    ermEvent(double ct);
+        void    ermEvent(double ct) override;
     
         int     speciationEvent(int indx, double time, std::pair<int,int> sibs);
         void    extinctionEvent(int indx, double time);
 
-        std::string   printNewickTree();
-        void    setTreeTipNames();
-        void    recTipNamer(Node *p, unsigned &copyNumber);
+        std::string   printNewickTree() override;
+        void    setTreeTipNames() override;
+        static void    recTipNamer(Node *p, unsigned &copyNumber);
         static void    recGetNewickTree(Node *r, std::stringstream &ss);
-        void    setBranchLengths();
+        void    setBranchLengths() override;
         void    setPresentTime(double currentT);
         void    setStopTime(double st) {stopTime = st;}
-        double  getCurrentTime() { return currentTime; }
+        double  getCurrentTime() override { return currentTime; }
         void    setCurrentTime(double ct) {currentTime = ct; }
         int     getNumberTransfers();
         int     getNumberDuplications();

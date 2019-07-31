@@ -419,14 +419,14 @@ std::map<int,double> SpeciesTree::getDeathTimesFromNodes(){
     return deathTimeMap;
 }
 
-std::pair<int,int> SpeciesTree::preorderTraversalStep(int indx){
+std::pair<int,int> SpeciesTree::tipwiseStep(int indx){
     std::pair<int,int> sibs;
     sibs.first = nodes[indx]->getLdes()->getIndex();
     sibs.second = nodes[indx]->getRdes()->getIndex();
     return sibs;
 }
 
-int SpeciesTree::postOrderTraversalStep(int index){
+int SpeciesTree::rootwiseStep(int index){
     int d;
     d = nodes[index]->getAnc()->getIndex();
     return d;

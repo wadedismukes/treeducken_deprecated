@@ -125,9 +125,9 @@ class Engine{
                                        int nloci, int ngen,
                                        double og, bool sout);
                                 ~Engine();
-        unsigned int            countNewickLeaves(const std::string& stNewick);
-        std::string             stripCommentsFromNewickTree(const std::string& stNewick);
-        std::string             formatTipNamesFromNewickTree(const std::string& stNewick);
+        static unsigned int            countNewickLeaves(const std::string& stNewick);
+        static std::string             stripCommentsFromNewickTree(const std::string& stNewick);
+        static std::string             formatTipNamesFromNewickTree(const std::string& stNewick);
         void                    setInputSpeciesTree(const std::string& stNewick);
         std::string             getInputSpeciesTree() { return inputSpTree; }
         void                    doRunRun();

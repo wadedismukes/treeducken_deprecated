@@ -26,7 +26,7 @@ GeneTree::GeneTree(MbRandom *p, unsigned nt, unsigned ipp, unsigned ne, double g
  *
  */
 
-GeneTree::~GeneTree(){
+GeneTree::~GeneTree() = default;
     // for(std::vector<Node*>::iterator p=nodes.begin(); p != nodes.end(); ++p){
     //     if((*p) != nullptr){
     //         delete (*p);
@@ -34,7 +34,6 @@ GeneTree::~GeneTree(){
     //     }
     // }
     // clearNodes(extantRoot);
-}
 
 
 /**

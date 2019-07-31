@@ -15,7 +15,7 @@ class GeneTree : public Tree {
 
     public:
                     GeneTree(MbRandom *rando, unsigned nt, unsigned ipp, unsigned ne, double genTime);
-        virtual     ~GeneTree();
+                    ~GeneTree() override;
         double      getCoalTime(int n);
         Node*       coalescentEvent(double t, Node *p, Node *q);
         bool        censorCoalescentProcess(double startTime, double stopTime, int contempSpIndx, int newSpIndx, bool chck);
@@ -23,13 +23,13 @@ class GeneTree : public Tree {
         std::multimap<int,double> rescaleTimes(const std::multimap<int, double>& timeMap);
         void        rootCoalescentProcess(double startTime, double ogf);
         static void        recursiveRescaleTimes(Node *r, double add);
-        void        setBranchLengths();
+        void        setBranchLengths() override;
         void        setIndicesBySpecies(std::map<int,int> spToLocusMap);
-        std::string printNewickTree();
+        std::string printNewickTree() override;
         std::string printExtantNewickTree();
-        void        recGetNewickTree(Node *r, std::stringstream &ss);
-        void        recGetExtNewickTree(Node *r, std::stringstream &ss);
-        void        setTreeTipNames();
+        static void        recGetNewickTree(Node *r, std::stringstream &ss);
+        static void        recGetExtNewickTree(Node *r, std::stringstream &ss);
+        void        setTreeTipNames() override;
         void        addExtinctSpecies(double bt, int indx);
 
 };

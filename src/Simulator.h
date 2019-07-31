@@ -39,18 +39,6 @@ class Simulator
         std::vector<std::vector<GeneTree*> > geneTrees;
 
     public:
-
-    // Simulating species and locus tree with proportion of transfer (e.g. hybridization, linkage)
-        Simulator(MbRandom *p,
-                unsigned numTaxaToSim,
-                double speciationRate,
-                double extinctionRate,
-                double rho, 
-                unsigned numLociToSim, 
-                double geneBirthRate, 
-                double geneDeathRate, 
-                double transferRate, 
-                double propTransfer);
         // Simulating species and locus trees with one gene tree per locus tree
         Simulator(MbRandom *p,
                 unsigned numTaxaToSim,
@@ -94,7 +82,6 @@ class Simulator
         int     findNumberDuplications();
         int     findNumberLosses();
         std::vector<double>  findNumberGenerations();
-        double  findTMRCAGeneTree(int i, int j);
         std::string    printSpeciesTreeNewick();
         std::string    printExtSpeciesTreeNewick();
         std::string    printLocusTreeNewick(int i);
