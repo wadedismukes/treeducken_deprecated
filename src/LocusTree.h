@@ -26,7 +26,7 @@ class LocusTree : public Tree
         double  getTimeToNextEvent() override;
         void    lineageBirthEvent(unsigned indx) override;
         void    lineageDeathEvent(unsigned indx) override;
-        void    setNewLineageInfo(int indx, Node *r, Node *s) override;
+        void    setNewLineageInfo(int indx, Node *r, Node *s);
         void    lineageTransferEvent(int indx);
         void    ermEvent(double ct) override;
     

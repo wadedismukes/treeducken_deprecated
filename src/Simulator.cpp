@@ -415,7 +415,7 @@ std::string Simulator::printLocusTreeNewick(int i){
 std::set<double, std::greater<double> > Simulator::getEpochs(){
     std::set<double, std::greater<double> > epochs;
     std::vector<Node*> lociTreeNodes = lociTree->getNodes();
-    std::vector<Node *, std::__1::allocator<Node *>>::iterator it;
+    std::vector<Node *, std::allocator<Node *>>::iterator it;
     for(it = lociTreeNodes.begin(); it != lociTreeNodes.end(); ++it){
         if(!((*it)->getIsExtinct())){
             if((*it)->getIsTip())
@@ -457,7 +457,7 @@ bool Simulator::coalescentSim(){
         contempLoci[0].pop_back();
     std::set<int>::iterator extFolksIt;
 
-    std::set<double, std::__1::greater<double>, std::__1::allocator<double>>::iterator epIter;
+    std::set<double, std::greater<double>, std::allocator<double>>::iterator epIter;
     for(epIter = epochs.begin(); epIter != epochs.end(); ++epIter){
         currentSimTime = *epIter;
         if(epochCount != numEpochs - 1){
