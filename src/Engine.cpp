@@ -124,7 +124,8 @@ void Engine::doRunRun(){
         ti->setNumberTransfers(treesim->findNumberTransfers());
         ti->setNumberDuplications(treesim->findNumberDuplications());
         ti->setNumberLosses(treesim->findNumberLosses());
-        ti->setNumberGenerations(treesim->findNumberGenerations());
+        ti->setNumberGenerations(treesim->findAveNumberGenerations());
+
         for(int i = 0; i < numLoci; i++){
             ti->setLocusTreeByIndx(k, treesim->printLocusTreeNewick(i));
             if(simType == 3){

@@ -81,7 +81,7 @@ class Simulator
         int     findNumberTransfers();
         int     findNumberDuplications();
         int     findNumberLosses();
-        std::vector<double>  findNumberGenerations();
+        std::vector<double>  findAveNumberGenerations();
         std::string    printSpeciesTreeNewick();
         std::string    printExtSpeciesTreeNewick();
         std::string    printLocusTreeNewick(int i);

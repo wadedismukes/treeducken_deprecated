@@ -5,16 +5,16 @@
 -sd2 0
 # number of taxa
 # number of taxa
--nt 10
+-nt 100
 # species birth rate
 -sbr 0.1
 # species death rate
 -sdr 0.0
 -r 10
 -nl 10
--ng 10
+-ng 2
 -gbr 0.01 
--gdr 0.05
+-gdr 0.0
 -lgtr 0.01
 -ipp 1
 -ne 1

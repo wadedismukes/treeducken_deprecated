@@ -201,7 +201,7 @@ int main(int argc, char * argv[]) {
                     }
                     else{
                         if(ne >  0 && ipp > 0 && ipp <= ne){
-                            std::cout << "Gene birth rate is 0.0, locus trees will match species trees.\n";
+                            std::cout << "Gene birth rate is 0.0.\n";
                         }
                         else{
                             std::cerr << "Gene tree parameters are incorrectly specified. Only simulating species and locus trees\n";
@@ -304,8 +304,6 @@ int main(int argc, char * argv[]) {
         else
             // runs full simulation
             phyEngine->doRunRun();
-
-
     }
 
     delete phyEngine;

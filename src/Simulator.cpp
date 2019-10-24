@@ -373,7 +373,7 @@ bool Simulator::bdsaBDSim(){
 bool Simulator::simSpeciesLociTrees(){
     bool good = false;
     bool spGood = false;
-    for(int i = 0; i < numLoci; i++){
+    for(unsigned i = 0; i < numLoci; i++){
         while(!good){
             while(!spGood){
                 spGood = gsaBDSim();
@@ -415,14 +415,14 @@ std::string Simulator::printLocusTreeNewick(int i){
 std::set<double, std::greater<double> > Simulator::getEpochs(){
     std::set<double, std::greater<double> > epochs;
     std::vector<Node*> lociTreeNodes = lociTree->getNodes();
-    for(auto it = lociTreeNodes.begin(); it != lociTreeNodes.end(); ++it){
-        if(!((*it)->getIsExtinct())){
-            if((*it)->getIsTip())
-                epochs.insert((*it)->getDeathTime());
-            epochs.insert((*it)->getBirthTime());
+    for(auto & lociTreeNode : lociTreeNodes){
+        if(!(lociTreeNode->getIsExtinct())){
+            if(lociTreeNode->getIsTip())
+                epochs.insert(lociTreeNode->getDeathTime());
+            epochs.insert(lociTreeNode->getBirthTime());
         }
         else
-            epochs.insert((*it)->getDeathTime());
+            epochs.insert(lociTreeNode->getDeathTime());
     }
     return epochs;
 }
@@ -710,16 +710,15 @@ int Simulator::findNumberLosses(){
  * Finds average number of generations in gene trees for each locus tree
  * @return Average number of generations
  */
-std::vector<double> Simulator::findNumberGenerations(){
+std::vector<double> Simulator::findAveNumberGenerations(){
     std::vector<double> numberGenerations;
-    for(int i = 0; i < locusTrees.size(); i++){
+
+    for(unsigned int i = 0; i < numLoci; i++){
         numberGenerations.push_back(0.0);
-        for(int j = 0; j < geneTrees.size(); j++){
-            if(!(geneTrees[i].empty())){
-                numberGenerations[i] += geneTrees[i][j]->getTreeDepth() * popSize;
-            }
+        for(auto & g : geneTrees[i]) {
+            numberGenerations[i] += g->getTreeDepth() * popSize;
         }
-        numberGenerations[i] /= geneTrees.size();
+        numberGenerations[i] /= geneTrees[i].size();
     }
     return numberGenerations;
 }
